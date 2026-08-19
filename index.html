@@ -61,6 +61,32 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:1
 .wr7q-credit{font-size:9px;color:var(--muted);line-height:1.35;margin-top:7px}
 @media(max-width:900px){.cwracer-box{margin-top:14px}}
 
+
+.qsobot-box{margin-top:18px;padding-top:15px;border-top:1px solid var(--line)}
+.qsobot-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.qsobot-label{font-size:13px;font-weight:900;letter-spacing:.04em}
+.qsobot-panel{display:none;margin-top:12px}
+.qsobot-panel.open{display:block}
+.qso-stage{border:1px solid var(--line);border-radius:11px;background:var(--panel3);padding:10px}
+.qso-bot-call{font:900 18px/1.2 ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--accent2);text-align:center}
+.qso-bot-message{margin-top:8px;min-height:54px;white-space:pre-line;border:1px solid var(--line);border-radius:8px;background:var(--panel2);padding:8px;font:700 11px/1.45 ui-monospace,SFMono-Regular,Consolas,monospace;word-break:break-word}
+.qso-bot-message.complete{min-height:125px;text-align:left;line-height:1.55}.qso-you{margin-top:6px;color:var(--muted);font:700 10px/1.35 ui-monospace,SFMono-Regular,Consolas,monospace;min-height:15px;word-break:break-word}
+.qso-status{margin-top:8px;font-size:10px;font-weight:800;color:var(--muted);line-height:1.35}
+.qso-status.good{color:var(--good)}.qso-status.warn{color:var(--warn)}.qso-status.bad{color:var(--danger)}
+.qso-meta{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:8px;font-size:10px;color:var(--muted)}
+.qso-meta b{color:var(--text)}
+.switch.locked{opacity:.35;pointer-events:none}
+
+
+.ai-mini{display:flex;align-items:center;gap:7px;font-size:10px;color:var(--muted)}
+.ai-led{width:8px;height:8px;border-radius:50%;background:var(--muted);box-shadow:0 0 0 1px color-mix(in srgb,var(--muted) 40%,transparent)}
+.ai-led.loading{background:var(--warn);animation:aiBlink .8s infinite alternate}
+.ai-led.ready{background:var(--good);box-shadow:0 0 9px color-mix(in srgb,var(--good) 65%,transparent)}
+.ai-led.thinking{background:var(--accent2);animation:aiBlink .45s infinite alternate}
+.ai-led.error{background:var(--danger)}
+@keyframes aiBlink{from{opacity:.35}to{opacity:1}}
+.qsobot-panel.ai-active{border-left:2px solid color-mix(in srgb,var(--good) 70%,transparent);padding-left:8px}
+
 </style>
 <script src="https://unpkg.com/mqtt@5.15.2/dist/mqtt.min.js"></script>
 </head>
@@ -183,6 +209,51 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:1
     </div>
   </div>
 
+
+  <div class="qsobot-box">
+    <div class="qsobot-head">
+      <div class="qsobot-label">🤖 QSO BOT</div>
+      <label class="switch"><input id="qsoBotToggle" type="checkbox"><span></span></label>
+    </div>
+    <div id="qsoBotPanel" class="qsobot-panel">
+      <select id="qsoBotMode" class="racer-select">
+        <option value="basic" data-i18n="qsoBasic">QSO básico</option>
+        <option value="intermediate" data-i18n="qsoIntermediate">QSO intermedio</option>
+        <option value="advanced" data-i18n="qsoAdvanced">QSO avanzado</option>
+        <option value="pota">POTA</option>
+        <option value="skcc">SKCC</option>
+      </select>
+      
+<div class="racer-toggleline" style="margin:8px 0">
+  <div class="ai-mini">
+    <span id="qsoAiLed" class="ai-led"></span>
+    <span id="qsoSmartLabel">AI</span>
+  </div>
+  <label class="switch" title="Local AI">
+    <input id="qsoSmartToggle" type="checkbox"><span></span>
+  </label>
+</div>
+
+<div class="qso-stage">
+        <div id="qsoBotCall" class="qso-bot-call">—</div>
+        <div id="qsoBotMessage" class="qso-bot-message" data-i18n="qsoReady">Selecciona un modo e inicia el QSO.</div>
+        <div id="qsoYou" class="qso-you">YOU: —</div>
+        <div id="qsoStatus" class="qso-status" data-i18n="qsoIdle">Bot listo.</div>
+        <div class="qso-meta">
+          <span>✅ <b id="qsoSteps">0</b></span>
+          <span>🔁 <b id="qsoRepeats">0</b></span>
+          <span>🏁 <b id="qsoCompleted">0</b></span>
+        </div>
+      </div>
+
+      <div class="racer-actions">
+        <button id="qsoStartBtn" class="action primary" type="button" data-i18n="qsoStart">Iniciar QSO</button>
+        <button id="qsoRepeatBtn" class="action" type="button" data-i18n="qsoRepeat">Repetir bot</button>
+        <button id="qsoStopBtn" class="action danger" type="button" data-i18n="qsoStop">Finalizar</button>
+      </div>
+    </div>
+  </div>
+
 </aside>
 <main class="main">
 <section class="card key-card"><div class="key-head"><div class="title" data-i18n="keyArea">Área de manipulación</div><div id="captureHelp" class="small" data-i18n="captureHelp">Mouse, teclado, touch o adaptador USB</div></div>
@@ -195,7 +266,7 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:1
 (()=>{
 const MORSE={".-":"A","-...":"B","-.-.":"C","-..":"D",".":"E","..-.":"F","--.":"G","....":"H","..":"I",".---":"J","-.-":"K",".-..":"L","--":"M","-.":"N","---":"O",".--.":"P","--.-":"Q",".-.":"R","...":"S","-":"T","..-":"U","...-":"V",".--":"W","-..-":"X","-.--":"Y","--..":"Z","-----":"0",".----":"1","..---":"2","...--":"3","....-":"4",".....":"5","-....":"6","--...":"7","---..":"8","----.":"9",".-.-.-":".","--..--":",","..--..":"?","-..-.":"/","-....-":"-",".--.-.":"@",".----.":"'","-.-.--":"!","-.--.":"(","-.--.-":")","---...":":","-.-.-.":";",".-..-.":"\"","..--.-":"_","...-..-":"$",".-.-.":"<AR>","-...-":"<BT>","...-.-":"<SK>",".-...":"<AS>","...---...":"<SOS>"};
 const REVERSE={};for(const [code,ch] of Object.entries(MORSE)){if(!ch.startsWith('<')&&!REVERSE[ch])REVERSE[ch]=code;}Object.assign(REVERSE,{"=":"-...-","+":".-.-."});
-const I18N={es:{subtitle:"Práctica de Código Morse",courtesy:"Cortesía de",instructions:"Instrucciones",settings:"Configuración",mode:"Modo",straight:"Llave recta",paddle:"Paleta",speed:"Velocidad",tone:"Tono",volume:"Volumen",oscAudio:"Audio del oscilador",visualAid:"Ayuda visual",visualAidHelp:"Mostrar puntos y rayas",wordSpacing:"Espaciado de palabras",keyArea:"Área de manipulación",captureHelp:"Mouse, teclado, touch o adaptador USB",hero:"Haz clic, toca la pantalla o usa tu adaptador",esc:"libera el mouse",space:"llave recta",clear:"limpiar",text:"Texto / Decoder",bidirectional:"Bidireccional: escribe o manipula",playCW:"Reproducir CW",stop:"Detener",clearBtn:"Limpiar",last:"Último",copy:"Copiar",save:"Guardar TXT",betaNote:"Sala mundial experimental. La identidad es opcional y los eventos de manipulación viajan por un relay público.",straightHint:"Llave recta · mouse, SPACE o toda la superficie táctil",paddleHint:"Paleta · izquierda DIT (.) · derecha DAH (-)",idle:"Listo · clic para capturar mouse o toca la superficie",active:"Activo · mouse capturado · ESC libera",touchReady:"Touch activo · levanta el dedo para cortar",free:"● Canal libre",busy:"● Canal ocupado",online:"operadores en línea",connecting:"Conectando…",onair:"ON AIR conectado",copied:"Copiado",playing:"Reproduciendo",stopped:"Detenido",anonymous:"Anónimo",countries:"países",you:"tú",mute:"Silenciar",unmute:"Escuchar",racerLearn:"Learn",racerRace:"Race",racerStats:"Stats",racerLetters:"Letras A–Z",racerNumbers:"Números 0–9",racerPunct:"Signos",racerProsigns:"Prosigns",racerMixed:"Mixto",racerVoice:"Voz opcional",racerReady:"Listo para comenzar",racerStart:"Comenzar",racerNext:"Siguiente",racerStartRace:"Iniciar carrera",racerSessions:"Sesiones",racerAttempts:"Intentos",racerBestScore:"Mejor score",racerBestStreak:"Mejor racha",racerMistakes:"Aprende de tus errores",racerReset:"Resetear estadísticas",racerCorrect:"Correcto",racerImperfect:"Correcto, pero mejora el timing",racerWrong:"Incorrecto",racerAgain:"Repite",racerFinished:"¡Completado!",racerFinalScore:"Puntaje final",racerBestSimilar:"Mejor carrera similar",racerNoWeak:"Todavía no hay suficientes errores para crear una lección adaptativa",racerResetConfirm:"¿Seguro que quieres borrar todas las estadísticas de CW Racer?",racerTransmit:"Transmítelo",racerListenRepeat:"Escucha y repite",racerRestartUnit:"Error: repite la unidad desde el comienzo",},en:{subtitle:"Morse Code Practice",courtesy:"Courtesy of",instructions:"Instructions",settings:"Settings",mode:"Mode",straight:"Straight Key",paddle:"Paddle",speed:"Speed",tone:"Tone",volume:"Volume",oscAudio:"Oscillator audio",visualAid:"Visual aid",visualAidHelp:"Show dots and dashes",wordSpacing:"Word spacing",keyArea:"Keying Area",captureHelp:"Mouse, keyboard, touch or USB adapter",hero:"Click, touch the screen or use your adapter",esc:"releases mouse",space:"straight key",clear:"clear",text:"Text / Decoder",bidirectional:"Bidirectional: type or key",playCW:"Play CW",stop:"Stop",clearBtn:"Clear",last:"Last",copy:"Copy",save:"Save TXT",betaNote:"Experimental global room. Identity is optional and keying events travel through a public relay.",straightHint:"Straight key · mouse, SPACE or the whole touch surface",paddleHint:"Paddle · left DIT (.) · right DAH (-)",idle:"Ready · click to capture mouse or touch the surface",active:"Active · mouse captured · ESC releases",touchReady:"Touch active · lift your finger to release",free:"● Channel free",busy:"● Channel busy",online:"operators online",connecting:"Connecting…",onair:"ON AIR connected",copied:"Copied",playing:"Playing",stopped:"Stopped",anonymous:"Anonymous",countries:"countries",you:"you",mute:"Mute",unmute:"Listen",racerLearn:"Learn",racerRace:"Race",racerStats:"Stats",racerLetters:"Letters A–Z",racerNumbers:"Numbers 0–9",racerPunct:"Punctuation",racerProsigns:"Prosigns",racerMixed:"Mixed",racerVoice:"Optional voice",racerReady:"Ready to start",racerStart:"Start",racerNext:"Next",racerStartRace:"Start race",racerSessions:"Sessions",racerAttempts:"Attempts",racerBestScore:"Best score",racerBestStreak:"Best streak",racerMistakes:"Learn from my mistakes",racerReset:"Reset statistics",racerCorrect:"Correct",racerImperfect:"Correct, but improve your timing",racerWrong:"Wrong",racerAgain:"Repeat",racerFinished:"Completed!",racerFinalScore:"Final score",racerBestSimilar:"Best similar race",racerNoWeak:"There are not enough weak characters yet to build an adaptive lesson",racerResetConfirm:"Are you sure you want to erase all CW Racer statistics?",racerTransmit:"Transmit it",racerListenRepeat:"Listen and repeat",racerRestartUnit:"Error: restart the unit from the beginning",}};
+const I18N={es:{subtitle:"Práctica de Código Morse",courtesy:"Cortesía de",instructions:"Instrucciones",settings:"Configuración",mode:"Modo",straight:"Llave recta",paddle:"Paleta",speed:"Velocidad",tone:"Tono",volume:"Volumen",oscAudio:"Audio del oscilador",visualAid:"Ayuda visual",visualAidHelp:"Mostrar puntos y rayas",wordSpacing:"Espaciado de palabras",keyArea:"Área de manipulación",captureHelp:"Mouse, teclado, touch o adaptador USB",hero:"Haz clic, toca la pantalla o usa tu adaptador",esc:"libera el mouse",space:"llave recta",clear:"limpiar",text:"Texto / Decoder",bidirectional:"Bidireccional: escribe o manipula",playCW:"Reproducir CW",stop:"Detener",clearBtn:"Limpiar",last:"Último",copy:"Copiar",save:"Guardar TXT",betaNote:"Sala mundial experimental. La identidad es opcional y los eventos de manipulación viajan por un relay público.",straightHint:"Llave recta · mouse, SPACE o toda la superficie táctil",paddleHint:"Paleta · izquierda DIT (.) · derecha DAH (-)",idle:"Listo · clic para capturar mouse o toca la superficie",active:"Activo · mouse capturado · ESC libera",touchReady:"Touch activo · levanta el dedo para cortar",free:"● Canal libre",busy:"● Canal ocupado",online:"operadores en línea",connecting:"Conectando…",onair:"ON AIR conectado",copied:"Copiado",playing:"Reproduciendo",stopped:"Detenido",anonymous:"Anónimo",countries:"países",you:"tú",mute:"Silenciar",unmute:"Escuchar",racerLearn:"Learn",racerRace:"Race",racerStats:"Stats",racerLetters:"Letras A–Z",racerNumbers:"Números 0–9",racerPunct:"Signos",racerProsigns:"Prosigns",racerMixed:"Mixto",racerVoice:"Voz opcional",racerReady:"Listo para comenzar",racerStart:"Comenzar",racerNext:"Siguiente",racerStartRace:"Iniciar carrera",racerSessions:"Sesiones",racerAttempts:"Intentos",racerBestScore:"Mejor score",racerBestStreak:"Mejor racha",racerMistakes:"Aprende de tus errores",racerReset:"Resetear estadísticas",racerCorrect:"Correcto",racerImperfect:"Correcto, pero mejora el timing",racerWrong:"Incorrecto",racerAgain:"Repite",racerFinished:"¡Completado!",racerFinalScore:"Puntaje final",racerBestSimilar:"Mejor carrera similar",racerNoWeak:"Todavía no hay suficientes errores para crear una lección adaptativa",racerResetConfirm:"¿Seguro que quieres borrar todas las estadísticas de CW Racer?",racerTransmit:"Transmítelo",racerListenRepeat:"Escucha y repite",racerRestartUnit:"Error: repite la unidad desde el comienzo",qsoBasic:"QSO básico",qsoIntermediate:"QSO intermedio",qsoAdvanced:"QSO avanzado",qsoReady:"Selecciona un modo e inicia el QSO.",qsoIdle:"Bot listo.",qsoStart:"Iniciar QSO",qsoRepeat:"Repetir bot",qsoStop:"Finalizar",qsoNeedCall:"Ingresa tu indicativo para comenzar.",qsoAnswerCQ:"Responde al CQ con tu indicativo.",qsoSendExchange:"Envía tu RST, nombre y QTH.",qsoSendMore:"Agrega RST, nombre/QTH y algunos datos de estación.",qsoSendSkcc:"Envía RST, SPC/QTH, nombre y número SKCC (o NONE).",qsoSendPota:"Envía un RST realista; QTH es opcional.",qsoRepeatNeeded:"No copié todo. Repite el intercambio.",qsoComplete:"QSO completado",qsoStopped:"QSO finalizado.",qsoBotTx:"El bot está transmitiendo…",qsoAdvancedRepeat:"El bot pide una repetición.",qsoLocked:"ON AIR no está disponible durante CW Racer o QSO Bot.",qsoCopied:"Datos copiados",qsoNeedName:"NAME?",qsoNeedQth:"QTH?",qsoNeedSkcc:"SKCC NR?",qsoNeedKey:"KEY?",qsoNeedRig:"RIG?",qsoNeedPwr:"PWR?",qsoNeedAnt:"ANT?",qsoCopying:"Copiando tu transmisión…",},en:{subtitle:"Morse Code Practice",courtesy:"Courtesy of",instructions:"Instructions",settings:"Settings",mode:"Mode",straight:"Straight Key",paddle:"Paddle",speed:"Speed",tone:"Tone",volume:"Volume",oscAudio:"Oscillator audio",visualAid:"Visual aid",visualAidHelp:"Show dots and dashes",wordSpacing:"Word spacing",keyArea:"Keying Area",captureHelp:"Mouse, keyboard, touch or USB adapter",hero:"Click, touch the screen or use your adapter",esc:"releases mouse",space:"straight key",clear:"clear",text:"Text / Decoder",bidirectional:"Bidirectional: type or key",playCW:"Play CW",stop:"Stop",clearBtn:"Clear",last:"Last",copy:"Copy",save:"Save TXT",betaNote:"Experimental global room. Identity is optional and keying events travel through a public relay.",straightHint:"Straight key · mouse, SPACE or the whole touch surface",paddleHint:"Paddle · left DIT (.) · right DAH (-)",idle:"Ready · click to capture mouse or touch the surface",active:"Active · mouse captured · ESC releases",touchReady:"Touch active · lift your finger to release",free:"● Channel free",busy:"● Channel busy",online:"operators online",connecting:"Connecting…",onair:"ON AIR connected",copied:"Copied",playing:"Playing",stopped:"Stopped",anonymous:"Anonymous",countries:"countries",you:"you",mute:"Mute",unmute:"Listen",racerLearn:"Learn",racerRace:"Race",racerStats:"Stats",racerLetters:"Letters A–Z",racerNumbers:"Numbers 0–9",racerPunct:"Punctuation",racerProsigns:"Prosigns",racerMixed:"Mixed",racerVoice:"Optional voice",racerReady:"Ready to start",racerStart:"Start",racerNext:"Next",racerStartRace:"Start race",racerSessions:"Sessions",racerAttempts:"Attempts",racerBestScore:"Best score",racerBestStreak:"Best streak",racerMistakes:"Learn from my mistakes",racerReset:"Reset statistics",racerCorrect:"Correct",racerImperfect:"Correct, but improve your timing",racerWrong:"Wrong",racerAgain:"Repeat",racerFinished:"Completed!",racerFinalScore:"Final score",racerBestSimilar:"Best similar race",racerNoWeak:"There are not enough weak characters yet to build an adaptive lesson",racerResetConfirm:"Are you sure you want to erase all CW Racer statistics?",racerTransmit:"Transmit it",racerListenRepeat:"Listen and repeat",racerRestartUnit:"Error: restart the unit from the beginning",qsoBasic:"Basic QSO",qsoIntermediate:"Intermediate QSO",qsoAdvanced:"Advanced QSO",qsoReady:"Select a mode and start the QSO.",qsoIdle:"Bot ready.",qsoStart:"Start QSO",qsoRepeat:"Repeat bot",qsoStop:"End",qsoNeedCall:"Enter your callsign to start.",qsoAnswerCQ:"Answer the CQ with your callsign.",qsoSendExchange:"Send your RST, name and QTH.",qsoSendMore:"Add RST, name/QTH and some station details.",qsoSendSkcc:"Send RST, SPC/QTH, name and SKCC number (or NONE).",qsoSendPota:"Send a realistic RST; QTH is optional.",qsoRepeatNeeded:"I did not copy everything. Repeat the exchange.",qsoComplete:"QSO completed",qsoStopped:"QSO ended.",qsoBotTx:"The bot is transmitting…",qsoAdvancedRepeat:"The bot requests a repeat.",qsoLocked:"ON AIR is unavailable while CW Racer or QSO Bot is active.",qsoCopied:"Copied data",qsoNeedName:"NAME?",qsoNeedQth:"QTH?",qsoNeedSkcc:"SKCC NR?",qsoNeedKey:"KEY?",qsoNeedRig:"RIG?",qsoNeedPwr:"PWR?",qsoNeedAnt:"ANT?",qsoCopying:"Copying your transmission…",}};
 const $=id=>document.getElementById(id),keyarea=$("keyarea"),symbols=$("symbols"),decoded=$("decoded"),practice=$("practice"),status=$("status"),mode=$("mode"),wpm=$("wpm"),tone=$("tone"),volume=$("volume"),sidetone=$("sidetoneToggle"),visualAid=$("visualAidToggle"),spacing=$("wordSpacing");
 let lang=localStorage.getItem('cw-lang')||'es'; const tr=k=>I18N[lang][k]||k;
 let visualAidEnabled=localStorage.getItem('cw-visual-aid')==='on';
@@ -246,9 +317,9 @@ function destroyRemoteCarrier(){
 const dotMs=()=>1200/Math.max(5,+wpm.value||15),charGap=()=>dotMs()*3,wordGap=()=>dotMs()*(+spacing.value||7),sleep=ms=>new Promise(r=>setTimeout(r,ms));
 let downAt=0,current='',charTimer=null,wordTimer=null,leftHeld=false,rightHeld=false,iambicRunning=false,lastIambic='-',active=false,playToken=0,currentDurations=[];const touchPointers=new Map();
 function flash(on){keyarea.classList.toggle('active',!!on)}
-function scheduleDecode(){clearTimeout(charTimer);clearTimeout(wordTimer);charTimer=setTimeout(()=>{if(!current)return;const code=current,durations=currentDurations.slice(),raw=MORSE[code]||`[${code}]`,ch=raw==='<AR>'?'AR':(raw==='='||raw==='<BT>'?'BT':raw);decoded.textContent=ch;practice.value+=ch;if(typeof racerHandleDecoded==='function')racerHandleDecoded(ch,code,durations);current='';currentDurations=[];symbols.textContent='';practice.scrollTop=practice.scrollHeight;wordTimer=setTimeout(()=>{if(practice.value&&!practice.value.endsWith(' '))practice.value+=' '},Math.max(10,wordGap()-charGap()))},charGap())}
+function scheduleDecode(){clearTimeout(charTimer);clearTimeout(wordTimer);charTimer=setTimeout(()=>{if(!current)return;const code=current,durations=currentDurations.slice(),raw=MORSE[code]||`[${code}]`,ch=raw==='<AR>'?'AR':(raw==='='||raw==='<BT>'?'BT':raw);decoded.textContent=ch;practice.value+=ch;if(typeof racerHandleDecoded==='function')racerHandleDecoded(ch,code,durations);if(typeof qsoHandleDecoded==='function')qsoHandleDecoded(ch,code,durations);current='';currentDurations=[];symbols.textContent='';practice.scrollTop=practice.scrollHeight;wordTimer=setTimeout(()=>{if(practice.value&&!practice.value.endsWith(' '))practice.value+=' ';if(typeof qsoWordBoundary==='function')qsoWordBoundary()},Math.max(10,wordGap()-charGap()))},charGap())}
 function addElement(s){current+=s;symbols.textContent=current;scheduleDecode()}
-function canTransmit(){return !onAir||!remoteBusy}
+function canTransmit(){return !qsoBotSending&&(!onAir||!remoteBusy)}
 function straightDown(source='local'){if(downAt||!canTransmit())return;clearTimeout(charTimer);clearTimeout(wordTimer);downAt=performance.now();localToneOn();flash(true);if(onAir)publishKey('down')}
 function straightUp(){if(!downAt)return;const dur=performance.now()-downAt;downAt=0;localToneOff();flash(false);if(onAir)publishKey('up',dur);currentDurations.push(dur);addElement(dur<dotMs()*2?'.':'-')}
 async function sendTimed(s){if(!canTransmit())return;clearTimeout(charTimer);clearTimeout(wordTimer);const elementMs=s==='.'?dotMs():dotMs()*3;localToneOn();flash(true);if(onAir)publishKey('down');await sleep(elementMs);localToneOff();flash(false);if(onAir)publishKey('up',elementMs);currentDurations.push(elementMs);addElement(s);await sleep(dotMs())}
@@ -559,7 +630,13 @@ function disconnectOnAir(){
   setRemoteBusy(false);
 }
 
-$("onAirToggle").onchange=e=>e.target.checked?connectOnAir():disconnectOnAir();
+$("onAirToggle").onchange=e=>{
+  if(e.target.checked&&(racerOn||qsoOn)){
+    e.target.checked=false;
+    return;
+  }
+  e.target.checked?connectOnAir():disconnectOnAir();
+};
 
 for(const id of ["operatorName","operatorCall"]){
   $(id).addEventListener('input',()=>{
@@ -702,10 +779,32 @@ function racerSetTab(tab){
 }
 document.querySelectorAll('.racer-tab').forEach(b=>b.onclick=()=>racerSetTab(b.dataset.racerTab));
 
+function syncTrainingLocks(){
+  const locked=racerOn||qsoOn;
+  const sw=$("onAirToggle");
+  sw.disabled=locked;
+  sw.parentElement.classList.toggle('locked',locked);
+  sw.parentElement.title=locked?tr('qsoLocked'):'';
+}
+function forceOnAirOff(){
+  if(onAir)disconnectOnAir();
+  $("onAirToggle").checked=false;
+}
+function forceRacerOff(){
+  racerOn=false;
+  $("cwRacerToggle").checked=false;
+  $("cwRacerPanel").classList.remove('open');
+  learn.active=false;race.active=false;wr7q.active=false;
+}
 $("cwRacerToggle").onchange=e=>{
   racerOn=e.target.checked;
+  if(racerOn){
+    forceOnAirOff();
+    if(qsoOn)forceQsoOff();
+  }
   $("cwRacerPanel").classList.toggle('open',racerOn);
   if(!racerOn){learn.active=false;race.active=false;wr7q.active=false}
+  syncTrainingLocks();
 };
 
 function nextLearnTarget(){
@@ -718,7 +817,8 @@ function nextLearnTarget(){
   setTimeout(()=>{if(learn.active)racerPlayCode(learn.target)},120);
 }
 function startLearn(focusPool=null){
-  racerOn=true;$("cwRacerToggle").checked=true;$("cwRacerPanel").classList.add('open');racerSetTab('learn');
+  forceOnAirOff();if(qsoOn)forceQsoOff();
+  racerOn=true;$("cwRacerToggle").checked=true;$("cwRacerPanel").classList.add('open');syncTrainingLocks();racerSetTab('learn');
   learn={active:true,target:null,score:0,green:0,yellow:0,red:0,focusPool};
   racerStats.sessions++;racerStats.lastMode='learn';saveRacerStats();
   updateLearnMeta();nextLearnTarget();
@@ -773,6 +873,7 @@ function updateRaceMeta(){
   $("raceProgressBar").style.width=`${Math.min(100,(race.index/race.total)*100)}%`;
 }
 function startRace(){
+  forceOnAirOff();if(qsoOn)forceQsoOff();racerOn=true;$("cwRacerToggle").checked=true;$("cwRacerPanel").classList.add('open');syncTrainingLocks();
   const total=+$("racerRaceLength").value||50;
   const setName=$("racerRaceSet").value;
   race={active:true,target:null,score:0,streak:0,bestStreak:0,index:0,total,queue:buildRaceQueue(setName,total),setName,wpm:+wpm.value};
@@ -799,6 +900,7 @@ function updateWr7qTarget(){
   setFeedback('wr7qFeedback','',tr('racerTransmit'));
 }
 function startWr7q(){
+  forceOnAirOff();if(qsoOn)forceQsoOff();racerOn=true;$("cwRacerToggle").checked=true;$("cwRacerPanel").classList.add('open');syncTrainingLocks();
   wr7q.active=true;wr7q.unitIndex=0;wr7q.tokenIndex=0;wr7q.restarts=0;
   racerStats.sessions++;racerStats.lastMode='wr7q';saveRacerStats();
   updateWr7qTarget();
@@ -895,7 +997,450 @@ renderRacerStats();
 updateWr7qTarget();
 // ================== END CW RACER ==================
 
-applyLang();updateModeHint();updatePresenceUI();applyVisualAid();
+
+
+// ==================== SMART INTERPRETATION (optional local AI) ====================
+let qsoSmartEnabled=false,qsoSmartPipe=null,qsoSmartLoading=false;
+const QSO_SMART_MODEL='Xenova/all-MiniLM-L6-v2';
+function qsoSmartVisual(state){
+  const led=document.getElementById('qsoAiLed');
+  const panel=document.getElementById('qsoBotPanel');
+  if(led)led.className='ai-led '+(state||'');
+  if(panel)panel.classList.toggle('ai-active',state==='ready'||state==='thinking');
+}
+function qsoSmartStatus(s){
+  const map={loading:'loading',ready:'ready',thinking:'thinking',error:'error',off:''};
+  qsoSmartVisual(map[s]??s);
+}
+async function qsoSmartLoad(){
+  if(qsoSmartPipe)return true;
+  if(qsoSmartLoading)return false;
+  qsoSmartLoading=true;
+  qsoSmartStatus('loading');
+  try{
+    const {pipeline}=await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1');
+    const base={dtype:'q8',progress_callback:p=>{
+      if(p?.status==='progress'&&Number.isFinite(p.progress))qsoSmartStatus('loading');
+    }};
+    if('gpu' in navigator)base.device='webgpu';
+    try{qsoSmartPipe=await pipeline('feature-extraction',QSO_SMART_MODEL,base)}
+    catch(err){
+      delete base.device;
+      qsoSmartStatus('loading');
+      qsoSmartPipe=await pipeline('feature-extraction',QSO_SMART_MODEL,base);
+    }
+    qsoSmartStatus('ready');
+    return true;
+  }catch(err){
+    console.warn('Local AI unavailable',err);
+    qsoSmartStatus('error');
+    return false;
+  }finally{qsoSmartLoading=false}
+}
+async function qsoSmartSimilarity(text,examples){
+  if(!qsoSmartEnabled||!qsoSmartPipe)return null;
+  try{
+    const all=[String(text||''),...examples];
+    const out=await qsoSmartPipe(all,{pooling:'mean',normalize:true});
+    const v=out.tolist();
+    const dot=(a,b)=>a.reduce((s,x,i)=>s+x*b[i],0);
+    let best=0,score=-Infinity;
+    for(let i=1;i<v.length;i++){const s=dot(v[0],v[i]);if(s>score){score=s;best=i-1}}
+    return {index:best,score};
+  }catch(e){return null}
+}
+// AI is advisory only: it never invents CALL/RST/NAME/QTH/SKCC values.
+// Existing deterministic QSO rules remain authoritative.
+
+// ==================== QSO BOT (autonomous local practice; flexible CW parsing) ====================
+let qsoOn=false,qsoBotSending=false,qsoResponseTimer=null,qsoPlayToken=0;
+let qsoSession=null,qsoBuffer='',qsoLastMessage='',qsoCompletedCount=Number(localStorage.getItem('cw-qso-completed')||0);
+
+const QSO_CALL_PREFIX=['K','N','W','VE','VA','LU','PY','CX','ZP'];
+const QSO_NAMES=['BOB','JIM','TOM','MIKE','ANN','SUE','CARL','LEE','TONY','ANA','JOHN','DAVE','STEVE','MARK','PAUL','RICK','RON','ED','AL','JOE','SAM','BEN','DAN','RAY','ROB','PETE','BILL','FRED','GEORGE','HARRY','CHRIS','KEVIN','BRIAN','ERIC','SCOTT','JEFF','GARY','FRANK','LARRY','WAYNE','TIM','KEN','ANDY','MARTIN','DAVID','LUIS','CARLOS','JORGE','MARIO','DIEGO','JUAN','PABLO','MIGUEL','SERGIO','OSCAR','RAUL','PEDRO','HUGO','MARCO','ROBERTO','FERNANDO','RICARDO','ALEJANDRO','GUSTAVO','CLAUDIO','CESAR','MARCELO','ANDRES','IVAN','VICTOR','NICOLAS','FABIO','RENATO','PAULO','JOAO','BRUNO','THOMAS','PETER','HANS','WALTER','KARL','FRANZ','LUCA','MARCO','PAOLO','GIANNI','PIERRE','JEAN','MARC','IAN','ALAN','NEIL','GRAHAM','SIMON','JACK','MARY','LINDA','SARAH','LAURA','MARIA','SOFIA','ELENA','LUCIA'];
+const QSO_QTH=['FL','TX','CA','NY','OH','CO','AZ','WA','VA','GA','NC','SC','PA','MA','NJ','MI','MN','WI','OR','UT','NV','ID','MT','AL','TN','KY','MO','IA','KS','OK','AR','LA','MS','ME','NH','VT','RI','CT','MD','DE','IN','IL','NM','WY','WV','SP','RJ','MG','PR','RS','SC','BA','PE','CE','GO','DF','ASUNCION','SAN LORENZO','LUQUE','ENCARNACION','CIUDAD DEL ESTE','MONTEVIDEO','SALTO','PAYSANDU','MALDONADO','BUENOS AIRES','CORDOBA','ROSARIO','MENDOZA','SALTA','TUCUMAN','LIMA','SANTIAGO','VALPARAISO','BOGOTA','MEDELLIN','QUITO','GUAYAQUIL','MEXICO CITY','MADRID','BARCELONA','LISBON','PORTO','LONDON','MANCHESTER','PARIS','LYON','BERLIN','HAMBURG','ROME','MILAN','NAPLES','WARSAW','PRAGUE','VIENNA','OSLO','STOCKHOLM','HELSINKI','TOKYO','OSAKA','SYDNEY','MELBOURNE','TORONTO','VANCOUVER','MONTREAL'];
+const QSO_RIGS=['IC7300','IC7610','IC705','IC718','IC7200','IC7100','TS590','TS590SG','TS480','TS890','TS940','TS930','FTDX10','FTDX101D','FT991A','FT891','FT818','FT857','FT101','FT101ZD','FT757GX','FT980','K3','K4','KX2','KX3','OMNI D','CORSAIR II','CENTURY 21','G90','X6100','X6200','TX500','TR4C','QCX','QCX MINI'];
+const QSO_ANTS=['DIPOLE','INVERTED V','VERTICAL','EFHW','LOOP','YAGI','HEXBEAM','OCF DIPOLE','WINDOM','DELTA LOOP','MAG LOOP','GROUND PLANE','1/4 WAVE','1/2 WAVE','LONG WIRE','RANDOM WIRE','DOUBLE BAZOOKA','COBWEB','MOBILE WHIP','BUDDIPOLE','CHA250','END FED','SLOPER','Moxon','BEAM','WIRE DIPOLE'];
+const QSO_KEYS=['SK','BUG','SS'];
+
+function qsoRnd(arr){return arr[Math.floor(Math.random()*arr.length)]}
+function qsoCall(){
+  const prefix=qsoRnd(QSO_CALL_PREFIX);
+  const suffix='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  return prefix+Math.floor(Math.random()*10)+suffix[Math.floor(Math.random()*26)]+suffix[Math.floor(Math.random()*26)]+(Math.random()<.72?suffix[Math.floor(Math.random()*26)]:'');
+}
+function qsoNorm(v){return String(v||'').toUpperCase().replace(/[^A-Z0-9<>\/ ]/g,' ').replace(/\s+/g,' ').trim()}
+function qsoCompact(v){return qsoNorm(v).replace(/\s/g,'')}
+function qsoNormalizeRSTToken(token){
+  let t=String(token||'').toUpperCase().replace(/[^0-9NT]/g,'');
+  // Common CW cut-number usage: N = 9, T = 0.
+  t=t.replace(/N/g,'9').replace(/T/g,'0');
+  // Accept common shortened signal reports such as 5N -> 59.
+  if(/^[1-5][1-9]$/.test(t))return t;
+  if(/^[1-5][1-9][1-9]$/.test(t))return t;
+  return '';
+}
+function qsoHasRST(v){return !!qsoExtractRST(v)}
+function qsoTurn(){
+  const r=Math.random();
+  return r<.38?'BK':(r<.72?'KN':'K');
+}
+function qsoAskVariant(kind){
+  const variants={
+    rst:['RST?','UR RST?','HW CPY?','PSE RPT RST','RPRT?'],
+    name:['NAME?','UR NAME?','OP?','PSE NAME AGN'],
+    qth:['QTH?','UR QTH?','SPC?','PSE QTH AGN'],
+    skcc:['SKCC NR?','UR SKCC?','PSE SKCC NR','NR?'],
+    key:['KEY?','UR KEY?','SK BUG OR SS?','PSE KEY TYPE'],
+    rig:['RIG?','UR RIG?','RADIO?','PSE RIG AGN'],
+    pwr:['PWR?','UR PWR?','POWER?','PSE PWR AGN'],
+    ant:['ANT?','UR ANT?','ANTENNA?','PSE ANT AGN']
+  };
+  return qsoRnd(variants[kind]||['AGN?']);
+}
+function qsoExtractCall(text,botCall=''){
+  const n=qsoNorm(text);
+  const candidates=n.match(/\b(?:[A-Z]{1,2}|[A-Z]\d[A-Z]|[A-Z]{2}\d{0,2})\d[A-Z]{1,4}(?:\/[A-Z0-9]+)?\b/g)||[];
+  return candidates.find(c=>c!==botCall)||'';
+}
+function qsoAfterLabel(text,labels){
+  const words=qsoNorm(text).split(' ').filter(Boolean);
+  const stop=new Set(['IS','UR','MY','DE','NR','NUMBER','KEY','RST','QTH','SPC','NAME','OP','RIG','RADIO','PWR','POWER','ANT','ANTENNA','BK','KN','K','R','RR','TU','TNX','FER','ES']);
+  for(let i=0;i<words.length;i++){
+    if(labels.includes(words[i])){
+      let j=i+1;
+      while(j<words.length&&['IS','MY','UR'].includes(words[j]))j++;
+      const v=words[j]||'';
+      if(v&&!stop.has(v))return v;
+      if((words[i]==='SKCC'||words[i]==='NR')&&words[j]==='NR')return words[j+1]||'';
+    }
+  }
+  return '';
+}
+function qsoExtractRST(text){
+  const n=qsoNorm(text);
+  // Prefer tokens near RST/report wording, but accept a bare report too.
+  const words=n.split(' ').filter(Boolean);
+  for(let i=0;i<words.length;i++){
+    if(['RST','RPRT','REPORT','SIG','SIGNAL','UR'].includes(words[i])){
+      for(let j=i+1;j<Math.min(words.length,i+4);j++){
+        const r=qsoNormalizeRSTToken(words[j]);
+        if(r)return r;
+      }
+    }
+  }
+  for(const w of words){
+    const r=qsoNormalizeRSTToken(w);
+    if(r)return r;
+  }
+  return '';
+}
+function qsoExtractSKCC(text){
+  const n=qsoNorm(text);
+  let m=n.match(/\b(?:SKCC(?:\s+NR)?|NR|NUMBER)\s+(\d{3,6}[CTS]?)\b/);
+  if(m)return m[1];
+  m=n.match(/\b(\d{3,6}[CTS]?)\b/);
+  return m?m[1]:'';
+}
+function qsoExtractKey(text){
+  const n=qsoNorm(text);
+  if(/\bBUG\b/.test(n))return 'BUG';
+  if(/\b(?:SS|COOTIE|SIDESWIPER|SIDE SWIPER)\b/.test(n))return 'SS';
+  if(/\b(?:KEY\s+SK|STRAIGHT\s+KEY|STRAIGHTKEY)\b/.test(n))return 'SK';
+  return '';
+}
+function qsoExtractPower(text){
+  const n=qsoNorm(text);
+  const m=n.match(/\b(?:PWR|POWER)?\s*(\d{1,4})\s*(?:W|WATTS?)?\b/);
+  if(!m)return '';
+  const num=Number(m[1]);
+  return num>0&&num<=2000?`${num}W`:'';
+}
+function qsoLearnFromText(text){
+  if(!qsoSession)return;
+  const u=qsoSession.user,n=qsoNorm(text),bot=qsoSession.bot;
+  if(!u.call)u.call=qsoExtractCall(n,bot.call);
+  if(!u.rst)u.rst=qsoExtractRST(n);
+  if(!u.name)u.name=qsoAfterLabel(n,['NAME','OP']);
+  if(!u.qth)u.qth=qsoAfterLabel(n,['QTH','SPC']);
+  if(!u.skcc)u.skcc=qsoExtractSKCC(n);
+  if(!u.key)u.key=qsoExtractKey(n);
+  if(!u.rig)u.rig=qsoAfterLabel(n,['RIG','RADIO']);
+  if(!u.pwr)u.pwr=qsoExtractPower(n);
+  if(!u.ant)u.ant=qsoAfterLabel(n,['ANT','ANTENNA']);
+}
+function qsoBuildBot(){
+  return {
+    call:qsoCall(),
+    name:qsoRnd(QSO_NAMES),
+    qth:qsoRnd(QSO_QTH),
+    rst:qsoRnd(['559','569','579','589']),
+    rig:qsoRnd(QSO_RIGS),
+    pwr:qsoRnd(['5W','10W','15W','20W','25W','30W','40W','50W','75W','80W','90W','100W','200W','400W','500W','800W','1KW']),
+    ant:qsoRnd(QSO_ANTS),
+    skcc:String(1000+Math.floor(Math.random()*29000))+(Math.random()<.35?qsoRnd(['C','T','S']):''),
+    key:qsoRnd(QSO_KEYS),
+    park:'US-'+String(1000+Math.floor(Math.random()*8000))
+  };
+}
+function qsoKeyLong(k){return k==='SK'?'STRAIGHT KEY':k==='BUG'?'BUG':'COOTIE'}
+function qsoSetStatus(text,kind=''){
+  const el=$("qsoStatus");el.className='qso-status '+kind;el.textContent=text;
+}
+function qsoUpdateMeta(){
+  $("qsoSteps").textContent=qsoSession?.steps||0;
+  $("qsoRepeats").textContent=qsoSession?.repeats||0;
+  $("qsoCompleted").textContent=qsoCompletedCount;
+}
+function qsoSetYou(){
+  $("qsoYou").textContent='YOU: '+(qsoBuffer.trim()||'—');
+}
+function qsoClearBuffer(){qsoBuffer='';qsoSetYou()}
+function qsoWordBoundary(){
+  if(!qsoOn||qsoBotSending||!qsoSession||qsoSession.state==='done'||!qsoBuffer)return;
+  if(!qsoBuffer.endsWith(' '))qsoBuffer+=' ';
+  qsoSetYou();
+}
+function qsoAcceptStep(){if(qsoSession){qsoSession.steps++;qsoUpdateMeta()}}
+function qsoMiss(msg){
+  if(!qsoSession)return;
+  qsoSession.repeats++;qsoUpdateMeta();qsoSetStatus(msg||tr('qsoRepeatNeeded'),'warn');
+}
+function qsoSummary(){
+  if(!qsoSession)return '';
+  const u=qsoSession.user,lines=[`🏁 ${tr('qsoComplete')}`,`${tr('qsoCopied')}:`];
+  if(u.call)lines.push(`CALL: ${u.call}`);
+  if(u.rst)lines.push(`RST: ${u.rst}`);
+  if(u.name)lines.push(`NAME: ${u.name}`);
+  if(u.qth)lines.push(`QTH/SPC: ${u.qth}`);
+  if(u.skcc)lines.push(`SKCC: ${u.skcc}`);
+  if(u.key)lines.push(`KEY: ${u.key}${u.key==='SS'?' (COOTIE)':''}`);
+  if(u.rig)lines.push(`RIG: ${u.rig}`);
+  if(u.pwr)lines.push(`PWR: ${u.pwr}`);
+  if(u.ant)lines.push(`ANT: ${u.ant}`);
+  lines.push(`REPEATS: ${qsoSession.repeats}`);
+  return lines.join('\n');
+}
+function qsoRenderSummary(){
+  if(!qsoSession||qsoSession.state!=='done')return;
+  const el=$("qsoBotMessage");el.classList.add('complete');el.textContent=qsoSummary();
+  qsoSetStatus(tr('qsoComplete')+' ✅','good');
+}
+async function qsoPlayText(txt){
+  const token=++qsoPlayToken;
+  qsoBotSending=true;qsoLastMessage=txt;
+  const box=$("qsoBotMessage");box.classList.remove('complete');box.textContent=txt.replace(/<([^>]+)>/g,'$1');
+  qsoSetStatus(tr('qsoBotTx'));ensureAudio();
+  const items=tokensFromText(txt);
+  for(const item of items){
+    if(!qsoOn||token!==qsoPlayToken)break;
+    if(item.type==='space'){await sleep(wordGap());continue}
+    decoded.textContent=item.label.replace(/[<>]/g,'');
+    if(visualAidEnabled)symbols.textContent=item.code;
+    for(const s of item.code){
+      if(!qsoOn||token!==qsoPlayToken)break;
+      localToneOn();flash(true);
+      await sleep(s==='.'?dotMs():dotMs()*3);
+      localToneOff();flash(false);await sleep(dotMs());
+    }
+    symbols.textContent='';await sleep(Math.max(0,charGap()-dotMs()));
+  }
+  localToneOff();flash(false);
+  if(token!==qsoPlayToken)return;
+  qsoBotSending=false;
+  if(qsoOn&&qsoSession?.state==='done')qsoRenderSummary();
+  else if(qsoOn)qsoPromptCurrent();
+}
+function qsoPromptCurrent(){
+  if(!qsoSession)return;
+  const st=qsoSession.state;
+  if(st==='awaitCall')qsoSetStatus(tr('qsoAnswerCQ'));
+  else qsoSetStatus(tr('qsoCopying'));
+}
+async function qsoAsk(txt,state){
+  if(!qsoSession)return;
+  qsoSession.state=state;
+  await qsoPlayText(`${txt} ${qsoTurn()}`);
+}
+function qsoComplete(message){
+  if(!qsoSession)return;
+  qsoSession.state='done';qsoCompletedCount++;
+  localStorage.setItem('cw-qso-completed',String(qsoCompletedCount));
+  qsoUpdateMeta();qsoSetStatus(tr('qsoComplete')+' ✅','good');
+  if(message)qsoPlayText(message);else qsoRenderSummary();
+}
+function qsoMissingBasic(){
+  const u=qsoSession.user;
+  if(!u.rst)return qsoAskVariant('rst');
+  if(!u.name)return qsoAskVariant('name');
+  if(!u.qth)return qsoAskVariant('qth');
+  return '';
+}
+function qsoMissingStation(){
+  const u=qsoSession.user;
+  if(!u.rig)return qsoAskVariant('rig');
+  if(!u.pwr)return qsoAskVariant('pwr');
+  if(!u.ant)return qsoAskVariant('ant');
+  return '';
+}
+function qsoMissingSkcc(){
+  const u=qsoSession.user;
+  if(!u.rst)return qsoAskVariant('rst');
+  if(!u.qth)return qsoAskVariant('qth');
+  if(!u.name)return qsoAskVariant('name');
+  if(!u.skcc)return qsoAskVariant('skcc');
+  if(!u.key)return qsoAskVariant('key');
+  return '';
+}
+function qsoAdvancedField(){
+  const u=qsoSession.user,options=[];
+  if(u.rst)options.push({key:'RST',value:u.rst});
+  if(u.name)options.push({key:'NAME',value:u.name});
+  if(u.qth)options.push({key:'QTH',value:u.qth});
+  if(u.rig)options.push({key:'RIG',value:u.rig});
+  return qsoRnd(options.length?options:[{key:'RST',value:u.rst||''}]);
+}
+async function qsoProcessResponse(){
+  if(!qsoOn||!qsoSession||qsoBotSending||!qsoBuffer.trim())return;
+  if(qsoSmartEnabled&&qsoSmartPipe)qsoSmartStatus('thinking');
+  const raw=qsoBuffer.trim(),n=qsoNorm(raw),b=qsoSession.bot,mode=qsoSession.mode,state=qsoSession.state;
+  qsoClearBuffer();qsoLearnFromText(raw);
+  if(qsoSmartEnabled&&qsoSmartPipe){
+    try{await qsoSmartSimilarity(raw,['RST REPORT','NAME OPERATOR','QTH LOCATION','RIG RADIO','POWER WATTS','ANTENNA','SKCC NUMBER','KEY TYPE'])}catch(e){}
+    qsoSmartStatus('ready');
+  }
+  const u=qsoSession.user;
+
+  if(state==='awaitCall'){
+    if(!u.call){
+      qsoMiss(tr('qsoRepeatNeeded'));
+      await qsoPlayText(`QRZ? DE ${b.call} ${qsoTurn()}`);return;
+    }
+    qsoAcceptStep();
+    if(mode==='pota'){
+      qsoSession.state='awaitPota';
+      await qsoPlayText(qsoRnd([`${u.call} ${b.rst} PARK ${b.park} ${qsoTurn()}`,`${u.call} UR ${b.rst} ${b.park} ${qsoTurn()}`,`${u.call} ${b.rst} ${b.rst} REF ${b.park} ${qsoTurn()}`]));return;
+    }
+    if(mode==='skcc'){
+      qsoSession.state='awaitSkcc';
+      await qsoPlayText(`${u.call} DE ${b.call} ${b.rst} QTH ${b.qth} NAME ${b.name} SKCC ${b.skcc} KEY ${b.key} ${qsoTurn()}`);return;
+    }
+    qsoSession.state='awaitBasic';
+    const extra=mode==='basic'?'':` RIG ${b.rig} PWR ${b.pwr} ANT ${b.ant}`;
+    await qsoPlayText(qsoRnd([`${u.call} DE ${b.call} GM TNX FER CALL UR RST ${b.rst} NAME ${b.name} QTH ${b.qth}${extra} HW? ${qsoTurn()}`,`${u.call} DE ${b.call} TNX CALL ${b.rst} ${b.name} QTH ${b.qth}${extra} BK`,`${u.call} DE ${b.call} FB UR ${b.rst} OP ${b.name} HR ${b.qth}${extra} HW CPY? ${qsoTurn()}`]));return;
+  }
+
+  if(state==='awaitPota'){
+    if(!u.rst){
+      qsoMiss(tr('qsoRepeatNeeded'));await qsoAsk('RST? AGN','awaitPota');return;
+    }
+    qsoAcceptStep();qsoComplete(`TU ${u.call} 73 DE ${b.call} QRZ?`);return;
+  }
+
+  if(state==='awaitSkcc'){
+    const missing=qsoMissingSkcc();
+    if(missing){
+      qsoMiss(tr('qsoRepeatNeeded'));await qsoAsk(missing,'awaitSkcc');return;
+    }
+    qsoAcceptStep();
+    qsoComplete(`R ${u.name} FB SKCC ${u.skcc} KEY ${u.key} TNX QSO 73 DE ${b.call} <SK>`);return;
+  }
+
+  if(state==='awaitBasic'){
+    const missing=qsoMissingBasic();
+    if(missing){
+      qsoMiss(tr('qsoRepeatNeeded'));await qsoAsk(missing,'awaitBasic');return;
+    }
+    qsoAcceptStep();
+    if(mode==='basic'){
+      qsoComplete(`FB ${u.name} TNX QSO 73 ES GL DE ${b.call} <SK>`);return;
+    }
+    qsoSession.state='awaitIntermediate';
+    const need=qsoMissingStation();
+    if(need){await qsoAsk(need,'awaitIntermediate');return}
+  }
+
+  if(state==='awaitIntermediate'){
+    const missing=qsoMissingStation();
+    if(missing){
+      qsoMiss(tr('qsoRepeatNeeded'));await qsoAsk(missing,'awaitIntermediate');return;
+    }
+    qsoAcceptStep();
+    if(mode==='intermediate'){
+      qsoComplete(`FB ${u.name} RIG ${u.rig} PWR ${u.pwr} ANT ${u.ant} TNX FER INFO 73 DE ${b.call} <SK>`);return;
+    }
+    qsoSession.repeatField=qsoAdvancedField();qsoSession.state='awaitAdvancedRepeat';
+    await qsoPlayText(`QSB PSE RPT ${qsoSession.repeatField.key} AGN ${qsoTurn()}`);return;
+  }
+
+  if(state==='awaitAdvancedRepeat'){
+    const f=qsoSession.repeatField;
+    qsoLearnFromText(raw);
+    let ok=false;
+    if(f.key==='RST'){const got=qsoExtractRST(n);ok=got===f.value||got===f.value.slice(0,2);}
+    else ok=qsoCompact(n).includes(qsoCompact(f.value));
+    if(!ok){
+      qsoMiss(tr('qsoRepeatNeeded'));await qsoPlayText(`AGN PSE ${f.key} ${qsoTurn()}`);return;
+    }
+    qsoAcceptStep();
+    qsoComplete(`R R FB COPY ${u.name||u.call} TNX QSO 73 DE ${b.call} <SK>`);return;
+  }
+}
+function qsoHandleDecoded(ch){
+  if(!qsoOn||!qsoSession||qsoBotSending||qsoSession.state==='done')return;
+  qsoBuffer+=String(ch).replace(/[<>]/g,'');
+  qsoSetYou();
+  clearTimeout(qsoResponseTimer);
+  // Wait generously after the last decoded character before deciding the operator is done.
+  // This prevents the bot from interrupting normal CW pauses between fields.
+  const wait=Math.max(3200,wordGap()*2.8);
+  qsoResponseTimer=setTimeout(()=>qsoProcessResponse(),wait);
+}
+
+async function startQsoBot(){
+  if(qsoBotSending)stopQsoBot();
+  forceOnAirOff();forceRacerOff();
+  qsoOn=true;$("qsoBotToggle").checked=true;$("qsoBotPanel").classList.add('open');syncTrainingLocks();qsoClearBuffer();
+
+  const mode=$("qsoBotMode").value,bot=qsoBuildBot();
+  qsoSession={mode,bot,user:{call:'',rst:'',name:'',qth:'',skcc:'',key:'',rig:'',pwr:'',ant:''},state:'awaitCall',steps:0,repeats:0,repeatField:null};
+  $("qsoBotCall").textContent=`${bot.call} · ${mode.toUpperCase()}${qsoSmartEnabled&&qsoSmartPipe?' · AI':''}`;qsoUpdateMeta();
+  $("qsoBotMessage").classList.remove('complete');
+
+  if(mode==='pota')await qsoPlayText(`CQ POTA CQ POTA DE ${bot.call} ${bot.call} K`);
+  else if(mode==='skcc')await qsoPlayText(`CQ SKCC CQ SKCC DE ${bot.call} ${bot.call} K`);
+  else await qsoPlayText(`CQ CQ CQ DE ${bot.call} ${bot.call} K`);
+}
+function stopQsoBot(){
+  clearTimeout(qsoResponseTimer);qsoPlayToken++;qsoBotSending=false;
+  localToneOff();flash(false);symbols.textContent='';qsoSession=null;qsoClearBuffer();qsoSetStatus(tr('qsoStopped'));
+}
+function forceQsoOff(){
+  stopQsoBot();qsoOn=false;$("qsoBotToggle").checked=false;$("qsoBotPanel").classList.remove('open');syncTrainingLocks();
+}
+$("qsoBotToggle").onchange=e=>{
+  qsoOn=e.target.checked;
+  if(qsoOn){forceOnAirOff();forceRacerOff();$("qsoBotPanel").classList.add('open')}
+  else{stopQsoBot();$("qsoBotPanel").classList.remove('open')}
+  syncTrainingLocks();
+};
+$("qsoStartBtn").onclick=startQsoBot;
+$("qsoStopBtn").onclick=()=>{stopQsoBot();qsoSetStatus(tr('qsoStopped'))};
+$("qsoRepeatBtn").onclick=()=>{if(qsoOn&&qsoLastMessage&&!qsoBotSending)qsoPlayText(qsoLastMessage)};
+qsoUpdateMeta();
+// ================== END QSO BOT ==================
+
+
+applyLang();updateModeHint();updatePresenceUI();applyVisualAid();syncTrainingLocks();
 })();
+
+const qsoSmartToggle=document.getElementById('qsoSmartToggle');
+if(qsoSmartToggle)qsoSmartToggle.addEventListener('change',async()=>{
+  qsoSmartEnabled=qsoSmartToggle.checked;
+  if(!qsoSmartEnabled){qsoSmartStatus('off');return}
+  const ok=await qsoSmartLoad();
+  if(!ok){qsoSmartEnabled=false;qsoSmartToggle.checked=false;setTimeout(()=>qsoSmartStatus('off'),1200)}
+});
+
 </script>
 </body></html>
