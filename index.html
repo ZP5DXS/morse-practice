@@ -21,6 +21,46 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:1
 .mute-btn:hover{border-color:var(--accent)}
 .mute-btn.muted{opacity:.55}.channel-state{margin-top:8px;font-size:11px;font-weight:800}.channel-free{color:var(--good)}.channel-busy{color:var(--warn)}.beta-note{font-size:10px;line-height:1.35;color:var(--muted);margin-top:8px}.main{display:grid;gap:14px}.key-card,.practice-card{padding:13px}.key-head,.practice-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:9px}.key-head .title,.practice-head .title{font-weight:800;color:var(--accent2);font-size:12px;text-transform:uppercase;letter-spacing:.05em}.key-head .small{color:var(--muted);font-size:12px}.keyarea{min-height:380px;border:2px dashed color-mix(in srgb,var(--muted) 45%,transparent);border-radius:15px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;user-select:none;-webkit-user-select:none;touch-action:none;background:radial-gradient(circle at center,color-mix(in srgb,var(--accent) 5%,transparent),transparent 55%),var(--panel3);padding:28px;cursor:crosshair;outline:none;transition:.16s;position:relative;overflow:hidden}.keyarea:hover{border-color:color-mix(in srgb,var(--accent) 55%,var(--line))}.keyarea.active{border-style:solid;border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent),0 0 28px color-mix(in srgb,var(--accent) 15%,transparent)}.touch-zones{position:absolute;inset:0;display:none;pointer-events:none}.keyarea.paddle-touch .touch-zones{display:grid;grid-template-columns:1fr 1fr}.touch-zone{display:flex;align-items:flex-end;justify-content:center;padding:18px;font-size:13px;font-weight:900;opacity:.22}.touch-zone.dit{background:var(--accent)}.touch-zone.dah{background:var(--good)}.touch-zone.pressed{opacity:.38}.key-content{position:relative;z-index:2;pointer-events:none}.mouse-icon{width:78px;height:100px;border:3px solid var(--muted);border-radius:38px;position:relative;margin:0 auto 18px;opacity:.9}.mouse-icon::before{content:"";position:absolute;left:50%;top:0;bottom:50%;width:3px;background:var(--muted);transform:translateX(-50%)}.mouse-left,.mouse-right{position:absolute;top:4px;width:31px;height:39px}.mouse-left{left:5px;border-radius:28px 0 0 0;background:color-mix(in srgb,var(--accent) 75%,transparent)}.mouse-right{right:5px;border-radius:0 28px 0 0;background:color-mix(in srgb,var(--good) 75%,transparent)}.hero{font-size:22px;font-weight:800;margin-bottom:8px}.modehint{font-size:13px;color:var(--muted);margin-bottom:10px}.modehint .dit{color:var(--accent2);font-weight:800}.modehint .dah{color:var(--good);font-weight:800}.big{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:48px;font-weight:900;letter-spacing:9px;min-height:62px;margin:6px 0;color:var(--good)}.decoded{font-size:34px;min-height:44px;color:var(--accent2);font-weight:900}.status{margin-top:9px;font-size:12px;color:var(--muted)}.legend{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;color:var(--muted);font-size:12px;margin-top:16px}kbd{background:var(--panel2);border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:2px 6px;color:var(--text);font-size:11px}textarea{min-height:150px;resize:vertical;padding:16px;font:20px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace;outline:none}textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 14%,transparent)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.action{width:auto;border:1px solid var(--line);border-radius:9px;background:var(--panel2);color:var(--text);padding:9px 12px;font-size:12px;font-weight:700}.action.primary{background:var(--accent);border-color:var(--accent);color:#fff}.action.danger{border-color:color-mix(in srgb,var(--danger) 45%,var(--line))}.action:hover{border-color:var(--accent)}.play-status{margin-top:8px;font-size:11px;color:var(--muted)}.footer{text-align:center;color:var(--muted);font-size:11px;padding:14px 6px 4px}
 @media(max-width:900px){.layout{grid-template-columns:1fr}.config{position:static}}@media(max-width:620px){.app{padding:10px}.topbar{align-items:flex-start;flex-direction:column}.top-controls{width:100%;justify-content:space-between}.brand-logo{width:54px;height:54px}.brand h1{font-size:20px}.preset-row{grid-template-columns:repeat(3,1fr)}.keyarea{min-height:390px;padding:22px 12px}.mouse-icon{width:66px;height:86px}.hero{font-size:19px}.big{font-size:40px}.decoded{font-size:29px}.key-head{align-items:flex-start;flex-direction:column;gap:3px}}
+
+.cwracer-box{margin-top:18px;padding-top:15px;border-top:1px solid var(--line)}
+.cwracer-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cwracer-label{font-size:13px;font-weight:900;letter-spacing:.04em}
+.cwracer-label .flag{margin-right:5px}
+.cwracer-panel{display:none;margin-top:12px}
+.cwracer-panel.open{display:block}
+.racer-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:9px}
+.racer-tab{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:8px;padding:7px 3px;font-size:10px;font-weight:800}
+.racer-tab.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.racer-pane{display:none}
+.racer-pane.active{display:block}
+.racer-select{width:100%;padding:8px 9px;border:1px solid var(--line);border-radius:9px;background:var(--panel2);color:var(--text);margin-bottom:8px;font-size:11px}
+.racer-toggleline{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:7px 0;color:var(--muted);font-size:10px}
+.racer-stage{border:1px solid var(--line);border-radius:11px;background:var(--panel3);padding:11px;text-align:center}
+.racer-target{font:900 34px/1 ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--accent2);min-height:36px}
+.racer-code{font:900 20px/1.2 ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--good);letter-spacing:4px;min-height:24px;margin-top:7px}
+.racer-feedback{font-size:11px;font-weight:800;min-height:18px;margin-top:8px}
+.racer-feedback.green{color:var(--good)}.racer-feedback.yellow{color:var(--warn)}.racer-feedback.red{color:var(--danger)}
+.racer-meta{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin:8px 0;font-size:10px;color:var(--muted)}
+.racer-meta b{color:var(--text)}
+.racer-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.racer-actions .action{padding:7px 9px;font-size:10px;flex:1}
+.racer-progress{height:6px;border-radius:999px;background:var(--panel2);overflow:hidden;margin:8px 0}
+.racer-progress>span{display:block;height:100%;background:var(--accent);width:0}
+.stats-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;margin:8px 0}
+.stat-char{border:1px solid var(--line);border-radius:7px;padding:6px 2px;text-align:center;font:800 11px ui-monospace,SFMono-Regular,Consolas,monospace;background:var(--panel3)}
+.stat-char.green{border-color:color-mix(in srgb,var(--good) 55%,var(--line));color:var(--good)}
+.stat-char.yellow{border-color:color-mix(in srgb,var(--warn) 55%,var(--line));color:var(--warn)}
+.stat-char.red{border-color:color-mix(in srgb,var(--danger) 55%,var(--line));color:var(--danger)}
+.stat-char.none{color:var(--muted)}
+.stats-summary{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin:7px 0}
+.stats-summary div{border:1px solid var(--line);border-radius:8px;background:var(--panel3);padding:7px;text-align:center;font-size:9px;color:var(--muted)}
+.stats-summary b{display:block;font-size:14px;color:var(--text);margin-bottom:2px}
+.wr7q-section-buttons{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:8px}
+.wr7q-section-buttons button{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:7px;padding:7px 3px;font-size:9px;font-weight:800}
+.wr7q-section-buttons button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.wr7q-credit{font-size:9px;color:var(--muted);line-height:1.35;margin-top:7px}
+@media(max-width:900px){.cwracer-box{margin-top:14px}}
+
 </style>
 <script src="https://unpkg.com/mqtt@5.15.2/dist/mqtt.min.js"></script>
 </head>
@@ -49,6 +89,100 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:1
     <div class="onair-head"><div id="onAirLabel" class="onair-label"><span class="dot"></span>ON AIR <span style="font-size:9px;color:var(--muted)">BETA</span></div><label class="switch"><input id="onAirToggle" type="checkbox"><span></span></label></div>
     <div id="onAirPanel" class="onair-panel"><input id="operatorName" type="text" maxlength="30" placeholder="Nombre (opcional)"><input id="operatorCall" type="text" maxlength="16" placeholder="Indicativo (opcional)"><div id="channelState" class="channel-state channel-free">● Canal libre</div><div id="onlineList" class="online-list"><b>0</b> operadores en línea</div></div>
   </div>
+
+  <div class="cwracer-box">
+    <div class="cwracer-head">
+      <div id="cwRacerLabel" class="cwracer-label"><span class="flag">🏁</span>CW RACER</div>
+      <label class="switch"><input id="cwRacerToggle" type="checkbox"><span></span></label>
+    </div>
+    <div id="cwRacerPanel" class="cwracer-panel">
+      <div class="racer-tabs">
+        <button class="racer-tab active" data-racer-tab="learn" type="button" data-i18n="racerLearn">Learn</button>
+        <button class="racer-tab" data-racer-tab="race" type="button" data-i18n="racerRace">Race</button>
+        <button class="racer-tab" data-racer-tab="wr7q" type="button">Daily</button>
+        <button class="racer-tab" data-racer-tab="stats" type="button" data-i18n="racerStats">Stats</button>
+      </div>
+
+      <div id="racerPaneLearn" class="racer-pane active">
+        <select id="racerLearnSet" class="racer-select">
+          <option value="letters" data-i18n="racerLetters">Letras A–Z</option>
+          <option value="numbers" data-i18n="racerNumbers">Números 0–9</option>
+          <option value="punct" data-i18n="racerPunct">Signos</option>
+          <option value="prosigns" data-i18n="racerProsigns">Prosigns</option>
+          <option value="mixed" data-i18n="racerMixed">Mixto</option>
+        </select>
+        <div class="racer-toggleline"><span data-i18n="racerVoice">Voz opcional</span><label class="switch"><input id="racerVoiceToggle" type="checkbox"><span></span></label></div>
+        <div class="racer-stage">
+          <div id="learnTarget" class="racer-target">—</div>
+          <div id="learnCode" class="racer-code"></div>
+          <div id="learnFeedback" class="racer-feedback" data-i18n="racerReady">Activa una lección para comenzar</div>
+          <div class="racer-meta"><span>⭐ <b id="learnScore">0</b></span><span>🟢 <b id="learnGreen">0</b></span><span>🟡 <b id="learnYellow">0</b></span><span>🔴 <b id="learnRed">0</b></span></div>
+        </div>
+        <div class="racer-actions">
+          <button id="learnStartBtn" class="action primary" type="button" data-i18n="racerStart">Comenzar</button>
+          <button id="learnHearBtn" class="action" type="button">🔊 CW</button>
+          <button id="learnNextBtn" class="action" type="button" data-i18n="racerNext">Siguiente</button>
+        </div>
+      </div>
+
+      <div id="racerPaneRace" class="racer-pane">
+        <select id="racerRaceSet" class="racer-select">
+          <option value="letters" data-i18n="racerLetters">Letras A–Z</option>
+          <option value="numbers" data-i18n="racerNumbers">Números 0–9</option>
+          <option value="punct" data-i18n="racerPunct">Signos</option>
+          <option value="prosigns" data-i18n="racerProsigns">Prosigns</option>
+          <option value="mixed" data-i18n="racerMixed">Mixto</option>
+        </select>
+        <select id="racerRaceLength" class="racer-select">
+          <option value="20">20</option><option value="50" selected>50</option><option value="100">100</option>
+        </select>
+        <div class="racer-stage">
+          <div id="raceTarget" class="racer-target">—</div>
+          <div id="raceFeedback" class="racer-feedback" data-i18n="racerReady">Activa una carrera para comenzar</div>
+          <div class="racer-meta"><span>⭐ <b id="raceScore">0</b></span><span>🔥 <b id="raceStreak">0</b></span><span>🏁 <b id="raceProgressText">0/50</b></span></div>
+          <div class="racer-progress"><span id="raceProgressBar"></span></div>
+        </div>
+        <div class="racer-actions">
+          <button id="raceStartBtn" class="action primary" type="button" data-i18n="racerStartRace">Iniciar carrera</button>
+        </div>
+      </div>
+
+      <div id="racerPaneWr7q" class="racer-pane">
+        <div class="wr7q-section-buttons">
+          <button class="active" data-wr7q-section="warmup" type="button">Warm Up</button>
+          <button data-wr7q-section="exercise" type="button">Exercise</button>
+          <button data-wr7q-section="drill" type="button">Drill</button>
+        </div>
+        <div class="racer-stage">
+          <div id="wr7qTarget" class="racer-target" style="font-size:23px">—</div>
+          <div id="wr7qSub" class="racer-code" style="font-size:13px;letter-spacing:2px"></div>
+          <div id="wr7qFeedback" class="racer-feedback" data-i18n="racerReady">Selecciona una sección</div>
+          <div class="racer-meta"><span>📍 <b id="wr7qProgress">0/0</b></span><span>↻ <b id="wr7qRestarts">0</b></span></div>
+          <div class="racer-progress"><span id="wr7qProgressBar"></span></div>
+        </div>
+        <div class="racer-actions">
+          <button id="wr7qStartBtn" class="action primary" type="button" data-i18n="racerStart">Comenzar</button>
+          <button id="wr7qHearBtn" class="action" type="button">🔊 CW</button>
+        </div>
+        <div class="wr7q-credit">Exercise by WR7Q</div>
+      </div>
+
+      <div id="racerPaneStats" class="racer-pane">
+        <div class="stats-summary">
+          <div><b id="statsSessions">0</b><span data-i18n="racerSessions">Sesiones</span></div>
+          <div><b id="statsAttempts">0</b><span data-i18n="racerAttempts">Intentos</span></div>
+          <div><b id="statsBestScore">0</b><span data-i18n="racerBestScore">Mejor score</span></div>
+          <div><b id="statsBestStreak">0</b><span data-i18n="racerBestStreak">Mejor racha</span></div>
+        </div>
+        <div id="statsGrid" class="stats-grid"></div>
+        <div class="racer-actions">
+          <button id="learnMistakesBtn" class="action primary" type="button">🧠 <span data-i18n="racerMistakes">Aprende de tus errores</span></button>
+          <button id="resetStatsBtn" class="action danger" type="button" data-i18n="racerReset">Resetear estadísticas</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </aside>
 <main class="main">
 <section class="card key-card"><div class="key-head"><div class="title" data-i18n="keyArea">Área de manipulación</div><div id="captureHelp" class="small" data-i18n="captureHelp">Mouse, teclado, touch o adaptador USB</div></div>
@@ -61,7 +195,7 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:1
 (()=>{
 const MORSE={".-":"A","-...":"B","-.-.":"C","-..":"D",".":"E","..-.":"F","--.":"G","....":"H","..":"I",".---":"J","-.-":"K",".-..":"L","--":"M","-.":"N","---":"O",".--.":"P","--.-":"Q",".-.":"R","...":"S","-":"T","..-":"U","...-":"V",".--":"W","-..-":"X","-.--":"Y","--..":"Z","-----":"0",".----":"1","..---":"2","...--":"3","....-":"4",".....":"5","-....":"6","--...":"7","---..":"8","----.":"9",".-.-.-":".","--..--":",","..--..":"?","-..-.":"/","-....-":"-",".--.-.":"@",".----.":"'","-.-.--":"!","-.--.":"(","-.--.-":")","---...":":","-.-.-.":";",".-..-.":"\"","..--.-":"_","...-..-":"$",".-.-.":"<AR>","-...-":"<BT>","...-.-":"<SK>",".-...":"<AS>","...---...":"<SOS>"};
 const REVERSE={};for(const [code,ch] of Object.entries(MORSE)){if(!ch.startsWith('<')&&!REVERSE[ch])REVERSE[ch]=code;}Object.assign(REVERSE,{"=":"-...-","+":".-.-."});
-const I18N={es:{subtitle:"Práctica de Código Morse",courtesy:"Cortesía de",instructions:"Instrucciones",settings:"Configuración",mode:"Modo",straight:"Llave recta",paddle:"Paleta",speed:"Velocidad",tone:"Tono",volume:"Volumen",oscAudio:"Audio del oscilador",visualAid:"Ayuda visual",visualAidHelp:"Mostrar puntos y rayas",wordSpacing:"Espaciado de palabras",keyArea:"Área de manipulación",captureHelp:"Mouse, teclado, touch o adaptador USB",hero:"Haz clic, toca la pantalla o usa tu adaptador",esc:"libera el mouse",space:"llave recta",clear:"limpiar",text:"Texto / Decoder",bidirectional:"Bidireccional: escribe o manipula",playCW:"Reproducir CW",stop:"Detener",clearBtn:"Limpiar",last:"Último",copy:"Copiar",save:"Guardar TXT",betaNote:"Sala mundial experimental. La identidad es opcional y los eventos de manipulación viajan por un relay público.",straightHint:"Llave recta · mouse, SPACE o toda la superficie táctil",paddleHint:"Paleta · izquierda DIT (.) · derecha DAH (-)",idle:"Listo · clic para capturar mouse o toca la superficie",active:"Activo · mouse capturado · ESC libera",touchReady:"Touch activo · levanta el dedo para cortar",free:"● Canal libre",busy:"● Canal ocupado",online:"operadores en línea",connecting:"Conectando…",onair:"ON AIR conectado",copied:"Copiado",playing:"Reproduciendo",stopped:"Detenido",anonymous:"Anónimo",countries:"países",you:"tú",mute:"Silenciar",unmute:"Escuchar"},en:{subtitle:"Morse Code Practice",courtesy:"Courtesy of",instructions:"Instructions",settings:"Settings",mode:"Mode",straight:"Straight Key",paddle:"Paddle",speed:"Speed",tone:"Tone",volume:"Volume",oscAudio:"Oscillator audio",visualAid:"Visual aid",visualAidHelp:"Show dots and dashes",wordSpacing:"Word spacing",keyArea:"Keying Area",captureHelp:"Mouse, keyboard, touch or USB adapter",hero:"Click, touch the screen or use your adapter",esc:"releases mouse",space:"straight key",clear:"clear",text:"Text / Decoder",bidirectional:"Bidirectional: type or key",playCW:"Play CW",stop:"Stop",clearBtn:"Clear",last:"Last",copy:"Copy",save:"Save TXT",betaNote:"Experimental global room. Identity is optional and keying events travel through a public relay.",straightHint:"Straight key · mouse, SPACE or the whole touch surface",paddleHint:"Paddle · left DIT (.) · right DAH (-)",idle:"Ready · click to capture mouse or touch the surface",active:"Active · mouse captured · ESC releases",touchReady:"Touch active · lift your finger to release",free:"● Channel free",busy:"● Channel busy",online:"operators online",connecting:"Connecting…",onair:"ON AIR connected",copied:"Copied",playing:"Playing",stopped:"Stopped",anonymous:"Anonymous",countries:"countries",you:"you",mute:"Mute",unmute:"Listen"}};
+const I18N={es:{subtitle:"Práctica de Código Morse",courtesy:"Cortesía de",instructions:"Instrucciones",settings:"Configuración",mode:"Modo",straight:"Llave recta",paddle:"Paleta",speed:"Velocidad",tone:"Tono",volume:"Volumen",oscAudio:"Audio del oscilador",visualAid:"Ayuda visual",visualAidHelp:"Mostrar puntos y rayas",wordSpacing:"Espaciado de palabras",keyArea:"Área de manipulación",captureHelp:"Mouse, teclado, touch o adaptador USB",hero:"Haz clic, toca la pantalla o usa tu adaptador",esc:"libera el mouse",space:"llave recta",clear:"limpiar",text:"Texto / Decoder",bidirectional:"Bidireccional: escribe o manipula",playCW:"Reproducir CW",stop:"Detener",clearBtn:"Limpiar",last:"Último",copy:"Copiar",save:"Guardar TXT",betaNote:"Sala mundial experimental. La identidad es opcional y los eventos de manipulación viajan por un relay público.",straightHint:"Llave recta · mouse, SPACE o toda la superficie táctil",paddleHint:"Paleta · izquierda DIT (.) · derecha DAH (-)",idle:"Listo · clic para capturar mouse o toca la superficie",active:"Activo · mouse capturado · ESC libera",touchReady:"Touch activo · levanta el dedo para cortar",free:"● Canal libre",busy:"● Canal ocupado",online:"operadores en línea",connecting:"Conectando…",onair:"ON AIR conectado",copied:"Copiado",playing:"Reproduciendo",stopped:"Detenido",anonymous:"Anónimo",countries:"países",you:"tú",mute:"Silenciar",unmute:"Escuchar",racerLearn:"Learn",racerRace:"Race",racerStats:"Stats",racerLetters:"Letras A–Z",racerNumbers:"Números 0–9",racerPunct:"Signos",racerProsigns:"Prosigns",racerMixed:"Mixto",racerVoice:"Voz opcional",racerReady:"Listo para comenzar",racerStart:"Comenzar",racerNext:"Siguiente",racerStartRace:"Iniciar carrera",racerSessions:"Sesiones",racerAttempts:"Intentos",racerBestScore:"Mejor score",racerBestStreak:"Mejor racha",racerMistakes:"Aprende de tus errores",racerReset:"Resetear estadísticas",racerCorrect:"Correcto",racerImperfect:"Correcto, pero mejora el timing",racerWrong:"Incorrecto",racerAgain:"Repite",racerFinished:"¡Completado!",racerFinalScore:"Puntaje final",racerBestSimilar:"Mejor carrera similar",racerNoWeak:"Todavía no hay suficientes errores para crear una lección adaptativa",racerResetConfirm:"¿Seguro que quieres borrar todas las estadísticas de CW Racer?",racerTransmit:"Transmítelo",racerListenRepeat:"Escucha y repite",racerRestartUnit:"Error: repite la unidad desde el comienzo",},en:{subtitle:"Morse Code Practice",courtesy:"Courtesy of",instructions:"Instructions",settings:"Settings",mode:"Mode",straight:"Straight Key",paddle:"Paddle",speed:"Speed",tone:"Tone",volume:"Volume",oscAudio:"Oscillator audio",visualAid:"Visual aid",visualAidHelp:"Show dots and dashes",wordSpacing:"Word spacing",keyArea:"Keying Area",captureHelp:"Mouse, keyboard, touch or USB adapter",hero:"Click, touch the screen or use your adapter",esc:"releases mouse",space:"straight key",clear:"clear",text:"Text / Decoder",bidirectional:"Bidirectional: type or key",playCW:"Play CW",stop:"Stop",clearBtn:"Clear",last:"Last",copy:"Copy",save:"Save TXT",betaNote:"Experimental global room. Identity is optional and keying events travel through a public relay.",straightHint:"Straight key · mouse, SPACE or the whole touch surface",paddleHint:"Paddle · left DIT (.) · right DAH (-)",idle:"Ready · click to capture mouse or touch the surface",active:"Active · mouse captured · ESC releases",touchReady:"Touch active · lift your finger to release",free:"● Channel free",busy:"● Channel busy",online:"operators online",connecting:"Connecting…",onair:"ON AIR connected",copied:"Copied",playing:"Playing",stopped:"Stopped",anonymous:"Anonymous",countries:"countries",you:"you",mute:"Mute",unmute:"Listen",racerLearn:"Learn",racerRace:"Race",racerStats:"Stats",racerLetters:"Letters A–Z",racerNumbers:"Numbers 0–9",racerPunct:"Punctuation",racerProsigns:"Prosigns",racerMixed:"Mixed",racerVoice:"Optional voice",racerReady:"Ready to start",racerStart:"Start",racerNext:"Next",racerStartRace:"Start race",racerSessions:"Sessions",racerAttempts:"Attempts",racerBestScore:"Best score",racerBestStreak:"Best streak",racerMistakes:"Learn from my mistakes",racerReset:"Reset statistics",racerCorrect:"Correct",racerImperfect:"Correct, but improve your timing",racerWrong:"Wrong",racerAgain:"Repeat",racerFinished:"Completed!",racerFinalScore:"Final score",racerBestSimilar:"Best similar race",racerNoWeak:"There are not enough weak characters yet to build an adaptive lesson",racerResetConfirm:"Are you sure you want to erase all CW Racer statistics?",racerTransmit:"Transmit it",racerListenRepeat:"Listen and repeat",racerRestartUnit:"Error: restart the unit from the beginning",}};
 const $=id=>document.getElementById(id),keyarea=$("keyarea"),symbols=$("symbols"),decoded=$("decoded"),practice=$("practice"),status=$("status"),mode=$("mode"),wpm=$("wpm"),tone=$("tone"),volume=$("volume"),sidetone=$("sidetoneToggle"),visualAid=$("visualAidToggle"),spacing=$("wordSpacing");
 let lang=localStorage.getItem('cw-lang')||'es'; const tr=k=>I18N[lang][k]||k;
 let visualAidEnabled=localStorage.getItem('cw-visual-aid')==='on';
@@ -110,14 +244,14 @@ function destroyRemoteCarrier(){
   remoteOsc=remoteGain=null;
 }
 const dotMs=()=>1200/Math.max(5,+wpm.value||15),charGap=()=>dotMs()*3,wordGap=()=>dotMs()*(+spacing.value||7),sleep=ms=>new Promise(r=>setTimeout(r,ms));
-let downAt=0,current='',charTimer=null,wordTimer=null,leftHeld=false,rightHeld=false,iambicRunning=false,lastIambic='-',active=false,playToken=0;const touchPointers=new Map();
+let downAt=0,current='',charTimer=null,wordTimer=null,leftHeld=false,rightHeld=false,iambicRunning=false,lastIambic='-',active=false,playToken=0,currentDurations=[];const touchPointers=new Map();
 function flash(on){keyarea.classList.toggle('active',!!on)}
-function scheduleDecode(){clearTimeout(charTimer);clearTimeout(wordTimer);charTimer=setTimeout(()=>{if(!current)return;const ch=MORSE[current]||`[${current}]`;decoded.textContent=ch;practice.value+=ch;current='';symbols.textContent='';practice.scrollTop=practice.scrollHeight;wordTimer=setTimeout(()=>{if(practice.value&&!practice.value.endsWith(' '))practice.value+=' '},Math.max(10,wordGap()-charGap()))},charGap())}
+function scheduleDecode(){clearTimeout(charTimer);clearTimeout(wordTimer);charTimer=setTimeout(()=>{if(!current)return;const code=current,durations=currentDurations.slice(),raw=MORSE[code]||`[${code}]`,ch=raw==='<AR>'?'AR':(raw==='='||raw==='<BT>'?'BT':raw);decoded.textContent=ch;practice.value+=ch;if(typeof racerHandleDecoded==='function')racerHandleDecoded(ch,code,durations);current='';currentDurations=[];symbols.textContent='';practice.scrollTop=practice.scrollHeight;wordTimer=setTimeout(()=>{if(practice.value&&!practice.value.endsWith(' '))practice.value+=' '},Math.max(10,wordGap()-charGap()))},charGap())}
 function addElement(s){current+=s;symbols.textContent=current;scheduleDecode()}
 function canTransmit(){return !onAir||!remoteBusy}
 function straightDown(source='local'){if(downAt||!canTransmit())return;clearTimeout(charTimer);clearTimeout(wordTimer);downAt=performance.now();localToneOn();flash(true);if(onAir)publishKey('down')}
-function straightUp(){if(!downAt)return;const dur=performance.now()-downAt;downAt=0;localToneOff();flash(false);if(onAir)publishKey('up',dur);addElement(dur<dotMs()*2?'.':'-')}
-async function sendTimed(s){if(!canTransmit())return;clearTimeout(charTimer);clearTimeout(wordTimer);const elementMs=s==='.'?dotMs():dotMs()*3;localToneOn();flash(true);if(onAir)publishKey('down');await sleep(elementMs);localToneOff();flash(false);if(onAir)publishKey('up',elementMs);addElement(s);await sleep(dotMs())}
+function straightUp(){if(!downAt)return;const dur=performance.now()-downAt;downAt=0;localToneOff();flash(false);if(onAir)publishKey('up',dur);currentDurations.push(dur);addElement(dur<dotMs()*2?'.':'-')}
+async function sendTimed(s){if(!canTransmit())return;clearTimeout(charTimer);clearTimeout(wordTimer);const elementMs=s==='.'?dotMs():dotMs()*3;localToneOn();flash(true);if(onAir)publishKey('down');await sleep(elementMs);localToneOff();flash(false);if(onAir)publishKey('up',elementMs);currentDurations.push(elementMs);addElement(s);await sleep(dotMs())}
 async function iambicLoop(){if(iambicRunning)return;iambicRunning=true;while(leftHeld||rightHeld){let s;if(leftHeld&&rightHeld)s=lastIambic==='.'?'-':'.';else s=leftHeld?'.':'-';lastIambic=s;await sendTimed(s)}iambicRunning=false}
 function updateModeHint(){keyarea.classList.toggle('paddle-touch',mode.value!=='straight');$("modeHint").innerHTML=mode.value==='straight'?tr('straightHint'):`<span class="dit">${lang==='es'?'Izquierda':'Left'} = DIT (.)</span> · <span class="dah">${lang==='es'?'Derecha':'Right'} = DAH (-)</span>`;document.querySelectorAll('.seg-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode.value));status.textContent=tr('idle')}
 function activateMouse(){if(active)return;active=true;keyarea.focus();ensureAudio();status.textContent=tr('active');if(keyarea.requestPointerLock)try{keyarea.requestPointerLock()}catch{}}
@@ -133,8 +267,8 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){deactivate();return
 function tokensFromText(txt){const out=[];for(let i=0;i<txt.length;){if(txt[i]==='<'){const j=txt.indexOf('>',i);if(j>i){const token=txt.slice(i,j+1).toUpperCase();const code=Object.entries(MORSE).find(([,v])=>v===token)?.[0];if(code){out.push({type:'code',code,label:token});i=j+1;continue}}}const ch=txt[i].toUpperCase();if(/\s/.test(ch))out.push({type:'space'});else if(REVERSE[ch])out.push({type:'code',code:REVERSE[ch],label:ch});i++}return out}
 async function playText(){const token=++playToken;ensureAudio();$("playStatus").textContent=tr('playing')+'…';const items=tokensFromText(practice.value);for(const item of items){if(token!==playToken)break;if(item.type==='space'){await sleep(wordGap());continue}decoded.textContent=item.label;symbols.textContent=item.code;for(const s of item.code){if(token!==playToken)break;localToneOn();flash(true);await sleep(s==='.'?dotMs():dotMs()*3);localToneOff();flash(false);await sleep(dotMs())}symbols.textContent='';await sleep(Math.max(0,charGap()-dotMs()))}if(token===playToken)$("playStatus").textContent=tr('stopped');localToneOff();flash(false)}
 $("playBtn").onclick=playText;$("stopBtn").onclick=()=>{playToken++;localToneOff();flash(false);$("playStatus").textContent=tr('stopped')};$("clearBtn").onclick=()=>{practice.value='';current='';symbols.textContent='';decoded.textContent=''};$("backspace").onclick=()=>practice.value=practice.value.slice(0,-1);$("copyBtn").onclick=async()=>{try{await navigator.clipboard.writeText(practice.value)}catch{practice.select();document.execCommand('copy')}const b=$("copyBtn"),old=b.textContent;b.textContent=tr('copied');setTimeout(()=>b.textContent=old,900)};$("saveBtn").onclick=()=>{const blob=new Blob([practice.value],{type:'text/plain;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='cw-practice.txt';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)};
-tone.oninput=()=>{$("toneValue").textContent=tone.value;if(osc)osc.frequency.value=+tone.value;if(remoteOsc)remoteOsc.frequency.value=+tone.value};volume.oninput=()=>{$("volumeValue").textContent=Math.round(+volume.value*100);if(gain)gain.gain.value=+volume.value;if(remoteGain)remoteGain.gain.value=+volume.value};wpm.oninput=()=>$("wpmValue").textContent=wpm.value;spacing.oninput=()=>$("spacingValue").textContent=spacing.value;sidetone.onchange=()=>{if(!sidetone.checked)localToneOff()};mode.onchange=()=>{deactivate();touchPointers.clear();leftHeld=rightHeld=false;current='';symbols.textContent='';updateModeHint()};document.querySelectorAll('.seg-btn').forEach(b=>b.onclick=()=>{mode.value=b.dataset.mode;mode.dispatchEvent(new Event('change'))});document.querySelectorAll('.preset[data-wpm]').forEach(b=>b.onclick=()=>{wpm.value=b.dataset.wpm;wpm.dispatchEvent(new Event('input'))});document.querySelectorAll('.tone-preset').forEach(b=>b.onclick=()=>{tone.value=b.dataset.tone;tone.dispatchEvent(new Event('input'))});
-const root=document.documentElement,savedTheme=localStorage.getItem('cw-theme')||'dark';root.dataset.theme=savedTheme;$("themeToggle").classList.toggle('on',savedTheme==='dark');$("themeToggle").onclick=()=>{root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';localStorage.setItem('cw-theme',root.dataset.theme);$("themeToggle").classList.toggle('on',root.dataset.theme==='dark')};$("langToggle").onclick=()=>{lang=lang==='es'?'en':'es';localStorage.setItem('cw-lang',lang);applyLang()};
+tone.oninput=()=>{$("toneValue").textContent=tone.value;if(osc)osc.frequency.value=+tone.value;if(remoteOsc)remoteOsc.frequency.value=+tone.value};volume.oninput=()=>{$("volumeValue").textContent=Math.round(+volume.value*100);if(gain)gain.gain.value=+volume.value;if(remoteGain)remoteGain.gain.value=+volume.value};wpm.oninput=()=>$("wpmValue").textContent=wpm.value;spacing.oninput=()=>$("spacingValue").textContent=spacing.value;sidetone.onchange=()=>{if(!sidetone.checked)localToneOff()};mode.onchange=()=>{deactivate();touchPointers.clear();leftHeld=rightHeld=false;current='';currentDurations=[];symbols.textContent='';updateModeHint()};document.querySelectorAll('.seg-btn').forEach(b=>b.onclick=()=>{mode.value=b.dataset.mode;mode.dispatchEvent(new Event('change'))});document.querySelectorAll('.preset[data-wpm]').forEach(b=>b.onclick=()=>{wpm.value=b.dataset.wpm;wpm.dispatchEvent(new Event('input'))});document.querySelectorAll('.tone-preset').forEach(b=>b.onclick=()=>{tone.value=b.dataset.tone;tone.dispatchEvent(new Event('input'))});
+const root=document.documentElement,savedTheme=localStorage.getItem('cw-theme')||'dark';root.dataset.theme=savedTheme;$("themeToggle").classList.toggle('on',savedTheme==='dark');$("themeToggle").onclick=()=>{root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';localStorage.setItem('cw-theme',root.dataset.theme);$("themeToggle").classList.toggle('on',root.dataset.theme==='dark')};$("langToggle").onclick=()=>{lang=lang==='es'?'en':'es';localStorage.setItem('cw-lang',lang);applyLang();renderRacerStats();};
 // ON AIR beta: public EMQX MQTT-over-WebSocket relay.
 const ROOM='zp5dxs/morse-practice/global-v1',
 clientId='mp_'+crypto.getRandomValues(new Uint32Array(2)).join('_'),
@@ -437,6 +571,330 @@ for(const id of ["operatorName","operatorCall"]){
 }
 
 window.addEventListener('beforeunload',()=>{if(onAir)publishPresence('leave')});
+
+// ==================== CW RACER (local-only module) ====================
+const RACER_STORAGE='cw-racer-v1';
+const RACER_SETS={
+  letters:'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''),
+  numbers:'0123456789'.split(''),
+  punct:['.','?',',','/'],
+  prosigns:['AR','BT','<SK>','<AS>','<SOS>']
+};
+RACER_SETS.mixed=[...RACER_SETS.letters,...RACER_SETS.numbers,...RACER_SETS.punct,...RACER_SETS.prosigns];
+
+const WR7Q={
+  warmup:[
+    'EEEEE','TTTTT','IIIII','MMMMM','SSSSS','OOOOO','HHHHH','00000','55555',
+    'AAAAA','NNNNN','UUUUU','DDDDD','VVVVV','BBBBB','44444','66666',
+    'ABCDEF','GHIJK','LMNOP','QRSTU','VWXYZ','12345','67890',
+    '/ ',',','.','?','<SK>','AR','BT',
+    'THE','QUICK','BROWN','FOX','JUMPED','OVER','THE','LAZY','DOGS','BACK','7','0','3','6','4','5','1','2','8','9'
+  ],
+  exercise:[
+    'AAAAA','BBBBB','CCCCC','DDDDD','EEEEE','FFFFF','GGGGG','HHHHH','IIIII','JJJJJ',
+    'KKKKK','LLLLL','MMMMM','NNNNN','OOOOO','PPPPP','QQQQQ','RRRRR',
+    'SSSSS','TTTTT','UUUUU','VVVVV','WWWWW','XXXXX','YYYYY','ZZZZZ',
+    '11111','22222','33333','44444','55555','66666','77777','88888','99999','00000'
+  ],
+  drill:[
+    'THE','QUICK','BROWN','FOX','JUMPED','OVER','THE','LAZY','DOGS','BACK','7','0','3','6','4','5','1','2','8','9',
+    'THE','QUICK','BROWN','FOX','JUMPED','OVER','THE','LAZY','DOGS','BACK','7','0','3','6','4','5','1','2','8','9',
+    'BENS','BEST','BENT','WIRE/5','BENS','BEST','BENT','WIRE/5','BENS','BEST','BENT','WIRE/5',
+    '/','/','/','/','/',',',',',',',',',',','.','.','.','.','.','?','?','?','?','?',
+    '<SK>','AR','BT'
+  ]
+};
+
+function racerDefaultStats(){
+  return {chars:{},sessions:0,attempts:0,bestScore:0,bestStreak:0,raceBests:{},lastMode:null};
+}
+let racerStats=racerDefaultStats();
+try{
+  const saved=JSON.parse(localStorage.getItem(RACER_STORAGE)||'null');
+  if(saved&&typeof saved==='object')racerStats={...racerDefaultStats(),...saved,chars:saved.chars||{},raceBests:saved.raceBests||{}};
+}catch{}
+function saveRacerStats(){localStorage.setItem(RACER_STORAGE,JSON.stringify(racerStats))}
+function racerStatKey(ch){return String(ch).toUpperCase()}
+function recordRacer(ch,points){
+  const k=racerStatKey(ch),s=racerStats.chars[k]||{attempts:0,points:0,green:0,yellow:0,red:0};
+  s.attempts++;s.points+=points;
+  if(points===1)s.green++;else if(points===.5)s.yellow++;else s.red++;
+  racerStats.chars[k]=s;racerStats.attempts++;saveRacerStats();
+}
+function racerLevel(ch){
+  const s=racerStats.chars[racerStatKey(ch)];
+  if(!s||!s.attempts)return 'none';
+  const avg=s.points/s.attempts;
+  if(avg>=.85)return 'green';
+  if(avg>=.55)return 'yellow';
+  return 'red';
+}
+function racerCodeFor(ch){
+  if(ch==='AR')return '.-.-.';
+  if(ch==='BT')return '-...-';
+  if(ch.startsWith('<'))return Object.entries(MORSE).find(([,v])=>v===ch)?.[0]||'';
+  return REVERSE[ch]||Object.entries(MORSE).find(([,v])=>v===ch)?.[0]||'';
+}
+function racerTokens(unit){
+  const whole=String(unit).toUpperCase();
+  if(whole==='AR')return ['AR'];
+  if(whole==='BT')return ['BT'];
+  const out=[];
+  for(let i=0;i<unit.length;){
+    if(unit[i]==='<'){
+      const j=unit.indexOf('>',i);
+      if(j>i){out.push(unit.slice(i,j+1).toUpperCase());i=j+1;continue}
+    }
+    if(unit[i]!==' ')out.push(unit[i].toUpperCase());
+    i++;
+  }
+  return out;
+}
+function timingGrade(code,durations){
+  if(!durations||durations.length!==code.length||!code.length)return 'green';
+  const d=dotMs();
+  let total=0,maxErr=0;
+  for(let i=0;i<code.length;i++){
+    const expected=code[i]==='.'?d:d*3;
+    const err=Math.abs(durations[i]-expected)/expected;
+    total+=err;maxErr=Math.max(maxErr,err);
+  }
+  const avg=total/code.length;
+  return avg<=.32&&maxErr<=.52?'green':'yellow';
+}
+function setFeedback(id,kind,text){
+  const el=$(id);el.className='racer-feedback '+(kind||'');el.textContent=text;
+}
+async function racerPlayCode(ch){
+  const code=racerCodeFor(ch);if(!code)return;
+  ensureAudio();
+  for(const s of code){
+    localToneOn();flash(true);
+    await sleep(s==='.'?dotMs():dotMs()*3);
+    localToneOff();flash(false);
+    await sleep(dotMs());
+  }
+}
+function racerSpeak(ch){
+  if(!$("racerVoiceToggle").checked||!('speechSynthesis'in window))return;
+  try{
+    speechSynthesis.cancel();
+    const spoken=ch.startsWith('<')?ch.slice(1,-1):ch;
+    const u=new SpeechSynthesisUtterance(spoken);
+    u.lang=lang==='es'?'es-ES':'en-US';
+    u.rate=.85;
+    speechSynthesis.speak(u);
+  }catch{}
+}
+function randomFrom(arr){return arr[Math.floor(Math.random()*arr.length)]}
+function setFor(name){return RACER_SETS[name]||RACER_SETS.letters}
+
+let racerOn=false,racerTab='learn';
+let learn={active:false,target:null,score:0,green:0,yellow:0,red:0,focusPool:null};
+let race={active:false,target:null,score:0,streak:0,bestStreak:0,index:0,total:50,queue:[],setName:'letters',wpm:15};
+let wr7q={active:false,section:'warmup',unitIndex:0,tokenIndex:0,restarts:0};
+
+function racerSetTab(tab){
+  racerTab=tab;
+  document.querySelectorAll('.racer-tab').forEach(b=>b.classList.toggle('active',b.dataset.racerTab===tab));
+  ['learn','race','wr7q','stats'].forEach(t=>$(('racerPane'+(t==='wr7q'?'Wr7q':t[0].toUpperCase()+t.slice(1)))).classList.toggle('active',t===tab));
+  if(tab==='stats')renderRacerStats();
+}
+document.querySelectorAll('.racer-tab').forEach(b=>b.onclick=()=>racerSetTab(b.dataset.racerTab));
+
+$("cwRacerToggle").onchange=e=>{
+  racerOn=e.target.checked;
+  $("cwRacerPanel").classList.toggle('open',racerOn);
+  if(!racerOn){learn.active=false;race.active=false;wr7q.active=false}
+};
+
+function nextLearnTarget(){
+  const pool=learn.focusPool?.length?learn.focusPool:setFor($("racerLearnSet").value);
+  learn.target=randomFrom(pool);
+  $("learnTarget").textContent=learn.target;
+  $("learnCode").textContent=racerCodeFor(learn.target);
+  setFeedback('learnFeedback','',tr('racerTransmit'));
+  racerSpeak(learn.target);
+  setTimeout(()=>{if(learn.active)racerPlayCode(learn.target)},120);
+}
+function startLearn(focusPool=null){
+  racerOn=true;$("cwRacerToggle").checked=true;$("cwRacerPanel").classList.add('open');racerSetTab('learn');
+  learn={active:true,target:null,score:0,green:0,yellow:0,red:0,focusPool};
+  racerStats.sessions++;racerStats.lastMode='learn';saveRacerStats();
+  updateLearnMeta();nextLearnTarget();
+}
+function updateLearnMeta(){
+  $("learnScore").textContent=learn.score.toFixed(1).replace('.0','');
+  $("learnGreen").textContent=learn.green;$("learnYellow").textContent=learn.yellow;$("learnRed").textContent=learn.red;
+}
+$("learnStartBtn").onclick=()=>startLearn(null);
+$("learnNextBtn").onclick=()=>{if(learn.active)nextLearnTarget()};
+$("learnHearBtn").onclick=()=>{if(learn.target)racerPlayCode(learn.target)};
+
+function buildRaceQueue(setName,total){
+  const pool=setFor(setName),q=[];
+  for(let i=0;i<total;i++)q.push(randomFrom(pool));
+  return q;
+}
+function raceBestKey(){
+  return `${race.setName}:${race.total}:${race.wpm}`;
+}
+function finishRace(){
+  if(!race.active)return;
+  race.active=false;
+  race.target=null;
+  const key=raceBestKey();
+  const previous=Number(racerStats.raceBests[key]||0);
+  const best=Math.max(previous,race.score);
+  racerStats.raceBests[key]=best;
+  racerStats.bestScore=Math.max(racerStats.bestScore,race.score);
+  racerStats.bestStreak=Math.max(racerStats.bestStreak,race.bestStreak);
+  saveRacerStats();
+  $("raceTarget").textContent='🏁';
+  $("raceProgressBar").style.width='100%';
+  $("raceProgressText").textContent=`${race.total}/${race.total}`;
+  setFeedback('raceFeedback','green',`${tr('racerFinalScore')}: ${race.score.toFixed(1).replace('.0','')} / ${race.total} · ${tr('racerBestSimilar')}: ${best.toFixed(1).replace('.0','')} / ${race.total}`);
+  renderRacerStats();
+}
+function nextRaceTarget(){
+  if(race.index>=race.total){
+    finishRace();
+    return;
+  }
+  race.target=race.queue[race.index];
+  $("raceTarget").textContent=race.target;
+  setFeedback('raceFeedback','',tr('racerTransmit'));
+  updateRaceMeta();
+}
+function updateRaceMeta(){
+  $("raceScore").textContent=race.score.toFixed(1).replace('.0','');
+  $("raceStreak").textContent=race.streak;
+  $("raceProgressText").textContent=`${race.index}/${race.total}`;
+  $("raceProgressBar").style.width=`${Math.min(100,(race.index/race.total)*100)}%`;
+}
+function startRace(){
+  const total=+$("racerRaceLength").value||50;
+  const setName=$("racerRaceSet").value;
+  race={active:true,target:null,score:0,streak:0,bestStreak:0,index:0,total,queue:buildRaceQueue(setName,total),setName,wpm:+wpm.value};
+  racerStats.sessions++;racerStats.lastMode='race';saveRacerStats();
+  nextRaceTarget();
+}
+$("raceStartBtn").onclick=startRace;
+
+function wr7qUnits(){return WR7Q[wr7q.section]||WR7Q.warmup}
+function updateWr7qTarget(){
+  const units=wr7qUnits();
+  if(wr7q.unitIndex>=units.length){
+    wr7q.active=false;
+    setFeedback('wr7qFeedback','green',tr('racerFinished'));
+    $("wr7qProgressBar").style.width='100%';
+    return;
+  }
+  const unit=units[wr7q.unitIndex],tokens=racerTokens(unit);
+  $("wr7qTarget").textContent=unit;
+  $("wr7qSub").textContent=tokens.map((t,i)=>i<wr7q.tokenIndex?'✓':(i===wr7q.tokenIndex?'▸':'·')).join(' ');
+  $("wr7qProgress").textContent=`${wr7q.unitIndex+1}/${units.length}`;
+  $("wr7qRestarts").textContent=wr7q.restarts;
+  $("wr7qProgressBar").style.width=`${(wr7q.unitIndex/units.length)*100}%`;
+  setFeedback('wr7qFeedback','',tr('racerTransmit'));
+}
+function startWr7q(){
+  wr7q.active=true;wr7q.unitIndex=0;wr7q.tokenIndex=0;wr7q.restarts=0;
+  racerStats.sessions++;racerStats.lastMode='wr7q';saveRacerStats();
+  updateWr7qTarget();
+}
+document.querySelectorAll('[data-wr7q-section]').forEach(b=>b.onclick=()=>{
+  wr7q.section=b.dataset.wr7qSection;
+  document.querySelectorAll('[data-wr7q-section]').forEach(x=>x.classList.toggle('active',x===b));
+  wr7q.active=false;wr7q.unitIndex=0;wr7q.tokenIndex=0;wr7q.restarts=0;updateWr7qTarget();
+});
+$("wr7qStartBtn").onclick=startWr7q;
+$("wr7qHearBtn").onclick=async()=>{
+  const units=wr7qUnits(),unit=units[wr7q.unitIndex];if(!unit)return;
+  for(const t of racerTokens(unit)){await racerPlayCode(t);await sleep(charGap())}
+};
+
+function renderRacerStats(){
+  $("statsSessions").textContent=racerStats.sessions||0;
+  $("statsAttempts").textContent=racerStats.attempts||0;
+  $("statsBestScore").textContent=(racerStats.bestScore||0).toFixed(1).replace('.0','');
+  $("statsBestStreak").textContent=racerStats.bestStreak||0;
+  const chars=[...RACER_SETS.letters,...RACER_SETS.numbers,...RACER_SETS.punct,...RACER_SETS.prosigns];
+  $("statsGrid").innerHTML=chars.map(ch=>{
+    const level=racerLevel(ch),s=racerStats.chars[racerStatKey(ch)],title=s?`${Math.round((s.points/s.attempts)*100)}% · ${s.attempts}`:'0';
+    return `<div class="stat-char ${level}" title="${title}">${escapeHtml(ch.replace(/[<>]/g,''))}</div>`;
+  }).join('');
+}
+$("learnMistakesBtn").onclick=()=>{
+  const all=[...RACER_SETS.letters,...RACER_SETS.numbers,...RACER_SETS.punct,...RACER_SETS.prosigns];
+  const weak=all.filter(ch=>racerLevel(ch)==='red'||racerLevel(ch)==='yellow');
+  if(!weak.length){alert(tr('racerNoWeak'));return}
+  const strong=all.filter(ch=>racerLevel(ch)==='green');
+  const pool=[];
+  for(let i=0;i<14;i++)pool.push(randomFrom(weak));
+  for(let i=0;i<6&&strong.length;i++)pool.push(randomFrom(strong));
+  startLearn(pool);
+};
+$("resetStatsBtn").onclick=()=>{
+  if(!confirm(tr('racerResetConfirm')))return;
+  racerStats=racerDefaultStats();saveRacerStats();renderRacerStats();
+};
+
+function racerHandleDecoded(ch,code,durations){
+  if(!racerOn)return;
+  ch=String(ch).toUpperCase();
+
+  if(racerTab==='learn'&&learn.active&&learn.target){
+    if(ch===learn.target){
+      const grade=timingGrade(code,durations);
+      if(grade==='green'){
+        learn.green++;learn.score+=1;recordRacer(learn.target,1);setFeedback('learnFeedback','green','🟢 '+tr('racerCorrect'));updateLearnMeta();setTimeout(nextLearnTarget,420);
+      }else{
+        learn.yellow++;learn.score+=.5;recordRacer(learn.target,.5);setFeedback('learnFeedback','yellow','🟡 '+tr('racerImperfect'));updateLearnMeta();setTimeout(nextLearnTarget,520);
+      }
+    }else{
+      learn.red++;recordRacer(learn.target,0);setFeedback('learnFeedback','red','🔴 '+tr('racerWrong')+' · '+tr('racerAgain'));updateLearnMeta();
+      setTimeout(()=>{if(learn.active){racerSpeak(learn.target);racerPlayCode(learn.target)}},650);
+    }
+    return;
+  }
+
+  if(racerTab==='race'&&race.active&&race.target){
+    const expected=race.target;
+    if(ch===expected){
+      const grade=timingGrade(code,durations);
+      if(grade==='green'){race.score+=1;race.streak++;recordRacer(expected,1);setFeedback('raceFeedback','green','🟢 '+tr('racerCorrect'))}
+      else{race.score+=.5;race.streak++;recordRacer(expected,.5);setFeedback('raceFeedback','yellow','🟡 '+tr('racerImperfect'))}
+      race.bestStreak=Math.max(race.bestStreak,race.streak);
+    }else{
+      race.streak=0;recordRacer(expected,0);setFeedback('raceFeedback','red','🔴 '+tr('racerWrong'));
+    }
+    race.index++;
+    updateRaceMeta();
+    if(race.index>=race.total)setTimeout(finishRace,330);
+    else setTimeout(nextRaceTarget,330);
+    return;
+  }
+
+  if(racerTab==='wr7q'&&wr7q.active){
+    const units=wr7qUnits(),unit=units[wr7q.unitIndex];if(!unit)return;
+    const toks=racerTokens(unit),expected=toks[wr7q.tokenIndex];
+    if(ch===expected){
+      const grade=timingGrade(code,durations);recordRacer(expected,grade==='green'?1:.5);
+      wr7q.tokenIndex++;
+      if(wr7q.tokenIndex>=toks.length){wr7q.unitIndex++;wr7q.tokenIndex=0}
+      updateWr7qTarget();
+    }else{
+      recordRacer(expected||unit,0);wr7q.restarts++;wr7q.tokenIndex=0;
+      setFeedback('wr7qFeedback','red','🔴 '+tr('racerRestartUnit'));
+      setTimeout(updateWr7qTarget,700);
+    }
+  }
+}
+renderRacerStats();
+updateWr7qTarget();
+// ================== END CW RACER ==================
+
 applyLang();updateModeHint();updatePresenceUI();applyVisualAid();
 })();
 </script>
