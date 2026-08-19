@@ -59,8 +59,36 @@ function applyLang(){document.documentElement.lang=lang;document.querySelectorAl
 let audioCtx=null,osc=null,gain=null,remoteOsc=null,remoteGain=null;function ensureAudio(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume()}
 function localToneOn(){if(!sidetone.checked)return;ensureAudio();if(osc)return;osc=audioCtx.createOscillator();gain=audioCtx.createGain();osc.frequency.value=+tone.value||650;gain.gain.value=+volume.value||.25;osc.connect(gain).connect(audioCtx.destination);osc.start()}
 function localToneOff(){if(!osc)return;try{osc.stop()}catch{}try{osc.disconnect();gain.disconnect()}catch{}osc=gain=null}
-function remoteToneOn(){ensureAudio();if(remoteOsc)return;remoteOsc=audioCtx.createOscillator();remoteGain=audioCtx.createGain();remoteOsc.frequency.value=+tone.value||650;remoteGain.gain.value=+volume.value||.25;remoteOsc.connect(remoteGain).connect(audioCtx.destination);remoteOsc.start()}
-function remoteToneOff(){if(!remoteOsc)return;try{remoteOsc.stop()}catch{}try{remoteOsc.disconnect();remoteGain.disconnect()}catch{}remoteOsc=remoteGain=null}
+function ensureRemoteCarrier(){
+  ensureAudio();
+  if(remoteOsc)return;
+  remoteOsc=audioCtx.createOscillator();
+  remoteGain=audioCtx.createGain();
+  remoteOsc.frequency.value=+tone.value||650;
+  remoteGain.gain.setValueAtTime(0,audioCtx.currentTime);
+  remoteOsc.connect(remoteGain).connect(audioCtx.destination);
+  remoteOsc.start();
+}
+function remoteToneOn(){
+  ensureRemoteCarrier();
+  const now=audioCtx.currentTime,target=+volume.value||.25;
+  remoteGain.gain.cancelScheduledValues(now);
+  remoteGain.gain.setValueAtTime(remoteGain.gain.value,now);
+  remoteGain.gain.linearRampToValueAtTime(target,now+.004);
+}
+function remoteToneOff(){
+  if(!remoteGain||!audioCtx)return;
+  const now=audioCtx.currentTime;
+  remoteGain.gain.cancelScheduledValues(now);
+  remoteGain.gain.setValueAtTime(remoteGain.gain.value,now);
+  remoteGain.gain.linearRampToValueAtTime(0,now+.006);
+}
+function destroyRemoteCarrier(){
+  if(!remoteOsc)return;
+  try{remoteOsc.stop()}catch{}
+  try{remoteOsc.disconnect();remoteGain.disconnect()}catch{}
+  remoteOsc=remoteGain=null;
+}
 const dotMs=()=>1200/Math.max(5,+wpm.value||15),charGap=()=>dotMs()*3,wordGap=()=>dotMs()*(+spacing.value||7),sleep=ms=>new Promise(r=>setTimeout(r,ms));
 let downAt=0,current='',charTimer=null,wordTimer=null,leftHeld=false,rightHeld=false,iambicRunning=false,lastIambic='-',active=false,playToken=0;const touchPointers=new Map();
 function flash(on){keyarea.classList.toggle('active',!!on)}
@@ -88,18 +116,21 @@ $("playBtn").onclick=playText;$("stopBtn").onclick=()=>{playToken++;localToneOff
 tone.oninput=()=>{$("toneValue").textContent=tone.value;if(osc)osc.frequency.value=+tone.value;if(remoteOsc)remoteOsc.frequency.value=+tone.value};volume.oninput=()=>{$("volumeValue").textContent=Math.round(+volume.value*100);if(gain)gain.gain.value=+volume.value;if(remoteGain)remoteGain.gain.value=+volume.value};wpm.oninput=()=>$("wpmValue").textContent=wpm.value;spacing.oninput=()=>$("spacingValue").textContent=spacing.value;sidetone.onchange=()=>{if(!sidetone.checked)localToneOff()};mode.onchange=()=>{deactivate();touchPointers.clear();leftHeld=rightHeld=false;current='';symbols.textContent='';updateModeHint()};document.querySelectorAll('.seg-btn').forEach(b=>b.onclick=()=>{mode.value=b.dataset.mode;mode.dispatchEvent(new Event('change'))});document.querySelectorAll('.preset[data-wpm]').forEach(b=>b.onclick=()=>{wpm.value=b.dataset.wpm;wpm.dispatchEvent(new Event('input'))});document.querySelectorAll('.tone-preset').forEach(b=>b.onclick=()=>{tone.value=b.dataset.tone;tone.dispatchEvent(new Event('input'))});
 const root=document.documentElement,savedTheme=localStorage.getItem('cw-theme')||'dark';root.dataset.theme=savedTheme;$("themeToggle").classList.toggle('on',savedTheme==='dark');$("themeToggle").onclick=()=>{root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';localStorage.setItem('cw-theme',root.dataset.theme);$("themeToggle").classList.toggle('on',root.dataset.theme==='dark')};$("langToggle").onclick=()=>{lang=lang==='es'?'en':'es';localStorage.setItem('cw-lang',lang);applyLang()};
 // ON AIR beta: public EMQX MQTT-over-WebSocket relay.
-const ROOM='zp5dxs/morse-practice/global-v1',clientId='mp_'+crypto.getRandomValues(new Uint32Array(2)).join('_'),presence=new Map();let mqttClient=null,onAir=false,remoteBusy=false,lastRemoteTx=0,presenceTimer=null,cleanupTimer=null;let txDownAt=0,remotePulseQueue=[],remotePulsePlaying=false,remoteLastSenderUp=0;const myInfo=()=>({id:clientId,name:$("operatorName").value.trim(),call:$("operatorCall").value.trim().toUpperCase(),ts:Date.now()});
+const ROOM='zp5dxs/morse-practice/global-v1',clientId='mp_'+crypto.getRandomValues(new Uint32Array(2)).join('_'),presence=new Map();let mqttClient=null,onAir=false,remoteBusy=false,lastRemoteTx=0,presenceTimer=null,cleanupTimer=null;let txDownAt=0,txDownWall=0,remotePulseQueue=[],remotePulsePlaying=false,remoteLastSenderUp=0;const myInfo=()=>({id:clientId,name:$("operatorName").value.trim(),call:$("operatorCall").value.trim().toUpperCase(),ts:Date.now()});
 function publish(topic,obj,opts={}){if(mqttClient?.connected)mqttClient.publish(`${ROOM}/${topic}`,JSON.stringify(obj),{qos:0,...opts})}
 function publishPresence(type='heartbeat'){publish('presence',{...myInfo(),type})}
 function publishKey(state,duration=0){
   const now=performance.now();
   if(state==='down'){
     txDownAt=now;
-    publish('key',{...myInfo(),state,seq:Date.now(),sentAt:Date.now()});
+    txDownWall=Date.now();
+    publish('key',{...myInfo(),state,seq:Date.now(),sentAt:txDownWall,dot:Math.round(dotMs())});
   }else{
     const measured=duration>0?duration:(txDownAt?now-txDownAt:0);
-    txDownAt=0;
-    publish('key',{...myInfo(),state,seq:Date.now(),sentAt:Date.now(),duration:Math.max(18,Math.round(measured))});
+    const upWall=Date.now();
+    const downWall=txDownWall||Math.round(upWall-measured);
+    txDownAt=0;txDownWall=0;
+    publish('key',{...myInfo(),state,seq:upWall,sentAt:upWall,downAt:downWall,duration:Math.max(12,Math.round(measured)),dot:Math.round(dotMs())});
   }
 }
 async function playRemotePulseQueue(){
@@ -109,24 +140,35 @@ async function playRemotePulseQueue(){
     const p=remotePulseQueue.shift();
     if(p.gap>0)await sleep(Math.min(p.gap,2000));
     remoteToneOn();
-    await sleep(Math.max(18,p.duration));
+    await sleep(Math.max(20,p.duration));
     remoteToneOff();
+    await sleep(7); // allow the short release ramp to finish cleanly
   }
   remotePulsePlaying=false;
 }
 function queueRemotePulse(m){
-  const dur=Number(m.duration)||0;
-  if(!dur)return;
-  // Reconstruct the sender's timing instead of using packet arrival spacing.
-  // A tiny initial cushion absorbs normal WebSocket/MQTT jitter.
+  const raw=Number(m.duration)||0;
+  if(!raw)return;
+  const senderDot=Math.max(18,Number(m.dot)||80);
+  // Gentle ON AIR conditioning: preserve human timing, but prevent very short
+  // elements from turning into clicks after network/browser jitter.
+  // Dits get a small safety margin; dahs are only slightly padded.
+  let dur;
+  if(raw < senderDot*2){
+    dur=Math.max(raw*1.15,senderDot*0.82);
+  }else{
+    dur=Math.max(raw+8,senderDot*2.65);
+  }
+  // Reconstruct the actual key-up -> next key-down gap when timestamps exist.
   let gap=0;
-  if(remoteLastSenderUp&&m.sentAt){
-    gap=Math.max(0,Number(m.sentAt)-remoteLastSenderUp);
+  const downWall=Number(m.downAt)||0;
+  if(remoteLastSenderUp&&downWall){
+    gap=Math.max(0,downWall-remoteLastSenderUp);
   }else if(!remotePulsePlaying&&remotePulseQueue.length===0){
-    gap=70;
+    gap=120; // slightly deeper first-element buffer for clean initial dits
   }
   remoteLastSenderUp=Number(m.sentAt)||Date.now();
-  remotePulseQueue.push({duration:Math.min(Math.max(dur,18),5000),gap});
+  remotePulseQueue.push({duration:Math.min(Math.max(dur,20),5000),gap:Math.min(gap,2000)});
   playRemotePulseQueue();
 }
 function setRemoteBusy(b,who=''){remoteBusy=b;if(b){lastRemoteTx=Date.now();$("channelState").textContent=`${tr('busy')}${who?' · '+who:''}`;$("channelState").className='channel-state channel-busy'}else{$("channelState").textContent=tr('free');$("channelState").className='channel-state channel-free'}}
@@ -134,7 +176,7 @@ function updatePresenceUI(){const now=Date.now();for(const [id,p] of presence)if
 function escapeHtml(s){return s.replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
 function updateChannelUI(){if(!onAir){$("channelState").textContent=tr('free');updatePresenceUI();return}if(remoteBusy)$("channelState").textContent=tr('busy');else $("channelState").textContent=tr('free');updatePresenceUI()}
 function connectOnAir(){if(onAir)return;onAir=true;$("onAirPanel").classList.add('open');$("onAirLabel").classList.add('live');$("channelState").textContent=tr('connecting');ensureAudio();if(!window.mqtt){$("channelState").textContent='MQTT library unavailable';return}mqttClient=mqtt.connect('wss://broker.emqx.io:8084/mqtt',{clientId,clean:true,keepalive:20,connectTimeout:8000,reconnectPeriod:3000});mqttClient.on('connect',()=>{mqttClient.subscribe(`${ROOM}/#`,{qos:0});publishPresence('join');presence.set(clientId,myInfo());updatePresenceUI();presenceTimer=setInterval(()=>{publishPresence('heartbeat');presence.set(clientId,myInfo());updatePresenceUI()},10000);cleanupTimer=setInterval(updatePresenceUI,5000);$("channelState").textContent=tr('free')});mqttClient.on('message',(topic,payload)=>{let m;try{m=JSON.parse(payload.toString())}catch{return}if(!m?.id||m.id===clientId)return;if(topic.endsWith('/presence')){if(m.type==='leave')presence.delete(m.id);else presence.set(m.id,m);updatePresenceUI();return}if(topic.endsWith('/key')){const who=m.call||m.name||tr('anonymous');if(m.state==='down'){setRemoteBusy(true,who);decoded.textContent=who+' TX'}else if(m.state==='up'){queueRemotePulse(m);lastRemoteTx=Date.now();setTimeout(()=>{if(Date.now()-lastRemoteTx>=900)setRemoteBusy(false)},950)}}});mqttClient.on('error',()=>{$("channelState").textContent='ON AIR connection error'})}
-function disconnectOnAir(){if(!onAir)return;publishPresence('leave');onAir=false;remoteBusy=false;remoteToneOff();remotePulseQueue=[];remotePulsePlaying=false;remoteLastSenderUp=0;clearInterval(presenceTimer);clearInterval(cleanupTimer);presence.clear();if(mqttClient){mqttClient.end(true);mqttClient=null}$("onAirPanel").classList.remove('open');$("onAirLabel").classList.remove('live');updatePresenceUI();setRemoteBusy(false)}
+function disconnectOnAir(){if(!onAir)return;publishPresence('leave');onAir=false;remoteBusy=false;remoteToneOff();destroyRemoteCarrier();remotePulseQueue=[];remotePulsePlaying=false;remoteLastSenderUp=0;clearInterval(presenceTimer);clearInterval(cleanupTimer);presence.clear();if(mqttClient){mqttClient.end(true);mqttClient=null}$("onAirPanel").classList.remove('open');$("onAirLabel").classList.remove('live');updatePresenceUI();setRemoteBusy(false)}
 $("onAirToggle").onchange=e=>e.target.checked?connectOnAir():disconnectOnAir();window.addEventListener('beforeunload',()=>{if(onAir)publishPresence('leave')});
 applyLang();updateModeHint();updatePresenceUI();
 })();
