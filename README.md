@@ -1,13 +1,16 @@
 # 📡 Morse Practice
 
-> **Free • Open Source • Browser-Based Morse Code Trainer**
+> **Free • Open Source • Browser-Based Morse Code Training Platform**
 
+[![Live Demo](https://img.shields.io/badge/🚀-Live%20Demo-blue?style=for-the-badge)](https://zp5dxs.github.io/morse-practice/)
 
-🌐 **Live Demo:** https://zp5dxs.github.io/morse-practice/
+Practice Morse code directly from your browser using your **keyboard**, **mouse**, **touchscreen**, **commercial USB key**, **DIY USB adapters**, or **Arduino HID interfaces**.
 
-A free web-based Morse code practice application designed for amateur radio operators and anyone interested in learning CW.
+No installation required. No registration required. Completely free.
 
-Practice directly from your browser using your **keyboard**, **mouse**, **commercial Morse key**, or even a **DIY USB adapter**. No installation required.
+🌐 **Live Demo**
+
+https://zp5dxs.github.io/morse-practice/
 
 ---
 
@@ -15,193 +18,377 @@ Practice directly from your browser using your **keyboard**, **mouse**, **commer
 
 Hello!
 
-I'm **Mathias Maidana (ZP5DXS)**, an amateur radio operator from Paraguay 🇵🇾 and a passionate CW enthusiast.
+My name is **Mathias Maidana (ZP5DXS)** 🇵🇾.
 
-I'm currently a student of the **Long Island CW Club (LICW)**, where I began my journey into Morse code with the guidance of outstanding instructors and an incredible international community.
+I'm an Amateur Radio operator from Paraguay and a passionate CW enthusiast.
 
-This project was born thanks to that experience.
+I'm currently a student of the **Long Island CW Club (LICW)** where I discovered how enjoyable and rewarding learning Morse code can be thanks to incredible instructors and an amazing worldwide community.
 
-My goal is simple:
+Morse Practice was born during that learning journey.
 
-> **Make learning Morse code as accessible as possible, starting from day one.**
+The original goal was simple:
 
-Whether you own a professional paddle or nothing more than a computer keyboard, you should be able to start practicing immediately.
+> "Open a browser and start practicing immediately."
 
-I hope this project helps future CW operators enjoy learning this amazing mode as much as I do.
+Over time, the project evolved into a complete browser-based CW practice platform capable of working with multiple input devices while remaining completely free and open source.
+
+If this project helps even one new operator enjoy CW a little more, then it has already achieved its purpose.
+
+73!
 
 ---
 
-# ❤️ Why Morse Practice?
+# ❤️ Philosophy
 
-When I started learning CW, I wanted something that was:
+Learning Morse code should not require expensive equipment.
 
-- 🌐 Browser based
-- 💻 No installation required
-- 🆓 Completely free
-- 🎯 Easy to use
-- 🎹 Compatible with a regular keyboard
-- 🖱 Compatible with a mouse
-- ⚡ Fast enough for everyday practice
+Whether you own:
 
-As I continued learning, the idea grew into something much bigger.
+- a professional paddle,
+- a straight key,
+- an Arduino,
+- a USB adapter,
+- an old mouse,
+- or just a laptop...
 
-Morse Practice aims to become a complete open-source platform for learning, practicing and experimenting with Morse code, while making the hobby accessible to everyone regardless of the hardware they own.
+...you should be able to practice CW.
+
+Morse Practice is designed around that idea.
 
 ---
 
 # ✨ Features
 
-- 🎹 Straight Key mode
-- 🎛 Paddle (Iambic) support
-- 🎵 Adjustable sidetone
-- ⚡ Adjustable speed (WPM)
-- 🔊 Volume control
-- 📝 Real-time Morse decoder
-- 🌐 Runs entirely in your browser
-- 💻 Windows, Linux and macOS compatible
-- 📱 Tablet compatible
-- 🆓 Completely free and open source
+## 🎹 Multiple Input Devices
+
+✔ Computer Keyboard
+
+✔ USB Mouse
+
+✔ Wireless Mouse
+
+✔ Touch Screen
+
+✔ Straight Key
+
+✔ Paddle (Iambic)
+
+✔ Commercial USB Adapters
+
+✔ DIY USB Adapters
+
+✔ Arduino USB HID
+
+---
+
+## 🎧 Audio
+
+✔ Adjustable Sidetone
+
+✔ Adjustable Frequency
+
+✔ Adjustable Volume
+
+✔ Adjustable WPM
+
+✔ Adjustable Word Spacing
+
+✔ Real-time Tone Generation
+
+---
+
+## 📝 Training
+
+✔ Real-time Morse Decoder
+
+✔ Text → CW Playback
+
+✔ CW → Text Decoding
+
+✔ Keyboard Practice
+
+✔ Straight Key Practice
+
+✔ Paddle Practice
+
+✔ Mobile Friendly
+
+---
+
+## 🌐 Platform
+
+✔ Browser Based
+
+✔ Windows
+
+✔ Linux
+
+✔ macOS
+
+✔ Android
+
+✔ iPhone
+
+✔ Tablets
+
+No installation required.
 
 ---
 
 # 🚀 Getting Started
 
-Simply open the application in your browser.
+Simply visit:
 
-Choose your preferred input method and start practicing.
+https://zp5dxs.github.io/morse-practice/
 
-Supported input devices include:
-
-- ⌨️ Computer keyboard
-- 🖱 USB mouse
-- 📶 Wireless mouse
-- 🔑 Straight key
-- 🎛 Paddle
-- 🔌 Commercial USB Morse adapters
-- 🤖 DIY USB adapters
-
-No software installation is required.
+Choose your preferred input device and start practicing immediately.
 
 ---
 
-# 📷 Screenshots
+# 📖 Instructions
 
-*(Screenshots will be added soon.)*
+## Straight Key
+
+Select **Straight Key** mode.
+
+You can operate using:
+
+- Mouse
+- Touch Screen
+- Keyboard
+- Straight Key
+- USB Adapter
+
+Press to transmit.
+
+Release to stop.
+
+---
+
+## Paddle
+
+Select **Paddle** mode.
+
+Desktop:
+
+Mouse and hardware paddles work normally.
+
+Mobile:
+
+The keying area is automatically divided into two halves.
+
+🔵 Left → DIT
+
+🟢 Right → DAH
+
+The application supports two simultaneous touches, allowing true iambic operation.
+
+---
+
+## Text Playback
+
+Type any text into the text box.
+
+Press
+
+▶ Play CW
+
+The application will transmit the message using the current settings.
+
+Perfect for learning character rhythm.
+
+---
+
+## Decoder
+
+Every character you send is decoded in real time.
+
+This allows beginners to instantly verify their sending accuracy.
+
+---
+
+## Theme
+
+Switch instantly between
+
+☀️ Light
+
+🌙 Dark
+
+The preference is automatically saved.
+
+---
+
+## Language
+
+The interface supports
+
+🇺🇸 English
+
+🇪🇸 Español
+
+and remembers your preference.
+
+---
+
+# 🌐 ON AIR (Beta)
+
+One of the most exciting features of Morse Practice.
+
+Activate the **ON AIR** switch to join the global CW practice room.
+
+No account required.
+
+Name and callsign are optional.
+
+When ON AIR is enabled:
+
+• Operators currently online are displayed.
+
+• Your keying is transmitted live.
+
+• Other operators hear your actual Morse timing.
+
+• Their keying is reproduced locally using your own audio settings.
+
+Unlike voice chat, Morse Practice does **not** stream audio.
+
+Only the keying events (KEY DOWN / KEY UP timing) are transmitted, allowing each browser to generate the CW tone locally.
+
+The result is an experience that closely resembles a real CW QSO.
 
 ---
 
 # 🔧 DIY Hardware
 
-One of the main goals of this project is making Morse code available to everyone.
+One of the primary goals of this project is making Morse code available to everyone.
 
-Owning an expensive paddle should never be a requirement to begin learning CW.
+Learning CW should never depend on owning expensive hardware.
 
-Whether you're just starting or already operating on the air, there are many inexpensive ways to connect a key to your computer.
-
----
+Future tutorials will include:
 
 ## 🖱 USB Mouse Adapter
 
-One of the simplest and cheapest solutions is converting a standard USB mouse into a Morse key.
-
-Simply replace the mouse button switch with a straight key or paddle contact and the browser will recognize every key press as a mouse click.
+Convert a standard USB mouse into a Morse key.
 
 ![USB Mouse Adapter](images/mouse.jpeg)
-
-This allows complete beginners to start practicing with hardware they may already have.
 
 ---
 
 ## 📶 Wireless Mouse Adapter
 
-The same concept can be applied to inexpensive wireless mice, creating a completely wireless Morse practice key without requiring any custom drivers.
+Create a completely wireless Morse practice key using inexpensive wireless mice.
 
 ---
 
-## 🤖 Arduino USB HID Adapter
+## 🤖 Arduino USB HID
 
-Another excellent solution is building a USB adapter using an Arduino capable of USB HID (Human Interface Device) emulation.
+Build professional USB interfaces using:
 
-Compatible boards include:
+- Arduino Leonardo
+
+- Arduino Micro
 
 - Arduino Pro Micro
-- Arduino Leonardo
-- Arduino Micro
-- Raspberry Pi Pico / RP2040
-- Other USB HID compatible microcontrollers
 
-Instead of sending serial data, the Arduino behaves exactly like a USB keyboard or mouse, allowing virtually any straight key or paddle to work with Morse Practice.
+- Raspberry Pi Pico
 
-This makes it possible to build professional-quality adapters with just a few inexpensive components.
+- RP2040 Boards
+
+These boards emulate USB keyboards or mice, allowing virtually any key or paddle to work with Morse Practice.
 
 ---
 
-## 🔌 Commercial USB Interfaces
+## 🔌 Commercial USB Adapters
 
-If you already own a commercial USB Morse interface, it can also be used with Morse Practice.
+Commercial interfaces are fully supported.
 
-Example of a commercial USB key adapter:
+Example:
 
-![Commercial USB Adapter](images/adaptador.jpg)
-
-Support for additional commercial interfaces will continue to grow.
+![Commercial Adapter](images/adaptador.jpg)
 
 ---
 
-## ⌨️ Keyboard Practice
+## 🚀 Planned Projects
 
-The fastest way to begin is simply using your computer keyboard.
+Coming soon:
 
-No hardware required.
+- ESP32 Interfaces
 
-Perfect for learning the rhythm of Morse before moving to a straight key or paddle.
+- RP2040 Projects
+
+- Raspberry Pi Projects
+
+- USB Keyers
+
+- Wireless Interfaces
+
+- 3D Printable Paddles
+
+- Homemade Straight Keys
+
+- Accessibility Devices
 
 ---
 
-## 🚀 Future DIY Projects
+# 📷 Screenshots
 
-This repository will continue growing with tutorials including:
-
-- 🛠 USB mouse conversion
-- 📶 Wireless mouse conversion
-- 🤖 Arduino USB HID adapters
-- 🔌 RP2040 interfaces
-- 📡 ESP32 wireless interfaces
-- 🖨 3D printable paddles and accessories
-- ⚡ Low-cost USB keyers
-- ♿ Accessibility devices
-- 🎛 Homemade straight keys and paddles
-
-The goal is simple:
-
-> **Make Morse code accessible to everyone using hardware they already own—or can build for just a few dollars.**
+Screenshots will be added as the project evolves.
 
 ---
 
 # 🤝 Contributing
 
-Ideas, suggestions, bug reports and pull requests are always welcome.
+Suggestions, bug reports, ideas and pull requests are always welcome.
 
-Whether you're a beginner learning your first letters or an experienced CW operator, your feedback helps make Morse Practice better for everyone.
+Whether you're a beginner learning your first letters or an experienced CW operator, your feedback helps improve Morse Practice for everyone.
 
 ---
 
 # 🙏 Acknowledgements
 
-Special thanks to the instructors and members of the **Long Island CW Club (LICW)** for sharing their knowledge and inspiring thousands of amateur radio operators around the world.
+Special thanks to the instructors and members of the **Long Island CW Club (LICW)**.
 
-Without their dedication and enthusiasm, this project would probably never have existed.
+Your passion for teaching CW inspired this project.
+
+Thank you for keeping Morse code alive.
+
+---
+
+# ☕ Contact
+
+📡 Callsign
+
+**ZP5DXS**
+
+Facebook
+
+https://www.facebook.com/ZP5DXS
+
+GitHub
+
+https://github.com/ZP5DXS
+
+Live Demo
+
+https://zp5dxs.github.io/morse-practice/
 
 ---
 
 # 📄 License
 
-This project is released under the **MIT License**.
+Released under the **MIT License**.
 
-Feel free to use, modify, improve and share it.
+Use it.
 
-If this project helps you on your CW journey, I'd love to hear from you.
+Modify it.
 
-**73!**
+Improve it.
 
-**Mathias Maidana – ZP5DXS** 🇵🇾
+Share it.
+
+Most importantly...
+
+**Enjoy CW.**
+
+73 de **ZP5DXS** 🇵🇾
