@@ -6,7 +6,21 @@
 
 Practice, learn and improve Morse code directly from your browser using your **keyboard**, **mouse**, **touchscreen**, **commercial USB key**, **DIY USB adapters**, or **Arduino HID interfaces**.
 
-Morse Practice combines a CW oscillator, real-time decoder, text-to-CW player, interactive learning system, CW racing game, adaptive statistics, daily sending exercises and a worldwide ON AIR practice room.
+Morse Practice combines:
+
+- CW oscillator and sidetone
+- Real-time Morse decoder
+- Text-to-CW playback
+- Straight key and paddle practice
+- CW Racer
+- Adaptive character training
+- Local statistics
+- Daily sending exercises
+- Worldwide ON AIR practice room
+- Simulated QSO training
+- POTA practice
+- SKCC practice
+- Local AI-assisted QSO interpretation
 
 **No installation required. No registration required. Completely free and open source.**
 
@@ -26,7 +40,7 @@ I'm an Amateur Radio operator from Paraguay and a passionate CW enthusiast.
 
 I'm currently a student of the **Long Island CW Club (LICW)**, where I discovered how enjoyable and rewarding learning Morse code can be thanks to incredible instructors and an amazing worldwide community.
 
-Morse Practice is a personal project that was born during that learning journey.
+Morse Practice is an independent personal project that was born during that learning journey.
 
 The original goal was very simple:
 
@@ -50,6 +64,12 @@ Today you can use it to:
 - Generate practice based on your mistakes
 - Complete daily sending exercises
 - Practice live with other operators around the world
+- Practice complete simulated QSOs
+- Train basic, intermediate and advanced exchanges
+- Practice POTA exchanges
+- Practice SKCC exchanges
+- Experience QSB, QRM and repeat requests
+- Practice copying and responding to different CW operating styles
 
 And you can do all of this directly from a browser.
 
@@ -87,363 +107,45 @@ You can start with absolutely nothing except a browser and gradually move toward
 
 ## 🎹 Multiple Input Devices
 
-✔ Computer Keyboard
-
-✔ USB Mouse
-
-✔ Wireless Mouse
-
-✔ Touch Screen
-
-✔ Straight Key
-
-✔ Paddle / Iambic Paddle
-
-✔ Commercial USB Adapters
-
-✔ DIY USB Adapters
-
+✔ Computer Keyboard  
+✔ USB Mouse  
+✔ Wireless Mouse  
+✔ Touch Screen  
+✔ Straight Key  
+✔ Paddle / Iambic Paddle  
+✔ Commercial USB Adapters  
+✔ DIY USB Adapters  
 ✔ Arduino USB HID
 
 ---
 
-## 🎧 CW Audio
+# 🎧 CW Audio
 
-✔ Adjustable Sidetone Frequency
-
-✔ Adjustable Volume
-
-✔ Adjustable WPM
-
-✔ Adjustable Word Spacing
-
-✔ Real-time Tone Generation
-
+✔ Adjustable Sidetone Frequency  
+✔ Adjustable Volume  
+✔ Adjustable WPM  
+✔ Adjustable Word Spacing  
+✔ Real-time Tone Generation  
 ✔ Local browser audio
 
-The tone is generated directly by your browser, providing immediate feedback while sending.
+The CW tone is generated directly by your browser, providing immediate feedback while sending.
 
 ---
 
-## 📝 CW Trainer
+# 📝 CW Trainer
 
-✔ Real-time Morse Decoder
-
-✔ Text → CW Playback
-
-✔ CW → Text Decoding
-
-✔ Keyboard Practice
-
-✔ Straight Key Practice
-
-✔ Paddle Practice
-
-✔ Mouse Practice
-
-✔ Touch Practice
-
-✔ Visual DIT/DAH assistance
-
+✔ Real-time Morse Decoder  
+✔ Text → CW Playback  
+✔ CW → Text Decoding  
+✔ Keyboard Practice  
+✔ Straight Key Practice  
+✔ Paddle Practice  
+✔ Mouse Practice  
+✔ Touch Practice  
+✔ Visual DIT/DAH Assistance  
 ✔ Mobile Friendly
 
 The main trainer can be used simply as a CW oscillator or as a complete sending practice environment.
-
----
-
-# 🏁 CW RACER
-
-CW Racer turns Morse practice into an interactive training system.
-
-Instead of simply listening to characters, **you must send them yourself**.
-
-The objective is to combine character recognition, auditory memory and actual keying practice.
-
-CW Racer contains four main sections:
-
-- 🎓 **Learn**
-- 🏁 **Race**
-- 📅 **Daily**
-- 📊 **Stats**
-
----
-
-# 🎓 Learn Mode
-
-Learn Mode is designed for practicing individual Morse characters.
-
-Select a character group:
-
-- Letters
-- Numbers
-- Punctuation
-- Prosigns
-- Mixed
-
-The application presents a character and waits for you to transmit it.
-
-For example:
-
-```text
-A
-.-
-
-Transmit this character
-```
-
-You can optionally:
-
-🔊 **Hear the character in Morse**
-
-or
-
-🗣 **Hear the character spoken by your device**
-
-Then transmit it using your selected input method.
-
-The application analyzes your transmission and provides immediate feedback.
-
----
-
-## 🟢🟡🔴 Scoring System
-
-CW Racer uses a simple visual scoring system.
-
-### 🟢 Green — Correct
-
-The character was transmitted correctly with good timing.
-
-**+1 point**
-
-The trainer moves to the next character.
-
-### 🟡 Yellow — Correct, but timing can improve
-
-The Morse sequence was correct, but your DIT/DAH timing could be improved.
-
-**+0.5 points**
-
-The trainer continues while recording that character as one that may need additional practice.
-
-### 🔴 Red — Incorrect
-
-The character was transmitted incorrectly.
-
-**0 points**
-
-The character must be repeated.
-
-This creates a simple learning loop:
-
-> **See → Hear → Send → Receive Feedback → Improve**
-
----
-
-# 🏁 Race Mode
-
-Race Mode transforms CW sending practice into a challenge.
-
-Choose your character set:
-
-- Letters
-- Numbers
-- Punctuation
-- Prosigns
-- Mixed
-
-Then select the race length:
-
-- 20 characters
-- 50 characters
-- 100 characters
-
-Press:
-
-**🏁 Start Race**
-
-The application presents characters one after another.
-
-Your objective is to transmit them as accurately as possible.
-
-Each race has a fixed number of exercises and automatically ends when the selected distance is completed.
-
----
-
-## 🏆 Race Score
-
-At the end of the race, Morse Practice displays your result.
-
-Example:
-
-```text
-🏁
-
-Final Score: 43.5 / 50
-
-Best Similar Race: 46 / 50
-```
-
-Your best result is compared against races using the same:
-
-- Character category
-- Race length
-- WPM
-
-This means you can gradually compete against your own previous performance.
-
-The objective is not simply speed.
-
-The objective is:
-
-> **Speed + Accuracy + Consistency**
-
----
-
-# 📅 Daily
-
-The Daily section provides structured sending exercises that can be repeated regularly as a CW warm-up.
-
-It is based on the Morse sending exercise created by **Bob Carter, WR7Q**.
-
-The Daily module contains three sections:
-
-### 🔥 Warm Up
-
-Short patterns designed to get your hand moving and establish rhythm before more complex sending.
-
-### ✍️ Exercise
-
-Structured sequences designed to practice transitions between different Morse characters.
-
-### 🎯 Drill
-
-Longer and more demanding sequences combining characters, numbers, punctuation and prosigns.
-
-The objective is not to race.
-
-The objective is to develop:
-
-- Rhythm
-- Consistency
-- Character transitions
-- Accurate spacing
-- Reliable sending
-
-If you make a mistake during a Daily unit, repeat the unit and try again.
-
-This makes Daily useful as a regular warm-up before:
-
-- CW practice
-- LICW sessions
-- Getting on the air
-- Contests
-- POTA activations
-- Ragchewing
-- Straight-key practice
-
-**Exercise by WR7Q**
-
----
-
-# 📊 Stats
-
-CW Racer keeps local statistics about your practice.
-
-Your progress is stored directly in your browser.
-
-**No account or external database is required.**
-
-Statistics include:
-
-✔ Total attempts
-
-✔ Training sessions
-
-✔ Best race score
-
-✔ Best streak
-
-✔ Individual character performance
-
-✔ Accuracy history
-
-Each character develops its own performance profile.
-
-Characters are displayed using the same visual system:
-
-🟢 **Strong**
-
-🟡 **Needs improvement**
-
-🔴 **Weak**
-
-This allows you to quickly identify which characters are giving you trouble.
-
----
-
-# 🧠 Learn From My Mistakes
-
-One of the most useful features of CW Racer is adaptive practice.
-
-Instead of practicing every character equally, Morse Practice can analyze your local statistics and identify the characters where you make the most mistakes.
-
-Select:
-
-**🧠 Learn from my mistakes**
-
-The trainer creates a practice session that gives greater priority to your weaker characters while still including stronger characters.
-
-This means the training gradually adapts to you.
-
-For example, if your statistics show:
-
-```text
-A 🟢
-N 🟢
-K 🟢
-F 🟡
-Q 🔴
-Y 🔴
-```
-
-the next adaptive session will contain more:
-
-```text
-Q
-Y
-F
-```
-
-while still periodically testing:
-
-```text
-A
-N
-K
-```
-
-The objective is to progressively balance your character proficiency.
-
----
-
-# 💾 Local Statistics
-
-All CW Racer statistics are stored locally in your browser.
-
-This means:
-
-- No account
-- No login
-- No cloud database
-- No personal information required
-
-Your browser remembers your progress automatically.
-
-You can also reset your statistics at any time using:
-
-**Reset Statistics**
-
-⚠️ Clearing your browser storage may also remove your saved statistics.
 
 ---
 
@@ -453,7 +155,7 @@ Simply visit:
 
 https://zp5dxs.github.io/morse-practice/
 
-Choose your preferred input device and start practicing immediately.
+Choose your preferred input method and start practicing immediately.
 
 For your first practice session, you can use nothing more than:
 
@@ -532,9 +234,13 @@ Want to exchange some Morse with another operator?
 
 Join ON AIR.
 
-Want to hear how a word sounds?
+Want to hear how a callsign or word sounds?
 
-Type it and press Play CW.
+Type it and press **Play CW**.
+
+Want to practice a simulated contact?
+
+Start the **QSO Bot**.
 
 The idea is to make CW practice something you can do whenever you have a few free minutes.
 
@@ -589,41 +295,772 @@ The decoder also recognizes supported punctuation and common prosigns such as:
 
 Visual Morse symbols can be enabled or disabled.
 
-When enabled, the application displays:
+When enabled, the application displays the DITs and DAHs as you transmit.
+
+For example:
 
 ```text
 . - . .
 ```
 
-as you transmit.
-
 Beginners may find this useful while learning the relationship between keying and Morse patterns.
 
-More experienced operators can disable the visual assistance and practice entirely by ear.
+More experienced operators can disable visual assistance and practice entirely by ear.
 
 ---
 
-# 🎨 Theme
+# 🏁 CW RACER
 
-Switch instantly between:
+CW Racer turns Morse practice into an interactive training system.
 
-☀️ **Light**
+Instead of simply listening to characters, **you must send them yourself**.
 
-🌙 **Dark**
+The objective is to combine:
 
-Your preference is automatically saved.
+- Character recognition
+- Auditory memory
+- Actual keying
+- Timing
+- Accuracy
+- Consistency
+
+CW Racer contains four main sections:
+
+- 🎓 **Learn**
+- 🏁 **Race**
+- 📅 **Daily**
+- 📊 **Stats**
 
 ---
 
-# 🌎 Language
+# 🎓 Learn Mode
 
-The interface supports:
+Learn Mode is designed for practicing individual Morse characters.
 
-🇺🇸 **English**
+Select a character group:
 
-🇪🇸 **Español**
+- Letters
+- Numbers
+- Punctuation
+- Prosigns
+- Mixed
 
-Your language preference is remembered automatically.
+The application presents a character and waits for you to transmit it.
+
+For example:
+
+```text
+A
+.-
+```
+
+You can optionally:
+
+🔊 **Hear the character in Morse**
+
+or
+
+🗣 **Hear the character spoken by your device**
+
+Then transmit it using your selected input method.
+
+The application analyzes your transmission and provides immediate feedback.
+
+---
+
+# 🟢🟡🔴 Scoring System
+
+CW Racer uses a simple visual scoring system.
+
+### 🟢 Green — Correct
+
+The character was transmitted correctly with good timing.
+
+**+1 point**
+
+The trainer moves to the next character.
+
+### 🟡 Yellow — Correct, but timing can improve
+
+The Morse sequence was correct, but your DIT/DAH timing could be improved.
+
+**+0.5 points**
+
+The trainer continues while recording that character as one that may need additional practice.
+
+### 🔴 Red — Incorrect
+
+The character was transmitted incorrectly.
+
+**0 points**
+
+The character must be repeated.
+
+This creates a simple learning loop:
+
+> **See → Hear → Send → Receive Feedback → Improve**
+
+---
+
+# 🏁 Race Mode
+
+Race Mode transforms CW sending practice into a challenge.
+
+Choose your character set:
+
+- Letters
+- Numbers
+- Punctuation
+- Prosigns
+- Mixed
+
+Then select the race length:
+
+- 20 characters
+- 50 characters
+- 100 characters
+
+Press:
+
+**🏁 Start Race**
+
+The application presents characters one after another.
+
+Your objective is to transmit them as accurately as possible.
+
+Each race has a fixed number of exercises and automatically ends when the selected distance is completed.
+
+---
+
+# 🏆 Race Score
+
+At the end of the race, Morse Practice displays your result.
+
+Example:
+
+```text
+🏁
+
+Final Score: 43.5 / 50
+
+Best Similar Race: 46 / 50
+```
+
+Your best result is compared against races using the same:
+
+- Character category
+- Race length
+- WPM
+
+This means you can gradually compete against your own previous performance.
+
+The objective is not simply speed.
+
+The objective is:
+
+> **Speed + Accuracy + Consistency**
+
+---
+
+# 📅 Daily
+
+The Daily section provides structured sending exercises that can be repeated regularly as a CW warm-up.
+
+It is based on the Morse sending exercise created by **Bob Carter, WR7Q**.
+
+The Daily module contains three sections:
+
+### 🔥 Warm Up
+
+Short patterns designed to get your hand moving and establish rhythm before more complex sending.
+
+### ✍️ Exercise
+
+Structured sequences designed to practice transitions between different Morse characters.
+
+### 🎯 Drill
+
+Longer and more demanding sequences combining characters, numbers, punctuation and prosigns.
+
+The objective is not to race.
+
+The objective is to develop:
+
+- Rhythm
+- Consistency
+- Character transitions
+- Accurate spacing
+- Reliable sending
+
+If you make a mistake during a Daily unit, repeat the unit and try again.
+
+Daily can be useful as a regular warm-up before:
+
+- CW practice
+- LICW sessions
+- Getting on the air
+- Contests
+- POTA activations
+- Ragchewing
+- Straight-key practice
+
+**Exercise by WR7Q**
+
+---
+
+# 📊 Stats
+
+CW Racer keeps local statistics about your practice.
+
+Your progress is stored directly in your browser.
+
+**No account or external database is required.**
+
+Statistics include:
+
+✔ Total attempts  
+✔ Training sessions  
+✔ Best race score  
+✔ Best streak  
+✔ Individual character performance  
+✔ Accuracy history
+
+Each character develops its own performance profile.
+
+Characters are displayed using the same visual system:
+
+🟢 **Strong**
+
+🟡 **Needs improvement**
+
+🔴 **Weak**
+
+This allows you to quickly identify which characters are giving you trouble.
+
+---
+
+# 🧠 Learn From My Mistakes
+
+One of the most useful features of CW Racer is adaptive practice.
+
+Instead of practicing every character equally, Morse Practice can analyze your local statistics and identify the characters where you make the most mistakes.
+
+Select:
+
+**🧠 Learn from my mistakes**
+
+The trainer creates a practice session that gives greater priority to your weaker characters while still including stronger characters.
+
+For example:
+
+```text
+A 🟢
+N 🟢
+K 🟢
+F 🟡
+Q 🔴
+Y 🔴
+```
+
+The next adaptive session will prioritize:
+
+```text
+Q
+Y
+F
+```
+
+while still periodically testing:
+
+```text
+A
+N
+K
+```
+
+The objective is to progressively balance your character proficiency.
+
+---
+
+# 💾 Local Statistics
+
+All CW Racer statistics are stored locally in your browser.
+
+This means:
+
+- No account
+- No login
+- No cloud database
+- No personal information required
+
+Your browser remembers your progress automatically.
+
+You can reset your statistics at any time using:
+
+**Reset Statistics**
+
+⚠️ Clearing your browser storage may also remove your saved statistics.
+
+---
+
+# 🤖 QSO BOT
+
+QSO Bot allows you to practice complete simulated CW contacts directly in your browser.
+
+Instead of following a fixed text lesson, you interact with a simulated radio operator.
+
+The bot calls CQ.
+
+You answer using Morse.
+
+The application decodes your transmission, identifies the information you sent, and generates the next part of the QSO.
+
+The objective is not to memorize one exact exchange.
+
+The objective is to practice **understanding and participating in a real CW conversation**.
+
+---
+
+# 📻 QSO Bot Modes
+
+Several operating scenarios are available.
+
+## 🟢 Basic QSO
+
+Designed for operators beginning to make complete CW contacts.
+
+Typical information includes:
+
+- Callsign
+- RST
+- Name
+- QTH
+- Basic greetings
+- 73
+
+The exchange is intentionally flexible.
+
+You do **not** have to transmit every field using one exact sentence.
+
+For example:
+
+```text
+UR RST 579 NAME MATT QTH ASUNCION BK
+```
+
+or:
+
+```text
+R R TNX
+579
+NAME MATT
+QTH ASUNCION
+KN
+```
+
+can both represent valid information.
+
+---
+
+# 🟡 Intermediate QSO
+
+Intermediate contacts can include additional station information such as:
+
+- Rig
+- Power
+- Antenna
+- Operating conditions
+- Additional conversational exchanges
+
+For example:
+
+```text
+RIG TS590
+PWR 100W
+ANT VERTICAL
+BK
+```
+
+The QSO Bot attempts to extract the useful information from your complete transmission rather than requiring one rigid template.
+
+---
+
+# 🔴 Advanced QSO
+
+Advanced practice introduces more uncertainty and more conversational exchanges.
+
+The bot may request repetitions, ask about information already exchanged, or create situations where copying and responding become more important than simply completing a predefined sequence.
+
+The goal is to reduce the feeling of a scripted exercise.
+
+---
+
+# 🌲 POTA Practice
+
+POTA mode simulates a simple Parks on the Air style exchange.
+
+The bot can call:
+
+```text
+CQ POTA CQ POTA DE W1ABC W1ABC K
+```
+
+You can answer naturally:
+
+```text
+W1ABC DE ZP5DXS K
+```
+
+or simply:
+
+```text
+ZP5DXS
+```
+
+The exchange then proceeds using callsigns, reports and park-style operating procedure.
+
+POTA practice is intentionally faster and more concise than a normal conversational QSO.
+
+---
+
+# 🔑 SKCC Practice
+
+SKCC mode provides practice for Straight Key Century Club style CW exchanges.
+
+The simulated operator can exchange:
+
+- Callsign
+- RST
+- Name
+- QTH / SPC
+- SKCC number
+- Key type
+
+Supported key descriptions include common manual-key terminology such as:
+
+- **ST** — Straight Key
+- **BUG**
+- **SS / Cootie**
+
+The QSO Bot recognizes that operators do not always transmit every field in exactly the same order.
+
+---
+
+# 📡 How to Answer the QSO Bot
+
+The QSO Bot is designed to accept normal CW procedure rather than requiring a form.
+
+For example, if the bot is:
+
+```text
+K1ABC
+```
+
+and your callsign is:
+
+```text
+ZP5DXS
+```
+
+you may answer:
+
+```text
+K1ABC DE ZP5DXS K
+```
+
+The application understands the conventional meaning of **DE**:
+
+```text
+K1ABC DE ZP5DXS
+│          │
+│          └── Station transmitting
+│
+└── Station being called
+```
+
+Therefore:
+
+```text
+K1ABC DE ZP5DXS
+```
+
+means:
+
+> **ZP5DXS is transmitting to K1ABC.**
+
+This is important because both callsigns may appear in the same transmission.
+
+The parser uses normal CW syntax to distinguish them.
+
+---
+
+# 🔄 Giving the Turn Back
+
+You can use normal CW procedural markers.
+
+Examples:
+
+### BK
+
+```text
+UR RST 579 NAME MATT BK
+```
+
+### KN
+
+```text
+QTH ASUNCION KN
+```
+
+### K
+
+```text
+RIG TS590 ANT VERTICAL K
+```
+
+### AR / SK
+
+These may also be used when appropriate.
+
+Explicit turn markers are useful because the bot knows immediately that your transmission is complete.
+
+---
+
+# ⏱ Pauses While Sending
+
+You do not need to send everything without stopping.
+
+For example:
+
+```text
+NAME MATT
+
+[pause]
+
+QTH ASUNCION
+
+[pause]
+
+RIG TS590
+
+BK
+```
+
+The bot uses a two-stage silence system.
+
+A short pause is treated as a possible pause **inside your transmission**.
+
+It waits before assuming you have finished.
+
+If you send:
+
+```text
+BK
+KN
+K
+AR
+SK
+```
+
+the bot can recognize a clear handover and respond much faster.
+
+This allows more natural sending without forcing the operator to rush.
+
+---
+
+# 🎭 Different Simulated Operators
+
+Not every QSO Bot behaves exactly the same.
+
+Each simulated QSO receives a persistent operator style.
+
+Possible styles include operators who are:
+
+- Brief
+- Friendly
+- Traditional / old-school
+- Conversational
+- Contest-like
+
+One operator may prefer:
+
+```text
+BK
+```
+
+while another may frequently use:
+
+```text
+KN
+```
+
+Some may say:
+
+```text
+TNX CALL
+```
+
+Others may use:
+
+```text
+GM TNX FER CALL
+```
+
+or:
+
+```text
+FB OM TNX CALL
+```
+
+Some operators will close quickly.
+
+Others may continue the conversation and ask about:
+
+```text
+RIG?
+ANT?
+PWR?
+WX?
+HW CPY?
+```
+
+The selected personality remains consistent during that QSO.
+
+This helps make repeated practice less predictable.
+
+---
+
+# 🌩 Simulated Radio Conditions
+
+Real CW contacts are not always perfect.
+
+For this reason, the QSO Bot can occasionally introduce simple simulated radio problems.
+
+You may hear:
+
+```text
+SRY QSB RST AGN PSE
+```
+
+or:
+
+```text
+SRY VY QRM AGN PSE
+```
+
+or:
+
+```text
+QRM HR PSE RPT
+```
+
+or:
+
+```text
+SRY WEAK SIG AGN PSE
+```
+
+or simply:
+
+```text
+AGN PSE
+```
+
+These events occur only occasionally.
+
+They are designed to practice something extremely important in real CW:
+
+> **Recovering from an imperfect copy.**
+
+After a successful repeat, the simulated operator may answer naturally:
+
+```text
+R R FB
+```
+
+and continue the QSO.
+
+The intention is not to make every contact difficult.
+
+Most QSOs remain normal, while occasional QSB, QRM or repeat requests introduce uncertainty.
+
+---
+
+# 🧠 Local AI
+
+QSO Bot can optionally use a **local language model** to help interpret flexible CW exchanges.
+
+Activate:
+
+**Local AI**
+
+The model is loaded only when requested.
+
+The first activation may require downloading the model files.
+
+Afterward, the browser can cache them locally.
+
+No AI account or API key is required.
+
+---
+
+# 💡 Why Local AI?
+
+Traditional parsers work very well when the input follows predictable structures:
+
+```text
+RST 579
+NAME MATT
+QTH ASUNCION
+```
+
+Real operators, however, may send:
+
+```text
+R R TNX UR 579 HR MATT ASUNCION BK
+```
+
+or:
+
+```text
+FB CPY MATT HR ASUNCION RIG TS590 100W VERTICAL KN
+```
+
+The Local AI layer helps interpret these less rigid exchanges.
+
+The goal is not to allow AI to control everything.
+
+Instead, Morse Practice combines deterministic CW rules with AI-assisted interpretation.
+
+---
+
+# 🧠 AI Status Indicator
+
+The Local AI indicator shows what the model is doing.
+
+### ⚪ Gray
+
+AI is disabled.
+
+### 🟡 Loading
+
+The local model is being loaded.
+
+On first use, the browser may need to download and cache the model.
+
+### 🟢 Green
+
+The model is loaded and ready.
+
+### 🔵 Processing
+
+The model is currently interpreting your completed CW transmission.
+
+### 🔴 Red
+
+The AI model could not be loaded or is unavailable.
+
+The QSO Bot can still use its normal deterministic parser when AI is unavailable.
 
 ---
 
@@ -631,11 +1068,11 @@ Your language preference is remembered automatically.
 
 ON AIR allows Morse Practice users to practice CW together over the Internet.
 
-Activate the:
+Activate:
 
 **ON AIR**
 
-switch to join the worldwide practice room.
+to join the worldwide practice room.
 
 No account is required.
 
@@ -643,7 +1080,7 @@ Name and callsign are optional.
 
 ---
 
-## 📡 How ON AIR Works
+# 📡 How ON AIR Works
 
 Unlike voice chat, Morse Practice does **not** stream audio.
 
@@ -653,15 +1090,15 @@ Essentially:
 
 ```text
 KEY DOWN
-↓
+    ↓
 Timing transmitted
-↓
+    ↓
 Internet
-↓
+    ↓
 Remote browser
-↓
+    ↓
 Tone generated locally
-↓
+    ↓
 KEY UP
 ```
 
@@ -671,7 +1108,7 @@ The receiving browser generates its own sidetone using its local audio configura
 
 ---
 
-## 🟢 Online Operators
+# 🟢 Online Operators
 
 When ON AIR is active, the application displays operators currently connected to the room.
 
@@ -690,7 +1127,7 @@ This makes it possible to see when other people are available for practice.
 
 ---
 
-## 🔇 Individual Mute
+# 🔇 Individual Mute
 
 Each operator in the room can be muted locally.
 
@@ -700,12 +1137,24 @@ Muting someone affects **only your browser**.
 
 It does not:
 
-- disconnect them,
-- block them globally,
-- affect other users,
-- or require an administrator.
+- Disconnect them
+- Block them globally
+- Affect other users
+- Require an administrator
 
 Every operator controls their own listening experience.
+
+---
+
+# 🔒 Training Mode Isolation
+
+Interactive modes are intentionally separated.
+
+When using **CW Racer** or **QSO Bot**, ON AIR is disabled so that training activity is not accidentally transmitted into the worldwide practice room.
+
+Likewise, ON AIR is intended for real person-to-person practice rather than automated QSO simulation.
+
+This keeps each mode predictable and prevents training sessions from interfering with other operators.
 
 ---
 
@@ -731,6 +1180,52 @@ The concept is intentionally simple:
 
 ---
 
+# 🎨 Theme
+
+Switch instantly between:
+
+☀️ **Light**
+
+🌙 **Dark**
+
+Your preference is automatically saved.
+
+---
+
+# 🌎 Language
+
+The interface supports:
+
+🇺🇸 **English**
+
+🇪🇸 **Español**
+
+Your language preference is remembered automatically.
+
+Training interface text, Daily instructions, QSO Bot controls and other user-interface elements follow the selected language.
+
+CW operating abbreviations such as:
+
+```text
+CQ
+DE
+RST
+QTH
+BK
+KN
+AGN
+PSE
+QSB
+QRM
+TNX
+TU
+73
+```
+
+remain unchanged because they are part of normal international CW operating language.
+
+---
+
 # 🔧 DIY Hardware
 
 One of the primary goals of this project is making Morse code available to everyone.
@@ -748,8 +1243,6 @@ A very inexpensive way to connect a real Morse key is to modify a standard USB m
 The mouse buttons already behave as digital inputs understood by the browser.
 
 By connecting the contacts of a straight key or paddle to those switches, an inexpensive mouse can become a simple USB Morse interface.
-
-![USB Mouse Adapter](images/mouse.jpeg)
 
 This is particularly useful for beginners who want to start using a real key without purchasing a dedicated interface.
 
@@ -793,10 +1286,6 @@ Commercial USB Morse interfaces can also be used.
 
 If the interface presents the key or paddle as normal keyboard or mouse input, Morse Practice can use it directly.
 
-Example:
-
-![Commercial Adapter](images/adaptador.jpg)
-
 ---
 
 # 💡 DIY Ideas
@@ -822,6 +1311,603 @@ Experimentation is encouraged.
 
 ---
 
+# 🤓 Under the Hood — How the QSO Bot Works
+
+For anyone interested in the technical side, QSO Bot is not simply a chatbot connected to a Morse oscillator.
+
+The system uses several layers.
+
+The basic architecture is:
+
+```text
+Your key / paddle
+        ↓
+Browser keying engine
+        ↓
+DIT / DAH timing
+        ↓
+Morse decoder
+        ↓
+Complete CW transmission
+        ↓
+CW-aware deterministic parser
+        ↓
+Optional Local AI interpretation
+        ↓
+QSO state machine
+        ↓
+Operator personality
+        ↓
+Protocol / scenario logic
+        ↓
+Response generator
+        ↓
+Morse encoder
+        ↓
+Local sidetone
+```
+
+This hybrid approach is intentional.
+
+---
+
+# 1️⃣ Morse Comes First
+
+The QSO Bot does not receive microphone audio.
+
+It receives the same decoded Morse information generated by the normal trainer.
+
+Your actual keying is converted from:
+
+```text
+KEY DOWN
+KEY UP
+```
+
+into timing.
+
+Timing becomes:
+
+```text
+DIT
+DAH
+```
+
+and those sequences become characters.
+
+Characters become the complete CW transmission used by the QSO engine.
+
+---
+
+# 2️⃣ CW-Aware Deterministic Parser
+
+Before asking an AI model anything, Morse Practice first applies explicit CW rules.
+
+This makes important radio procedures deterministic.
+
+For example:
+
+```text
+K1ABC DE ZP5DXS K
+```
+
+is interpreted according to CW syntax.
+
+The station after:
+
+```text
+DE
+```
+
+is understood as the transmitting station.
+
+Therefore:
+
+```text
+USER CALL = ZP5DXS
+```
+
+not K1ABC.
+
+The deterministic parser also recognizes structured information such as:
+
+```text
+RST
+NAME
+QTH
+SKCC
+KEY
+RIG
+PWR
+ANT
+```
+
+and common CW shorthand.
+
+Cut numbers are also normalized where appropriate.
+
+For example:
+
+```text
+5NN
+```
+
+can be interpreted as:
+
+```text
+599
+```
+
+This deterministic layer is intentionally placed **before the language model**.
+
+A language model should not have to guess something that normal CW procedure already defines clearly.
+
+---
+
+# 3️⃣ Local Language Model
+
+When Local AI is enabled, Morse Practice can use:
+
+**SmolLM2-135M-Instruct**
+
+as an additional interpretation layer.
+
+The model runs locally in the browser through a browser-compatible machine-learning runtime.
+
+When supported by the device, browser and graphics hardware, **WebGPU** can be used for acceleration.
+
+A CPU/WASM path may be used when appropriate support is available.
+
+The model is not used as a remote chatbot service.
+
+There is:
+
+- No OpenAI API
+- No paid AI API
+- No API key
+- No external AI account required
+
+The model files are downloaded when needed and may be cached by the browser.
+
+---
+
+# 4️⃣ What the AI Actually Does
+
+The language model does **not** directly control the QSO.
+
+Its main job is interpretation.
+
+Suppose you transmit:
+
+```text
+R R TNX BOB UR 579 HR MATT ASUNCION
+RIG TS590 PWR 100W ANT VERTICAL BK
+```
+
+The deterministic parser extracts everything it can first.
+
+If relevant information remains ambiguous, the AI can analyze the complete transmission and attempt to identify structured fields such as:
+
+```text
+CALL
+RST
+NAME
+QTH
+RIG
+PWR
+ANT
+SKCC
+KEY
+```
+
+Conceptually:
+
+```text
+Natural CW transmission
+        ↓
+Local language model
+        ↓
+Structured interpretation
+        ↓
+Validation
+        ↓
+QSO state
+```
+
+The language model therefore acts more like a **local CW interpretation assistant** than an unrestricted chatbot.
+
+---
+
+# 5️⃣ Why Not Let the AI Do Everything?
+
+Because a language model can be creative.
+
+A CW trainer should not be creative about facts you never transmitted.
+
+For this reason, Morse Practice uses a hybrid architecture.
+
+The system prefers:
+
+```text
+Known CW rule
+        ↓
+Deterministic parser
+        ↓
+AI only when useful
+```
+
+rather than:
+
+```text
+Everything
+        ↓
+AI guess
+```
+
+The application attempts to validate AI-extracted information against the transmission itself.
+
+The objective is to reduce hallucination and prevent the bot from casually inventing user information.
+
+For example, if you never transmitted:
+
+```text
+NAME JOHN
+```
+
+the system should not simply decide that your name is John.
+
+---
+
+# 6️⃣ The AI Is Selective
+
+Running a language model after every Morse character would be inefficient and would create unnecessary delays.
+
+Instead, Morse Practice waits for a complete transmission.
+
+It first runs the fast deterministic parser.
+
+The AI is invoked when additional interpretation can actually help.
+
+This provides an important balance:
+
+```text
+Simple exchange
+→ Fast parser
+→ Fast response
+```
+
+while:
+
+```text
+Complex / unusual exchange
+→ Parser
+→ Local AI
+→ Structured extraction
+→ Response
+```
+
+This is one reason explicit CW handover markers such as:
+
+```text
+BK
+KN
+K
+```
+
+are useful.
+
+They tell the QSO engine that your transmission is complete.
+
+---
+
+# 7️⃣ Two-Stage End-of-Transmission Detection
+
+Humans pause while sending.
+
+A pause does not necessarily mean:
+
+> "My transmission is finished."
+
+You might send:
+
+```text
+NAME MATT
+```
+
+pause briefly and continue:
+
+```text
+QTH ASUNCION
+```
+
+For this reason, QSO Bot uses a two-stage silence strategy.
+
+Conceptually:
+
+```text
+Last Morse character
+        ↓
+Short silence
+        ↓
+Possible pause inside transmission
+        ↓
+Additional waiting window
+        ↓
+No more CW?
+        ↓
+Process transmission
+```
+
+But if the application sees:
+
+```text
+BK
+KN
+K
+AR
+SK
+```
+
+it has much stronger evidence that you intentionally returned the turn.
+
+This allows the bot to respond quickly without constantly interrupting slower operators.
+
+---
+
+# 8️⃣ QSO State Machine
+
+The QSO itself is controlled by a state machine.
+
+Different scenarios expect different kinds of information.
+
+For example:
+
+```text
+CQ
+ ↓
+CALLSIGN
+ ↓
+RST
+ ↓
+NAME / QTH
+ ↓
+OPTIONAL INFORMATION
+ ↓
+73 / SK
+```
+
+But the state machine does not require all information to arrive one field at a time.
+
+If you send several pieces of information in one transmission, they can be stored together.
+
+For example:
+
+```text
+UR 579 NAME MATT QTH ASUNCION RIG TS590 BK
+```
+
+may satisfy several parts of the QSO simultaneously.
+
+This is what allows the exchange to feel less like completing a form.
+
+---
+
+# 9️⃣ Persistent Operator Personality
+
+Every simulated QSO can receive an operator personality when it begins.
+
+That personality remains active for the complete contact.
+
+The current system can represent styles such as:
+
+```text
+TERSE
+FRIENDLY
+OLD-SCHOOL
+CHATTY
+CONTEST-LIKE
+```
+
+The personality influences things such as:
+
+- Greeting style
+- Amount of conversation
+- Preference for BK / KN / K
+- Probability of asking additional questions
+- Closing style
+
+A terse operator may send:
+
+```text
+R R
+TU
+73
+```
+
+while a more conversational operator may use:
+
+```text
+VY FB TNX FER CALL
+```
+
+and continue asking about the station.
+
+This is intentionally lightweight.
+
+The goal is not to simulate human psychology.
+
+The goal is simply to stop every QSO from following exactly the same script.
+
+---
+
+# 🔟 Probabilistic Conversation Branches
+
+Not every Basic QSO needs to finish immediately after exchanging RST, name and QTH.
+
+Some simulated operators may continue with:
+
+```text
+RIG?
+```
+
+or:
+
+```text
+ANT?
+```
+
+or:
+
+```text
+PWR?
+```
+
+or:
+
+```text
+WX?
+```
+
+or:
+
+```text
+HW CPY ME?
+```
+
+These branches occur probabilistically and are influenced by the simulated operator style.
+
+This introduces variation without giving the language model unrestricted control over the protocol.
+
+---
+
+# 1️⃣1️⃣ Simulated Band Conditions
+
+The QSO engine can occasionally introduce a radio-condition event.
+
+Examples include:
+
+```text
+QSB
+QRM
+WEAK SIG
+AGN PSE
+```
+
+The response generator then produces realistic CW phrases such as:
+
+```text
+SRY QSB RST AGN PSE
+```
+
+or:
+
+```text
+SRY VY QRM AGN PSE
+```
+
+The event becomes part of the current QSO state.
+
+The bot then waits for the operator to repeat the requested information.
+
+After successful recovery it can continue with:
+
+```text
+R R FB
+```
+
+This provides practice not only in sending perfect exchanges but also in **repairing imperfect ones**.
+
+---
+
+# 1️⃣2️⃣ Controlled Generation
+
+One important design principle is that AI interpretation and QSO response generation are separated.
+
+The AI helps understand:
+
+> **What did the operator transmit?**
+
+The QSO engine decides:
+
+> **What should happen next?**
+
+And the response generator decides:
+
+> **How should that intention be expressed in normal CW?**
+
+Conceptually:
+
+```text
+AI interpretation
+        ↓
+INTENT
+        ↓
+QSO rules
+        ↓
+Controlled CW vocabulary
+        ↓
+Response
+```
+
+This prevents the language model from freely inventing arbitrary radio procedure.
+
+It also makes the behavior easier to debug and improve.
+
+---
+
+# 🧪 Why This Architecture?
+
+The objective of QSO Bot is not to create an AI that happens to know Morse code.
+
+The objective is to create a **CW training simulator**.
+
+That means several things matter more than raw language-model capability:
+
+- Correct CW procedure
+- Predictable callsign interpretation
+- Low latency
+- Flexible exchanges
+- Realistic variation
+- No required cloud account
+- Browser operation
+- Privacy
+- Repeatability
+- Ability to work without AI when necessary
+
+A relatively small local language model combined with explicit radio rules can therefore be more useful for this particular task than simply sending every transmission to a much larger general-purpose chatbot.
+
+---
+
+# 🔬 Experimental Feature
+
+Local AI and QSO Bot are experimental features.
+
+CW operating styles vary enormously between operators, countries, clubs and operating activities.
+
+Real operators also make mistakes.
+
+So does software.
+
+The simulator should be considered a **practice tool**, not an authority on the only correct way to conduct a CW QSO.
+
+Feedback, unusual exchanges and examples that confuse the parser are especially useful for improving the project.
+
+---
+
+# 🔐 Privacy
+
+Most Morse Practice functionality runs directly in your browser.
+
+CW Racer statistics are stored locally.
+
+Local AI inference is designed to run in the browser.
+
+ON AIR necessarily exchanges realtime keying information with the realtime relay so that other connected operators can hear your keying.
+
+No registration is required to use the application.
+
+---
+
 # 📷 Screenshots
 
 Screenshots and additional hardware examples will be added as the project evolves.
@@ -841,9 +1927,13 @@ Whether you're:
 - improving paddle timing,
 - teaching CW,
 - experimenting with hardware,
-- or an experienced operator...
+- testing the QSO Bot,
+- experimenting with Local AI,
+- or an experienced CW operator...
 
 ...your feedback can help improve Morse Practice for everyone.
+
+Particularly useful feedback includes unusual but valid CW exchanges that the QSO Bot fails to understand.
 
 ---
 
