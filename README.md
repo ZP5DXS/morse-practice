@@ -2,6 +2,9 @@
 
 > **Free • Open Source • Browser-Based Morse Code Trainer**
 
+
+🌐 **Live Demo:** https://zp5dxs.github.io/morse-practice/
+
 A free web-based Morse code practice application designed for amateur radio operators and anyone interested in learning CW.
 
 Practice directly from your browser using your **keyboard**, **mouse**, **commercial Morse key**, or even a **DIY USB adapter**. No installation required.
