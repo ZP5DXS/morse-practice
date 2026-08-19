@@ -125,7 +125,7 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:1
       <div class="racer-tabs">
         <button class="racer-tab active" data-racer-tab="learn" type="button" data-i18n="racerLearn">Learn</button>
         <button class="racer-tab" data-racer-tab="race" type="button" data-i18n="racerRace">Race</button>
-        <button class="racer-tab" data-racer-tab="wr7q" type="button">Daily</button>
+        <button class="racer-tab" data-racer-tab="wr7q" type="button" data-i18n="dailyTab">Daily</button>
         <button class="racer-tab" data-racer-tab="stats" type="button" data-i18n="racerStats">Stats</button>
       </div>
 
@@ -175,9 +175,9 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:1
 
       <div id="racerPaneWr7q" class="racer-pane">
         <div class="wr7q-section-buttons">
-          <button class="active" data-wr7q-section="warmup" type="button">Warm Up</button>
-          <button data-wr7q-section="exercise" type="button">Exercise</button>
-          <button data-wr7q-section="drill" type="button">Drill</button>
+          <button class="active" data-wr7q-section="warmup" type="button" data-i18n="dailyWarmup">Warm Up</button>
+          <button data-wr7q-section="exercise" type="button" data-i18n="dailyExercise">Exercise</button>
+          <button data-wr7q-section="drill" type="button" data-i18n="dailyDrill">Drill</button>
         </div>
         <div class="racer-stage">
           <div id="wr7qTarget" class="racer-target" style="font-size:23px">—</div>
@@ -190,7 +190,7 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:1
           <button id="wr7qStartBtn" class="action primary" type="button" data-i18n="racerStart">Comenzar</button>
           <button id="wr7qHearBtn" class="action" type="button">🔊 CW</button>
         </div>
-        <div class="wr7q-credit">Exercise by WR7Q</div>
+        <div class="wr7q-credit" data-i18n="dailyCredit">Exercise by WR7Q</div>
       </div>
 
       <div id="racerPaneStats" class="racer-pane">
@@ -229,7 +229,7 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:1
     <span id="qsoAiLed" class="ai-led"></span>
     <span id="qsoSmartLabel">AI</span>
   </div>
-  <label class="switch" title="Local AI">
+  <label id="qsoAiSwitchLabel" class="switch" title="Local AI">
     <input id="qsoSmartToggle" type="checkbox"><span></span>
   </label>
 </div>
@@ -266,7 +266,7 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:1
 (()=>{
 const MORSE={".-":"A","-...":"B","-.-.":"C","-..":"D",".":"E","..-.":"F","--.":"G","....":"H","..":"I",".---":"J","-.-":"K",".-..":"L","--":"M","-.":"N","---":"O",".--.":"P","--.-":"Q",".-.":"R","...":"S","-":"T","..-":"U","...-":"V",".--":"W","-..-":"X","-.--":"Y","--..":"Z","-----":"0",".----":"1","..---":"2","...--":"3","....-":"4",".....":"5","-....":"6","--...":"7","---..":"8","----.":"9",".-.-.-":".","--..--":",","..--..":"?","-..-.":"/","-....-":"-",".--.-.":"@",".----.":"'","-.-.--":"!","-.--.":"(","-.--.-":")","---...":":","-.-.-.":";",".-..-.":"\"","..--.-":"_","...-..-":"$",".-.-.":"<AR>","-...-":"<BT>","...-.-":"<SK>",".-...":"<AS>","...---...":"<SOS>"};
 const REVERSE={};for(const [code,ch] of Object.entries(MORSE)){if(!ch.startsWith('<')&&!REVERSE[ch])REVERSE[ch]=code;}Object.assign(REVERSE,{"=":"-...-","+":".-.-."});
-const I18N={es:{subtitle:"Práctica de Código Morse",courtesy:"Cortesía de",instructions:"Instrucciones",settings:"Configuración",mode:"Modo",straight:"Llave recta",paddle:"Paleta",speed:"Velocidad",tone:"Tono",volume:"Volumen",oscAudio:"Audio del oscilador",visualAid:"Ayuda visual",visualAidHelp:"Mostrar puntos y rayas",wordSpacing:"Espaciado de palabras",keyArea:"Área de manipulación",captureHelp:"Mouse, teclado, touch o adaptador USB",hero:"Haz clic, toca la pantalla o usa tu adaptador",esc:"libera el mouse",space:"llave recta",clear:"limpiar",text:"Texto / Decoder",bidirectional:"Bidireccional: escribe o manipula",playCW:"Reproducir CW",stop:"Detener",clearBtn:"Limpiar",last:"Último",copy:"Copiar",save:"Guardar TXT",betaNote:"Sala mundial experimental. La identidad es opcional y los eventos de manipulación viajan por un relay público.",straightHint:"Llave recta · mouse, SPACE o toda la superficie táctil",paddleHint:"Paleta · izquierda DIT (.) · derecha DAH (-)",idle:"Listo · clic para capturar mouse o toca la superficie",active:"Activo · mouse capturado · ESC libera",touchReady:"Touch activo · levanta el dedo para cortar",free:"● Canal libre",busy:"● Canal ocupado",online:"operadores en línea",connecting:"Conectando…",onair:"ON AIR conectado",copied:"Copiado",playing:"Reproduciendo",stopped:"Detenido",anonymous:"Anónimo",countries:"países",you:"tú",mute:"Silenciar",unmute:"Escuchar",racerLearn:"Learn",racerRace:"Race",racerStats:"Stats",racerLetters:"Letras A–Z",racerNumbers:"Números 0–9",racerPunct:"Signos",racerProsigns:"Prosigns",racerMixed:"Mixto",racerVoice:"Voz opcional",racerReady:"Listo para comenzar",racerStart:"Comenzar",racerNext:"Siguiente",racerStartRace:"Iniciar carrera",racerSessions:"Sesiones",racerAttempts:"Intentos",racerBestScore:"Mejor score",racerBestStreak:"Mejor racha",racerMistakes:"Aprende de tus errores",racerReset:"Resetear estadísticas",racerCorrect:"Correcto",racerImperfect:"Correcto, pero mejora el timing",racerWrong:"Incorrecto",racerAgain:"Repite",racerFinished:"¡Completado!",racerFinalScore:"Puntaje final",racerBestSimilar:"Mejor carrera similar",racerNoWeak:"Todavía no hay suficientes errores para crear una lección adaptativa",racerResetConfirm:"¿Seguro que quieres borrar todas las estadísticas de CW Racer?",racerTransmit:"Transmítelo",racerListenRepeat:"Escucha y repite",racerRestartUnit:"Error: repite la unidad desde el comienzo",qsoBasic:"QSO básico",qsoIntermediate:"QSO intermedio",qsoAdvanced:"QSO avanzado",qsoReady:"Selecciona un modo e inicia el QSO.",qsoIdle:"Bot listo.",qsoStart:"Iniciar QSO",qsoRepeat:"Repetir bot",qsoStop:"Finalizar",qsoNeedCall:"Ingresa tu indicativo para comenzar.",qsoAnswerCQ:"Responde al CQ con tu indicativo.",qsoSendExchange:"Envía tu RST, nombre y QTH.",qsoSendMore:"Agrega RST, nombre/QTH y algunos datos de estación.",qsoSendSkcc:"Envía RST, SPC/QTH, nombre y número SKCC (o NONE).",qsoSendPota:"Envía un RST realista; QTH es opcional.",qsoRepeatNeeded:"No copié todo. Repite el intercambio.",qsoComplete:"QSO completado",qsoStopped:"QSO finalizado.",qsoBotTx:"El bot está transmitiendo…",qsoAdvancedRepeat:"El bot pide una repetición.",qsoLocked:"ON AIR no está disponible durante CW Racer o QSO Bot.",qsoCopied:"Datos copiados",qsoNeedName:"NAME?",qsoNeedQth:"QTH?",qsoNeedSkcc:"SKCC NR?",qsoNeedKey:"KEY?",qsoNeedRig:"RIG?",qsoNeedPwr:"PWR?",qsoNeedAnt:"ANT?",qsoCopying:"Copiando tu transmisión…",},en:{subtitle:"Morse Code Practice",courtesy:"Courtesy of",instructions:"Instructions",settings:"Settings",mode:"Mode",straight:"Straight Key",paddle:"Paddle",speed:"Speed",tone:"Tone",volume:"Volume",oscAudio:"Oscillator audio",visualAid:"Visual aid",visualAidHelp:"Show dots and dashes",wordSpacing:"Word spacing",keyArea:"Keying Area",captureHelp:"Mouse, keyboard, touch or USB adapter",hero:"Click, touch the screen or use your adapter",esc:"releases mouse",space:"straight key",clear:"clear",text:"Text / Decoder",bidirectional:"Bidirectional: type or key",playCW:"Play CW",stop:"Stop",clearBtn:"Clear",last:"Last",copy:"Copy",save:"Save TXT",betaNote:"Experimental global room. Identity is optional and keying events travel through a public relay.",straightHint:"Straight key · mouse, SPACE or the whole touch surface",paddleHint:"Paddle · left DIT (.) · right DAH (-)",idle:"Ready · click to capture mouse or touch the surface",active:"Active · mouse captured · ESC releases",touchReady:"Touch active · lift your finger to release",free:"● Channel free",busy:"● Channel busy",online:"operators online",connecting:"Connecting…",onair:"ON AIR connected",copied:"Copied",playing:"Playing",stopped:"Stopped",anonymous:"Anonymous",countries:"countries",you:"you",mute:"Mute",unmute:"Listen",racerLearn:"Learn",racerRace:"Race",racerStats:"Stats",racerLetters:"Letters A–Z",racerNumbers:"Numbers 0–9",racerPunct:"Punctuation",racerProsigns:"Prosigns",racerMixed:"Mixed",racerVoice:"Optional voice",racerReady:"Ready to start",racerStart:"Start",racerNext:"Next",racerStartRace:"Start race",racerSessions:"Sessions",racerAttempts:"Attempts",racerBestScore:"Best score",racerBestStreak:"Best streak",racerMistakes:"Learn from my mistakes",racerReset:"Reset statistics",racerCorrect:"Correct",racerImperfect:"Correct, but improve your timing",racerWrong:"Wrong",racerAgain:"Repeat",racerFinished:"Completed!",racerFinalScore:"Final score",racerBestSimilar:"Best similar race",racerNoWeak:"There are not enough weak characters yet to build an adaptive lesson",racerResetConfirm:"Are you sure you want to erase all CW Racer statistics?",racerTransmit:"Transmit it",racerListenRepeat:"Listen and repeat",racerRestartUnit:"Error: restart the unit from the beginning",qsoBasic:"Basic QSO",qsoIntermediate:"Intermediate QSO",qsoAdvanced:"Advanced QSO",qsoReady:"Select a mode and start the QSO.",qsoIdle:"Bot ready.",qsoStart:"Start QSO",qsoRepeat:"Repeat bot",qsoStop:"End",qsoNeedCall:"Enter your callsign to start.",qsoAnswerCQ:"Answer the CQ with your callsign.",qsoSendExchange:"Send your RST, name and QTH.",qsoSendMore:"Add RST, name/QTH and some station details.",qsoSendSkcc:"Send RST, SPC/QTH, name and SKCC number (or NONE).",qsoSendPota:"Send a realistic RST; QTH is optional.",qsoRepeatNeeded:"I did not copy everything. Repeat the exchange.",qsoComplete:"QSO completed",qsoStopped:"QSO ended.",qsoBotTx:"The bot is transmitting…",qsoAdvancedRepeat:"The bot requests a repeat.",qsoLocked:"ON AIR is unavailable while CW Racer or QSO Bot is active.",qsoCopied:"Copied data",qsoNeedName:"NAME?",qsoNeedQth:"QTH?",qsoNeedSkcc:"SKCC NR?",qsoNeedKey:"KEY?",qsoNeedRig:"RIG?",qsoNeedPwr:"PWR?",qsoNeedAnt:"ANT?",qsoCopying:"Copying your transmission…",}};
+const I18N={es:{subtitle:"Práctica de Código Morse",courtesy:"Cortesía de",instructions:"Instrucciones",settings:"Configuración",mode:"Modo",straight:"Llave recta",paddle:"Paleta",speed:"Velocidad",tone:"Tono",volume:"Volumen",oscAudio:"Audio del oscilador",visualAid:"Ayuda visual",visualAidHelp:"Mostrar puntos y rayas",wordSpacing:"Espaciado de palabras",keyArea:"Área de manipulación",captureHelp:"Mouse, teclado, touch o adaptador USB",hero:"Haz clic, toca la pantalla o usa tu adaptador",esc:"libera el mouse",space:"llave recta",clear:"limpiar",text:"Texto / Decoder",bidirectional:"Bidireccional: escribe o manipula",playCW:"Reproducir CW",stop:"Detener",clearBtn:"Limpiar",last:"Último",copy:"Copiar",save:"Guardar TXT",betaNote:"Sala mundial experimental. La identidad es opcional y los eventos de manipulación viajan por un relay público.",straightHint:"Llave recta · mouse, SPACE o toda la superficie táctil",paddleHint:"Paleta · izquierda DIT (.) · derecha DAH (-)",idle:"Listo · clic para capturar mouse o toca la superficie",active:"Activo · mouse capturado · ESC libera",touchReady:"Touch activo · levanta el dedo para cortar",free:"● Canal libre",busy:"● Canal ocupado",online:"operadores en línea",connecting:"Conectando…",onair:"ON AIR conectado",copied:"Copiado",playing:"Reproduciendo",stopped:"Detenido",anonymous:"Anónimo",countries:"países",you:"tú",mute:"Silenciar",unmute:"Escuchar",racerLearn:"Learn",racerRace:"Race",racerStats:"Stats",racerLetters:"Letras A–Z",racerNumbers:"Números 0–9",racerPunct:"Signos",racerProsigns:"Prosigns",racerMixed:"Mixto",racerVoice:"Voz opcional",racerReady:"Listo para comenzar",racerStart:"Comenzar",racerNext:"Siguiente",racerStartRace:"Iniciar carrera",racerSessions:"Sesiones",racerAttempts:"Intentos",racerBestScore:"Mejor score",racerBestStreak:"Mejor racha",racerMistakes:"Aprende de tus errores",racerReset:"Resetear estadísticas",racerCorrect:"Correcto",racerImperfect:"Correcto, pero mejora el timing",racerWrong:"Incorrecto",racerAgain:"Repite",racerFinished:"¡Completado!",racerFinalScore:"Puntaje final",racerBestSimilar:"Mejor carrera similar",racerNoWeak:"Todavía no hay suficientes errores para crear una lección adaptativa",racerResetConfirm:"¿Seguro que quieres borrar todas las estadísticas de CW Racer?",racerTransmit:"Transmítelo",racerListenRepeat:"Escucha y repite",racerRestartUnit:"Error: repite la unidad desde el comienzo",qsoBasic:"QSO básico",qsoIntermediate:"QSO intermedio",qsoAdvanced:"QSO avanzado",qsoReady:"Selecciona un modo e inicia el QSO.",qsoIdle:"Bot listo.",qsoStart:"Iniciar QSO",qsoRepeat:"Repetir bot",qsoStop:"Finalizar",qsoNeedCall:"Ingresa tu indicativo para comenzar.",qsoAnswerCQ:"Responde al CQ con tu indicativo.",qsoSendExchange:"Envía tu RST, nombre y QTH.",qsoSendMore:"Agrega RST, nombre/QTH y algunos datos de estación.",qsoSendSkcc:"Envía RST, SPC/QTH, nombre y número SKCC (o NONE).",qsoSendPota:"Envía un RST realista; QTH es opcional.",qsoRepeatNeeded:"No copié todo. Repite el intercambio.",qsoComplete:"QSO completado",qsoStopped:"QSO finalizado.",qsoBotTx:"El bot está transmitiendo…",qsoAdvancedRepeat:"El bot pide una repetición.",qsoLocked:"ON AIR no está disponible durante CW Racer o QSO Bot.",qsoCopied:"Datos copiados",qsoNeedName:"NAME?",qsoNeedQth:"QTH?",qsoNeedSkcc:"SKCC NR?",qsoNeedKey:"KEY?",qsoNeedRig:"RIG?",qsoNeedPwr:"PWR?",qsoNeedAnt:"ANT?",qsoCopying:"Copiando tu transmisión…",dailyTab:"Diario",dailyWarmup:"Calentamiento",dailyExercise:"Ejercicio",dailyDrill:"Práctica",dailyCredit:"Ejercicio de WR7Q",qsoYou:"TÚ",qsoRepeatsLabel:"REPETICIONES",aiOff:"IA apagada",aiLoading:"Cargando modelo de IA",aiReady:"IA lista",aiThinking:"IA interpretando CW",aiError:"IA no disponible",aiLocalTitle:"IA local",},en:{subtitle:"Morse Code Practice",courtesy:"Courtesy of",instructions:"Instructions",settings:"Settings",mode:"Mode",straight:"Straight Key",paddle:"Paddle",speed:"Speed",tone:"Tone",volume:"Volume",oscAudio:"Oscillator audio",visualAid:"Visual aid",visualAidHelp:"Show dots and dashes",wordSpacing:"Word spacing",keyArea:"Keying Area",captureHelp:"Mouse, keyboard, touch or USB adapter",hero:"Click, touch the screen or use your adapter",esc:"releases mouse",space:"straight key",clear:"clear",text:"Text / Decoder",bidirectional:"Bidirectional: type or key",playCW:"Play CW",stop:"Stop",clearBtn:"Clear",last:"Last",copy:"Copy",save:"Save TXT",betaNote:"Experimental global room. Identity is optional and keying events travel through a public relay.",straightHint:"Straight key · mouse, SPACE or the whole touch surface",paddleHint:"Paddle · left DIT (.) · right DAH (-)",idle:"Ready · click to capture mouse or touch the surface",active:"Active · mouse captured · ESC releases",touchReady:"Touch active · lift your finger to release",free:"● Channel free",busy:"● Channel busy",online:"operators online",connecting:"Connecting…",onair:"ON AIR connected",copied:"Copied",playing:"Playing",stopped:"Stopped",anonymous:"Anonymous",countries:"countries",you:"you",mute:"Mute",unmute:"Listen",racerLearn:"Learn",racerRace:"Race",racerStats:"Stats",racerLetters:"Letters A–Z",racerNumbers:"Numbers 0–9",racerPunct:"Punctuation",racerProsigns:"Prosigns",racerMixed:"Mixed",racerVoice:"Optional voice",racerReady:"Ready to start",racerStart:"Start",racerNext:"Next",racerStartRace:"Start race",racerSessions:"Sessions",racerAttempts:"Attempts",racerBestScore:"Best score",racerBestStreak:"Best streak",racerMistakes:"Learn from my mistakes",racerReset:"Reset statistics",racerCorrect:"Correct",racerImperfect:"Correct, but improve your timing",racerWrong:"Wrong",racerAgain:"Repeat",racerFinished:"Completed!",racerFinalScore:"Final score",racerBestSimilar:"Best similar race",racerNoWeak:"There are not enough weak characters yet to build an adaptive lesson",racerResetConfirm:"Are you sure you want to erase all CW Racer statistics?",racerTransmit:"Transmit it",racerListenRepeat:"Listen and repeat",racerRestartUnit:"Error: restart the unit from the beginning",qsoBasic:"Basic QSO",qsoIntermediate:"Intermediate QSO",qsoAdvanced:"Advanced QSO",qsoReady:"Select a mode and start the QSO.",qsoIdle:"Bot ready.",qsoStart:"Start QSO",qsoRepeat:"Repeat bot",qsoStop:"End",qsoNeedCall:"Enter your callsign to start.",qsoAnswerCQ:"Answer the CQ with your callsign.",qsoSendExchange:"Send your RST, name and QTH.",qsoSendMore:"Add RST, name/QTH and some station details.",qsoSendSkcc:"Send RST, SPC/QTH, name and SKCC number (or NONE).",qsoSendPota:"Send a realistic RST; QTH is optional.",qsoRepeatNeeded:"I did not copy everything. Repeat the exchange.",qsoComplete:"QSO completed",qsoStopped:"QSO ended.",qsoBotTx:"The bot is transmitting…",qsoAdvancedRepeat:"The bot requests a repeat.",qsoLocked:"ON AIR is unavailable while CW Racer or QSO Bot is active.",qsoCopied:"Copied data",qsoNeedName:"NAME?",qsoNeedQth:"QTH?",qsoNeedSkcc:"SKCC NR?",qsoNeedKey:"KEY?",qsoNeedRig:"RIG?",qsoNeedPwr:"PWR?",qsoNeedAnt:"ANT?",qsoCopying:"Copying your transmission…",dailyTab:"Daily",dailyWarmup:"Warm Up",dailyExercise:"Exercise",dailyDrill:"Drill",dailyCredit:"Exercise by WR7Q",qsoYou:"YOU",qsoRepeatsLabel:"REPEATS",aiOff:"AI off",aiLoading:"AI model loading",aiReady:"AI ready",aiThinking:"AI interpreting CW",aiError:"AI unavailable",aiLocalTitle:"Local AI",}};
 const $=id=>document.getElementById(id),keyarea=$("keyarea"),symbols=$("symbols"),decoded=$("decoded"),practice=$("practice"),status=$("status"),mode=$("mode"),wpm=$("wpm"),tone=$("tone"),volume=$("volume"),sidetone=$("sidetoneToggle"),visualAid=$("visualAidToggle"),spacing=$("wordSpacing");
 let lang=localStorage.getItem('cw-lang')||'es'; const tr=k=>I18N[lang][k]||k;
 let visualAidEnabled=localStorage.getItem('cw-visual-aid')==='on';
@@ -280,7 +280,7 @@ visualAid.addEventListener('change',()=>{
   applyVisualAid();
 });
 
-function applyLang(){document.documentElement.lang=lang;document.querySelectorAll('[data-i18n]').forEach(n=>{const k=n.dataset.i18n;if(I18N[lang][k])n.textContent=I18N[lang][k]});$("langToggle").classList.toggle('on',lang==='en');$("operatorName").placeholder=lang==='es'?'Nombre (opcional)':'Name (optional)';$("operatorCall").placeholder=lang==='es'?'Indicativo (opcional)':'Callsign (optional)';updateModeHint();updateChannelUI();}
+function applyLang(){document.documentElement.lang=lang;document.querySelectorAll('[data-i18n]').forEach(n=>{const k=n.dataset.i18n;if(I18N[lang][k])n.textContent=I18N[lang][k]});$("langToggle").classList.toggle('on',lang==='en');$("operatorName").placeholder=lang==='es'?'Nombre (opcional)':'Name (optional)';$("operatorCall").placeholder=lang==='es'?'Indicativo (opcional)':'Callsign (optional)';const aiLabel=document.getElementById('qsoAiSwitchLabel');if(aiLabel)aiLabel.title=tr('aiLocalTitle');if(typeof qsoSmartVisual==='function')qsoSmartVisual(qsoSmartCurrentState||'');if(typeof qsoSetYou==='function')qsoSetYou();updateModeHint();updateChannelUI();}
 let audioCtx=null,osc=null,gain=null,remoteOsc=null,remoteGain=null;function ensureAudio(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume()}
 function localToneOn(){if(!sidetone.checked)return;ensureAudio();if(osc)return;osc=audioCtx.createOscillator();gain=audioCtx.createGain();osc.frequency.value=+tone.value||650;gain.gain.value=+volume.value||.25;osc.connect(gain).connect(audioCtx.destination);osc.start()}
 function localToneOff(){if(!osc)return;try{osc.stop()}catch{}try{osc.disconnect();gain.disconnect()}catch{}osc=gain=null}
@@ -999,58 +999,218 @@ updateWr7qTarget();
 
 
 
-// ==================== SMART INTERPRETATION (optional local AI) ====================
-let qsoSmartEnabled=false,qsoSmartPipe=null,qsoSmartLoading=false;
-const QSO_SMART_MODEL='Xenova/all-MiniLM-L6-v2';
+// ==================== SMART INTERPRETATION (local generative AI) ====================
+// SmolLM2 runs locally in the browser. The AI extracts fields from the complete CW turn.
+// Deterministic validation remains authoritative: the AI is not allowed to invent user data.
+let qsoSmartEnabled=false,qsoSmartPipe=null,qsoSmartLoading=false,qsoSmartCurrentState='';
+const QSO_SMART_MODEL='HuggingFaceTB/SmolLM2-135M-Instruct';
+
 function qsoSmartVisual(state){
+  qsoSmartCurrentState=state||'';
   const led=document.getElementById('qsoAiLed');
   const panel=document.getElementById('qsoBotPanel');
-  if(led)led.className='ai-led '+(state||'');
+  const label=document.getElementById('qsoSmartLabel');
+  const names={
+    '':tr('aiOff'),
+    loading:tr('aiLoading'),
+    ready:tr('aiReady'),
+    thinking:tr('aiThinking'),
+    error:tr('aiError')
+  };
+  if(led){
+    led.className='ai-led '+(state||'');
+    led.title=names[state||'']||'AI';
+    led.setAttribute('aria-label',names[state||'']||'AI');
+  }
+  if(label){
+    label.title=names[state||'']||tr('aiLocalTitle');
+  }
   if(panel)panel.classList.toggle('ai-active',state==='ready'||state==='thinking');
 }
-function qsoSmartStatus(s){
-  const map={loading:'loading',ready:'ready',thinking:'thinking',error:'error',off:''};
-  qsoSmartVisual(map[s]??s);
-}
+function qsoSmartStatus(state){qsoSmartVisual(state)}
+
 async function qsoSmartLoad(){
   if(qsoSmartPipe)return true;
   if(qsoSmartLoading)return false;
   qsoSmartLoading=true;
   qsoSmartStatus('loading');
   try{
-    const {pipeline}=await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1');
-    const base={dtype:'q8',progress_callback:p=>{
-      if(p?.status==='progress'&&Number.isFinite(p.progress))qsoSmartStatus('loading');
-    }};
-    if('gpu' in navigator)base.device='webgpu';
-    try{qsoSmartPipe=await pipeline('feature-extraction',QSO_SMART_MODEL,base)}
-    catch(err){
-      delete base.device;
-      qsoSmartStatus('loading');
-      qsoSmartPipe=await pipeline('feature-extraction',QSO_SMART_MODEL,base);
+    const {pipeline}=await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1/+esm');
+    const opts={
+      dtype:'q4',
+      progress_callback:p=>{
+        if(p?.status==='progress'&&Number.isFinite(p.progress)){
+          qsoSmartStatus('loading');
+          const led=document.getElementById('qsoAiLed');
+          if(led)led.title=`AI downloading ${Math.round(p.progress)}%`;
+        }
+      }
+    };
+    // q4 is broadly compatible. Prefer WebGPU; fall back to WASM/CPU.
+    if(navigator.gpu)opts.device='webgpu';
+    try{
+      qsoSmartPipe=await pipeline('text-generation',QSO_SMART_MODEL,opts);
+    }catch(webgpuErr){
+      console.warn('WebGPU AI load failed, retrying CPU/WASM',webgpuErr);
+      delete opts.device;
+      qsoSmartPipe=await pipeline('text-generation',QSO_SMART_MODEL,opts);
     }
+
+    // Real generation warm-up: green means the model is actually usable.
+    await qsoSmartPipe(
+      [{role:'system',content:'Reply only OK.'},{role:'user',content:'OK?'}],
+      {max_new_tokens:3,do_sample:false}
+    );
     qsoSmartStatus('ready');
     return true;
   }catch(err){
-    console.warn('Local AI unavailable',err);
+    console.warn('Local generative AI unavailable',err);
     qsoSmartStatus('error');
     return false;
-  }finally{qsoSmartLoading=false}
+  }finally{
+    qsoSmartLoading=false;
+  }
 }
-async function qsoSmartSimilarity(text,examples){
-  if(!qsoSmartEnabled||!qsoSmartPipe)return null;
+
+function qsoSmartJsonFromOutput(output){
   try{
-    const all=[String(text||''),...examples];
-    const out=await qsoSmartPipe(all,{pooling:'mean',normalize:true});
-    const v=out.tolist();
-    const dot=(a,b)=>a.reduce((s,x,i)=>s+x*b[i],0);
-    let best=0,score=-Infinity;
-    for(let i=1;i<v.length;i++){const s=dot(v[0],v[i]);if(s>score){score=s;best=i-1}}
-    return {index:best,score};
-  }catch(e){return null}
+    let text='';
+    const first=Array.isArray(output)?output[0]:output;
+    const generated=first?.generated_text;
+
+    if(Array.isArray(generated)){
+      const last=[...generated].reverse().find(x=>x?.role==='assistant');
+      text=last?.content||'';
+    }else{
+      text=String(generated||first?.text||'');
+    }
+
+    // Strip fenced blocks and isolate the first JSON object.
+    text=text.replace(/```json/gi,'').replace(/```/g,'').trim();
+    const a=text.indexOf('{'),b=text.lastIndexOf('}');
+    if(a<0||b<a)return null;
+    return JSON.parse(text.slice(a,b+1));
+  }catch(e){
+    console.warn('AI JSON parse failed',e);
+    return null;
+  }
 }
-// AI is advisory only: it never invents CALL/RST/NAME/QTH/SKCC values.
-// Existing deterministic QSO rules remain authoritative.
+
+function qsoSmartCleanValue(v){
+  if(v===null||v===undefined)return '';
+  return String(v).toUpperCase().trim().replace(/\s+/g,' ');
+}
+function qsoSmartSourceContains(raw,value){
+  if(!value)return false;
+  const src=qsoCompact(raw),val=qsoCompact(value);
+  return !!val && src.includes(val);
+}
+function qsoSmartValidateField(field,value,raw){
+  value=qsoSmartCleanValue(value);
+  if(!value)return '';
+
+  if(field==='rst'){
+    const direct=qsoExtractRST(raw);
+    if(!direct)return '';
+    // AI may normalize 5NN -> 599 or 5N -> 59.
+    const aiNorm=qsoNormalizeRSTToken(value);
+    return aiNorm && (aiNorm===direct || aiNorm===direct.slice(0,2)) ? direct : '';
+  }
+  if(field==='call'){
+    const call=qsoExtractCall(raw,qsoSession?.bot?.call||'');
+    return call && (value===call || qsoSmartSourceContains(raw,value)) ? call : '';
+  }
+  if(field==='skcc'){
+    const s=qsoExtractSKCC(raw);
+    return s && (value===s || qsoSmartSourceContains(raw,value)) ? s : '';
+  }
+  if(field==='key'){
+    const k=qsoExtractKey(raw);
+    return k || '';
+  }
+  if(field==='pwr'){
+    const p=qsoExtractPower(raw);
+    return p || '';
+  }
+
+  // For free text fields, never accept a value that does not appear in the operator's transmission.
+  return qsoSmartSourceContains(raw,value) ? value : '';
+}
+
+async function qsoSmartExtract(raw,state,mode){
+  if(!qsoSmartEnabled||!qsoSmartPipe)return null;
+  qsoSmartStatus('thinking');
+
+  const system=`You are a strict amateur-radio CW QSO parser.
+Extract ONLY information explicitly transmitted by the USER.
+Never guess, infer a missing personal detail, or copy data belonging to the BOT.
+Understand normal CW shorthand, callsign addressing, flexible order, and natural ham-radio exchanges.
+The bot may use realistic phrases such as SRY QSB AGN PSE, SRY VY QRM, PSE RPT, R R, FB, TU, TNX, BK, KN and K.
+Treat these as conversational/procedural CW, not user identity or station data.
+Do not invent user data because of QSB/QRM/repeat requests.
+CRITICAL CALLSIGN RULES:
+- In "BOTCALL DE USERCALL", USERCALL is the sender.
+- The callsign BEFORE DE is being addressed; the callsign AFTER DE is transmitting.
+- Never return BOT CALL as the user's callsign.
+- In "DE USERCALL", return USERCALL.
+CW cut numbers: N means 9 and T means 0 when used in numeric reports.
+Examples: 5NN=599, 57N=579, 5N=59.
+"HR MATT ASUNCION" may mean NAME MATT and QTH ASUNCION when context supports it.
+"OP MATT", "NAME MATT", "QTH ASUNCION", "RIG TS590", "PWR 100W", "ANT DIPOLE",
+"SKCC 31269", "KEY BUG", "KEY SK", "KEY SS", COOTIE=SS, SIDESWIPER=SS.
+Return ONLY one JSON object with exactly these keys:
+{"call":"","rst":"","name":"","qth":"","rig":"","pwr":"","ant":"","skcc":"","key":""}
+Use empty strings for data that is not explicitly present.`;
+
+  const user=`QSO MODE: ${mode}
+CURRENT BOT STATE: ${state}
+BOT CALL: ${qsoSession?.bot?.call||''}
+BOT NAME: ${qsoSession?.bot?.name||''}
+BOT QTH: ${qsoSession?.bot?.qth||''}
+
+USER CW TURN:
+${raw}
+
+Examples:
+BOT CALL K1ABC + "K1ABC DE ZP5DXS K" => call ZP5DXS.
+BOT CALL ZP3XYZ + "ZP3XYZ DE CX7AAA 5NN BK" => call CX7AAA, rst 599.
+Never output the BOT CALL as the user's call.
+
+Extract all USER data present anywhere in the complete turn.`;
+
+  try{
+    const out=await qsoSmartPipe(
+      [{role:'system',content:system},{role:'user',content:user}],
+      {
+        max_new_tokens:72,
+        do_sample:false,
+        repetition_penalty:1.08
+      }
+    );
+    const parsed=qsoSmartJsonFromOutput(out);
+    if(!parsed){qsoSmartStatus('ready');return null}
+
+    const clean={};
+    for(const f of ['call','rst','name','qth','rig','pwr','ant','skcc','key']){
+      clean[f]=qsoSmartValidateField(f,parsed[f],raw);
+    }
+    qsoSmartStatus('ready');
+    return clean;
+  }catch(e){
+    console.warn('AI extraction failed',e);
+    qsoSmartStatus('ready');
+    return null;
+  }
+}
+
+function qsoMergeAiUser(ai){
+  if(!ai||!qsoSession)return;
+  const u=qsoSession.user;
+  for(const f of ['call','rst','name','qth','rig','pwr','ant','skcc','key']){
+    if(!u[f]&&ai[f])u[f]=ai[f];
+  }
+}
+// ================== END SMART INTERPRETATION ==================
 
 // ==================== QSO BOT (autonomous local practice; flexible CW parsing) ====================
 let qsoOn=false,qsoBotSending=false,qsoResponseTimer=null,qsoPlayToken=0;
@@ -1081,9 +1241,56 @@ function qsoNormalizeRSTToken(token){
   return '';
 }
 function qsoHasRST(v){return !!qsoExtractRST(v)}
+const QSO_PERSONALITIES=[
+  {id:'terse',weight:24,turn:['BK','BK','K','KN'],hello:['TNX CALL','R R','FB'],close:['TNX QSO 73','TU 73','73 GL'],branch:.16,event:.10},
+  {id:'friendly',weight:30,turn:['BK','KN','KN','K'],hello:['GM TNX FER CALL','FB TNX CALL','VY TNX FER CALL'],close:['TNX FER NICE QSO 73','FB QSO TNX ES 73','TNX QSO HPE CUAGN 73'],branch:.42,event:.14},
+  {id:'oldschool',weight:20,turn:['KN','KN','BK','K'],hello:['TNX FER CALL OM','FB OM TNX CALL','R R DR OM'],close:['TNX FER QSO OM 73 ES GL','VY 73 ES HPE CUAGN','TNX OM 73 SK'],branch:.30,event:.16},
+  {id:'chatty',weight:16,turn:['BK','KN','KN','BK'],hello:['VY FB TNX FER CALL','R R FB COPY','TNX CALL VY FB'],close:['VY TNX FER FB QSO 73 ES CUL','FB MNI TNX HPE CUAGN 73','TNX FER NICE QSO 73 GL'],branch:.70,event:.15},
+  {id:'contest',weight:10,turn:['BK','K','BK','K'],hello:['TU','R','FB'],close:['TU 73','TNX 73','73'],branch:.05,event:.08}
+];
+function qsoWeightedPersonality(){
+  const total=QSO_PERSONALITIES.reduce((s,p)=>s+p.weight,0);
+  let r=Math.random()*total;
+  for(const p of QSO_PERSONALITIES){r-=p.weight;if(r<=0)return {...p}}
+  return {...QSO_PERSONALITIES[0]};
+}
+function qsoPersonality(){return qsoSession?.personality||QSO_PERSONALITIES[0]}
 function qsoTurn(){
-  const r=Math.random();
-  return r<.38?'BK':(r<.72?'KN':'K');
+  const p=qsoPersonality();
+  return qsoRnd(p.turn||['BK','KN','K']);
+}
+function qsoHello(){
+  return qsoRnd(qsoPersonality().hello||['TNX CALL','FB']);
+}
+function qsoClose(){
+  return qsoRnd(qsoPersonality().close||['TNX QSO 73']);
+}
+function qsoRadioEvent(field=''){
+  if(!qsoSession||qsoSession.radioEventUsed)return '';
+  const p=qsoPersonality();
+  if(Math.random()>(p.event||.12))return '';
+  qsoSession.radioEventUsed=true;
+  qsoSession.radioEvent=qsoRnd(['qsb','qrm','weak','agn']);
+  const f=field?` ${field}`:'';
+  const bank={
+    qsb:[`SRY QSB${f} AGN PSE`,`QSB QSB PSE RPT${f}`,`SRY SIG QSB AGN${f}`],
+    qrm:[`SRY VY QRM${f} AGN PSE`,`QRM HR PSE RPT${f}`,`SRY QRM AGN${f}`],
+    weak:[`SRY WEAK SIG${f} AGN PSE`,`PSE RPT${f} SIG VY WEAK`,`AGN PSE${f}`],
+    agn:[`SRY AGN PSE${f}`,`PSE RPT${f}`,`AGN AGN${f} PSE`]
+  };
+  return qsoRnd(bank[qsoSession.radioEvent]||bank.agn);
+}
+function qsoMaybeBranch(){
+  if(!qsoSession||qsoSession.branchUsed||qsoSession.mode!=='basic')return '';
+  const p=qsoPersonality(),u=qsoSession.user||{},b=qsoSession.bot||{};
+  if(Math.random()>(p.branch||.25))return '';
+  qsoSession.branchUsed=true;
+  const choices=[];
+  if(!u.rig)choices.push('RIG?');
+  if(!u.ant)choices.push('ANT?');
+  if(!u.pwr)choices.push('PWR?');
+  choices.push(qsoRnd(['WX HR FB HW WX UR QTH?','HW CPY ME?','HW LONG CW?']));
+  return qsoRnd(choices);
 }
 function qsoAskVariant(kind){
   const variants={
@@ -1099,9 +1306,25 @@ function qsoAskVariant(kind){
   return qsoRnd(variants[kind]||['AGN?']);
 }
 function qsoExtractCall(text,botCall=''){
-  const n=qsoNorm(text);
-  const candidates=n.match(/\b(?:[A-Z]{1,2}|[A-Z]\d[A-Z]|[A-Z]{2}\d{0,2})\d[A-Z]{1,4}(?:\/[A-Z0-9]+)?\b/g)||[];
-  return candidates.find(c=>c!==botCall)||'';
+  const n=qsoNorm(text),words=n.split(' ').filter(Boolean);
+  const bot=String(botCall||'').toUpperCase();
+  const looksCall=t=>{
+    t=String(t||'').toUpperCase().replace(/[^A-Z0-9/]/g,'');
+    return t.length>=3&&t.length<=14&&/[A-Z]/.test(t)&&/\d/.test(t)&&/^[A-Z0-9]{1,6}\d[A-Z0-9]{1,6}(?:\/[A-Z0-9]+)?$/.test(t);
+  };
+
+  // CW convention: "CALLED-STATION DE SENDER".
+  for(let i=0;i<words.length;i++){
+    if(words[i]==='DE'){
+      for(let j=i+1;j<Math.min(words.length,i+5);j++){
+        const c=words[j].replace(/[^A-Z0-9/]/g,'');
+        if(looksCall(c)&&c!==bot)return c;
+      }
+    }
+  }
+
+  const calls=words.map(w=>w.replace(/[^A-Z0-9/]/g,'')).filter(looksCall);
+  return calls.find(c=>c!==bot)||'';
 }
 function qsoAfterLabel(text,labels){
   const words=qsoNorm(text).split(' ').filter(Boolean);
@@ -1161,13 +1384,21 @@ function qsoLearnFromText(text){
   const u=qsoSession.user,n=qsoNorm(text),bot=qsoSession.bot;
   if(!u.call)u.call=qsoExtractCall(n,bot.call);
   if(!u.rst)u.rst=qsoExtractRST(n);
-  if(!u.name)u.name=qsoAfterLabel(n,['NAME','OP']);
-  if(!u.qth)u.qth=qsoAfterLabel(n,['QTH','SPC']);
+  if(!u.name)u.name=qsoAfterLabel(n,['NAME','OP','OPR']);
+  if(!u.qth)u.qth=qsoAfterLabel(n,['QTH','SPC','LOC']);
   if(!u.skcc)u.skcc=qsoExtractSKCC(n);
   if(!u.key)u.key=qsoExtractKey(n);
-  if(!u.rig)u.rig=qsoAfterLabel(n,['RIG','RADIO']);
+  if(!u.rig)u.rig=qsoAfterLabel(n,['RIG','RADIO','TRX']);
   if(!u.pwr)u.pwr=qsoExtractPower(n);
   if(!u.ant)u.ant=qsoAfterLabel(n,['ANT','ANTENNA']);
+
+  const words=n.split(' ').filter(Boolean);
+  const hr=words.indexOf('HR');
+  if(hr>=0){
+    const after=words.slice(hr+1).filter(w=>!['BK','KN','K','R','RR','TU','TNX','FER','ES'].includes(w));
+    if(!u.name&&after[0]&&/^[A-Z]{2,12}$/.test(after[0]))u.name=after[0];
+    if(!u.qth&&after[1]&&/^[A-Z0-9]{2,18}$/.test(after[1]))u.qth=after[1];
+  }
 }
 function qsoBuildBot(){
   return {
@@ -1193,18 +1424,43 @@ function qsoUpdateMeta(){
   $("qsoCompleted").textContent=qsoCompletedCount;
 }
 function qsoSetYou(){
-  $("qsoYou").textContent='YOU: '+(qsoBuffer.trim()||'—');
+  $("qsoYou").textContent=tr('qsoYou')+': '+(qsoBuffer.trim()||'—');
 }
 function qsoClearBuffer(){qsoBuffer='';qsoSetYou()}
 function qsoWordBoundary(){
   if(!qsoOn||qsoBotSending||!qsoSession||qsoSession.state==='done'||!qsoBuffer)return;
   if(!qsoBuffer.endsWith(' '))qsoBuffer+=' ';
   qsoSetYou();
+
+  const words=qsoNorm(qsoBuffer).split(' ').filter(Boolean);
+  const last=words[words.length-1]||'';
+
+  // Explicit CW hand-over: no need to wait through the conversational silence window.
+  if(['BK','KN','K','AR','SK'].includes(last)){
+    clearTimeout(qsoResponseTimer);
+    qsoResponseTimer=setTimeout(()=>qsoProcessResponse(),180);
+  }
 }
 function qsoAcceptStep(){if(qsoSession){qsoSession.steps++;qsoUpdateMeta()}}
 function qsoMiss(msg){
   if(!qsoSession)return;
   qsoSession.repeats++;qsoUpdateMeta();qsoSetStatus(msg||tr('qsoRepeatNeeded'),'warn');
+}
+function qsoConversationalAsk(msg,state){
+  if(!qsoSession)return Promise.resolve();
+  qsoSession.state=state;
+  qsoSetStatus(msg||tr('qsoCopying'));
+  return qsoPlayText(`${msg} ${qsoTurn()}`);
+}
+function qsoRelevantMissing(mode,state){
+  const u=qsoSession?.user||{};
+  if(state==='awaitCall')return !u.call;
+  if(mode==='pota')return !u.rst;
+  if(mode==='skcc')return !u.rst||!u.name||!u.qth||!u.skcc;
+  if(state==='awaitBasic')return !u.rst||(!u.name&&!u.qth);
+  if(state==='awaitIntermediate')return [u.rig,u.pwr,u.ant].filter(Boolean).length<2;
+  if(state==='awaitAdvancedRepeat')return true;
+  return false;
 }
 function qsoSummary(){
   if(!qsoSession)return '';
@@ -1218,7 +1474,7 @@ function qsoSummary(){
   if(u.rig)lines.push(`RIG: ${u.rig}`);
   if(u.pwr)lines.push(`PWR: ${u.pwr}`);
   if(u.ant)lines.push(`ANT: ${u.ant}`);
-  lines.push(`REPEATS: ${qsoSession.repeats}`);
+  lines.push(`${tr('qsoRepeatsLabel')}: ${qsoSession.repeats}`);
   return lines.join('\n');
 }
 function qsoRenderSummary(){
@@ -1272,12 +1528,14 @@ function qsoComplete(message){
 function qsoMissingBasic(){
   const u=qsoSession.user;
   if(!u.rst)return qsoAskVariant('rst');
-  if(!u.name)return qsoAskVariant('name');
-  if(!u.qth)return qsoAskVariant('qth');
+  if(!u.name&&!u.qth)return qsoRnd([qsoAskVariant('name'),qsoAskVariant('qth')]);
   return '';
 }
 function qsoMissingStation(){
   const u=qsoSession.user;
+  const have=[u.rig,u.pwr,u.ant].filter(Boolean).length;
+  if(have>=2)return '';
+  if(!u.rig&&!u.pwr&&!u.ant)return qsoRnd([qsoAskVariant('rig'),qsoAskVariant('pwr'),qsoAskVariant('ant')]);
   if(!u.rig)return qsoAskVariant('rig');
   if(!u.pwr)return qsoAskVariant('pwr');
   if(!u.ant)return qsoAskVariant('ant');
@@ -1289,7 +1547,6 @@ function qsoMissingSkcc(){
   if(!u.qth)return qsoAskVariant('qth');
   if(!u.name)return qsoAskVariant('name');
   if(!u.skcc)return qsoAskVariant('skcc');
-  if(!u.key)return qsoAskVariant('key');
   return '';
 }
 function qsoAdvancedField(){
@@ -1302,13 +1559,17 @@ function qsoAdvancedField(){
 }
 async function qsoProcessResponse(){
   if(!qsoOn||!qsoSession||qsoBotSending||!qsoBuffer.trim())return;
-  if(qsoSmartEnabled&&qsoSmartPipe)qsoSmartStatus('thinking');
   const raw=qsoBuffer.trim(),n=qsoNorm(raw),b=qsoSession.bot,mode=qsoSession.mode,state=qsoSession.state;
-  qsoClearBuffer();qsoLearnFromText(raw);
-  if(qsoSmartEnabled&&qsoSmartPipe){
-    try{await qsoSmartSimilarity(raw,['RST REPORT','NAME OPERATOR','QTH LOCATION','RIG RADIO','POWER WATTS','ANTENNA','SKCC NUMBER','KEY TYPE'])}catch(e){}
-    qsoSmartStatus('ready');
+  qsoClearBuffer();
+
+  qsoLearnFromText(raw);
+
+  // Use AI when the fast CW parser still leaves something relevant unresolved.
+  if(qsoSmartEnabled&&qsoSmartPipe&&qsoRelevantMissing(mode,state)){
+    const ai=await qsoSmartExtract(raw,state,mode);
+    qsoMergeAiUser(ai);
   }
+
   const u=qsoSession.user;
 
   if(state==='awaitCall'){
@@ -1327,7 +1588,11 @@ async function qsoProcessResponse(){
     }
     qsoSession.state='awaitBasic';
     const extra=mode==='basic'?'':` RIG ${b.rig} PWR ${b.pwr} ANT ${b.ant}`;
-    await qsoPlayText(qsoRnd([`${u.call} DE ${b.call} GM TNX FER CALL UR RST ${b.rst} NAME ${b.name} QTH ${b.qth}${extra} HW? ${qsoTurn()}`,`${u.call} DE ${b.call} TNX CALL ${b.rst} ${b.name} QTH ${b.qth}${extra} BK`,`${u.call} DE ${b.call} FB UR ${b.rst} OP ${b.name} HR ${b.qth}${extra} HW CPY? ${qsoTurn()}`]));return;
+    await qsoPlayText(qsoRnd([
+      `${u.call} DE ${b.call} ${qsoHello()} UR RST ${b.rst} NAME ${b.name} QTH ${b.qth}${extra} HW? ${qsoTurn()}`,
+      `${u.call} DE ${b.call} ${qsoHello()} ${b.rst} ${b.name} QTH ${b.qth}${extra} ${qsoTurn()}`,
+      `${u.call} DE ${b.call} ${qsoHello()} UR ${b.rst} OP ${b.name} HR ${b.qth}${extra} HW CPY? ${qsoTurn()}`
+    ]));return;
   }
 
   if(state==='awaitPota'){
@@ -1340,30 +1605,83 @@ async function qsoProcessResponse(){
   if(state==='awaitSkcc'){
     const missing=qsoMissingSkcc();
     if(missing){
-      qsoMiss(tr('qsoRepeatNeeded'));await qsoAsk(missing,'awaitSkcc');return;
+      const evt=qsoRadioEvent('');
+      await qsoConversationalAsk(evt||missing,'awaitSkcc');return;
     }
     qsoAcceptStep();
-    qsoComplete(`R ${u.name} FB SKCC ${u.skcc} KEY ${u.key} TNX QSO 73 DE ${b.call} <SK>`);return;
+    const keyPart=u.key?` KEY ${u.key}`:'';
+    qsoComplete(`R ${u.name} FB SKCC ${u.skcc}${keyPart} TNX QSO 73 DE ${b.call} <SK>`);return;
   }
 
   if(state==='awaitBasic'){
-    const missing=qsoMissingBasic();
-    if(missing){
-      qsoMiss(tr('qsoRepeatNeeded'));await qsoAsk(missing,'awaitBasic');return;
+    if(!u.rst){
+      qsoMiss(tr('qsoRepeatNeeded'));
+      const evt=qsoRadioEvent('RST');
+      await qsoPlayText(`${evt||qsoAskVariant('rst')} ${qsoTurn()}`);return;
     }
+
+    if(!u.name&&!u.qth){
+      qsoAcceptStep();
+      await qsoConversationalAsk(
+        qsoRnd(['FB RST NAME ES QTH?','R R TNX NAME QTH?','FB HW NAME ES QTH?']),
+        'awaitBasic'
+      );
+      return;
+    }
+
     qsoAcceptStep();
     if(mode==='basic'){
-      qsoComplete(`FB ${u.name} TNX QSO 73 ES GL DE ${b.call} <SK>`);return;
+      const who=u.name||u.call;
+      const evt=qsoRadioEvent('');
+      if(evt){
+        qsoSession.state='awaitBasicEvent';
+        await qsoPlayText(`${evt} ${qsoTurn()}`);return;
+      }
+      const branch=qsoMaybeBranch();
+      if(branch){
+        qsoSession.state='awaitBasicBranch';
+        await qsoPlayText(`FB ${who} ${branch} ${qsoTurn()}`);return;
+      }
+      qsoComplete(qsoRnd([
+        `FB ${who} ${qsoClose()} DE ${b.call} <SK>`,
+        `R ${who} FB ${qsoClose()} DE ${b.call} <SK>`,
+        `${qsoClose()} DE ${b.call} <SK>`
+      ]));return;
     }
     qsoSession.state='awaitIntermediate';
     const need=qsoMissingStation();
-    if(need){await qsoAsk(need,'awaitIntermediate');return}
+    if(need){
+      await qsoConversationalAsk(qsoRnd([`FB ${u.name||''} ${need}`,`R R ${need}`,`TNX FER INFO ${need}`]),'awaitIntermediate');return;
+    }
+  }
+
+  if(state==='awaitBasicEvent'){
+    // Whatever the operator repeats is relearned by the normal parser/AI above.
+    qsoAcceptStep();
+    const who=u.name||u.call;
+    const branch=qsoMaybeBranch();
+    if(branch){
+      qsoSession.state='awaitBasicBranch';
+      await qsoPlayText(`R R FB ${who} ${branch} ${qsoTurn()}`);return;
+    }
+    qsoComplete(`R R FB ${who} ${qsoClose()} DE ${b.call} <SK>`);return;
+  }
+
+  if(state==='awaitBasicBranch'){
+    qsoAcceptStep();
+    const who=u.name||u.call;
+    qsoComplete(qsoRnd([
+      `R R FB ${who} ${qsoClose()} DE ${b.call} <SK>`,
+      `FB COPY ${who} ${qsoClose()} DE ${b.call} <SK>`,
+      `${qsoClose()} DE ${b.call} <SK>`
+    ]));return;
   }
 
   if(state==='awaitIntermediate'){
     const missing=qsoMissingStation();
     if(missing){
-      qsoMiss(tr('qsoRepeatNeeded'));await qsoAsk(missing,'awaitIntermediate');return;
+      const evt=qsoRadioEvent('');
+      await qsoConversationalAsk(evt||qsoRnd([missing,`FB ${missing}`,`R ${missing}`]),'awaitIntermediate');return;
     }
     qsoAcceptStep();
     if(mode==='intermediate'){
@@ -1391,10 +1709,31 @@ function qsoHandleDecoded(ch){
   qsoBuffer+=String(ch).replace(/[<>]/g,'');
   qsoSetYou();
   clearTimeout(qsoResponseTimer);
-  // Wait generously after the last decoded character before deciding the operator is done.
-  // This prevents the bot from interrupting normal CW pauses between fields.
-  const wait=Math.max(3200,wordGap()*2.8);
-  qsoResponseTimer=setTimeout(()=>qsoProcessResponse(),wait);
+
+  // Two-stage end-of-turn detection:
+  // A normal pause may simply be the operator thinking between NAME, QTH, RIG, etc.
+  // Explicit BK/KN/K/AR/SK remains the fastest and most radio-natural handover.
+  const softPause=qsoSession.mode==='pota'?1450:(qsoSmartEnabled?1900:1750);
+  const extraPause=qsoSession.mode==='pota'?1050:(qsoSmartEnabled?2600:2250);
+
+  qsoResponseTimer=setTimeout(()=>{
+    if(!qsoOn||!qsoSession||qsoBotSending||!qsoBuffer.trim())return;
+
+    const words=qsoNorm(qsoBuffer).split(' ').filter(Boolean);
+    const last=words[words.length-1]||'';
+
+    // If a real hand-over marker was decoded, answer immediately.
+    if(['BK','KN','K','AR','SK'].includes(last)){
+      qsoProcessResponse();
+      return;
+    }
+
+    // Otherwise treat this only as a "soft silence" and give the operator
+    // another window to continue the same transmission.
+    qsoResponseTimer=setTimeout(()=>{
+      if(qsoOn&&qsoSession&&!qsoBotSending&&qsoBuffer.trim())qsoProcessResponse();
+    },extraPause);
+  },Math.max(softPause,wordGap()*1.35));
 }
 
 async function startQsoBot(){
@@ -1403,7 +1742,7 @@ async function startQsoBot(){
   qsoOn=true;$("qsoBotToggle").checked=true;$("qsoBotPanel").classList.add('open');syncTrainingLocks();qsoClearBuffer();
 
   const mode=$("qsoBotMode").value,bot=qsoBuildBot();
-  qsoSession={mode,bot,user:{call:'',rst:'',name:'',qth:'',skcc:'',key:'',rig:'',pwr:'',ant:''},state:'awaitCall',steps:0,repeats:0,repeatField:null};
+  qsoSession={mode,bot,user:{call:'',rst:'',name:'',qth:'',skcc:'',key:'',rig:'',pwr:'',ant:''},state:'awaitCall',steps:0,repeats:0,repeatField:null,personality:qsoWeightedPersonality(),radioEventUsed:false,radioEvent:'',branchUsed:false};
   $("qsoBotCall").textContent=`${bot.call} · ${mode.toUpperCase()}${qsoSmartEnabled&&qsoSmartPipe?' · AI':''}`;qsoUpdateMeta();
   $("qsoBotMessage").classList.remove('complete');
 
@@ -1430,17 +1769,30 @@ $("qsoRepeatBtn").onclick=()=>{if(qsoOn&&qsoLastMessage&&!qsoBotSending)qsoPlayT
 qsoUpdateMeta();
 // ================== END QSO BOT ==================
 
-
-applyLang();updateModeHint();updatePresenceUI();applyVisualAid();syncTrainingLocks();
-})();
-
+// AI switch MUST live inside this scope because the model state and loader are defined here.
 const qsoSmartToggle=document.getElementById('qsoSmartToggle');
 if(qsoSmartToggle)qsoSmartToggle.addEventListener('change',async()=>{
   qsoSmartEnabled=qsoSmartToggle.checked;
-  if(!qsoSmartEnabled){qsoSmartStatus('off');return}
+  if(!qsoSmartEnabled){
+    qsoSmartStatus('off');
+    return;
+  }
+
+  // Immediate visual confirmation that the switch actually triggered the loader.
+  qsoSmartStatus('loading');
+
   const ok=await qsoSmartLoad();
-  if(!ok){qsoSmartEnabled=false;qsoSmartToggle.checked=false;setTimeout(()=>qsoSmartStatus('off'),1200)}
+  if(!ok){
+    qsoSmartEnabled=false;
+    qsoSmartToggle.checked=false;
+    qsoSmartStatus('error');
+    setTimeout(()=>qsoSmartStatus('off'),1800);
+  }
 });
+
+applyLang();updateModeHint();updatePresenceUI();applyVisualAid();syncTrainingLocks();qsoSmartStatus('off');
+})();
+
 
 </script>
 </body></html>
