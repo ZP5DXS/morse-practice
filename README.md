@@ -1941,13 +1941,35 @@ Particularly useful feedback includes unusual but valid CW exchanges that the QS
 
 Special thanks to the instructors and members of the **Long Island CW Club (LICW)**.
 
-I am a student of LICW, and many of the ideas behind this project came naturally from my own experience learning and practicing CW.
+I am a student of LICW, and much of the philosophy behind **Morse Practice** was inspired by my own experience learning and practicing CW with the club — its methodology, its instructors, and especially its approach to making CW something that is learned through practice, progression, and real interaction.
 
-Morse Practice is an independent personal project and a free contribution to anyone interested in learning or practicing Morse code.
+If you are looking for a structured methodology and a community to learn CW, **[Learn Morse Code – CW with The Long Island CW Club](https://longislandcwclub.org/)** is, without a doubt, the place I recommend. Their instructors and teaching approach are a major inspiration behind this project.
 
-Special thanks also to **Bob Carter, WR7Q**, whose sending exercise is included as the basis of the **Daily** training section.
+**Morse Practice** is an independent personal project and a free contribution to anyone interested in learning, practicing, or simply enjoying Morse code.
 
-And thank you to every operator who continues teaching, practicing and keeping CW alive.
+---
+
+## 🕯️ In Memory of CX7BBB — Antonio Villano
+
+A very special acknowledgment goes to **Antonio Villano, CX7BBB (Silent Key)**, from whom I first learned CW.
+
+My first steps in Morse code were greatly influenced by Antonio and his CW course for **Radio Club Uruguayo**. His way of teaching helped introduce me to this wonderful mode and became part of the foundation of my own journey into CW.
+
+His lessons remain available online, allowing new operators to continue learning from him and helping preserve his contribution to amateur radio and CW.
+
+▶️ **[CW Course by CX7BBB – Antonio Villano | Radio Club Uruguayo](https://youtu.be/-8SVQm2Qqsk?si=HI9nJFlXJu4gbjTX)**
+
+Thank you, Antonio. Your teaching continues every time another operator discovers CW through the knowledge you left behind.
+
+---
+
+## 📻 Daily Training
+
+Special thanks also to **Bob Carter, WR7Q**, whose sending exercise inspired the **Daily** training section and provided the foundation for its practice format.
+
+---
+
+And finally, thank you to every instructor, mentor, operator, and CW enthusiast who continues to share their knowledge, help newcomers, practice on the air, and keep the art of Morse code alive.
 
 ---
 
