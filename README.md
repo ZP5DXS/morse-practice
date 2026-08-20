@@ -12,15 +12,26 @@ Morse Practice combines:
 - Real-time Morse decoder
 - Text-to-CW playback
 - Straight key and paddle practice
+- Adjustable WPM
+- Adjustable Farnsworth character spacing
+- Adjustable word spacing
 - CW Racer
+- Progressive 40-lesson Koch Course
+- Cumulative Koch listening Challenges
 - Adaptive character training
-- Local statistics
+- Custom Lessons from any text
+- Character-by-character lessons
+- Word-by-word lessons
+- Independent local Statistics dashboard
+- Learn From My Mistakes adaptive training
 - Daily sending exercises
 - Worldwide ON AIR practice room
 - Simulated QSO training
 - POTA practice
 - SKCC practice
 - Local AI-assisted QSO interpretation
+- Simulated QSB, QRM and repeat requests
+- Multiple simulated CW operator styles
 
 **No installation required. No registration required. Completely free and open source.**
 
@@ -53,16 +64,23 @@ Over time, the project evolved into a complete browser-based CW training environ
 Today you can use it to:
 
 - Learn Morse characters
+- Follow a complete progressive Koch course
+- Complete cumulative listening Challenges
 - Practice sending
+- Practice receiving
 - Hear how text should sound in CW
 - Decode your own sending
 - Practice with a straight key or paddle
 - Use a mouse, keyboard or touchscreen
 - Race against yourself
+- Create lessons from your own text
+- Practice character by character
+- Practice word by word
 - Track your progress
 - Identify your weakest characters
 - Generate practice based on your mistakes
 - Complete daily sending exercises
+- Adjust Farnsworth character spacing
 - Practice live with other operators around the world
 - Practice complete simulated QSOs
 - Train basic, intermediate and advanced exchanges
@@ -70,6 +88,7 @@ Today you can use it to:
 - Practice SKCC exchanges
 - Experience QSB, QRM and repeat requests
 - Practice copying and responding to different CW operating styles
+- Monitor your activity from a unified Statistics dashboard
 
 And you can do all of this directly from a browser.
 
@@ -124,11 +143,63 @@ You can start with absolutely nothing except a browser and gradually move toward
 ✔ Adjustable Sidetone Frequency  
 ✔ Adjustable Volume  
 ✔ Adjustable WPM  
+✔ Adjustable Character Spacing / Farnsworth  
 ✔ Adjustable Word Spacing  
 ✔ Real-time Tone Generation  
 ✔ Local browser audio
 
 The CW tone is generated directly by your browser, providing immediate feedback while sending.
+
+---
+
+# ⏱ WPM and Farnsworth Spacing
+
+Morse Practice separates **character speed** from **character spacing**.
+
+This is especially useful for beginners.
+
+The selected **WPM** controls the real speed of the Morse character itself.
+
+For example, the DITs and DAHs of:
+
+```text
+K
+-.-
+```
+
+continue to sound at the selected WPM.
+
+The **Character Spacing / Farnsworth** control adds additional time **between characters** without slowing down the internal rhythm of each character.
+
+This allows you to learn the sound of complete Morse characters at a realistic speed while giving your brain additional time to recognize them.
+
+Example:
+
+```text
+Normal spacing:
+
+K M R A
+
+Farnsworth spacing:
+
+K     M     R     A
+```
+
+The characters themselves are not stretched.
+
+Only the silence between them changes.
+
+Word spacing remains independently adjustable.
+
+The global WPM, Farnsworth spacing and word spacing are used throughout the platform where applicable, including:
+
+- Text → CW
+- CW Racer
+- Daily
+- Custom Lessons
+- Koch Course
+- Koch Challenges
+- QSO Bot playback
 
 ---
 
@@ -242,6 +313,10 @@ Want to practice a simulated contact?
 
 Start the **QSO Bot**.
 
+Want to continue learning characters progressively?
+
+Open the **Koch Course**.
+
 The idea is to make CW practice something you can do whenever you have a few free minutes.
 
 ---
@@ -259,7 +334,8 @@ The application transmits the message using your currently selected:
 - WPM
 - Tone
 - Volume
-- Spacing
+- Character spacing / Farnsworth
+- Word spacing
 
 This is useful for quickly hearing how:
 
@@ -293,7 +369,7 @@ The decoder also recognizes supported punctuation and common prosigns such as:
 
 # 👁 Visual DIT / DAH Assistance
 
-Visual Morse symbols can be enabled or disabled.
+Visual Morse symbols can be enabled or disabled globally.
 
 When enabled, the application displays the DITs and DAHs as you transmit.
 
@@ -306,6 +382,106 @@ For example:
 Beginners may find this useful while learning the relationship between keying and Morse patterns.
 
 More experienced operators can disable visual assistance and practice entirely by ear.
+
+The same setting also affects training modules such as **CW Racer Learn** and **Koch**, so the visual Morse pattern can be hidden throughout the platform.
+
+---
+
+# ✍️ Custom Lessons
+
+Morse Practice can turn almost any text into a structured CW lesson.
+
+Paste your text into the main text area and activate:
+
+**Custom Lesson**
+
+You can choose between two modes:
+
+- **Character by Character**
+- **Word by Word**
+
+This makes it possible to build personalized exercises without creating lesson files or configuring a database.
+
+---
+
+## 🔤 Character-by-Character Mode
+
+The lesson breaks the pasted text into individual Morse characters.
+
+For example:
+
+```text
+RADIO
+```
+
+becomes:
+
+```text
+R
+A
+D
+I
+O
+```
+
+The application presents each target and waits for you to transmit it.
+
+Your sending is evaluated using the same timing and accuracy system used by CW Racer.
+
+### 🟢 Correct
+
+Good character and timing.
+
+### 🟡 Correct — Timing Can Improve
+
+The Morse sequence is correct but your timing can be improved.
+
+### 🔴 Incorrect
+
+The character must be repeated.
+
+Each result contributes to your global character statistics.
+
+---
+
+## 📝 Word-by-Word Mode
+
+Word Mode uses complete words as training units.
+
+For example:
+
+```text
+CQ POTA DE ZP5DXS
+```
+
+becomes:
+
+```text
+CQ
+POTA
+DE
+ZP5DXS
+```
+
+The application plays or presents the word and expects you to transmit the complete word.
+
+Every character inside the word is evaluated individually.
+
+If a character is incorrect, the system can identify the position of the error and repeat the complete word.
+
+This is especially useful for practicing:
+
+- Callsigns
+- Common QSO words
+- Abbreviations
+- Contest exchanges
+- POTA exchanges
+- SKCC exchanges
+- Class exercises
+- Technical vocabulary
+- Personal practice texts
+
+The original pasted text remains available while you practice.
 
 ---
 
@@ -324,12 +500,13 @@ The objective is to combine:
 - Accuracy
 - Consistency
 
-CW Racer contains four main sections:
+CW Racer contains three dedicated training sections:
 
 - 🎓 **Learn**
 - 🏁 **Race**
 - 📅 **Daily**
-- 📊 **Stats**
+
+Statistics are available through the independent **📊 Statistics** module.
 
 ---
 
@@ -353,6 +530,8 @@ For example:
 A
 .-
 ```
+
+If global Visual Aid is disabled, the Morse pattern is hidden.
 
 You can optionally:
 
@@ -504,30 +683,302 @@ Daily can be useful as a regular warm-up before:
 - Ragchewing
 - Straight-key practice
 
+Results also contribute to your character statistics.
+
 **Exercise by WR7Q**
 
 ---
 
-# 📊 Stats
+# 📚 KOCH COURSE
 
-CW Racer keeps local statistics about your practice.
+Morse Practice includes a complete progressive **Koch-style CW learning course**.
 
-Your progress is stored directly in your browser.
+The objective is different from CW Racer.
 
-**No account or external database is required.**
+CW Racer lets you choose what you want to practice.
 
-Statistics include:
+Koch Course provides a **structured path from the beginning to the complete character set**.
 
-✔ Total attempts  
-✔ Training sessions  
-✔ Best race score  
-✔ Best streak  
-✔ Individual character performance  
-✔ Accuracy history
+The course contains:
 
-Each character develops its own performance profile.
+✔ 40 progressive lessons  
+✔ Listening practice  
+✔ Sending practice  
+✔ Progressive character introduction  
+✔ Cumulative review  
+✔ Three-star scoring  
+✔ Local progress storage  
+✔ Automatic level unlocking  
+✔ Periodic CW Challenges  
+✔ Integration with global Statistics
 
-Characters are displayed using the same visual system:
+---
+
+# 🧠 How the Koch Course Works
+
+The first lesson begins with a very small character set.
+
+New characters are introduced gradually.
+
+Conceptually:
+
+```text
+Lesson 01
+K + M
+
+Lesson 02
+K M + U
+
+Lesson 03
+K M U + R
+
+Lesson 04
+K M U R + E
+```
+
+and so on.
+
+Each lesson continues reviewing characters from previous lessons while introducing the new one.
+
+The new character receives additional exposure so that it does not become lost inside the growing character pool.
+
+---
+
+# 🎧 Part 1 — Listen and Send
+
+Each Koch lesson begins with a **Listen and Send** block.
+
+The application sends a character in Morse.
+
+You do not simply identify it visually.
+
+You must copy it by ear and then transmit that same character yourself.
+
+Conceptually:
+
+```text
+Browser sends:
+-.-
+```
+
+You recognize:
+
+```text
+K
+```
+
+and then transmit:
+
+```text
+-.-
+```
+
+The application evaluates both the character and your sending timing.
+
+This combines:
+
+- Morse reception
+- Character recognition
+- Auditory memory
+- Actual sending
+
+---
+
+# 👂 Part 2 — Listen and Select
+
+After the transmission section, the lesson changes to pure reception practice.
+
+The application plays a Morse character.
+
+You choose the character you heard from the available options.
+
+For example:
+
+```text
+🔊 MORSE AUDIO
+
+[K]   [M]
+[U]   [R]
+```
+
+Only characters already learned in the course are used as normal lesson options.
+
+This keeps the course progressive and avoids testing characters that have not yet been introduced.
+
+---
+
+# ⭐ Koch Lesson Scoring
+
+Each lesson receives between zero and three stars.
+
+### ⭐
+
+Approximately 70% or better.
+
+### ⭐⭐
+
+Approximately 80% or better.
+
+### ⭐⭐⭐
+
+**90% or better.**
+
+Achieving **90%** is the mastery target used to unlock the next Koch lesson.
+
+Example:
+
+```text
+Lesson 08
+
+Accuracy: 93%
+
+⭐⭐⭐
+
+Next lesson unlocked
+```
+
+If the result is lower, the lesson can simply be repeated.
+
+Your best result is saved locally.
+
+---
+
+# 🎧 CW Challenges
+
+Every three Koch lessons, Morse Practice provides a cumulative **CW Challenge**.
+
+These Challenges focus entirely on **reception**.
+
+They do not introduce new characters.
+
+Instead, they test how well you remember everything learned so far.
+
+Example:
+
+```text
+Lessons 01–03
+        ↓
+🎧 CW Challenge 01
+```
+
+Later:
+
+```text
+Lessons 04–06
+        ↓
+🎧 CW Challenge 02
+```
+
+Each Challenge uses characters from the complete set learned up to that checkpoint.
+
+Recent characters receive somewhat more exposure, while earlier characters continue to appear.
+
+This helps prevent older characters from being forgotten as the course grows.
+
+---
+
+# 🎯 Challenge Format
+
+A Challenge contains a series of listening exercises.
+
+The application sends a character and provides up to four choices.
+
+Example:
+
+```text
+🔊
+
+[C]   [K]
+[R]   [N]
+```
+
+Choose the character you copied.
+
+Challenge performance is scored using the same star system.
+
+Unlike the normal Koch lessons, **Challenges are diagnostic checkpoints and do not block your progress through the course**.
+
+Their purpose is to answer a simple question:
+
+> **Am I still copying the characters I learned earlier?**
+
+---
+
+# 🏆 Final Koch Challenge
+
+After progressing through the course, a final cumulative listening challenge becomes available.
+
+This provides an opportunity to review the complete learned character set.
+
+The Koch Course therefore creates a complete progression:
+
+```text
+Learn
+ ↓
+Listen
+ ↓
+Send
+ ↓
+Review
+ ↓
+Challenge
+ ↓
+Add new characters
+ ↓
+Repeat
+```
+
+until the complete course is finished.
+
+---
+
+# 💾 Koch Progress
+
+Koch progress is stored locally in your browser.
+
+The application remembers:
+
+- Current lesson
+- Unlocked lessons
+- Best lesson accuracy
+- Stars earned
+- Completed Challenges
+- Challenge scores
+- Course completion
+
+No account or cloud database is required.
+
+You can reset the course at any time using:
+
+**Reset Koch Progress**
+
+---
+
+# 📊 STATISTICS
+
+Statistics are no longer limited to CW Racer.
+
+The independent **Statistics** module acts as the central local progress dashboard for Morse Practice.
+
+Opening or closing Statistics does **not** interrupt:
+
+- ON AIR
+- QSO Bot
+- Koch
+- Racer
+- Other practice modes
+
+It is purely a visual dashboard.
+
+---
+
+# 🔤 Character Performance
+
+The most important part of Statistics remains individual character performance.
+
+Each character develops its own local profile based on your practice.
+
+Characters are displayed using the familiar system:
 
 🟢 **Strong**
 
@@ -535,21 +986,29 @@ Characters are displayed using the same visual system:
 
 🔴 **Weak**
 
-This allows you to quickly identify which characters are giving you trouble.
+Performance can be influenced by activities such as:
+
+- CW Racer Learn
+- CW Racer Race
+- Daily
+- Custom Lessons
+- Koch lessons
+- Koch listening exercises
+- Koch Challenges
+
+This means your statistics gradually become a broader picture of your real CW strengths and weaknesses.
 
 ---
 
 # 🧠 Learn From My Mistakes
 
-One of the most useful features of CW Racer is adaptive practice.
-
-Instead of practicing every character equally, Morse Practice can analyze your local statistics and identify the characters where you make the most mistakes.
+One of the most useful features of the Statistics module is adaptive practice.
 
 Select:
 
-**🧠 Learn from my mistakes**
+**🧠 Learn From My Mistakes**
 
-The trainer creates a practice session that gives greater priority to your weaker characters while still including stronger characters.
+Morse Practice analyzes your local character statistics and builds a lesson that gives greater priority to weaker characters.
 
 For example:
 
@@ -562,7 +1021,7 @@ Q 🔴
 Y 🔴
 ```
 
-The next adaptive session will prioritize:
+The adaptive practice session will give greater priority to:
 
 ```text
 Q
@@ -570,7 +1029,7 @@ Y
 F
 ```
 
-while still periodically testing:
+while still periodically checking stronger characters such as:
 
 ```text
 A
@@ -578,13 +1037,34 @@ N
 K
 ```
 
-The objective is to progressively balance your character proficiency.
+The objective is to gradually balance your character proficiency.
+
+Because Custom Lessons, Koch and other evaluated exercises also feed the character statistics, the adaptive trainer can learn from mistakes made across multiple parts of the platform.
+
+---
+
+# 📈 Activity Dashboard
+
+Statistics also includes a compact activity overview.
+
+The dashboard can track activity across modules such as:
+
+- CW Racer
+- Daily
+- Koch Lessons
+- Koch Challenges
+- Custom Lessons
+- Simulated QSOs
+
+The objective is not to create a competitive leaderboard.
+
+It simply provides a quick visual indication of how you are using Morse Practice.
 
 ---
 
 # 💾 Local Statistics
 
-All CW Racer statistics are stored locally in your browser.
+Statistics are stored directly in your browser.
 
 This means:
 
@@ -599,7 +1079,7 @@ You can reset your statistics at any time using:
 
 **Reset Statistics**
 
-⚠️ Clearing your browser storage may also remove your saved statistics.
+⚠️ Clearing your browser storage may also remove your saved statistics, Koch progress and local preferences.
 
 ---
 
@@ -1150,9 +1630,18 @@ Every operator controls their own listening experience.
 
 Interactive modes are intentionally separated.
 
-When using **CW Racer** or **QSO Bot**, ON AIR is disabled so that training activity is not accidentally transmitted into the worldwide practice room.
+When using training modes such as:
 
-Likewise, ON AIR is intended for real person-to-person practice rather than automated QSO simulation.
+- CW Racer
+- QSO Bot
+- Custom Lesson
+- Koch Course
+
+ON AIR is disabled so that training activity is not accidentally transmitted into the worldwide practice room.
+
+Likewise, ON AIR is intended for real person-to-person practice rather than automated training.
+
+The Statistics dashboard is visual only and does not affect ON AIR or other training modes.
 
 This keeps each mode predictable and prevents training sessions from interfering with other operators.
 
@@ -1202,7 +1691,7 @@ The interface supports:
 
 Your language preference is remembered automatically.
 
-Training interface text, Daily instructions, QSO Bot controls and other user-interface elements follow the selected language.
+Training interface text, Daily instructions, Koch controls, Statistics, Custom Lessons, QSO Bot controls and other user-interface elements follow the selected language.
 
 CW operating abbreviations such as:
 
@@ -1900,6 +2389,10 @@ Most Morse Practice functionality runs directly in your browser.
 
 CW Racer statistics are stored locally.
 
+Koch Course progress is stored locally.
+
+Custom Lesson progress and character performance are processed locally.
+
 Local AI inference is designed to run in the browser.
 
 ON AIR necessarily exchanges realtime keying information with the realtime relay so that other connected operators can hear your keying.
@@ -1923,8 +2416,10 @@ Suggestions, bug reports, ideas and pull requests are always welcome.
 Whether you're:
 
 - learning your first Morse characters,
+- following the Koch Course,
 - practicing your straight-key fist,
 - improving paddle timing,
+- creating Custom Lessons,
 - teaching CW,
 - experimenting with hardware,
 - testing the QSO Bot,
