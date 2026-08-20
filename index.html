@@ -518,7 +518,7 @@ async function sendTimed(s){if(!canTransmit())return;clearTimeout(charTimer);cle
 async function iambicLoop(){if(iambicRunning)return;iambicRunning=true;while(leftHeld||rightHeld){let s;if(leftHeld&&rightHeld)s=lastIambic==='.'?'-':'.';else s=leftHeld?'.':'-';lastIambic=s;await sendTimed(s)}iambicRunning=false}
 function updateModeHint(){keyarea.classList.toggle('paddle-touch',mode.value!=='straight');$("modeHint").innerHTML=mode.value==='straight'?tr('straightHint'):`<span class="dit">${lang==='es'?'Izquierda':'Left'} = DIT (.)</span> · <span class="dah">${lang==='es'?'Derecha':'Right'} = DAH (-)</span>`;document.querySelectorAll('.seg-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode.value));status.textContent=tr('idle')}
 function activateMouse(){if(active)return;active=true;keyarea.focus();ensureAudio();status.textContent=tr('active');if(keyarea.requestPointerLock)try{keyarea.requestPointerLock()}catch{}}
-function deactivate(){active=false;leftHeld=rightHeld=false;if(downAt)straightUp();localToneOff();flash(false);status.textContent=tr('idle');if(document.pointerLockElement&&document.exitPointerLock)document.exitPointerLock()}
+function deactivate(){active=false;leftHeld=rightHeld=false;if(typeof vbandCtrlHeld!=='undefined')vbandCtrlHeld.clear();if(downAt)straightUp();localToneOff();flash(false);status.textContent=tr('idle');if(document.pointerLockElement&&document.exitPointerLock)document.exitPointerLock()}
 keyarea.addEventListener('click',e=>{if(window.matchMedia('(pointer:coarse)').matches)return;if(e.pointerType!=='touch'&&!active)activateMouse()});keyarea.addEventListener('contextmenu',e=>e.preventDefault());
 document.addEventListener('mousedown',e=>{if(!active||!canTransmit()||(e.button!==0&&e.button!==2))return;e.preventDefault();if(mode.value==='straight')straightDown('mouse');else{if(e.button===0)leftHeld=true;if(e.button===2)rightHeld=true;iambicLoop()}},true);document.addEventListener('mouseup',e=>{if(!active||(e.button!==0&&e.button!==2))return;e.preventDefault();if(mode.value==='straight')straightUp();else{if(e.button===0)leftHeld=false;if(e.button===2)rightHeld=false}},true);
 function touchSide(x){const r=keyarea.getBoundingClientRect();return x<r.left+r.width/2?'dit':'dah'}
@@ -526,7 +526,42 @@ function refreshTouchHolds(){if(mode.value==='straight')return;leftHeld=[...touc
 keyarea.addEventListener('pointerdown',e=>{if(e.pointerType!=='touch')return;e.preventDefault();ensureAudio();status.textContent=tr('touchReady');try{keyarea.setPointerCapture(e.pointerId)}catch{}if(mode.value==='straight'){touchPointers.set(e.pointerId,'straight');if(touchPointers.size===1)straightDown('touch')}else{touchPointers.set(e.pointerId,touchSide(e.clientX));refreshTouchHolds()}});
 function touchEnd(e){if(e.pointerType!=='touch')return;e.preventDefault();touchPointers.delete(e.pointerId);if(mode.value==='straight'){if(touchPointers.size===0)straightUp()}else refreshTouchHolds();if(touchPointers.size===0)status.textContent=tr('idle')}
 keyarea.addEventListener('pointerup',touchEnd);keyarea.addEventListener('pointercancel',touchEnd);
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){deactivate();return}if((e.key==='c'||e.key==='C')&&document.activeElement!==practice){practice.value='';current='';symbols.textContent='';decoded.textContent=''}if(e.code==='Space'&&mode.value==='straight'&&document.activeElement!==practice){e.preventDefault();if(!active)ensureAudio();straightDown('keyboard')} });document.addEventListener('keyup',e=>{if(e.code==='Space'&&mode.value==='straight'&&document.activeElement!==practice){e.preventDefault();straightUp()}});document.addEventListener('pointerlockchange',()=>{if(!document.pointerLockElement&&active){active=false;leftHeld=rightHeld=false;localToneOff();flash(false);status.textContent=tr('idle')}});
+const vbandCtrlHeld=new Set();
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){deactivate();return}
+  if((e.key==='c'||e.key==='C')&&document.activeElement!==practice){practice.value='';current='';symbols.textContent='';decoded.textContent=''}
+  if(e.code==='Space'&&mode.value==='straight'&&document.activeElement!==practice){
+    e.preventDefault();if(!active)ensureAudio();straightDown('keyboard');return
+  }
+  if(e.code==='ControlLeft'||e.code==='ControlRight'){
+    e.preventDefault();
+    if(e.repeat||vbandCtrlHeld.has(e.code))return;
+    ensureAudio();
+    vbandCtrlHeld.add(e.code);
+    if(mode.value==='straight'){
+      if(vbandCtrlHeld.size===1)straightDown('vband');
+    }else{
+      if(e.code==='ControlLeft')leftHeld=true;
+      if(e.code==='ControlRight')rightHeld=true;
+      iambicLoop();
+    }
+  }
+});
+document.addEventListener('keyup',e=>{
+  if(e.code==='Space'&&mode.value==='straight'&&document.activeElement!==practice){
+    e.preventDefault();straightUp();return
+  }
+  if(e.code==='ControlLeft'||e.code==='ControlRight'){
+    e.preventDefault();
+    vbandCtrlHeld.delete(e.code);
+    if(mode.value==='straight'){
+      if(vbandCtrlHeld.size===0)straightUp();
+    }else{
+      if(e.code==='ControlLeft')leftHeld=false;
+      if(e.code==='ControlRight')rightHeld=false;
+    }
+  }
+});document.addEventListener('pointerlockchange',()=>{if(!document.pointerLockElement&&active){active=false;leftHeld=rightHeld=false;localToneOff();flash(false);status.textContent=tr('idle')}});
 function tokensFromText(txt){const out=[];for(let i=0;i<txt.length;){if(txt[i]==='<'){const j=txt.indexOf('>',i);if(j>i){const token=txt.slice(i,j+1).toUpperCase();const code=Object.entries(MORSE).find(([,v])=>v===token)?.[0];if(code){out.push({type:'code',code,label:token});i=j+1;continue}}}const ch=txt[i].toUpperCase();if(/\s/.test(ch))out.push({type:'space'});else if(REVERSE[ch])out.push({type:'code',code:REVERSE[ch],label:ch});i++}return out}
 async function playText(){if(customLessonOn)return;const token=++playToken;ensureAudio();$("playStatus").textContent=tr('playing')+'…';const items=tokensFromText(practice.value);for(const item of items){if(token!==playToken)break;if(item.type==='space'){await sleep(Math.max(0,wordGap()-charGap()));continue}decoded.textContent=item.label;if(visualAidEnabled)symbols.textContent=item.code;for(const s of item.code){if(token!==playToken)break;localToneOn();flash(true);await sleep(s==='.'?dotMs():dotMs()*3);localToneOff();flash(false);await sleep(dotMs())}symbols.textContent='';await sleep(Math.max(0,charGap()-dotMs()))}if(token===playToken)$("playStatus").textContent=tr('stopped');localToneOff();flash(false)}
 $("playBtn").onclick=playText;$("stopBtn").onclick=()=>{playToken++;localToneOff();flash(false);$("playStatus").textContent=tr('stopped')};$("clearBtn").onclick=()=>{practice.value='';current='';symbols.textContent='';decoded.textContent=''};$("backspace").onclick=()=>practice.value=practice.value.slice(0,-1);$("copyBtn").onclick=async()=>{try{await navigator.clipboard.writeText(practice.value)}catch{practice.select();document.execCommand('copy')}const b=$("copyBtn"),old=b.textContent;b.textContent=tr('copied');setTimeout(()=>b.textContent=old,900)};$("saveBtn").onclick=()=>{const blob=new Blob([practice.value],{type:'text/plain;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='cw-practice.txt';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)};
