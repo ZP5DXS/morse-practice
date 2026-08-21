@@ -328,79 +328,6 @@ html[data-accent-theme="nightop"]{--bg:#090806;--panel:#15110b;--panel2:#21190e;
 html[data-theme="light"][data-accent-theme="nightop"]{--bg:#f4ead8;--panel:#fffaf0;--panel2:#f6ead4;--panel3:#fffdf8;--text:#3a2918;--muted:#826c50;--line:#d4bd98;--accent:#a85c0b;--accent2:#824304;--accent-alt:#bd7527;--good:#81751f}
 
 
-/* Global text size: 5 compact steps */
-html{--text-scale:1}
-html[data-font-step="0"]{--text-scale:.90}
-html[data-font-step="1"]{--text-scale:.96}
-html[data-font-step="2"]{--text-scale:1}
-html[data-font-step="3"]{--text-scale:1.08}
-html[data-font-step="4"]{--text-scale:1.16}
-.font-size-control{display:flex;align-items:center;gap:5px;color:var(--muted);user-select:none}
-.font-size-a{font-weight:800;color:var(--text);opacity:.42;line-height:1}
-.font-size-a-small{font-size:10px}
-.font-size-a-large{font-size:16px}
-.font-size-steps{display:flex;align-items:center;gap:5px;padding:4px 6px;border:1px solid color-mix(in srgb,var(--line) 75%,transparent);border-radius:999px;background:color-mix(in srgb,var(--panel2) 75%,transparent)}
-.font-step{width:7px;height:7px;min-width:7px;padding:0;border:0;border-radius:50%;background:var(--muted);opacity:.28;transition:.15s}
-.font-step:hover{opacity:.62;transform:scale(1.15)}
-.font-step.active{background:var(--accent);opacity:.9;box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 16%,transparent)}
-html[data-font-step] .app{font-size:16px}
-
-/* Text-size accessibility:
-   scale content that benefits from readability, not every compact control. */
-html[data-font-step] .hero{font-size:calc(22px * var(--text-scale))}
-html[data-font-step] .modehint,
-html[data-font-step] .status,
-html[data-font-step] .key-head .small{font-size:calc(12px * var(--text-scale))}
-html[data-font-step] .big{font-size:calc(48px * var(--text-scale));min-height:calc(62px * var(--text-scale))}
-html[data-font-step] .decoded{font-size:calc(34px * var(--text-scale));min-height:calc(44px * var(--text-scale))}
-html[data-font-step] textarea{font-size:calc(20px * var(--text-scale))}
-
-/* Training targets: grow together with their stage instead of overflowing. */
-html[data-font-step] .racer-target{font-size:calc(34px * var(--text-scale));min-height:calc(36px * var(--text-scale))}
-html[data-font-step] .racer-code{font-size:calc(20px * var(--text-scale));min-height:calc(24px * var(--text-scale))}
-html[data-font-step] .custom-lesson-current{font-size:calc(24px * var(--text-scale));min-height:calc(30px * var(--text-scale))}
-html[data-font-step] .koch-target{font-size:calc(34px * var(--text-scale));min-height:calc(38px * var(--text-scale));overflow-wrap:anywhere}
-html[data-font-step] .koch-code{font-size:calc(19px * var(--text-scale));min-height:calc(23px * var(--text-scale));overflow-wrap:anywhere}
-html[data-font-step] .koch-choice{font-size:calc(15px * var(--text-scale));min-height:calc(38px * var(--text-scale));display:flex;align-items:center;justify-content:center}
-html[data-font-step] .koch-newchar b{font-size:calc(13px * var(--text-scale))}
-html[data-font-step] .koch-result-stars{font-size:calc(26px * var(--text-scale))}
-html[data-font-step] .koch-result-score{font-size:calc(20px * var(--text-scale))}
-html[data-font-step] .qso-bot-call{font-size:calc(18px * var(--text-scale))}
-html[data-font-step] .qso-bot-message{font-size:calc(11px * var(--text-scale));min-height:calc(54px * var(--text-scale))}
-html[data-font-step] .qso-bot-message.complete{min-height:calc(125px * var(--text-scale))}
-
-/* Keep compact navigation/buttons usable and visually stable at every step. */
-html[data-font-step] :is(.font-step,.pill-switch,.switch,.mute-btn){font-size:inherit}
-html[data-font-step] :is(.action,.seg-btn,.preset,.racer-tab,.racer-actions .action,
-.wr7q-section-buttons button,.stats-shortcuts .action,.leader-actions .action,
-.membership-row .action,.koch-challenge-btn){
-  min-height:30px;
-}
-html[data-font-step] .koch-level{
-  font-size:8px;
-  min-height:34px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-}
-html[data-font-step] .koch-level .stars{font-size:7px}
-
-/* Reset/destructive buttons must never collapse visually. */
-html[data-font-step] .action.danger{
-  min-width:max-content;
-  min-height:32px;
-  padding:8px 11px;
-}
-
-/* At larger text steps allow dense rows to wrap rather than clip. */
-html[data-font-step="3"] :is(.koch-course-head,.koch-head,.cwracer-head,.qsobot-head,.stats-head,.community-head,.rewards-head),
-html[data-font-step="4"] :is(.koch-course-head,.koch-head,.cwracer-head,.qsobot-head,.stats-head,.community-head,.rewards-head){
-  flex-wrap:wrap;
-}
-
-
-
 /* CW DUEL — independent multiplayer copy battle */
 .duel-box{margin-top:18px;padding-top:15px;border-top:1px solid var(--line)}
 .duel-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.duel-label{font-size:13px;font-weight:900;letter-spacing:.04em}.duel-label.live{color:var(--accent2)}
@@ -412,13 +339,11 @@ html[data-font-step="4"] :is(.koch-course-head,.koch-head,.cwracer-head,.qsobot-
 .duel-invite{display:none;margin-top:8px;padding:8px;border:1px solid var(--accent);border-radius:9px;background:color-mix(in srgb,var(--accent) 7%,var(--panel2));font-size:9px}.duel-invite.open{display:block}.duel-invite-title{font-weight:900;color:var(--accent2);margin-bottom:5px}.duel-invite-actions{display:grid;grid-template-columns:1fr 1fr;gap:5px}.duel-invite-actions .action{font-size:8px;padding:6px 5px}
 .duel-arena{position:absolute;inset:0;z-index:8;display:none;flex-direction:column;align-items:center;justify-content:center;padding:22px;background:radial-gradient(circle at 50% 35%,color-mix(in srgb,var(--accent) 12%,transparent),transparent 52%),var(--panel3);pointer-events:auto}.keyarea.duel-active{cursor:default;border-style:solid;border-color:color-mix(in srgb,var(--accent) 65%,var(--line))}.keyarea.duel-active .duel-arena{display:flex}.keyarea.duel-active>.key-content,.keyarea.duel-active>.touch-zones{visibility:hidden}
 .duel-vs{font:900 18px/1.2 ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--muted);margin-bottom:8px;text-align:center}.duel-vs b{color:var(--text)}.duel-vs .vs{color:var(--accent2);padding:0 8px}
-.duel-countdown{font:900 56px/1 ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--accent2);min-height:58px}.duel-question{font-size:11px;color:var(--muted);font-weight:900;margin:8px 0}.duel-choice-grid{display:grid;grid-template-columns:repeat(2,minmax(82px,130px));gap:9px;margin-top:8px}.duel-choice{border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--text);font:900 24px ui-monospace,SFMono-Regular,Consolas,monospace;padding:13px 8px}.duel-choice:hover{border-color:var(--accent)}.duel-choice.correct{border-color:var(--good);color:var(--good)}.duel-choice.wrong{border-color:var(--danger);color:var(--danger)}.duel-choice:disabled{cursor:default}
+.duel-countdown{font:900 56px/1 ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--accent2);min-height:58px}.duel-question{width:min(360px,82%);font-size:11px;color:var(--muted);font-weight:900;margin:8px auto;text-align:center}.duel-choice-grid{display:grid;grid-template-columns:repeat(2,minmax(82px,130px));gap:9px;margin-top:8px}.duel-choice{border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--text);font:900 24px ui-monospace,SFMono-Regular,Consolas,monospace;padding:13px 8px}.duel-choice:hover{border-color:var(--accent)}.duel-choice.correct{border-color:var(--good);color:var(--good)}.duel-choice.wrong{border-color:var(--danger);color:var(--danger)}.duel-choice:disabled{cursor:default}
 .duel-timer{width:min(360px,82%);height:6px;border-radius:99px;background:var(--panel2);overflow:hidden;margin:12px 0 4px}.duel-timer>span{display:block;width:100%;height:100%;background:var(--accent);transform-origin:left center}.duel-scoreboard{width:min(560px,95%);display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin-bottom:10px}.duel-player{text-align:center}.duel-player b{display:block;font-size:13px}.duel-player span{font-size:10px;color:var(--muted)}.duel-mid{font-size:18px;font-weight:900;color:var(--accent2)}.duel-progress-track{height:6px;background:var(--panel2);border-radius:99px;overflow:hidden;margin-top:5px}.duel-progress-fill{height:100%;background:var(--accent);width:0;transition:.18s}.duel-progress-fill.opp{background:var(--good)}
 .duel-result{display:none;text-align:center;width:min(520px,94%)}.duel-result.open{display:block}.duel-result h2{margin:0 0 7px;font-size:24px}.duel-result-line{font-size:12px;color:var(--muted);margin:4px 0}.duel-result-line b{color:var(--text)}.duel-result-actions{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:12px}.duel-result-actions .action{font-size:9px}.duel-abandon{position:absolute;right:12px;bottom:10px;font-size:8px!important;opacity:.72}
 @media(max-width:620px){.duel-arena{padding:14px}.duel-choice-grid{grid-template-columns:repeat(2,minmax(72px,1fr));width:92%}.duel-choice{font-size:21px}.duel-scoreboard{gap:5px}.duel-vs{font-size:14px}}
 
-@media(max-width:620px){
-  html[data-font-step] .hero{font-size:calc(19px * var(--text-scale))}
   html[data-font-step] .big{font-size:calc(40px * var(--text-scale))}
   html[data-font-step] .decoded{font-size:calc(29px * var(--text-scale))}
 }
@@ -438,6 +363,58 @@ html[data-font-step="4"] :is(.koch-course-head,.koch-head,.cwracer-head,.qsobot-
 @keyframes countryTicker{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
 @-webkit-keyframes countryTicker{from{-webkit-transform:translate3d(0,0,0)}to{-webkit-transform:translate3d(-50%,0,0)}}
 
+
+/* Final stability/accessibility polish */
+.app-version{margin-top:4px;font-size:8px;opacity:.28;letter-spacing:.05em}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:2px solid color-mix(in srgb,var(--accent) 72%,white);
+  outline-offset:2px;
+}
+.duel-challenge:disabled,.duel-actions .action:disabled,.duel-invite-actions .action:disabled{cursor:not-allowed;opacity:.45}
+
+
+/* Global lightweight chat — independent from ON AIR and DUEL */
+.chat-shell{margin-bottom:14px;overflow:hidden}
+.chat-head{display:flex;align-items:center;gap:10px;padding:9px 12px;min-height:42px}
+.chat-title{font-size:12px;font-weight:950;letter-spacing:.04em;white-space:nowrap;cursor:pointer}
+.chat-title b{color:var(--accent2);font-variant-numeric:tabular-nums}
+.chat-spacer{flex:1}
+.chat-mini{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:9px;white-space:nowrap}
+.chat-mini .switch{transform:scale(.82);transform-origin:center}
+.chat-collapse{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:8px;width:29px;height:27px;padding:0;font-weight:900}
+.chat-unread{display:none;min-width:18px;height:18px;padding:0 5px;border-radius:99px;background:var(--danger);color:#fff;font-size:9px;font-weight:950;align-items:center;justify-content:center}
+.chat-unread.show{display:inline-flex}
+.chat-panel{display:none;border-top:1px solid var(--line);padding:10px 12px 11px}
+.chat-panel.open{display:block}
+.chat-messages{height:170px;overflow:auto;border:1px solid var(--line);border-radius:10px;background:var(--panel3);padding:7px 9px;scrollbar-width:thin}
+.chat-empty{color:var(--muted);font-size:10px;text-align:center;padding:28px 5px}
+.chat-message{display:grid;grid-template-columns:auto 1fr auto;gap:7px;align-items:start;padding:6px 0;border-top:1px solid color-mix(in srgb,var(--line) 50%,transparent);font-size:10px}
+.chat-message:first-child{border-top:0}
+.chat-from{font-weight:950;color:var(--accent2);white-space:nowrap}
+.chat-text{min-width:0;white-space:pre-wrap;word-break:break-word;color:var(--text)}
+.chat-text.hidden-text{filter:blur(5px);user-select:none}
+.chat-msg-actions{display:flex;gap:3px}
+.chat-msg-btn{width:25px;height:23px;padding:0;border:1px solid var(--line);border-radius:6px;background:var(--panel2);color:var(--text);font-size:11px}
+.chat-msg-btn.playing{border-color:var(--accent);color:var(--accent2)}
+.chat-heard{display:none;align-items:center;justify-content:center;min-width:18px;height:23px;color:var(--good);font-size:12px;font-weight:950}
+.chat-heard.show{display:inline-flex}
+.chat-compose{display:grid;grid-template-columns:1fr auto;gap:6px;margin-top:8px}
+.chat-compose input{margin:0;padding:8px 9px;font-size:10px}
+.chat-compose .action{padding:7px 10px;font-size:9px}
+.chat-state{width:7px;height:7px;border-radius:50%;background:var(--muted);display:inline-block}
+.chat-state.live{background:var(--good);box-shadow:0 0 7px color-mix(in srgb,var(--good) 55%,transparent)}
+@media(max-width:620px){
+  .chat-head{gap:7px;padding:8px 9px;flex-wrap:wrap}
+  .chat-spacer{display:none}
+  .chat-title{margin-right:auto}
+  .chat-mini{font-size:8px}
+  .chat-messages{height:155px}
+  .chat-message{grid-template-columns:1fr auto;gap:4px}
+  .chat-from{grid-column:1/2}
+  .chat-text{grid-column:1/2}
+  .chat-msg-actions{grid-column:2;grid-row:1/3}
+}
+
 </style>
 <script src="https://unpkg.com/mqtt@5.15.2/dist/mqtt.min.js"></script>
 </head>
@@ -449,21 +426,36 @@ html[data-font-step="4"] :is(.koch-course-head,.koch-head,.cwracer-head,.qsobot-
     <div><h1>Morse Practice</h1><div class="sub" data-i18n="subtitle">Práctica de Código Morse</div><div class="courtesy"><span data-i18n="courtesy">Cortesía de</span> <a href="https://www.facebook.com/ZP5DXS" target="_blank" rel="noopener noreferrer">ZP5DXS</a></div><div class="header-links"><a href="https://github.com/ZP5DXS/morse-practice#readme" target="_blank" rel="noopener noreferrer">📖 <span data-i18n="instructions">Instrucciones</span></a></div></div>
   </div>
   <div class="top-controls">
-    <div class="font-size-control" title="Tamaño del texto">
-      <span class="font-size-a font-size-a-small" aria-hidden="true">A</span>
-      <div class="font-size-steps" role="group" aria-label="Tamaño del texto">
-        <button type="button" class="font-step" data-font-step="0" aria-label="Texto muy pequeño"></button>
-        <button type="button" class="font-step" data-font-step="1" aria-label="Texto pequeño"></button>
-        <button type="button" class="font-step active" data-font-step="2" aria-label="Texto normal"></button>
-        <button type="button" class="font-step" data-font-step="3" aria-label="Texto grande"></button>
-        <button type="button" class="font-step" data-font-step="4" aria-label="Texto muy grande"></button>
-      </div>
-      <span class="font-size-a font-size-a-large" aria-hidden="true">A</span>
-    </div>
     <div class="compact-control"><span>ES</span><button id="langToggle" class="pill-switch" type="button" aria-label="Language"></button><span>EN</span></div>
     <div class="compact-control"><span>☀️</span><button id="themeToggle" class="pill-switch on" type="button" aria-label="Theme"></button><span>🌙</span></div>
   </div>
 </header>
+
+<section id="chatShell" class="card chat-shell" aria-label="Chat">
+  <div class="chat-head">
+    <span id="chatStateDot" class="chat-state"></span>
+    <span class="chat-title">💬 CHAT · <b id="chatOnlineCount">0</b> <span id="chatOnlineWord">online</span></span>
+    <span id="chatUnread" class="chat-unread">0</span>
+    <span class="chat-spacer"></span>
+    <label class="chat-mini" title="Reproducir automáticamente los mensajes nuevos en CW">
+      <span id="chatAutoLabel">Auto CW</span>
+      <span class="switch"><input id="chatAutoCw" type="checkbox"><span></span></span>
+    </label>
+    <label class="chat-mini" title="Ocultar el texto de los mensajes nuevos hasta revelarlos">
+      <span id="chatHideLabel">Ocultar texto</span>
+      <span class="switch"><input id="chatHideText" type="checkbox"><span></span></span>
+    </label>
+    <button id="chatCollapse" class="chat-collapse" type="button" aria-label="Mostrar u ocultar chat">▾</button>
+  </div>
+  <div id="chatPanel" class="chat-panel">
+    <div id="chatMessages" class="chat-messages"><div id="chatEmpty" class="chat-empty">No hay mensajes todavía.</div></div>
+    <div class="chat-compose">
+      <input id="chatInput" type="text" maxlength="160" autocomplete="off" placeholder="Escribir mensaje…">
+      <button id="chatSend" class="action primary" type="button">Enviar</button>
+    </div>
+  </div>
+</section>
+
 <div class="layout">
 <aside class="card config">
   <h2 class="section-title" data-i18n="settings">Configuración</h2>
@@ -797,7 +789,7 @@ html[data-font-step="4"] :is(.koch-course-head,.koch-head,.cwracer-head,.qsobot-
       <button id="footerLicwBtn" class="footer-member-link" type="button" title="LICW">🎓 <b id="footerLicwCount">0</b> LICW</button>
     </div>
     <div id="countryTicker" class="country-ticker" aria-label="Countries using Morse Practice"><div id="countryTickerTrack" class="country-ticker-track"></div></div>
-    <div class="memorial">In memory of CX7BBB — Antonio Villano · from whom I, and so many others, learned CW.</div></div>
+    <div class="memorial">In memory of CX7BBB — Antonio Villano · from whom I, and so many others, learned CW.</div><div class="app-version" title="Morse Practice release">v1.0 · 2026.08</div></div>
 </div>
 <script>
 (()=>{
@@ -856,7 +848,17 @@ visualAid.addEventListener('change',()=>{
   applyVisualAid();
 });
 
-function applyLang(){document.documentElement.lang=lang;document.querySelectorAll('[data-i18n]').forEach(n=>{const k=n.dataset.i18n;if(I18N[lang][k])n.textContent=I18N[lang][k]});$("langToggle").classList.toggle('on',lang==='en');$("operatorName").placeholder=lang==='es'?'Nombre (opcional)':'Name (optional)';$("operatorCall").placeholder=lang==='es'?'Indicativo (opcional)':'Callsign (optional)';const audioOnlyLabel=document.querySelector('[data-audio-only-title]');if(audioOnlyLabel)audioOnlyLabel.title=tr('audioOnlyTitle');const aiLabel=document.getElementById('qsoAiSwitchLabel');if(aiLabel)aiLabel.title=tr('aiLocalTitle');if(typeof qsoSmartVisual==='function')qsoSmartVisual(qsoSmartCurrentState||'');if(typeof qsoSetYou==='function')qsoSetYou();if(typeof kochRenderLesson==='function'){kochRenderLesson();kochUpdateMap();}if(typeof renderRacerStats==='function')renderRacerStats();if($("footerSkccBtn"))$("footerSkccBtn").title=lang==='es'?'Miembros SKCC a bordo · clic para editar':'SKCC members aboard · click to edit';if($("footerLicwBtn"))$("footerLicwBtn").title=lang==='es'?'Miembros LICW a bordo · clic para editar':'LICW members aboard · click to edit';renderCountryTicker();if($("globalCall"))$("globalCall").placeholder=lang==='es'?'Indicativo':'Callsign';if(typeof duelRenderLobby==='function')duelRenderLobby();if($('leaderStreak'))$('leaderStreak').parentElement.title=lang==='es'?'Mejor racha semanal de aciertos consecutivos en Racer/Duel':'Best weekly consecutive correct streak in Racer/Duel';updateModeHint();updateChannelUI();syncPaddleReverseUI();}
+function applyLang(){document.documentElement.lang=lang;document.querySelectorAll('[data-i18n]').forEach(n=>{const k=n.dataset.i18n;if(I18N[lang][k])n.textContent=I18N[lang][k]});$("langToggle").classList.toggle('on',lang==='en');$("operatorName").placeholder=lang==='es'?'Nombre (opcional)':'Name (optional)';$("operatorCall").placeholder=lang==='es'?'Indicativo (opcional)':'Callsign (optional)';const audioOnlyLabel=document.querySelector('[data-audio-only-title]');if(audioOnlyLabel)audioOnlyLabel.title=tr('audioOnlyTitle');const aiLabel=document.getElementById('qsoAiSwitchLabel');if(aiLabel)aiLabel.title=tr('aiLocalTitle');if(typeof qsoSmartVisual==='function')qsoSmartVisual(qsoSmartCurrentState||'');if(typeof qsoSetYou==='function')qsoSetYou();if(typeof kochRenderLesson==='function'){kochRenderLesson();kochUpdateMap();}if(typeof renderRacerStats==='function')renderRacerStats();if($("footerSkccBtn"))$("footerSkccBtn").title=lang==='es'?'Miembros SKCC a bordo · clic para editar':'SKCC members aboard · click to edit';if($("footerLicwBtn"))$("footerLicwBtn").title=lang==='es'?'Miembros LICW a bordo · clic para editar':'LICW members aboard · click to edit';renderCountryTicker();if($("globalCall"))$("globalCall").placeholder=lang==='es'?'Indicativo':'Callsign';if(typeof duelRenderLobby==='function')duelRenderLobby();if($('leaderStreak'))$('leaderStreak').parentElement.title=lang==='es'?'Mejor racha semanal de aciertos consecutivos en Racer/Duel':'Best weekly consecutive correct streak in Racer/Duel';
+const tips={
+  onAirToggle:lang==='es'?'Entrar o salir de la sala mundial ON AIR':'Join or leave the worldwide ON AIR room',
+  duelToggle:lang==='es'?'Entrar o salir del modo CW DUEL':'Enter or leave CW DUEL mode',
+  audioOnlyToggle:lang==='es'?'Oculta la decodificación y ayudas visuales':'Hide decoding and visual aids',
+  statsToggle:lang==='es'?'Mostrar u ocultar tus estadísticas locales':'Show or hide your local statistics',
+  rewardsToggle:lang==='es'?'Mostrar u ocultar recompensas y membresías':'Show or hide rewards and memberships',
+  paddleReverseToggle:lang==='es'?'Invertir DIT y DAH de la paleta':'Swap paddle DIT and DAH'
+};
+for(const [id,t] of Object.entries(tips)){const el=$(id);if(el){el.title=t;el.setAttribute('aria-label',t)}}
+if(typeof chatTranslateUi==='function')chatTranslateUi();updateModeHint();updateChannelUI();syncPaddleReverseUI();}
 let audioCtx=null,osc=null,gain=null,remoteOsc=null,remoteGain=null;
 let bandNoiseSource=null,bandNoiseFilter=null,bandNoiseGain=null;
 function updateBandNoise(){
@@ -1046,11 +1048,246 @@ presence=new Map();
 let mqttClient=null,onAir=false,onAirConnected=false,remoteBusy=false,remoteBusyWho='',lastRemoteTx=0,presenceTimer=null,cleanupTimer=null;
 const DUEL_ROOT='zp5dxs/morse-practice/duel-v1';
 const duelClientId='duel_'+crypto.getRandomValues(new Uint32Array(2)).join('_');
-let duelClient=null,duelOn=false,duelAllow=true,duelSpeed=8,duelSearching=false,duelPresenceTimer=null,duelCleanupTimer=null,duelInviteTimer=null,duelQuestionTimer=null,duelWatchdog=null;
+let duelClient=null,duelOn=false,duelAllow=true,duelSpeed=15,duelSearching=false,duelPresenceTimer=null,duelCleanupTimer=null,duelInviteTimer=null,duelQuestionTimer=null,duelWatchdog=null;
 const duelPresence=new Map();let duelPendingInvite=null,duelPendingOutgoing=null,duelSession=null;
 let txDownAt=0,txDownWall=0,remotePulseQueue=[],remotePulsePlaying=false,remoteLastSenderUp=0;
 let detectedCountry='';
 const mutedUsers=new Set();
+
+// ─────────────────────────────────────────────────────────────
+// GLOBAL CHAT — text transport only. CW is generated locally.
+// Independent from ON AIR and CW DUEL.
+// ─────────────────────────────────────────────────────────────
+const CHAT_ROOT='zp5dxs/morse-practice/chat-v1';
+const chatClientId='chat_'+crypto.getRandomValues(new Uint32Array(2)).join('_');
+const chatPresence=new Map();
+let chatClient=null,chatConnected=false,chatPresenceTimer=null,chatCleanupTimer=null;
+let chatOpen=localStorage.getItem('cw-chat-open')==='1';
+let chatAutoCw=localStorage.getItem('cw-chat-auto')==='1';
+let chatHideIncoming=localStorage.getItem('cw-chat-hide')==='1';
+let chatUnread=0,chatAudioBusy=false,chatAudioQueue=[],chatAudioToken=0,chatCurrentAudio=null;
+const chatSeenMessages=new Set();
+
+function chatIdentity(){
+  const call=(typeof leaderCallsign==='function'?leaderCallsign():'')||($('operatorCall')?.value||'').trim().toUpperCase();
+  return call||guestId(chatClientId);
+}
+function chatPublishPresence(){
+  if(!chatClient?.connected)return;
+  chatClient.publish(`${CHAT_ROOT}/presence/${chatClientId}`,JSON.stringify({
+    id:chatClientId,call:chatIdentity(),country:detectedCountry||'',ts:Date.now()
+  }),{qos:0,retain:true});
+}
+function chatRenderPresence(){
+  const now=Date.now();
+  for(const [id,p] of chatPresence)if(now-(Number(p.ts)||0)>35000)chatPresence.delete(id);
+  $('chatOnlineCount').textContent=String(chatPresence.size);
+}
+function chatSetConnected(on){
+  chatConnected=!!on;
+  $('chatStateDot')?.classList.toggle('live',chatConnected);
+}
+function chatApplyUi(){
+  $('chatPanel')?.classList.toggle('open',chatOpen);
+  if($('chatCollapse'))$('chatCollapse').textContent=chatOpen?'▴':'▾';
+  if($('chatAutoCw'))$('chatAutoCw').checked=chatAutoCw;
+  if($('chatHideText'))$('chatHideText').checked=chatHideIncoming;
+  if(chatOpen){chatUnread=0;chatUpdateUnread();setTimeout(chatScrollBottom,0)}
+}
+function chatUpdateUnread(){
+  const el=$('chatUnread');if(!el)return;
+  el.textContent=String(chatUnread);
+  el.classList.toggle('show',chatUnread>0);
+}
+
+function chatApplyTextVisibility(){
+  document.querySelectorAll('#chatMessages .chat-text').forEach(el=>el.classList.toggle('hidden-text',chatHideIncoming));
+}
+
+function chatScrollBottom(){
+  const box=$('chatMessages');if(box)box.scrollTop=box.scrollHeight;
+}
+function chatEscapeText(s){return String(s??'').replace(/\s+/g,' ').trim().slice(0,160)}
+function chatAddMessage(msg,isMine=false){
+  const box=$('chatMessages');if(!box)return;
+  $('chatEmpty')?.remove();
+  const row=document.createElement('div');row.className='chat-message';row.dataset.messageId=msg.id||'';
+  const from=document.createElement('span');from.className='chat-from';
+  from.textContent=(msg.country?countryFlag(msg.country)+' ':'')+(msg.call||guestId(msg.id));
+  const text=document.createElement('span');text.className='chat-text';
+  text.textContent=msg.text||'';
+  text.classList.toggle('hidden-text',chatHideIncoming);
+
+  const actions=document.createElement('span');actions.className='chat-msg-actions';
+  const hear=document.createElement('button');hear.type='button';hear.className='chat-msg-btn';hear.textContent='🔊';
+  hear.title=lang==='es'?'Escuchar en CW':'Listen in CW';
+  const heard=document.createElement('span');heard.className='chat-heard';heard.textContent='✓';
+  heard.title=lang==='es'?'CW escuchado':'CW heard';
+  hear.onclick=()=>chatQueueCw(msg.text,hear,true,heard);
+  actions.append(hear,heard);row.append(from,text,actions);box.appendChild(row);
+
+  while(box.querySelectorAll('.chat-message').length>50){
+    box.querySelector('.chat-message')?.remove();
+  }
+  if(!chatOpen&&!isMine){chatUnread++;chatUpdateUnread()}
+  chatScrollBottom();
+  return {row,hear,heard};
+}
+function chatSendMessage(){
+  if(!chatClient?.connected)return;
+  const input=$('chatInput');const text=chatEscapeText(input?.value);
+  if(!text)return;
+  const id=`${chatClientId}_${Date.now()}_${Math.random().toString(36).slice(2,7)}`;
+  const msg={type:'message',id,from:chatClientId,call:chatIdentity(),country:detectedCountry||'',text,ts:Date.now()};
+  chatSeenMessages.add(id);
+  chatClient.publish(`${CHAT_ROOT}/messages`,JSON.stringify(msg),{qos:0,retain:false});
+  chatAddMessage(msg,true);
+  input.value='';
+}
+function chatAudioBlocked(){
+  // Never let automatic chat CW interfere with a duel or an active ON AIR transmission.
+  return !!(duelSession || remoteBusy || active || remotePulsePlaying);
+}
+function chatQueueCw(text,button=null,manual=false,heardEl=null){
+  const clean=chatEscapeText(text);if(!clean)return;
+  chatAudioQueue.push({text:clean,button,manual:!!manual,heardEl});
+  chatPumpAudio();
+}
+function chatStopAutoCw(){
+  // Stop only automatic chat playback. Manual speaker playback remains user-controlled.
+  chatAudioQueue=chatAudioQueue.filter(item=>item.manual);
+  if(chatCurrentAudio&&!chatCurrentAudio.manual){
+    chatAudioToken++;
+    localToneOff();
+  }
+}
+async function chatPumpAudio(){
+  if(chatAudioBusy||!chatAudioQueue.length)return;
+  if(chatAudioBlocked()){setTimeout(chatPumpAudio,350);return}
+  chatAudioBusy=true;
+  const item=chatAudioQueue.shift();
+  chatCurrentAudio=item;
+  const myToken=++chatAudioToken;
+  let completed=false;
+  if(item.button)item.button.classList.add('playing');
+  try{
+    ensureAudio();
+    const items=tokensFromText(item.text);
+    outer:
+    for(const part of items){
+      while(chatAudioBlocked()){
+        if(myToken!==chatAudioToken)break outer;
+        await sleep(180);
+      }
+      if(myToken!==chatAudioToken)break;
+      if(part.type==='space'){
+        await sleep(Math.max(0,wordGap()-charGap()));
+        if(myToken!==chatAudioToken)break;
+        continue;
+      }
+      for(const s of part.code){
+        if(myToken!==chatAudioToken)break outer;
+        localToneOn();
+        await sleep(s==='.'?dotMs():dotMs()*3);
+        localToneOff();
+        if(myToken!==chatAudioToken)break outer;
+        await sleep(dotMs());
+      }
+      if(myToken!==chatAudioToken)break;
+      await sleep(Math.max(0,charGap()-dotMs()));
+    }
+    completed=(myToken===chatAudioToken);
+  }finally{
+    localToneOff();
+    if(item.button)item.button.classList.remove('playing');
+    if(completed&&item.heardEl)item.heardEl.classList.add('show');
+    chatCurrentAudio=null;
+    chatAudioBusy=false;
+    // A small separation makes consecutive automatic messages sound like separate transmissions.
+    setTimeout(chatPumpAudio,item.manual?80:650);
+  }
+}
+function chatHandleMessage(topic,payload){
+  if(!topic.startsWith(CHAT_ROOT+'/'))return;
+  const raw=payload.toString();
+  if(topic.startsWith(`${CHAT_ROOT}/presence/`)){
+    const id=topic.slice(`${CHAT_ROOT}/presence/`.length);
+    if(!raw){chatPresence.delete(id);chatRenderPresence();return}
+    try{const p=JSON.parse(raw);p.ts=Date.now();chatPresence.set(id,p);chatRenderPresence()}catch{}
+    return;
+  }
+  if(topic===`${CHAT_ROOT}/messages`&&raw){
+    try{
+      const m=JSON.parse(raw);
+      if(m.type!=='message'||!m.id||m.from===chatClientId||chatSeenMessages.has(m.id))return;
+      m.text=chatEscapeText(m.text);if(!m.text)return;
+      chatSeenMessages.add(m.id);
+      if(chatSeenMessages.size>400){const first=chatSeenMessages.values().next().value;chatSeenMessages.delete(first)}
+      const rendered=chatAddMessage(m,false);
+      if(chatAutoCw)chatQueueCw(m.text,rendered?.hear||null,false,rendered?.heard||null);
+    }catch{}
+  }
+}
+function chatConnect(){
+  if(chatClient)return;
+  chatClient=mqtt.connect('wss://broker.emqx.io:8084/mqtt',{
+    clientId:chatClientId,clean:true,keepalive:20,connectTimeout:8000,reconnectPeriod:4000,
+    will:{topic:`${CHAT_ROOT}/presence/${chatClientId}`,payload:'',qos:0,retain:true}
+  });
+  chatClient.on('connect',()=>{
+    chatSetConnected(true);
+    chatClient.subscribe(`${CHAT_ROOT}/#`,{qos:0});
+    chatPublishPresence();
+    clearInterval(chatPresenceTimer);
+    chatPresenceTimer=setInterval(chatPublishPresence,10000);
+    clearInterval(chatCleanupTimer);
+    chatCleanupTimer=setInterval(chatRenderPresence,5000);
+  });
+  chatClient.on('message',chatHandleMessage);
+  chatClient.on('reconnect',()=>chatSetConnected(false));
+  chatClient.on('close',()=>chatSetConnected(false));
+  chatClient.on('error',()=>chatSetConnected(false));
+}
+function chatTranslateUi(){
+  if(!$('chatShell'))return;
+  $('chatOnlineWord').textContent='online';
+  $('chatAutoLabel').textContent='Auto CW';
+  $('chatHideLabel').textContent=lang==='es'?'Ocultar texto':'Hide text';
+  $('chatInput').placeholder=lang==='es'?'Escribir mensaje…':'Type a message…';
+  $('chatSend').textContent=lang==='es'?'Enviar':'Send';
+  $('chatCollapse').setAttribute('aria-label',lang==='es'?'Mostrar u ocultar chat':'Show or hide chat');
+}
+function setupChat(){
+  if(!$('chatShell'))return;
+  chatApplyUi();chatTranslateUi();
+  const toggleChat=()=>{
+    chatOpen=!chatOpen;localStorage.setItem('cw-chat-open',chatOpen?'1':'0');chatApplyUi();
+  };
+  $('chatCollapse').onclick=toggleChat;
+  document.querySelector('.chat-title')?.addEventListener('click',toggleChat);
+  $('chatAutoCw').onchange=e=>{
+    chatAutoCw=!!e.target.checked;
+    localStorage.setItem('cw-chat-auto',chatAutoCw?'1':'0');
+    if(!chatAutoCw)chatStopAutoCw();
+  };
+  $('chatHideText').onchange=e=>{
+    chatHideIncoming=!!e.target.checked;
+    localStorage.setItem('cw-chat-hide',chatHideIncoming?'1':'0');
+    chatApplyTextVisibility();
+  };
+  $('chatSend').onclick=chatSendMessage;
+  $('chatInput').addEventListener('keydown',e=>{
+    e.stopPropagation();
+    if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();chatSendMessage()}
+  });
+  $('chatInput').addEventListener('keyup',e=>e.stopPropagation());
+  $('chatInput').addEventListener('keypress',e=>e.stopPropagation());
+  chatConnect();
+}
+window.addEventListener('beforeunload',()=>{
+  try{if(chatClient?.connected)chatClient.publish(`${CHAT_ROOT}/presence/${chatClientId}`,'',{qos:0,retain:true})}catch{}
+});
+
 
 function guestId(id){
   const raw=(id||'').replace(/\D/g,'').slice(-4).padStart(4,'0');
@@ -1231,12 +1468,34 @@ function publishWeeklyLeader(){
 function renderWeeklyLeaderboard(){
   const list=$("leaderList");if(!list)return;
   const call=leaderCallsign(),joined=leaderIsJoined();
-  const arr=[...weeklyLeaders.entries()]
-    .map(([id,v])=>({id,...v}))
-    .filter(v=>v.call)
-    .sort((a,b)=>(b.score||0)-(a.score||0)||(b.streak||0)-(a.streak||0));
-  const rank=arr.findIndex(v=>v.id===statsVisitorId)+1,my=weeklyLocal();
-  if(joined&&rank>0&&rank<=10&&localStorage.getItem('cw-reward-top10')!=='1'){localStorage.setItem('cw-reward-top10','1');rewardToast(lang==='es'?'🏅 Top 10 Operator desbloqueado':'🏅 Top 10 Operator unlocked');renderRewards();}
+
+  // Several browsers/devices can legitimately publish the same callsign under
+  // different anonymous visitor IDs. For display/ranking, collapse them by
+  // normalized callsign and keep the strongest weekly result. Raw MQTT records
+  // remain untouched.
+  const grouped=new Map();
+  for(const [id,v] of weeklyLeaders.entries()){
+    const c=sanitizeCall(v?.call);
+    if(!c)continue;
+    const row={id,ids:[id],call:c,score:Number(v.score)||0,streak:Number(v.streak)||0,country:v.country||'',ts:Number(v.ts)||0};
+    const prev=grouped.get(c);
+    if(!prev){grouped.set(c,row);continue}
+    prev.ids.push(id);
+    const better=row.score>prev.score||(row.score===prev.score&&row.streak>prev.streak)||(row.score===prev.score&&row.streak===prev.streak&&row.ts>prev.ts);
+    if(better){prev.id=row.id;prev.score=row.score;prev.streak=row.streak;prev.country=row.country||prev.country;prev.ts=row.ts}
+    else if(!prev.country&&row.country)prev.country=row.country;
+  }
+
+  const arr=[...grouped.values()]
+    .sort((a,b)=>(b.score||0)-(a.score||0)||(b.streak||0)-(a.streak||0)||(b.ts||0)-(a.ts||0));
+
+  const myIndex=call?arr.findIndex(v=>v.call===call):-1;
+  const rank=myIndex+1,my=weeklyLocal();
+  if(joined&&rank>0&&rank<=10&&localStorage.getItem('cw-reward-top10')!=='1'){
+    localStorage.setItem('cw-reward-top10','1');
+    rewardToast(lang==='es'?'🏅 Top 10 Operator desbloqueado':'🏅 Top 10 Operator unlocked');
+    renderRewards();
+  }
 
   $("communityJoin").style.display=joined&&call?'none':'grid';
   $("communityMe").style.display=joined&&call?'grid':'none';
@@ -1248,7 +1507,10 @@ function renderWeeklyLeaderboard(){
     $("leaderStreak").textContent=my.streak||0;
   }
 
-  list.innerHTML=arr.slice(0,20).map((v,i)=>`<div class="leader-row ${joined&&v.id===statsVisitorId?'me':''}"><b>#${i+1}</b><span class="leader-call">${countryFlag(v.country)} ${v.id===statsVisitorId&&rewardFlags().top10?'🏅 ':''}${escapeHtml(v.call)}</span><b class="leader-score">${Number(v.score)||0}</b><b class="leader-streak" title="${lang==='es'?'Mejor racha semanal de aciertos consecutivos en Racer/Duel':'Best weekly consecutive correct streak in Racer/Duel'}">🔥${Number(v.streak)||0}</b></div>`).join('') || `<div class="community-note">${lang==='es'?'Aún no hay participantes esta semana.':'No participants yet this week.'}</div>`;
+  list.innerHTML=arr.slice(0,20).map((v,i)=>{
+    const mine=joined&&call&&v.call===call;
+    return `<div class="leader-row ${mine?'me':''}"><b>#${i+1}</b><span class="leader-call">${countryFlag(v.country)} ${mine&&rewardFlags().top10?'🏅 ':''}${escapeHtml(v.call)}</span><b class="leader-score">${Number(v.score)||0}</b><b class="leader-streak" title="${lang==='es'?'Mejor racha semanal de aciertos consecutivos en Racer/Duel':'Best weekly consecutive correct streak in Racer/Duel'}">🔥${Number(v.streak)||0}</b></div>`
+  }).join('') || `<div class="community-note">${lang==='es'?'Aún no hay participantes esta semana.':'No participants yet this week.'}</div>`;
 }
 
 function sanitizeCall(v){return String(v||'').toUpperCase().replace(/[^A-Z0-9/]/g,'').slice(0,16)}
@@ -1283,6 +1545,13 @@ function renderCountryTicker(){
   if(!codes.length){track.innerHTML='';return;}
   const items=codes.map(c=>`<span class="country-flag" title="${escapeHtml(countryName(c))}">${countryFlag(c)}</span>`).join('');
   track.innerHTML=items+items;
+  // Restart the animation after replacing its contents. This avoids a few
+  // mobile/WebKit cases where the compositor leaves the ticker visually frozen.
+  track.style.animation='none';
+  track.style.webkitAnimation='none';
+  void track.offsetWidth;
+  track.style.animation='';
+  track.style.webkitAnimation='';
 }
 function openMembership(kind){
   const rt=$('rewardsToggle'),rp=$('rewardsPanel');
@@ -1647,10 +1916,12 @@ window.addEventListener('beforeunload',()=>{if(onAir)publishPresence('leave')});
 // ==================== CW DUEL (independent MQTT module) ====================
 const DUEL_CHARS='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'.split('');
 const DUEL_SPEED_NAMES={8:{es:'Rookie',en:'Rookie'},15:{es:'Intermedio',en:'Intermediate'},20:{es:'Avanzado',en:'Advanced'}};
-let duelOsc=null,duelGain=null;
+let duelOsc=null,duelGain=null,duelTransportUp=false,duelDisconnectGrace=null,duelFinalSyncTimer=null;
 function duelCall(){return leaderCallsign()}
 function duelInfo(){return{id:duelClientId,call:duelCall(),country:detectedCountry||'',speed:duelSpeed,accept:duelAllow,busy:!!duelSession,searching:duelSearching,ts:Date.now()}}
 function duelPublish(topic,obj){if(duelClient?.connected)duelClient.publish(`${DUEL_ROOT}/${topic}`,JSON.stringify(obj),{qos:0})}
+function duelPublishReliable(topic,obj){if(duelClient?.connected)duelClient.publish(`${DUEL_ROOT}/${topic}`,JSON.stringify(obj),{qos:1})}
+
 function duelPublishPresence(type='heartbeat'){duelPublish('presence',{...duelInfo(),type})}
 function duelSetStatus(text,kind=''){const el=$('duelStatus');if(!el)return;el.className='duel-status '+kind;el.textContent=text}
 function duelSpeedName(v){return DUEL_SPEED_NAMES[v]?.[lang]||`${v} WPM`}
@@ -1680,7 +1951,7 @@ function duelStartSession(data,opponentId){
   const me=data.a.id===duelClientId?data.a:data.b,opp=data.a.id===duelClientId?data.b:data.a;duelSession.opponentCall=opp.call;duelSession.opponentCountry=opp.country||'';
   $('duelMeCall').textContent=`${countryFlag(me.country)} ${me.call}`;$('duelOppCall').textContent=`${countryFlag(opp.country)} ${opp.call}`;duelUpdateBattleUI();duelArenaOn(true);duelResetArena();duelSetStatus((lang==='es'?'Duelo contra ':'Duel vs ')+opp.call,'good');duelPublishPresence();
   duelVsCountdown(me.call,opp.call).then(()=>{if(duelSession)duelNextQuestion()});
-  duelWatchdog=setInterval(()=>{if(duelSession&&!duelSession.finished&&Date.now()-duelSession.lastOpp>14000){duelCancelSession(lang==='es'?'El rival se desconectó.':'Opponent disconnected.',false)}},3000);
+  duelWatchdog=setInterval(()=>{if(duelSession&&!duelSession.opponent?.finished&&Date.now()-duelSession.lastOpp>18000){duelCancelSession(lang==='es'?'El rival se desconectó.':'Opponent disconnected.',false)}},3000);
 }
 async function duelVsCountdown(me,opp){$('duelVs').innerHTML=`<b>${escapeHtml(me)}</b><span class="vs">VS</span><b>${escapeHtml(opp)}</b>`;for(const x of ['3','2','1']){if(!duelSession)return;$('duelCountdown').textContent=x;await sleep(650)}$('duelCountdown').textContent='GO!';await sleep(450);$('duelCountdown').textContent='';$('duelVs').textContent=''}
 function duelUpdateBattleUI(){if(!duelSession)return;$('duelMeCorrect').textContent=duelSession.correct;$('duelMeStreak').textContent=duelSession.streak;$('duelMeBar').style.width=`${Math.min(100,duelSession.index/30*100)}%`;const o=duelSession.opponent||{};$('duelOppCorrect').textContent=Number(o.correct)||0;$('duelOppStreak').textContent=Number(o.streak)||0;$('duelOppBar').style.width=`${Math.min(100,(Number(o.index)||0)/30*100)}%`}
@@ -1689,16 +1960,60 @@ async function duelNextQuestion(){
   $('duelChoices').innerHTML=r.choices.map(c=>`<button type="button" class="duel-choice" data-duel-choice="${c}">${c}</button>`).join('');duelSession.questionStarted=performance.now();requestAnimationFrame(()=>requestAnimationFrame(()=>{$('duelTimerBar').style.transition='transform 5s linear';$('duelTimerBar').style.transform='scaleX(0)'}));duelQuestionTimer=setTimeout(()=>duelAnswer(null),5000)
 }
 function duelAnswer(choice){if(!duelSession||duelSession.finished||duelSession.answered)return;duelSession.answered=true;clearTimeout(duelQuestionTimer);const r=duelSession.rounds[duelSession.index],elapsed=choice===null?5000:Math.min(5000,Math.max(0,performance.now()-duelSession.questionStarted));duelSession.totalTime+=elapsed;const ok=choice===r.target;if(ok){duelSession.correct++;duelSession.streak++;duelSession.bestStreak=Math.max(duelSession.bestStreak,duelSession.streak);recordWeeklyCompetitiveStreak(duelSession.streak)}else duelSession.streak=0;document.querySelectorAll('.duel-choice').forEach(b=>{b.disabled=true;if(b.dataset.duelChoice===r.target)b.classList.add('correct');if(choice!==null&&b.dataset.duelChoice===choice&&!ok)b.classList.add('wrong')});duelSession.index++;duelUpdateBattleUI();duelPublishProgress();setTimeout(()=>{if(duelSession)duelNextQuestion()},260)}
+function duelSendFinished(){
+  if(!duelSession||!duelSession.finished)return;
+  const msg={id:duelClientId,type:'finished',index:duelSession.index,correct:duelSession.correct,streak:duelSession.streak,bestStreak:duelSession.bestStreak,totalTime:Math.round(duelSession.totalTime),finished:true,ts:Date.now()};
+  duelPublishReliable(`session/${duelSession.id}/event`,msg);
+}
+function duelStartFinalSync(){
+  clearInterval(duelFinalSyncTimer);
+  duelSendFinished();
+  duelFinalSyncTimer=setInterval(()=>{
+    if(!duelSession||!duelSession.finished||duelSession.opponent?.finished){
+      clearInterval(duelFinalSyncTimer);duelFinalSyncTimer=null;return;
+    }
+    duelSendFinished();
+  },1000);
+}
 function duelPublishProgress(){if(!duelSession)return;duelPublish(`session/${duelSession.id}/progress`,{id:duelClientId,index:duelSession.index,correct:duelSession.correct,streak:duelSession.streak,bestStreak:duelSession.bestStreak,totalTime:Math.round(duelSession.totalTime),finished:duelSession.finished,ts:Date.now()})}
-function duelFinishLocal(){if(!duelSession||duelSession.finished)return;duelSession.finished=true;clearTimeout(duelQuestionTimer);duelToneOff();if(!duelSession.awarded){duelSession.awarded=true;localStorage.setItem('cw-duel-completed-total',String(duelCompletedTotal()+1));markPracticeActivity();publishWeeklyLeader()}publishGlobalDuelRecord(duelSession.id,duelSession.speed);duelPublishProgress();duelMaybeShowResult()}
+function duelFinishLocal(){if(!duelSession||duelSession.finished)return;duelSession.finished=true;clearTimeout(duelQuestionTimer);duelToneOff();if(!duelSession.awarded){duelSession.awarded=true;localStorage.setItem('cw-duel-completed-total',String(duelCompletedTotal()+1));markPracticeActivity();publishWeeklyLeader()}publishGlobalDuelRecord(duelSession.id,duelSession.speed);duelPublishProgress();duelStartFinalSync();duelMaybeShowResult()}
 function duelCompare(a,b){if(a.correct!==b.correct)return a.correct>b.correct?1:-1;if(a.bestStreak!==b.bestStreak)return a.bestStreak>b.bestStreak?1:-1;if(a.totalTime!==b.totalTime)return a.totalTime<b.totalTime?1:-1;return 0}
-function duelMaybeShowResult(){if(!duelSession||!duelSession.finished||!duelSession.opponent?.finished){if(duelSession?.finished){$('duelChoices').innerHTML='';$('duelQuestion').textContent=lang==='es'?'Esperando que termine el rival…':'Waiting for opponent to finish…'}return}const me={correct:duelSession.correct,bestStreak:duelSession.bestStreak,totalTime:Math.round(duelSession.totalTime)},opp={correct:Number(duelSession.opponent.correct)||0,bestStreak:Number(duelSession.opponent.bestStreak)||0,totalTime:Number(duelSession.opponent.totalTime)||0},cmp=duelCompare(me,opp);if(cmp>0&&!duelSession.winAwarded){duelSession.winAwarded=true;localStorage.setItem('cw-duel-wins-total',String(duelWinsTotal()+1));publishWeeklyLeader()}$('duelBattle').style.display='none';$('duelAbandonBtn').style.display='none';$('duelResult').classList.add('open');$('duelResultTitle').textContent=cmp>0?'🏆 '+duelCall()+(lang==='es'?' GANA':' WINS'):cmp<0?'🏆 '+duelSession.opponentCall+(lang==='es'?' GANA':' WINS'):(lang==='es'?'🤝 EMPATE':'🤝 DRAW');$('duelResultScore').innerHTML=`<b>${me.correct}</b> — <b>${opp.correct}</b> · 30`;$('duelResultMeta').innerHTML=`${escapeHtml(duelCall())}: 🔥${me.bestStreak} · ⏱ ${(me.totalTime/1000).toFixed(2)}s &nbsp; | &nbsp; ${escapeHtml(duelSession.opponentCall)}: 🔥${opp.bestStreak} · ⏱ ${(opp.totalTime/1000).toFixed(2)}s<br><b>73 · GOOD MATCH</b>`;duelSetStatus(lang==='es'?'Duelo completado.':'Duel completed.','good');renderWeeklyLeaderboard()}
-function duelCancelSession(message,notify=true){if(!duelSession)return;const opp=duelSession.opponentId,sid=duelSession.id;if(notify)duelPublish(`session/${sid}/event`,{id:duelClientId,type:'abandon',ts:Date.now()});clearTimeout(duelQuestionTimer);clearInterval(duelWatchdog);duelToneOff();duelSession=null;duelArenaOn(false);duelSetStatus(message||tr('duelReady'),'warn');duelPublishPresence();duelRenderLobby()}
-function duelReturnLobby(){clearTimeout(duelQuestionTimer);clearInterval(duelWatchdog);duelSession=null;duelArenaOn(false);duelResetArena();duelSetStatus(tr('duelReady'));duelPublishPresence();duelRenderLobby()}
-function duelConnect(){if(duelOn)return;const call=duelCall();if(!call){$('duelToggle').checked=false;$('globalCall').focus();return}forceOnAirOff();forceRacerOff();if(qsoOn)forceQsoOff();if(customLessonOn)forceCustomLessonOff();if(kochOn)forceKochOff();deactivate();duelOn=true;duelAllow=$('duelAllowChallenges').checked;$('duelPanel').classList.add('open');duelSetStatus(lang==='es'?'Conectando…':'Connecting…','warn');syncTrainingLocks();if(!window.mqtt){duelSetStatus('MQTT unavailable','bad');return}duelClient=mqtt.connect('wss://broker.emqx.io:8084/mqtt',{clientId:duelClientId,clean:true,keepalive:20,connectTimeout:8000,reconnectPeriod:3000});duelClient.on('connect',()=>{duelClient.subscribe(`${DUEL_ROOT}/#`,{qos:0});duelPublishPresence('join');duelPresence.set(duelClientId,duelInfo());duelSetStatus(tr('duelReady'),'good');clearInterval(duelPresenceTimer);clearInterval(duelCleanupTimer);duelPresenceTimer=setInterval(()=>{duelPublishPresence();duelPresence.set(duelClientId,duelInfo());duelRenderLobby()},8000);duelCleanupTimer=setInterval(duelRenderLobby,4000);detectCountryByIP().then(()=>duelPublishPresence()).catch(()=>{});duelRenderLobby()});duelClient.on('message',duelHandleMessage);duelClient.on('error',()=>duelSetStatus(lang==='es'?'Error de conexión DUEL':'DUEL connection error','bad'))}
+function duelMaybeShowResult(){if(!duelSession||!duelSession.finished||!duelSession.opponent?.finished){if(duelSession?.finished){$('duelChoices').innerHTML='';$('duelQuestion').textContent=lang==='es'?'Esperando que termine el rival…':'Waiting for opponent to finish…'}return}clearInterval(duelFinalSyncTimer);duelFinalSyncTimer=null;const me={correct:duelSession.correct,bestStreak:duelSession.bestStreak,totalTime:Math.round(duelSession.totalTime)},opp={correct:Number(duelSession.opponent.correct)||0,bestStreak:Number(duelSession.opponent.bestStreak)||0,totalTime:Number(duelSession.opponent.totalTime)||0},cmp=duelCompare(me,opp);if(cmp>0&&!duelSession.winAwarded){duelSession.winAwarded=true;localStorage.setItem('cw-duel-wins-total',String(duelWinsTotal()+1));publishWeeklyLeader()}$('duelBattle').style.display='none';$('duelAbandonBtn').style.display='none';$('duelResult').classList.add('open');$('duelResultTitle').textContent=cmp>0?'🏆 '+duelCall()+(lang==='es'?' GANA':' WINS'):cmp<0?'🏆 '+duelSession.opponentCall+(lang==='es'?' GANA':' WINS'):(lang==='es'?'🤝 EMPATE':'🤝 DRAW');$('duelResultScore').innerHTML=`<b>${me.correct}</b> — <b>${opp.correct}</b> · 30`;$('duelResultMeta').innerHTML=`${escapeHtml(duelCall())}: 🔥${me.bestStreak} · ⏱ ${(me.totalTime/1000).toFixed(2)}s &nbsp; | &nbsp; ${escapeHtml(duelSession.opponentCall)}: 🔥${opp.bestStreak} · ⏱ ${(opp.totalTime/1000).toFixed(2)}s<br><b>73 · GOOD MATCH</b>`;duelSetStatus(lang==='es'?'Duelo completado.':'Duel completed.','good');renderWeeklyLeaderboard()}
+function duelCancelSession(message,notify=true){if(!duelSession)return;const opp=duelSession.opponentId,sid=duelSession.id;if(notify)duelPublish(`session/${sid}/event`,{id:duelClientId,type:'abandon',ts:Date.now()});clearTimeout(duelQuestionTimer);clearInterval(duelWatchdog);clearInterval(duelFinalSyncTimer);duelFinalSyncTimer=null;duelToneOff();duelSession=null;duelArenaOn(false);duelSetStatus(message||tr('duelReady'),'warn');duelPublishPresence();duelRenderLobby()}
+function duelReturnLobby(){clearTimeout(duelQuestionTimer);clearInterval(duelWatchdog);clearInterval(duelFinalSyncTimer);duelFinalSyncTimer=null;duelSession=null;duelArenaOn(false);duelResetArena();duelSetStatus(tr('duelReady'));duelPublishPresence();duelRenderLobby()}
+function duelConnect(){if(duelOn)return;const call=duelCall();if(!call){$('duelToggle').checked=false;$('globalCall').focus();return}forceOnAirOff();forceRacerOff();if(qsoOn)forceQsoOff();if(customLessonOn)forceCustomLessonOff();if(kochOn)forceKochOff();deactivate();duelOn=true;duelAllow=$('duelAllowChallenges').checked;$('duelPanel').classList.add('open');duelSetStatus(lang==='es'?'Conectando…':'Connecting…','warn');syncTrainingLocks();if(!window.mqtt){duelSetStatus('MQTT unavailable','bad');return}duelClient=mqtt.connect('wss://broker.emqx.io:8084/mqtt',{clientId:duelClientId,clean:true,keepalive:20,connectTimeout:8000,reconnectPeriod:3000});duelClient.on('connect',()=>{
+      duelTransportUp=true;
+      clearTimeout(duelDisconnectGrace);
+      duelClient.subscribe(`${DUEL_ROOT}/#`,{qos:0});duelPublishPresence('join');duelPresence.set(duelClientId,duelInfo());duelSetStatus(duelSession?(lang==='es'?'Reconectado al duelo.':'Reconnected to duel.'):tr('duelReady'),'good');
+      if(duelSession){duelPublishProgress();if(duelSession.finished)duelStartFinalSync();}
+      clearInterval(duelPresenceTimer);clearInterval(duelCleanupTimer);duelPresenceTimer=setInterval(()=>{duelPublishPresence();duelPresence.set(duelClientId,duelInfo());duelRenderLobby()},8000);duelCleanupTimer=setInterval(duelRenderLobby,4000);detectCountryByIP().then(()=>duelPublishPresence()).catch(()=>{});duelRenderLobby()});duelClient.on('message',duelHandleMessage);
+    duelClient.on('reconnect',()=>{duelTransportUp=false;duelSetStatus(lang==='es'?'Reconectando DUEL…':'Reconnecting DUEL…','warn')});
+    duelClient.on('close',()=>{
+      duelTransportUp=false;
+      if(!duelOn)return;
+      duelSetStatus(lang==='es'?'Conexión DUEL interrumpida…':'DUEL connection interrupted…','warn');
+      clearTimeout(duelDisconnectGrace);
+      duelDisconnectGrace=setTimeout(()=>{
+        if(duelOn&&!duelTransportUp&&duelSession&&!duelSession.finished){
+          duelCancelSession(lang==='es'?'La conexión se perdió. Duelo cancelado.':'Connection lost. Duel cancelled.',false);
+        }
+      },8000);
+    });
+    duelClient.on('error',()=>{duelTransportUp=false;duelSetStatus(lang==='es'?'Error de conexión DUEL':'DUEL connection error','bad')})
+}
 function duelDisconnect(){if(!duelOn)return;if(duelPendingOutgoing)duelSendSignal(duelPendingOutgoing.id,'cancel');if(duelSession&&!duelSession.finished)duelCancelSession(lang==='es'?'Duelo abandonado.':'Duel abandoned.',true);else if(duelSession){clearTimeout(duelQuestionTimer);clearInterval(duelWatchdog);duelSession=null;duelArenaOn(false)}duelPublishPresence('leave');duelOn=false;duelSearching=false;duelPendingInvite=null;duelPendingOutgoing=null;clearInterval(duelPresenceTimer);clearInterval(duelCleanupTimer);clearTimeout(duelInviteTimer);duelPresence.clear();if(duelClient){duelClient.end(true);duelClient=null}$('duelPanel').classList.remove('open');$('duelLabel').classList.remove('live');duelArenaOn(false);syncTrainingLocks()}
 function forceDuelOff(){if(duelOn)duelDisconnect();const t=$('duelToggle');if(t)t.checked=false}
-function duelHandleMessage(topic,payload){let m;try{m=JSON.parse(payload.toString())}catch{return}if(!m)return;if(topic.endsWith('/presence')){if(!m.id||m.id===duelClientId)return;if(m.type==='leave')duelPresence.delete(m.id);else duelPresence.set(m.id,m);duelRenderLobby();return}const sigPrefix=`${DUEL_ROOT}/signal/${duelClientId}`;if(topic===sigPrefix){if(m.type==='challenge'){if(duelSession?.finished&&duelSession.opponent?.finished&&m.from===duelSession.opponentId){duelReturnLobby();duelShowInvite(m);return}if(!duelOn||!duelAllow||duelSession||duelPendingInvite||duelPendingOutgoing||Number(m.speed)!==duelSpeed){duelSendSignal(m.from,'busy');return}duelShowInvite(m)}else if(m.type==='cancel'&&duelPendingInvite?.from===m.from){clearTimeout(duelInviteTimer);duelPendingInvite=null;$('duelInvite').classList.remove('open')}else if(m.type==='accept'&&duelPendingOutgoing?.id===m.from&&m.session){duelPendingOutgoing=null;duelStartSession(m.session,m.from)}else if(['decline','expired','busy'].includes(m.type)&&duelPendingOutgoing?.id===m.from){duelPendingOutgoing=null;duelSetStatus(m.type==='decline'?(lang==='es'?'Desafío rechazado.':'Challenge declined.'):(lang==='es'?'Rival no disponible.':'Opponent unavailable.'),'warn');duelRenderLobby()}return}if(duelSession&&topic===`${DUEL_ROOT}/session/${duelSession.id}/progress`&&m.id===duelSession.opponentId){duelSession.lastOpp=Date.now();duelSession.opponent=m;duelUpdateBattleUI();duelMaybeShowResult();return}if(duelSession&&topic===`${DUEL_ROOT}/session/${duelSession.id}/event`&&m.id===duelSession.opponentId&&m.type==='abandon'){duelCancelSession(lang==='es'?'El rival abandonó la partida.':'Opponent left the duel.',false)}}
+function duelHandleMessage(topic,payload){let m;try{m=JSON.parse(payload.toString())}catch{return}if(!m)return;if(topic.endsWith('/presence')){if(!m.id||m.id===duelClientId)return;if(m.type==='leave')duelPresence.delete(m.id);else duelPresence.set(m.id,m);duelRenderLobby();return}const sigPrefix=`${DUEL_ROOT}/signal/${duelClientId}`;if(topic===sigPrefix){if(m.type==='challenge'){if(duelSession?.finished&&duelSession.opponent?.finished&&m.from===duelSession.opponentId){duelReturnLobby();duelShowInvite(m);return}if(!duelOn||!duelAllow||duelSession||duelPendingInvite||duelPendingOutgoing||Number(m.speed)!==duelSpeed){duelSendSignal(m.from,'busy');return}duelShowInvite(m)}else if(m.type==='cancel'&&duelPendingInvite?.from===m.from){clearTimeout(duelInviteTimer);duelPendingInvite=null;$('duelInvite').classList.remove('open')}else if(m.type==='accept'&&duelPendingOutgoing?.id===m.from&&m.session){duelPendingOutgoing=null;duelStartSession(m.session,m.from)}else if(['decline','expired','busy'].includes(m.type)&&duelPendingOutgoing?.id===m.from){duelPendingOutgoing=null;duelSetStatus(m.type==='decline'?(lang==='es'?'Desafío rechazado.':'Challenge declined.'):(lang==='es'?'Rival no disponible.':'Opponent unavailable.'),'warn');duelRenderLobby()}return}if(duelSession&&topic===`${DUEL_ROOT}/session/${duelSession.id}/progress`&&m.id===duelSession.opponentId){duelSession.lastOpp=Date.now();duelSession.opponent=m;duelUpdateBattleUI();duelMaybeShowResult();return}if(duelSession&&topic===`${DUEL_ROOT}/session/${duelSession.id}/event`&&m.id===duelSession.opponentId){
+  if(m.type==='abandon'){duelCancelSession(lang==='es'?'El rival abandonó la partida.':'Opponent left the duel.',false);return}
+  if(m.type==='finished'){
+    duelSession.lastOpp=Date.now();
+    duelSession.opponent={...(duelSession.opponent||{}),...m,finished:true};
+    duelUpdateBattleUI();
+    if(duelSession.finished)duelSendFinished();
+    duelMaybeShowResult();
+    return;
+  }
+}}
 function setupDuel(){const toggle=$('duelToggle');if(!toggle)return;toggle.onchange=e=>e.target.checked?duelConnect():duelDisconnect();$('duelAllowChallenges').onchange=e=>{duelAllow=e.target.checked;duelPublishPresence();duelRenderLobby()};document.querySelectorAll('[data-duel-speed]').forEach(b=>b.onclick=()=>{if(duelSession||duelPendingOutgoing)return;duelSpeed=Number(b.dataset.duelSpeed);duelSearching=false;duelPublishPresence();duelRenderLobby()});$('duelRandomBtn').onclick=()=>{if(!duelOn)return;duelSearching=true;duelPublishPresence();duelTryRandom()};$('duelCancelSearchBtn').onclick=()=>{duelSearching=false;if(duelPendingOutgoing){duelSendSignal(duelPendingOutgoing.id,'cancel');duelPendingOutgoing=null}duelSetStatus(tr('duelReady'));duelPublishPresence();duelRenderLobby()};$('duelList').addEventListener('click',e=>{const b=e.target.closest('[data-duel-challenge]');if(b)duelChallenge(b.dataset.duelChallenge)});$('duelAcceptBtn').onclick=duelAcceptInvite;$('duelDeclineBtn').onclick=()=>duelDeclineInvite();$('duelChoices').addEventListener('click',e=>{const b=e.target.closest('[data-duel-choice]');if(b)duelAnswer(b.dataset.duelChoice)});$('duelAbandonBtn').onclick=()=>duelCancelSession(lang==='es'?'Duelo abandonado.':'Duel abandoned.',true);$('duelRematchBtn').onclick=()=>{const id=duelSession?.opponentId,call=duelSession?.opponentCall;if(!id)return;duelReturnLobby();duelPendingOutgoing={id,call:call||'',ts:Date.now()};duelSendSignal(id,'challenge',{rematch:true});duelSetStatus(lang==='es'?'Solicitando revancha…':'Requesting rematch…','warn');setTimeout(()=>{if(duelPendingOutgoing?.id===id){duelPendingOutgoing=null;duelSetStatus(lang==='es'?'La revancha expiró.':'Rematch expired.','warn');duelRenderLobby()}},15000)};$('duelNewOpponentBtn').onclick=()=>{duelReturnLobby();duelSearching=true;duelPublishPresence();duelTryRandom()};$('duelExitBtn').onclick=()=>{duelReturnLobby();forceDuelOff()};duelRenderLobby()}
 window.addEventListener('beforeunload',()=>{if(duelOn){if(duelSession)duelPublish(`session/${duelSession.id}/event`,{id:duelClientId,type:'abandon',ts:Date.now()});duelPublishPresence('leave')}});
 // ================== END CW DUEL ==================
@@ -3535,25 +3850,10 @@ document.addEventListener('click',e=>{
 
 applyLang();applyAudioOnly();setupCommunity();
 setupRewards();setupDuel();connectGlobalStats();updateModeHint();updatePresenceUI();applyVisualAid();syncTrainingLocks();qsoSmartStatus('off');$('charSpacingValue').textContent=charSpacing.value;
-})();
-
-
-
-function applyFontStep(step){
-  step=Math.max(0,Math.min(4,Number(step)));
-  document.documentElement.dataset.fontStep=String(step);
-  try{localStorage.setItem('mp_font_step',String(step))}catch{}
-  document.querySelectorAll('.font-step').forEach(b=>b.classList.toggle('active',Number(b.dataset.fontStep)===step));
-}
-function setupFontSizeControl(){
-  let saved=2;
-  try{const v=localStorage.getItem('mp_font_step');if(v!==null)saved=Number(v)}catch{}
-  applyFontStep(saved);
-  document.querySelectorAll('.font-step').forEach(b=>b.addEventListener('click',()=>applyFontStep(b.dataset.fontStep)));
-}
-
+setupChat();
 syncPaddleReverseUI();
 updateOnAirVisual();
-setupFontSizeControl();
+})();
+
 </script>
 </body></html>
