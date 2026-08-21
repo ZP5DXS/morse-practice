@@ -15,6 +15,10 @@ Morse Practice combines:
 - Adjustable WPM
 - Adjustable Farnsworth character spacing
 - Adjustable word spacing
+- Adjustable **Band Noise** for a more radio-like listening environment
+- Global **Visual Aid** control
+- Global **Audio Only** mode for ear-only practice
+- Hold **W** for a temporary visual peek while Audio Only is active
 - CW Racer
 - Progressive 40-lesson Koch Course
 - Cumulative Koch listening Challenges
@@ -32,8 +36,15 @@ Morse Practice combines:
 - Local AI-assisted QSO interpretation
 - Simulated QSB, QRM and repeat requests
 - Multiple simulated CW operator styles
+- Multiple visual themes: Blue, Green, Purple, Pink and Game Boy
+- Community-wide visitor, country and total practice-hour statistics
+- Global **73!** appreciation counter
+- Optional **Weekly Leaderboard** with callsign, rank, points and streak
+- VBand-style keyboard input support using Left/Right Ctrl and bracket keys
 
 **No installation required. No registration required. Completely free and open source.**
+
+Most training data remains local to your browser. Community features such as ON AIR, global usage statistics, 73! and the optional Weekly Leaderboard use lightweight shared realtime data only where needed.
 
 🌐 **Live Demo**
 
@@ -89,6 +100,12 @@ Today you can use it to:
 - Experience QSB, QRM and repeat requests
 - Practice copying and responding to different CW operating styles
 - Monitor your activity from a unified Statistics dashboard
+- Practice with all visual CW clues hidden using Audio Only mode
+- Add a controlled amount of simulated receiver/band noise
+- Change the complete visual accent theme of the platform
+- See global community statistics
+- Send a simple **73!** to the project
+- Join an optional weekly CW leaderboard and compare your progress with other operators
 
 And you can do all of this directly from a browser.
 
@@ -134,7 +151,10 @@ You can start with absolutely nothing except a browser and gradually move toward
 ✔ Paddle / Iambic Paddle  
 ✔ Commercial USB Adapters  
 ✔ DIY USB Adapters  
-✔ Arduino USB HID
+✔ Arduino USB HID  
+✔ VBand-style keyboard interfaces  
+✔ Left / Right Ctrl paddle input  
+✔ `[` / `]` bracket paddle input
 
 ---
 
@@ -145,10 +165,13 @@ You can start with absolutely nothing except a browser and gradually move toward
 ✔ Adjustable WPM  
 ✔ Adjustable Character Spacing / Farnsworth  
 ✔ Adjustable Word Spacing  
+✔ Adjustable Band Noise from 0–30%  
 ✔ Real-time Tone Generation  
 ✔ Local browser audio
 
 The CW tone is generated directly by your browser, providing immediate feedback while sending.
+
+Band Noise is also generated locally with the browser audio engine. It adds a filtered noise bed intended to make listening feel a little closer to an HF receiver without requiring any external audio files.
 
 ---
 
@@ -203,6 +226,36 @@ The global WPM, Farnsworth spacing and word spacing are used throughout the plat
 
 ---
 
+# 📻 Band Noise
+
+Morse Practice includes an optional global **Band Noise** control.
+
+The slider ranges from:
+
+```text
+0% → 30%
+```
+
+At **0%**, the platform behaves exactly like a clean CW oscillator.
+
+Increasing the level adds filtered local noise behind the CW tone to create a more radio-like listening environment.
+
+The noise is generated directly in the browser using Web Audio.
+
+No external sound file is streamed or downloaded.
+
+This feature is intentionally simple:
+
+- It does not simulate an entire receiver
+- It does not automatically create QRM
+- It does not change your CW timing
+- It does not modify decoded text
+- It simply adds a controllable background noise layer
+
+The selected Band Noise level is remembered locally by your browser.
+
+---
+
 # 📝 CW Trainer
 
 ✔ Real-time Morse Decoder  
@@ -214,6 +267,8 @@ The global WPM, Farnsworth spacing and word spacing are used throughout the plat
 ✔ Mouse Practice  
 ✔ Touch Practice  
 ✔ Visual DIT/DAH Assistance  
+✔ Audio Only / Ear-Only Practice  
+✔ Hold W to Peek  
 ✔ Mobile Friendly
 
 The main trainer can be used simply as a CW oscillator or as a complete sending practice environment.
@@ -384,6 +439,57 @@ Beginners may find this useful while learning the relationship between keying an
 More experienced operators can disable visual assistance and practice entirely by ear.
 
 The same setting also affects training modules such as **CW Racer Learn** and **Koch**, so the visual Morse pattern can be hidden throughout the platform.
+
+---
+
+# 🎧 Audio Only Mode
+
+For operators who want to practice completely by ear, Morse Practice includes a global:
+
+**Audio Only**
+
+mode.
+
+When Audio Only is enabled, the application continues decoding and processing CW internally, but hides visual information that could reveal what is being transmitted.
+
+Depending on the active module, this can include:
+
+- DIT / DAH patterns
+- Decoded characters
+- Characters you are sending
+- Koch target characters
+- CW Racer visual answers
+- Custom Lesson target information
+- QSO Bot transmitted text
+- QSO Bot callsign hints
+- ON AIR transmitting operator identification while the transmission is active
+- The callsign in the ON AIR **Channel Busy** indication
+
+The important point is:
+
+> **The CW engine still knows what happened. The user simply does not see the answer.**
+
+This means evaluation, statistics, QSO interpretation, Koch progression and other internal logic continue working normally.
+
+When Audio Only is active, Visual Aid is temporarily forced off.
+
+When Audio Only is disabled, your previous Visual Aid preference is restored.
+
+## 👁 Hold W to Peek
+
+While Audio Only is active, you can hold:
+
+**W**
+
+for a temporary visual peek.
+
+The hidden information becomes visible only while the key is held.
+
+Release **W** and the interface returns immediately to Audio Only mode.
+
+This is useful when you want to check what you copied without permanently turning visual assistance back on.
+
+On text-entry fields, the W key remains available for normal typing.
 
 ---
 
@@ -1056,9 +1162,11 @@ The dashboard can track activity across modules such as:
 - Custom Lessons
 - Simulated QSOs
 
-The objective is not to create a competitive leaderboard.
+The local Statistics dashboard is focused on your own progress.
 
-It simply provides a quick visual indication of how you are using Morse Practice.
+It provides a quick visual indication of how you are using Morse Practice.
+
+A separate optional **Weekly Leaderboard** is available for operators who want a community challenge.
 
 ---
 
@@ -1080,6 +1188,155 @@ You can reset your statistics at any time using:
 **Reset Statistics**
 
 ⚠️ Clearing your browser storage may also remove your saved statistics, Koch progress and local preferences.
+
+---
+
+# 🌐 Community Statistics
+
+In addition to your private local Statistics dashboard, Morse Practice displays a small set of **global community statistics**.
+
+These numbers represent the accumulated activity of the Morse Practice community, not your personal statistics.
+
+The footer can display values such as:
+
+```text
+🌐 Morse Practice — Community Statistics
+
+👥 Unique visitors
+🌎 Countries
+⏱ Total practice hours
+❤️ 73!
+```
+
+## 👥 Unique Visitors
+
+Each browser receives a random anonymous local identifier.
+
+This allows the community counter to estimate unique browsers without requiring:
+
+- Registration
+- Login
+- Name
+- Email
+- Callsign
+
+The identifier is stored locally in the browser.
+
+## 🌎 Countries
+
+Morse Practice can use a lightweight country lookup to count how many different countries have used the platform.
+
+The global counter stores the country code needed for aggregation.
+
+It is not intended to create personal location profiles.
+
+## ⏱ Total Practice Hours
+
+This number is the **accumulated active practice time of all participating browsers**.
+
+It is not simply the amount of time the page has been left open.
+
+Practice time is accumulated only while recent training/keying activity is detected.
+
+So:
+
+```text
+⏱ 420.5 total practice hours
+```
+
+means approximately **420.5 hours practiced collectively by the Morse Practice community**.
+
+It does **not** mean that you personally practiced 420.5 hours.
+
+## ❤️ 73!
+
+The footer also includes a simple global appreciation button:
+
+**❤️ 73!**
+
+Each browser can send it once.
+
+It is simply a small community gesture — the amateur-radio version of a lightweight “like”.
+
+No account is required.
+
+---
+
+# 🏆 Weekly Leaderboard
+
+Morse Practice also includes an optional **Weekly Leaderboard**.
+
+The Leaderboard is separate from your private Statistics dashboard.
+
+You can open it simply to see the current ranking without participating.
+
+Participation is voluntary.
+
+To join, enter your:
+
+**Callsign**
+
+and submit it to the weekly ranking.
+
+The platform can then display:
+
+- Weekly position
+- Weekly points
+- Current/best streak used by the ranking
+- Callsign
+- Country flag when available
+- Other participating operators
+
+The weekly ranking uses a new week identifier automatically, so each new week begins a new comparison period.
+
+Your detailed training history remains local.
+
+Only the compact information required for the leaderboard is shared.
+
+## 📊 Weekly Points
+
+Weekly points are derived from local activity during the current week.
+
+The current scoring model combines activity such as:
+
+- Character attempts
+- Practice sessions
+- Completed simulated QSOs
+- Active practice minutes
+
+The objective is not to reward WPM alone.
+
+It is intended to reward **regular practice and participation**.
+
+## ✏️ Change Callsign
+
+If you are already participating, you can choose:
+
+**Change Callsign**
+
+and enter a different callsign.
+
+Your local practice data remains on the same browser.
+
+Future leaderboard updates use the newly selected callsign.
+
+## 🚪 Leave the Leaderboard
+
+You can also choose:
+
+**Leave Leaderboard**
+
+at any time.
+
+This stops that browser from publishing new weekly leaderboard updates.
+
+A result that was already published during the current week may remain visible to other users until that weekly dataset is no longer the active one.
+
+You can rejoin later with the same callsign or a different callsign.
+
+No account is created.
+
+> The Weekly Leaderboard is a friendly practice feature, not an official contest or award system.
 
 ---
 
@@ -1669,15 +1926,55 @@ The concept is intentionally simple:
 
 ---
 
-# 🎨 Theme
+# 🎨 Appearance and Themes
 
-Switch instantly between:
+Morse Practice supports both:
 
 ☀️ **Light**
 
+and
+
 🌙 **Dark**
 
-Your preference is automatically saved.
+appearance modes.
+
+In addition, you can select a visual accent theme.
+
+Available themes include:
+
+- 🔵 **Blue** — original Morse Practice theme
+- 🟢 **Green**
+- 🟣 **Purple**
+- 🩷 **Pink**
+- 🎮 **Game Boy**
+
+The standard color themes change the accent colors used throughout the interface while preserving the same layout and behavior.
+
+## 🎮 Game Boy Theme
+
+Game Boy is a more complete retro skin.
+
+It uses:
+
+- Monochrome-inspired green tones
+- Stronger pixel/terminal-style visual character
+- Monospaced typography
+- Squarer interface details
+- A classic handheld-console-inspired palette
+
+It is purely visual.
+
+It does not change:
+
+- CW timing
+- Audio
+- Decoder behavior
+- Statistics
+- QSO Bot
+- ON AIR
+- Training logic
+
+Your Light/Dark preference and your selected theme are saved locally and restored automatically.
 
 ---
 
@@ -1774,6 +2071,25 @@ This allows you to build anything from a simple adapter to a custom CW training 
 Commercial USB Morse interfaces can also be used.
 
 If the interface presents the key or paddle as normal keyboard or mouse input, Morse Practice can use it directly.
+
+---
+
+# 🎹 VBand-Style Keyboard Input
+
+Morse Practice also accepts keyboard events commonly used by VBand-style interfaces.
+
+In Paddle mode:
+
+```text
+Left Ctrl   → DIT
+Right Ctrl  → DAH
+[           → DIT
+]           → DAH
+```
+
+This improves compatibility with interfaces that present a physical paddle as keyboard input rather than mouse buttons.
+
+The existing mouse, touchscreen, keyboard and Arduino HID input methods remain available at the same time.
 
 ---
 
@@ -2393,11 +2709,27 @@ Koch Course progress is stored locally.
 
 Custom Lesson progress and character performance are processed locally.
 
+Your theme, Audio Only, Visual Aid, Band Noise and other interface preferences are stored locally.
+
 Local AI inference is designed to run in the browser.
 
 ON AIR necessarily exchanges realtime keying information with the realtime relay so that other connected operators can hear your keying.
 
-No registration is required to use the application.
+The optional community features use lightweight shared realtime data for:
+
+- Anonymous visitor counting
+- Country aggregation
+- Total practice-hour aggregation
+- The global 73! counter
+- Weekly Leaderboard entries
+
+The community statistics use a random browser identifier rather than requiring a user account.
+
+The Weekly Leaderboard shares your callsign only if **you choose to participate**.
+
+Your complete detailed training statistics are not uploaded as a user profile.
+
+No registration is required to use Morse Practice.
 
 ---
 
@@ -2424,6 +2756,9 @@ Whether you're:
 - experimenting with hardware,
 - testing the QSO Bot,
 - experimenting with Local AI,
+- testing Audio Only practice,
+- trying different themes,
+- participating in the Weekly Leaderboard,
 - or an experienced CW operator...
 
 ...your feedback can help improve Morse Practice for everyone.
