@@ -382,7 +382,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .chat-mini{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:9px;white-space:nowrap}
 .chat-mini .switch{transform:scale(.82);transform-origin:center}
 .chat-collapse{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:8px;width:29px;height:27px;padding:0;font-weight:900}
-.chat-unread{display:none;min-width:18px;height:18px;padding:0 5px;border-radius:99px;background:var(--danger);color:#fff;font-size:9px;font-weight:950;align-items:center;justify-content:center}
+.chat-unread{display:none;min-width:18px;height:18px;padding:0 5px;border-radius:99px;border:1px solid color-mix(in srgb,var(--accent) 48%,var(--line));background:color-mix(in srgb,var(--accent) 13%,var(--panel2));color:var(--accent2);font-size:9px;font-weight:950;align-items:center;justify-content:center;box-shadow:0 0 8px color-mix(in srgb,var(--accent) 10%,transparent)}
 .chat-unread.show{display:inline-flex}
 .chat-panel{display:none;border-top:1px solid var(--line);padding:10px 12px 11px}
 .chat-panel.open{display:block}
@@ -391,11 +391,14 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .chat-message{display:grid;grid-template-columns:auto 1fr auto;gap:7px;align-items:start;padding:6px 0;border-top:1px solid color-mix(in srgb,var(--line) 50%,transparent);font-size:10px}
 .chat-message:first-child{border-top:0}
 .chat-from{font-weight:950;color:var(--accent2);white-space:nowrap}
+.chat-age{font-size:8px;color:var(--muted);font-weight:700;margin-left:4px;opacity:.72}
 .chat-text{min-width:0;white-space:pre-wrap;word-break:break-word;color:var(--text)}
 .chat-text.hidden-text{filter:blur(5px);user-select:none}
 .chat-msg-actions{display:flex;gap:3px}
 .chat-msg-btn{width:25px;height:23px;padding:0;border:1px solid var(--line);border-radius:6px;background:var(--panel2);color:var(--text);font-size:11px}
 .chat-msg-btn.playing{border-color:var(--accent);color:var(--accent2)}
+.chat-msg-btn.delete{opacity:.48;font-size:10px}
+.chat-msg-btn.delete:hover{opacity:1;border-color:var(--danger);color:var(--danger)}
 .chat-heard{display:none;align-items:center;justify-content:center;min-width:18px;height:23px;color:var(--good);font-size:12px;font-weight:950}
 .chat-heard.show{display:inline-flex}
 .chat-compose{display:grid;grid-template-columns:1fr auto;gap:6px;margin-top:8px}
@@ -1058,9 +1061,14 @@ const mutedUsers=new Set();
 // GLOBAL CHAT — text transport only. CW is generated locally.
 // Independent from ON AIR and CW DUEL.
 // ─────────────────────────────────────────────────────────────
-const CHAT_ROOT='zp5dxs/morse-practice/chat-v1';
+const CHAT_ROOT='zp5dxs/morse-practice/chat-v2';
+const CHAT_TTL_MS=72*60*60*1000;
+const CHAT_MAX_HISTORY=100;
 const chatClientId='chat_'+crypto.getRandomValues(new Uint32Array(2)).join('_');
+let chatOwnerId=localStorage.getItem('cw-chat-owner-id');
+if(!chatOwnerId){chatOwnerId='co_'+crypto.getRandomValues(new Uint32Array(3)).join('_');localStorage.setItem('cw-chat-owner-id',chatOwnerId)}
 const chatPresence=new Map();
+const chatHistory=new Map();
 let chatClient=null,chatConnected=false,chatPresenceTimer=null,chatCleanupTimer=null;
 let chatOpen=localStorage.getItem('cw-chat-open')==='1';
 let chatAutoCw=localStorage.getItem('cw-chat-auto')==='1';
@@ -1108,14 +1116,56 @@ function chatScrollBottom(){
   const box=$('chatMessages');if(box)box.scrollTop=box.scrollHeight;
 }
 function chatEscapeText(s){return String(s??'').replace(/\s+/g,' ').trim().slice(0,160)}
-function chatAddMessage(msg,isMine=false){
+
+function chatAgeLabel(ts){
+  const d=Math.max(0,Date.now()-(Number(ts)||Date.now())),m=Math.floor(d/60000);
+  if(m<1)return lang==='es'?'ahora':'now';
+  if(m<60)return `${m}m`;
+  const h=Math.floor(m/60);if(h<24)return `${h}h`;
+  return `${Math.floor(h/24)}d`;
+}
+function chatDeleteTopic(id){if(id&&chatClient?.connected)chatClient.publish(`${CHAT_ROOT}/messages/${id}`,'',{qos:0,retain:true})}
+function chatEnsureEmpty(){
   const box=$('chatMessages');if(!box)return;
-  $('chatEmpty')?.remove();
-  const row=document.createElement('div');row.className='chat-message';row.dataset.messageId=msg.id||'';
+  if(!box.querySelector('.chat-message')&&!$('chatEmpty')){
+    const e=document.createElement('div');e.id='chatEmpty';e.className='chat-empty';
+    e.textContent=lang==='es'?'No hay mensajes todavía.':'No messages yet.';box.appendChild(e)
+  }
+}
+function chatDeleteOwnMessage(id){
+  const m=chatHistory.get(id);if(!m||m.owner!==chatOwnerId)return;
+  chatDeleteTopic(id);chatHistory.delete(id);
+  document.querySelector(`#chatMessages .chat-message[data-message-id="${CSS.escape(id)}"]`)?.remove();
+  chatEnsureEmpty()
+}
+function chatPruneHistory(){
+  const now=Date.now();
+  let rows=[...chatHistory.values()].sort((a,b)=>(Number(a.ts)||0)-(Number(b.ts)||0));
+  for(const m of rows)if(now-(Number(m.ts)||0)>CHAT_TTL_MS){
+    chatHistory.delete(m.id);chatDeleteTopic(m.id);
+    document.querySelector(`#chatMessages .chat-message[data-message-id="${CSS.escape(m.id)}"]`)?.remove()
+  }
+  rows=[...chatHistory.values()].sort((a,b)=>(Number(a.ts)||0)-(Number(b.ts)||0));
+  while(rows.length>CHAT_MAX_HISTORY){
+    const m=rows.shift();chatHistory.delete(m.id);chatDeleteTopic(m.id);
+    document.querySelector(`#chatMessages .chat-message[data-message-id="${CSS.escape(m.id)}"]`)?.remove()
+  }
+  chatEnsureEmpty()
+}
+
+function chatAddMessage(msg,isMine=false,opts={}){
+  const box=$('chatMessages');if(!box||!msg?.id)return null;
+  if(Date.now()-(Number(msg.ts)||0)>CHAT_TTL_MS)return null;
+  const existing=box.querySelector(`.chat-message[data-message-id="${CSS.escape(msg.id)}"]`);
+  if(existing)return {row:existing,hear:existing.querySelector('.chat-msg-btn:not(.delete)'),heard:existing.querySelector('.chat-heard')};
+  chatHistory.set(msg.id,msg);$('chatEmpty')?.remove();
+
+  const row=document.createElement('div');row.className='chat-message';row.dataset.messageId=msg.id;
   const from=document.createElement('span');from.className='chat-from';
-  from.textContent=(msg.country?countryFlag(msg.country)+' ':'')+(msg.call||guestId(msg.id));
-  const text=document.createElement('span');text.className='chat-text';
-  text.textContent=msg.text||'';
+  from.append(document.createTextNode((msg.country?countryFlag(msg.country)+' ':'')+(msg.call||guestId(msg.from||msg.id))));
+  const age=document.createElement('span');age.className='chat-age';age.textContent=`· ${chatAgeLabel(msg.ts)}`;from.append(age);
+
+  const text=document.createElement('span');text.className='chat-text';text.textContent=msg.text||'';
   text.classList.toggle('hidden-text',chatHideIncoming);
 
   const actions=document.createElement('span');actions.className='chat-msg-actions';
@@ -1123,25 +1173,33 @@ function chatAddMessage(msg,isMine=false){
   hear.title=lang==='es'?'Escuchar en CW':'Listen in CW';
   const heard=document.createElement('span');heard.className='chat-heard';heard.textContent='✓';
   heard.title=lang==='es'?'CW escuchado':'CW heard';
-  hear.onclick=()=>chatQueueCw(msg.text,hear,true,heard);
-  actions.append(hear,heard);row.append(from,text,actions);box.appendChild(row);
+  hear.onclick=()=>chatQueueCw(msg.text,hear,true,heard);actions.append(hear,heard);
 
-  while(box.querySelectorAll('.chat-message').length>50){
-    box.querySelector('.chat-message')?.remove();
+  if(msg.owner===chatOwnerId){
+    const del=document.createElement('button');del.type='button';del.className='chat-msg-btn delete';del.textContent='×';
+    del.title=lang==='es'?'Eliminar mi mensaje':'Delete my message';
+    del.onclick=()=>chatDeleteOwnMessage(msg.id);actions.append(del)
   }
-  if(!chatOpen&&!isMine){chatUnread++;chatUpdateUnread()}
-  chatScrollBottom();
-  return {row,hear,heard};
+  row.append(from,text,actions);
+
+  const rows=[...box.querySelectorAll('.chat-message')];
+  const next=rows.find(el=>{const x=chatHistory.get(el.dataset.messageId);return x&&(Number(x.ts)||0)>(Number(msg.ts)||0)});
+  if(next)box.insertBefore(row,next);else box.appendChild(row);
+
+  if(!opts.historical&&!chatOpen&&!isMine){chatUnread++;chatUpdateUnread()}
+  if(!opts.historical)chatScrollBottom();
+  chatPruneHistory();
+  return {row,hear,heard}
 }
 function chatSendMessage(){
   if(!chatClient?.connected)return;
   const input=$('chatInput');const text=chatEscapeText(input?.value);
   if(!text)return;
   const id=`${chatClientId}_${Date.now()}_${Math.random().toString(36).slice(2,7)}`;
-  const msg={type:'message',id,from:chatClientId,call:chatIdentity(),country:detectedCountry||'',text,ts:Date.now()};
-  chatSeenMessages.add(id);
-  chatClient.publish(`${CHAT_ROOT}/messages`,JSON.stringify(msg),{qos:0,retain:false});
-  chatAddMessage(msg,true);
+  const msg={type:'message',id,from:chatClientId,owner:chatOwnerId,call:chatIdentity(),country:detectedCountry||'',text,ts:Date.now()};
+  chatSeenMessages.add(id);chatHistory.set(id,msg);
+  chatClient.publish(`${CHAT_ROOT}/messages/${id}`,JSON.stringify(msg),{qos:0,retain:true});
+  chatAddMessage(msg,true,{historical:false});
   input.value='';
 }
 function chatAudioBlocked(){
@@ -1207,24 +1265,31 @@ async function chatPumpAudio(){
     setTimeout(chatPumpAudio,item.manual?80:650);
   }
 }
-function chatHandleMessage(topic,payload){
+function chatHandleMessage(topic,payload,packet){
   if(!topic.startsWith(CHAT_ROOT+'/'))return;
   const raw=payload.toString();
   if(topic.startsWith(`${CHAT_ROOT}/presence/`)){
     const id=topic.slice(`${CHAT_ROOT}/presence/`.length);
     if(!raw){chatPresence.delete(id);chatRenderPresence();return}
     try{const p=JSON.parse(raw);p.ts=Date.now();chatPresence.set(id,p);chatRenderPresence()}catch{}
-    return;
+    return
   }
-  if(topic===`${CHAT_ROOT}/messages`&&raw){
+  if(topic.startsWith(`${CHAT_ROOT}/messages/`)){
+    const topicId=topic.slice(`${CHAT_ROOT}/messages/`.length);
+    if(!raw){
+      chatHistory.delete(topicId);chatSeenMessages.delete(topicId);
+      document.querySelector(`#chatMessages .chat-message[data-message-id="${CSS.escape(topicId)}"]`)?.remove();
+      chatEnsureEmpty();return
+    }
     try{
-      const m=JSON.parse(raw);
-      if(m.type!=='message'||!m.id||m.from===chatClientId||chatSeenMessages.has(m.id))return;
+      const m=JSON.parse(raw);if(m.type!=='message'||!m.id||m.id!==topicId)return;
       m.text=chatEscapeText(m.text);if(!m.text)return;
+      if(Date.now()-(Number(m.ts)||0)>CHAT_TTL_MS){chatDeleteTopic(m.id);return}
+      const historical=!!packet?.retain,mine=m.owner===chatOwnerId,already=chatSeenMessages.has(m.id);
       chatSeenMessages.add(m.id);
-      if(chatSeenMessages.size>400){const first=chatSeenMessages.values().next().value;chatSeenMessages.delete(first)}
-      const rendered=chatAddMessage(m,false);
-      if(chatAutoCw)chatQueueCw(m.text,rendered?.hear||null,false,rendered?.heard||null);
+      if(chatSeenMessages.size>500){const first=chatSeenMessages.values().next().value;chatSeenMessages.delete(first)}
+      const rendered=chatAddMessage(m,mine,{historical});
+      if(rendered&&!historical&&!mine&&!already&&chatAutoCw)chatQueueCw(m.text,rendered.hear||null,false,rendered.heard||null)
     }catch{}
   }
 }
@@ -1237,13 +1302,17 @@ function chatConnect(){
   chatClient.on('connect',()=>{
     chatSetConnected(true);
     chatClient.subscribe(`${CHAT_ROOT}/#`,{qos:0});
-    chatPublishPresence();
+    chatPublishPresence();setTimeout(chatPruneHistory,1800);
     clearInterval(chatPresenceTimer);
     chatPresenceTimer=setInterval(chatPublishPresence,10000);
     clearInterval(chatCleanupTimer);
-    chatCleanupTimer=setInterval(chatRenderPresence,5000);
+    chatCleanupTimer=setInterval(()=>{
+      chatRenderPresence();
+      document.querySelectorAll('#chatMessages .chat-message').forEach(row=>{const m=chatHistory.get(row.dataset.messageId),age=row.querySelector('.chat-age');if(m&&age)age.textContent=`· ${chatAgeLabel(m.ts)}`});
+      chatPruneHistory();
+    },15000);
   });
-  chatClient.on('message',chatHandleMessage);
+  chatClient.on('message',(topic,payload,packet)=>chatHandleMessage(topic,payload,packet));
   chatClient.on('reconnect',()=>chatSetConnected(false));
   chatClient.on('close',()=>chatSetConnected(false));
   chatClient.on('error',()=>chatSetConnected(false));
@@ -1391,25 +1460,18 @@ function renderGlobalStats(){
 function duelStatsPending(){
   try{const a=JSON.parse(localStorage.getItem('cw-global-duel-records-v1')||'[]');return Array.isArray(a)?a:[]}catch{return []}
 }
-function publishGlobalDuelRecord(sessionId,speed){
+function publishGlobalDuelRecord(sessionId,speed,extra={}){
   if(!sessionId)return;
-  let a=duelStatsPending();
-  if(!a.some(x=>x&&x.id===sessionId)){
-    a.push({id:sessionId,speed:Number(speed)||0,ts:Date.now()});
-    a=a.slice(-250);
-    localStorage.setItem('cw-global-duel-records-v1',JSON.stringify(a));
-  }
+  let a=duelStatsPending(),rec=a.find(x=>x&&x.id===sessionId);
+  if(!rec){rec={id:sessionId,speed:Number(speed)||0,ts:Date.now()};a.push(rec)}
+  Object.assign(rec,{speed:Number(speed)||rec.speed||0,ts:Math.max(Number(rec.ts)||0,Number(extra.ts)||Date.now())},extra||{});
+  a=a.slice(-250);localStorage.setItem('cw-global-duel-records-v1',JSON.stringify(a));
   if(!statsClient?.connected)return;
-  const rec=a.find(x=>x&&x.id===sessionId)||{id:sessionId,speed:Number(speed)||0,ts:Date.now()};
-  statsDuels.set(sessionId,rec);
-  statsClient.publish(`${STATS_ROOT}/duels/${sessionId}`,JSON.stringify({speed:rec.speed,ts:rec.ts}),{qos:0,retain:true});
-  renderGlobalStats();
+  statsDuels.set(sessionId,rec);statsClient.publish(`${STATS_ROOT}/duels/${sessionId}`,JSON.stringify(rec),{qos:0,retain:true});renderGlobalStats()
 }
 function flushGlobalDuelRecords(){
   if(!statsClient?.connected)return;
-  for(const rec of duelStatsPending()){
-    if(rec?.id)statsClient.publish(`${STATS_ROOT}/duels/${rec.id}`,JSON.stringify({speed:Number(rec.speed)||0,ts:Number(rec.ts)||Date.now()}),{qos:0,retain:true});
-  }
+  for(const rec of duelStatsPending())if(rec?.id)statsClient.publish(`${STATS_ROOT}/duels/${rec.id}`,JSON.stringify(rec),{qos:0,retain:true})
 }
 function publishMyGlobalVisitor(){
   if(!statsClient?.connected)return;
@@ -1981,7 +2043,21 @@ function duelStartFinalSync(){
 function duelPublishProgress(){if(!duelSession)return;duelPublish(`session/${duelSession.id}/progress`,{id:duelClientId,index:duelSession.index,correct:duelSession.correct,streak:duelSession.streak,bestStreak:duelSession.bestStreak,totalTime:Math.round(duelSession.totalTime),finished:duelSession.finished,ts:Date.now()})}
 function duelFinishLocal(){if(!duelSession||duelSession.finished)return;duelSession.finished=true;clearTimeout(duelQuestionTimer);duelToneOff();if(!duelSession.awarded){duelSession.awarded=true;localStorage.setItem('cw-duel-completed-total',String(duelCompletedTotal()+1));markPracticeActivity();publishWeeklyLeader()}publishGlobalDuelRecord(duelSession.id,duelSession.speed);duelPublishProgress();duelStartFinalSync();duelMaybeShowResult()}
 function duelCompare(a,b){if(a.correct!==b.correct)return a.correct>b.correct?1:-1;if(a.bestStreak!==b.bestStreak)return a.bestStreak>b.bestStreak?1:-1;if(a.totalTime!==b.totalTime)return a.totalTime<b.totalTime?1:-1;return 0}
-function duelMaybeShowResult(){if(!duelSession||!duelSession.finished||!duelSession.opponent?.finished){if(duelSession?.finished){$('duelChoices').innerHTML='';$('duelQuestion').textContent=lang==='es'?'Esperando que termine el rival…':'Waiting for opponent to finish…'}return}clearInterval(duelFinalSyncTimer);duelFinalSyncTimer=null;const me={correct:duelSession.correct,bestStreak:duelSession.bestStreak,totalTime:Math.round(duelSession.totalTime)},opp={correct:Number(duelSession.opponent.correct)||0,bestStreak:Number(duelSession.opponent.bestStreak)||0,totalTime:Number(duelSession.opponent.totalTime)||0},cmp=duelCompare(me,opp);if(cmp>0&&!duelSession.winAwarded){duelSession.winAwarded=true;localStorage.setItem('cw-duel-wins-total',String(duelWinsTotal()+1));publishWeeklyLeader()}$('duelBattle').style.display='none';$('duelAbandonBtn').style.display='none';$('duelResult').classList.add('open');$('duelResultTitle').textContent=cmp>0?'🏆 '+duelCall()+(lang==='es'?' GANA':' WINS'):cmp<0?'🏆 '+duelSession.opponentCall+(lang==='es'?' GANA':' WINS'):(lang==='es'?'🤝 EMPATE':'🤝 DRAW');$('duelResultScore').innerHTML=`<b>${me.correct}</b> — <b>${opp.correct}</b> · 30`;$('duelResultMeta').innerHTML=`${escapeHtml(duelCall())}: 🔥${me.bestStreak} · ⏱ ${(me.totalTime/1000).toFixed(2)}s &nbsp; | &nbsp; ${escapeHtml(duelSession.opponentCall)}: 🔥${opp.bestStreak} · ⏱ ${(opp.totalTime/1000).toFixed(2)}s<br><b>73 · GOOD MATCH</b>`;duelSetStatus(lang==='es'?'Duelo completado.':'Duel completed.','good');renderWeeklyLeaderboard()}
+
+function publishFullDuelResult(me,opp,cmp){
+  if(!duelSession)return;
+  const mine={call:duelCall(),country:detectedCountry||'',correct:me.correct,bestStreak:me.bestStreak,totalTime:me.totalTime};
+  const theirs={call:duelSession.opponentCall||'',country:duelSession.opponentCountry||'',correct:opp.correct,bestStreak:opp.bestStreak,totalTime:opp.totalTime};
+  const pair=[mine,theirs].sort((x,y)=>String(x.call).localeCompare(String(y.call)));
+  publishGlobalDuelRecord(duelSession.id,duelSession.speed,{
+    ts:Date.now(),rounds:30,
+    callA:pair[0].call,countryA:pair[0].country,scoreA:pair[0].correct,streakA:pair[0].bestStreak,timeA:pair[0].totalTime,
+    callB:pair[1].call,countryB:pair[1].country,scoreB:pair[1].correct,streakB:pair[1].bestStreak,timeB:pair[1].totalTime,
+    winner:cmp===0?'DRAW':(cmp>0?mine.call:theirs.call)
+  })
+}
+
+function duelMaybeShowResult(){if(!duelSession||!duelSession.finished||!duelSession.opponent?.finished){if(duelSession?.finished){$('duelChoices').innerHTML='';$('duelQuestion').textContent=lang==='es'?'Esperando que termine el rival…':'Waiting for opponent to finish…'}return}clearInterval(duelFinalSyncTimer);duelFinalSyncTimer=null;const me={correct:duelSession.correct,bestStreak:duelSession.bestStreak,totalTime:Math.round(duelSession.totalTime)},opp={correct:Number(duelSession.opponent.correct)||0,bestStreak:Number(duelSession.opponent.bestStreak)||0,totalTime:Number(duelSession.opponent.totalTime)||0},cmp=duelCompare(me,opp);publishFullDuelResult(me,opp,cmp);if(cmp>0&&!duelSession.winAwarded){duelSession.winAwarded=true;localStorage.setItem('cw-duel-wins-total',String(duelWinsTotal()+1));publishWeeklyLeader()}$('duelBattle').style.display='none';$('duelAbandonBtn').style.display='none';$('duelResult').classList.add('open');$('duelResultTitle').textContent=cmp>0?'🏆 '+duelCall()+(lang==='es'?' GANA':' WINS'):cmp<0?'🏆 '+duelSession.opponentCall+(lang==='es'?' GANA':' WINS'):(lang==='es'?'🤝 EMPATE':'🤝 DRAW');$('duelResultScore').innerHTML=`<b>${me.correct}</b> — <b>${opp.correct}</b> · 30`;$('duelResultMeta').innerHTML=`${escapeHtml(duelCall())}: 🔥${me.bestStreak} · ⏱ ${(me.totalTime/1000).toFixed(2)}s &nbsp; | &nbsp; ${escapeHtml(duelSession.opponentCall)}: 🔥${opp.bestStreak} · ⏱ ${(opp.totalTime/1000).toFixed(2)}s<br><b>73 · GOOD MATCH</b>`;duelSetStatus(lang==='es'?'Duelo completado.':'Duel completed.','good');renderWeeklyLeaderboard()}
 function duelCancelSession(message,notify=true){if(!duelSession)return;const opp=duelSession.opponentId,sid=duelSession.id;if(notify)duelPublish(`session/${sid}/event`,{id:duelClientId,type:'abandon',ts:Date.now()});clearTimeout(duelQuestionTimer);clearInterval(duelWatchdog);clearInterval(duelFinalSyncTimer);duelFinalSyncTimer=null;duelToneOff();duelSession=null;duelArenaOn(false);duelSetStatus(message||tr('duelReady'),'warn');duelPublishPresence();duelRenderLobby()}
 function duelReturnLobby(){clearTimeout(duelQuestionTimer);clearInterval(duelWatchdog);clearInterval(duelFinalSyncTimer);duelFinalSyncTimer=null;duelSession=null;duelArenaOn(false);duelResetArena();duelSetStatus(tr('duelReady'));duelPublishPresence();duelRenderLobby()}
 function duelConnect(){if(duelOn)return;const call=duelCall();if(!call){$('duelToggle').checked=false;$('globalCall').focus();return}forceOnAirOff();forceRacerOff();if(qsoOn)forceQsoOff();if(customLessonOn)forceCustomLessonOff();if(kochOn)forceKochOff();deactivate();duelOn=true;duelAllow=$('duelAllowChallenges').checked;$('duelPanel').classList.add('open');duelSetStatus(lang==='es'?'Conectando…':'Connecting…','warn');syncTrainingLocks();if(!window.mqtt){duelSetStatus('MQTT unavailable','bad');return}duelClient=mqtt.connect('wss://broker.emqx.io:8084/mqtt',{clientId:duelClientId,clean:true,keepalive:20,connectTimeout:8000,reconnectPeriod:3000});duelClient.on('connect',()=>{
