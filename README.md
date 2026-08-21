@@ -40,6 +40,12 @@ Morse Practice combines:
 - Community-wide visitor, country and total practice-hour statistics
 - Global **73!** appreciation counter
 - Optional **Weekly Leaderboard** with callsign, rank, points and streak
+- Global operator callsign shared across community features
+- **Rewards** system with unlockable themes and achievements
+- SKCC and LICW community membership badges with global onboard counts
+- Practice streak rewards for 7 and 30 consecutive days
+- Top 10 weekly leaderboard achievement
+- Special unlockable themes: Brass Key, LICW Night, CW Heritage, Master Copy, Signal Green and Night Operator
 - VBand-style keyboard input support using Left/Right Ctrl and bracket keys
 
 **No installation required. No registration required. Completely free and open source.**
@@ -106,6 +112,9 @@ Today you can use it to:
 - See global community statistics
 - Send a simple **73!** to the project
 - Join an optional weekly CW leaderboard and compare your progress with other operators
+- Use one global callsign across ON AIR, Leaderboard and Rewards
+- Unlock cosmetic rewards for progress, streaks and community memberships
+- See how many SKCC and LICW members are using Morse Practice
 
 And you can do all of this directly from a browser.
 
@@ -1340,6 +1349,227 @@ No account is created.
 
 ---
 
+# 📡 Global Operator Callsign
+
+Morse Practice uses a single operator callsign across community-oriented features.
+
+In Spanish the field is shown as:
+
+**Indicativo**
+
+In English:
+
+**Callsign**
+
+The objective is simple: you should not have to enter the same callsign separately in different modules.
+
+The saved operator identity can be reused by:
+
+- ON AIR
+- Weekly Leaderboard
+- Rewards
+- Other community features that may need an operator identity
+
+You can edit it at any time.
+
+Changing the callsign does not reset your local CW training statistics or Koch progress.
+
+---
+
+# 🏆 Rewards
+
+Morse Practice includes an optional **Rewards** system.
+
+Rewards are cosmetic.
+
+They do not provide:
+
+- Extra points
+- Easier exercises
+- Hidden CW assistance
+- Competitive advantages
+
+Instead, achievements unlock visual themes and small status markers.
+
+The idea is simple:
+
+> **Practice and participation unlock cosmetics — never advantages.**
+
+The Rewards module shows which achievements are locked and which have already been completed.
+
+---
+
+# 🔑 SKCC Member Reward
+
+If you are already a member of the **Straight Key Century Club**, you can add your SKCC number inside Rewards.
+
+The number is stored locally in your browser.
+
+Adding it unlocks:
+
+**🔑 Brass Key**
+
+a dark brass / vintage key-inspired theme.
+
+The Rewards module can also show the total number of Morse Practice users who have identified themselves as SKCC members.
+
+For example:
+
+```text
+SKCC #31269
+84 members aboard
+```
+
+This count refers only to SKCC members who have added their membership inside Morse Practice.
+
+It is **not** the total membership of SKCC.
+
+You can edit or remove your SKCC number at any time.
+
+If you remove it:
+
+- The SKCC reward becomes locked again
+- Brass Key becomes unavailable
+- If Brass Key is currently active, Morse Practice returns to the default Blue theme
+
+---
+
+# 🌊 LICW Member Reward
+
+Students and members of the **Long Island CW Club** can add their LICW number inside Rewards.
+
+Adding it unlocks:
+
+**🌊 LICW Night**
+
+a blue / cyan theme inspired by the LICW community.
+
+Like SKCC, the Rewards module can display how many Morse Practice users have identified themselves as LICW members:
+
+```text
+LICW #12345
+42 members aboard
+```
+
+The membership number itself remains a local preference.
+
+You can edit or remove it at any time.
+
+Removing the number disables the corresponding reward theme.
+
+---
+
+# 📻 CW Heritage
+
+Operators who add **both** an SKCC number and an LICW number unlock:
+
+**📻 CW Heritage**
+
+This theme is intended as a small tribute to two communities strongly connected with learning, practicing and preserving CW.
+
+If either membership is removed later, CW Heritage becomes locked again.
+
+---
+
+# 🎧 Master Copy
+
+Completing all cumulative Koch Challenges unlocks:
+
+**🎧 Master Copy**
+
+This reward recognizes progression through the complete listening-review path of the Koch course.
+
+It is tied to Koch Challenge completion rather than raw WPM.
+
+---
+
+# 🔥 7 Day Streak
+
+Practicing on **7 consecutive days** unlocks:
+
+**🟢 Signal Green**
+
+The streak is based on actual active-practice days recorded locally by Morse Practice.
+
+It is a calendar-day streak:
+
+```text
+Day 1
+Day 2
+Day 3
+...
+Day 7
+```
+
+Missing a day breaks the active streak.
+
+The reward is not based on your best CW Racer character streak.
+
+It represents consistent practice over multiple days.
+
+---
+
+# ⚡ 30 Day Streak
+
+Practicing on **30 consecutive days** unlocks:
+
+**🌙 Night Operator**
+
+This is intended as one of the more demanding long-term rewards.
+
+Like the 7-day reward, it is based on consecutive active-practice days rather than speed or score.
+
+---
+
+# 🏅 Top 10 Operator
+
+Reaching the **Top 10** of the Weekly Leaderboard unlocks the:
+
+**🏅 Top 10 Operator**
+
+achievement.
+
+This is primarily a recognition badge rather than another theme.
+
+The Weekly Leaderboard remains informal and should be treated as a friendly community challenge rather than an official contest.
+
+---
+
+# ✨ Reward Notifications
+
+When a reward is unlocked, Morse Practice displays a small visual notification.
+
+If several achievements unlock at almost the same time, they are displayed one after another rather than overlapping.
+
+For example, adding a second community membership may unlock:
+
+```text
+LICW Reward
+        ↓
+CW Heritage
+```
+
+Each notification receives its own display time.
+
+---
+
+# 🎨 Unlockable Reward Themes
+
+In addition to the standard themes, Rewards can unlock:
+
+- 🔑 **Brass Key** — SKCC membership
+- 🌊 **LICW Night** — LICW membership
+- 📻 **CW Heritage** — SKCC + LICW
+- 🎧 **Master Copy** — all Koch Challenges
+- 🟢 **Signal Green** — 7-day practice streak
+- 🌙 **Night Operator** — 30-day practice streak
+
+Locked reward themes remain visible in the theme selector with a lock indicator.
+
+This allows operators to see what can still be earned.
+
+---
+
 # 🤖 QSO BOT
 
 QSO Bot allows you to practice complete simulated CW contacts directly in your browser.
@@ -1813,7 +2043,7 @@ to join the worldwide practice room.
 
 No account is required.
 
-Name and callsign are optional.
+Name remains optional. When you save a global operator callsign, ON AIR can reuse that same callsign instead of requiring it again.
 
 ---
 
@@ -1940,13 +2170,22 @@ appearance modes.
 
 In addition, you can select a visual accent theme.
 
-Available themes include:
+Available standard themes include:
 
 - 🔵 **Blue** — original Morse Practice theme
 - 🟢 **Green**
 - 🟣 **Purple**
 - 🩷 **Pink**
 - 🎮 **Game Boy**
+
+Additional themes can be unlocked through **Rewards**:
+
+- 🔑 **Brass Key**
+- 🌊 **LICW Night**
+- 📻 **CW Heritage**
+- 🎧 **Master Copy**
+- 🟢 **Signal Green**
+- 🌙 **Night Operator**
 
 The standard color themes change the accent colors used throughout the interface while preserving the same layout and behavior.
 
@@ -2722,10 +2961,13 @@ The optional community features use lightweight shared realtime data for:
 - Total practice-hour aggregation
 - The global 73! counter
 - Weekly Leaderboard entries
+- Anonymous SKCC / LICW onboard counters
 
 The community statistics use a random browser identifier rather than requiring a user account.
 
 The Weekly Leaderboard shares your callsign only if **you choose to participate**.
+
+SKCC and LICW membership counters use anonymous browser-level participation records for counting. Your actual SKCC or LICW number is stored locally and is used to display your personal reward state.
 
 Your complete detailed training statistics are not uploaded as a user profile.
 
