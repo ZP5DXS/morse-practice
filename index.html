@@ -455,6 +455,38 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   .chat-collapse{width:24px;height:24px}
 }
 
+
+/* Final mobile polish: touch mouse graphic + footer visibility */
+@media(max-width:620px){
+  /* Prevent the two colored mouse-button halves from overlapping on narrow screens. */
+  .mouse-icon{overflow:hidden}
+  .mouse-left,.mouse-right{
+    width:calc(50% - 6px);
+    top:4px
+  }
+  .mouse-left{left:4px}
+  .mouse-right{right:4px}
+
+  /* On phones, show every community statistic instead of hiding items
+     beyond a horizontally overflowing single line. */
+  .site-stats{
+    width:100%;
+    justify-content:center;
+    flex-wrap:wrap;
+    overflow:visible;
+    gap:6px 10px;
+    padding:0 6px;
+    line-height:1.35
+  }
+  .site-stats>*{flex:0 0 auto}
+  .like-btn{white-space:nowrap}
+}
+
+@media(max-width:380px){
+  .site-stats{gap:5px 8px;font-size:8.5px}
+  .footer-member-link,.like-btn{font-size:8.5px}
+}
+
 </style>
 <script src="https://unpkg.com/mqtt@5.15.2/dist/mqtt.min.js"></script>
 </head>
