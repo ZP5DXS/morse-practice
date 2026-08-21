@@ -1,3 +1,206 @@
+# 📡 Morse Practice
+
+> **Gratis • Código abierto • Plataforma de entrenamiento de código Morse basada en navegador**
+
+🇬🇧 **English version:** consulta el [README principal en inglés](README.md).
+
+[![Demo en vivo](https://img.shields.io/badge/🚀-Live%20Demo-blue?style=for-the-badge)](https://zp5dxs.github.io/morse-practice/)
+
+Practica, aprende y mejora código Morse directamente desde tu navegador utilizando **teclado**, **ratón**, **pantalla táctil**, **llaves USB comerciales**, **adaptadores USB caseros** o **interfaces Arduino HID**.
+
+Morse Practice combina:
+
+- Oscilador CW y sidetone
+- Decodificador Morse en tiempo real
+- Reproducción de Texto → CW
+- Práctica con llave recta y manipulador (*paddle*)
+- WPM ajustable
+- Espaciado Farnsworth de caracteres ajustable
+- Espaciado entre palabras ajustable
+- **Ruido de Banda** ajustable para una escucha más parecida a la radio
+- Control global de **Ayuda Visual**
+- Modo global **Solo Audio** para practicar exclusivamente de oído
+- Mantener **W** para obtener un vistazo visual temporal mientras Solo Audio está activo
+- CW Racer
+- Curso Koch progresivo de 40 lecciones
+- Desafíos acumulativos de escucha Koch
+- Entrenamiento adaptativo por caracteres
+- Lecciones personalizadas a partir de cualquier texto
+- Lecciones carácter por carácter
+- Lecciones palabra por palabra
+- Panel independiente de Estadísticas locales
+- Entrenamiento **Aprende de mis errores**
+- Ejercicios diarios de transmisión
+- Sala mundial de práctica **ON AIR**
+- Entrenamiento de QSOs simulados
+- Práctica POTA
+- Práctica SKCC
+- Interpretación local de QSOs asistida por IA
+- QSB, QRM y solicitudes de repetición simuladas
+- Diferentes estilos de operadores CW simulados
+- Temas visuales: Blue, Green, Purple, Pink y Game Boy
+- Estadísticas comunitarias globales de visitantes, países y horas totales de práctica
+- Contador global de **73!**
+- **Tabla de Clasificación Semanal** opcional con indicativo, posición, puntos y racha
+- Indicativo global del operador compartido entre las funciones comunitarias
+- Sistema de **Recompensas** con temas y logros desbloqueables
+- Insignias de membresía SKCC y LICW con conteos globales
+- Recompensas por rachas de práctica de 7 y 30 días consecutivos
+- Logro por alcanzar el Top 10 semanal
+- Temas especiales desbloqueables: Brass Key, LICW Night, CW Heritage, Master Copy, Signal Green y Night Operator
+- Compatibilidad con entrada estilo VBand mediante Ctrl izquierdo/derecho y teclas `[` / `]`
+- Opción de **invertir DIT / DAH** para operadores zurdos o manipuladores cableados al revés
+- **Duelo CW** — batallas de recepción Morse en tiempo real a 8, 15 o 20 WPM
+- **Chat** global ligero con reproducción Auto CW opcional y posibilidad de ocultar el texto
+- Contador global acumulado de **Duelos CW** en el pie de página
+
+**No requiere instalación. No requiere registro. Es completamente gratuito y de código abierto.**
+
+La mayor parte de los datos de entrenamiento permanece localmente en tu navegador. Las funciones comunitarias como ON AIR, las estadísticas globales, 73! y la Tabla de Clasificación Semanal opcional utilizan datos compartidos ligeros en tiempo real únicamente cuando es necesario.
+
+🌐 **Demo en vivo**
+
+<https://zp5dxs.github.io/morse-practice/>
+
+------------------------------------------------------------------------
+
+# 👋 Acerca del proyecto
+
+¡Hola!
+
+Mi nombre es **Mathias Maidana (ZP5DXS)** 🇵🇾.
+
+Soy radioaficionado de Paraguay y un apasionado del CW.
+
+Actualmente soy alumno del **Long Island CW Club (LICW)**, donde descubrí lo entretenido y gratificante que puede ser aprender código Morse gracias a excelentes instructores y a una increíble comunidad mundial.
+
+Morse Practice es un proyecto personal e independiente que nació durante ese proceso de aprendizaje.
+
+El objetivo original era muy simple:
+
+> **«Abrir un navegador y empezar a practicar inmediatamente.»**
+
+Quería una herramienta que pudiera utilizarse desde el primer momento, incluso antes de tener una llave, un manipulador o un oscilador.
+
+Con el tiempo, el proyecto evolucionó hasta convertirse en un entorno completo de entrenamiento CW basado en navegador.
+
+Hoy puedes utilizarlo para:
+
+- Aprender caracteres Morse
+- Seguir un curso Koch progresivo completo
+- Completar Desafíos acumulativos de escucha
+- Practicar transmisión y recepción
+- Escuchar cómo debería sonar un texto en CW
+- Decodificar tu propia transmisión
+- Practicar con llave recta o manipulador
+- Utilizar ratón, teclado o pantalla táctil
+- Competir contra tu propio rendimiento
+- Crear lecciones a partir de tus propios textos
+- Practicar carácter por carácter o palabra por palabra
+- Seguir tu progreso e identificar tus caracteres más débiles
+- Generar prácticas basadas en tus errores
+- Completar ejercicios diarios de transmisión
+- Ajustar el espaciado Farnsworth
+- Practicar en vivo con operadores de todo el mundo
+- Practicar QSOs simulados completos
+- Entrenar intercambios básicos, intermedios y avanzados
+- Practicar intercambios POTA y SKCC
+- Experimentar QSB, QRM y solicitudes de repetición
+- Practicar distintos estilos de operación CW
+- Supervisar tu actividad desde un panel unificado de Estadísticas
+- Practicar ocultando todas las pistas visuales mediante Solo Audio
+- Añadir ruido de receptor/banda simulado
+- Cambiar el tema visual de la plataforma
+- Ver estadísticas globales de la comunidad
+- Enviar un **73!** al proyecto
+- Participar opcionalmente en la clasificación semanal
+- Utilizar un único indicativo en las funciones comunitarias
+- Desbloquear recompensas por progreso, rachas y membresías
+- Ver cuántos miembros de SKCC y LICW utilizan Morse Practice
+- Invertir DIT y DAH al utilizar un manipulador
+- Desafiar a otro operador en tiempo real mediante Duelo CW
+- Encontrar un rival aleatorio o desafiar a un operador disponible específico
+- Utilizar el Chat global y, opcionalmente, copiar de oído los mensajes entrantes en CW
+
+Y todo esto directamente desde un navegador.
+
+Si este proyecto ayuda aunque sea a un nuevo operador a acercarse al CW, practicar un poco más o simplemente divertirse transmitiendo código Morse, entonces ya habrá cumplido su propósito.
+
+**73!**
+
+------------------------------------------------------------------------
+
+# ❤️ Filosofía
+
+Aprender código Morse no debería requerir equipos costosos.
+
+Tanto si tienes:
+
+- un manipulador profesional,
+- una llave recta,
+- un Arduino,
+- un adaptador USB,
+- un ratón viejo,
+- un ratón inalámbrico,
+- una tableta,
+- un teléfono,
+- o simplemente una laptop...
+
+...deberías poder practicar CW.
+
+Morse Practice está diseñado alrededor de esa idea.
+
+Puedes comenzar sin nada más que un navegador y avanzar gradualmente hacia llaves reales, manipuladores y equipos de radio a medida que mejoran tus habilidades.
+
+------------------------------------------------------------------------
+
+# ✨ Funciones principales
+
+## 🎹 Múltiples dispositivos de entrada
+
+✔ Teclado de computadora  
+✔ Ratón USB  
+✔ Ratón inalámbrico  
+✔ Pantalla táctil  
+✔ Llave recta  
+✔ Manipulador / manipulador yámbico  
+✔ Adaptadores USB comerciales  
+✔ Adaptadores USB caseros  
+✔ Arduino USB HID  
+✔ Interfaces de teclado estilo VBand  
+✔ Entrada de manipulador mediante Ctrl izquierdo / derecho  
+✔ Entrada de manipulador mediante `[` / `]`
+
+------------------------------------------------------------------------
+
+# 🎧 Audio CW
+
+✔ Frecuencia de sidetone ajustable  
+✔ Volumen ajustable  
+✔ WPM ajustable  
+✔ Espaciado de caracteres / Farnsworth ajustable  
+✔ Espaciado entre palabras ajustable  
+✔ Ruido de Banda ajustable de 0–30%  
+✔ Generación de tono en tiempo real  
+✔ Audio local del navegador
+
+El tono CW se genera directamente en el navegador, proporcionando respuesta inmediata mientras transmites.
+
+El Ruido de Banda también se genera localmente mediante el motor de audio del navegador. Añade una base de ruido filtrado para que la escucha se parezca un poco más a la de un receptor HF, sin necesidad de archivos de audio externos.
+
+------------------------------------------------------------------------
+
+# ⏱ WPM y espaciado Farnsworth
+
+Morse Practice separa la **velocidad del carácter** del **espaciado entre caracteres**.
+
+Esto resulta especialmente útil para principiantes.
+
+Los **WPM** seleccionados controlan la velocidad real del propio carácter Morse.
+
+Por ejemplo, los DIT y DAH de:
+
+``` text
 K
 -.-
 ```
