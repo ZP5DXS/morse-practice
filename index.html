@@ -310,10 +310,69 @@ html[data-font-step="4"]{--text-scale:1.16}
 .font-step{width:7px;height:7px;min-width:7px;padding:0;border:0;border-radius:50%;background:var(--muted);opacity:.28;transition:.15s}
 .font-step:hover{opacity:.62;transform:scale(1.15)}
 .font-step.active{background:var(--accent);opacity:.9;box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 16%,transparent)}
-html[data-font-step] .app{font-size:calc(16px * var(--text-scale))}
-html[data-font-step] .app :is(.brand h1,.brand .sub,.courtesy,.header-links,.compact-control,.lang-btn,.section-title,.field label,.value,.seg-btn,.preset,.onair-label,.online-list,.online-summary span,.channel-state,.beta-note,.key-head .title,.practice-head .title,.key-head .small,.touch-zone,.hero,.modehint,.status,.legend,kbd,.action,.play-status,.footer,.memorial,.cwracer-label,.racer-tab,.racer-select,.racer-toggleline,.racer-feedback,.racer-meta,.racer-actions .action,.stat-char,.stats-summary div,.stats-summary b,.wr7q-section-buttons button,.wr7q-credit,.qsobot-label,.qso-bot-call,.qso-bot-message,.qso-you,.qso-status,.qso-meta,.ai-mini,.custom-lesson-current,.custom-lesson-attempt,.custom-lesson-feedback,.custom-lesson-meta,.koch-label,.koch-course-title,.koch-course-sub,.koch-progress-text,.koch-level,.koch-track-edge,.koch-phase,.koch-newchar,.koch-newchar b,.koch-feedback,.koch-meta,.koch-choice,.koch-result-note,.stats-label,.stats-section-title,.stats-shortcuts .action,.activity-row,.site-stats,.footer-member-link,.community-label,.community-me div,.community-me b,.leader-row,.community-note,.leader-actions .action,.like-btn,.footer-community-title,.profile-box .profile-title,.profile-note,.rewards-label,.rewards-summary,.rewards-summary b,.reward-name,.reward-desc,.reward-state,.membership-title,.membership-row label,.membership-count,.membership-row input,.membership-row .action,.reward-toast){
-  font-size:calc(1em * var(--text-scale));
+html[data-font-step] .app{font-size:16px}
+
+/* Text-size accessibility:
+   scale content that benefits from readability, not every compact control. */
+html[data-font-step] .hero{font-size:calc(22px * var(--text-scale))}
+html[data-font-step] .modehint,
+html[data-font-step] .status,
+html[data-font-step] .key-head .small{font-size:calc(12px * var(--text-scale))}
+html[data-font-step] .big{font-size:calc(48px * var(--text-scale));min-height:calc(62px * var(--text-scale))}
+html[data-font-step] .decoded{font-size:calc(34px * var(--text-scale));min-height:calc(44px * var(--text-scale))}
+html[data-font-step] textarea{font-size:calc(20px * var(--text-scale))}
+
+/* Training targets: grow together with their stage instead of overflowing. */
+html[data-font-step] .racer-target{font-size:calc(34px * var(--text-scale));min-height:calc(36px * var(--text-scale))}
+html[data-font-step] .racer-code{font-size:calc(20px * var(--text-scale));min-height:calc(24px * var(--text-scale))}
+html[data-font-step] .custom-lesson-current{font-size:calc(24px * var(--text-scale));min-height:calc(30px * var(--text-scale))}
+html[data-font-step] .koch-target{font-size:calc(34px * var(--text-scale));min-height:calc(38px * var(--text-scale));overflow-wrap:anywhere}
+html[data-font-step] .koch-code{font-size:calc(19px * var(--text-scale));min-height:calc(23px * var(--text-scale));overflow-wrap:anywhere}
+html[data-font-step] .koch-choice{font-size:calc(15px * var(--text-scale));min-height:calc(38px * var(--text-scale));display:flex;align-items:center;justify-content:center}
+html[data-font-step] .koch-newchar b{font-size:calc(13px * var(--text-scale))}
+html[data-font-step] .koch-result-stars{font-size:calc(26px * var(--text-scale))}
+html[data-font-step] .koch-result-score{font-size:calc(20px * var(--text-scale))}
+html[data-font-step] .qso-bot-call{font-size:calc(18px * var(--text-scale))}
+html[data-font-step] .qso-bot-message{font-size:calc(11px * var(--text-scale));min-height:calc(54px * var(--text-scale))}
+html[data-font-step] .qso-bot-message.complete{min-height:calc(125px * var(--text-scale))}
+
+/* Keep compact navigation/buttons usable and visually stable at every step. */
+html[data-font-step] :is(.font-step,.pill-switch,.switch,.mute-btn){font-size:inherit}
+html[data-font-step] :is(.action,.seg-btn,.preset,.racer-tab,.racer-actions .action,
+.wr7q-section-buttons button,.stats-shortcuts .action,.leader-actions .action,
+.membership-row .action,.koch-challenge-btn){
+  min-height:30px;
 }
+html[data-font-step] .koch-level{
+  font-size:8px;
+  min-height:34px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+html[data-font-step] .koch-level .stars{font-size:7px}
+
+/* Reset/destructive buttons must never collapse visually. */
+html[data-font-step] .action.danger{
+  min-width:max-content;
+  min-height:32px;
+  padding:8px 11px;
+}
+
+/* At larger text steps allow dense rows to wrap rather than clip. */
+html[data-font-step="3"] :is(.koch-course-head,.koch-head,.cwracer-head,.qsobot-head,.stats-head,.community-head,.rewards-head),
+html[data-font-step="4"] :is(.koch-course-head,.koch-head,.cwracer-head,.qsobot-head,.stats-head,.community-head,.rewards-head){
+  flex-wrap:wrap;
+}
+
+
+@media(max-width:620px){
+  html[data-font-step] .hero{font-size:calc(19px * var(--text-scale))}
+  html[data-font-step] .big{font-size:calc(40px * var(--text-scale))}
+  html[data-font-step] .decoded{font-size:calc(29px * var(--text-scale))}
+}
+
 
 </style>
 <script src="https://unpkg.com/mqtt@5.15.2/dist/mqtt.min.js"></script>
