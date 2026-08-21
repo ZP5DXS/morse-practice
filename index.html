@@ -407,15 +407,52 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .chat-state{width:7px;height:7px;border-radius:50%;background:var(--muted);display:inline-block}
 .chat-state.live{background:var(--good);box-shadow:0 0 7px color-mix(in srgb,var(--good) 55%,transparent)}
 @media(max-width:620px){
-  .chat-head{gap:7px;padding:8px 9px;flex-wrap:wrap}
+  /* Keep the complete chat toolbar on a single line. */
+  .chat-head{
+    gap:5px;
+    padding:7px 8px;
+    flex-wrap:nowrap;
+    min-width:0
+  }
   .chat-spacer{display:none}
-  .chat-title{margin-right:auto}
-  .chat-mini{font-size:8px}
+  .chat-title{
+    margin-right:auto;
+    min-width:0;
+    font-size:10px;
+    letter-spacing:.02em;
+    overflow:hidden;
+    text-overflow:ellipsis
+  }
+  .chat-unread{flex:none;min-width:17px;height:17px;padding:0 4px;font-size:8px}
+  .chat-mini{
+    flex:none;
+    gap:3px;
+    font-size:7.5px
+  }
+  .chat-mini .switch{
+    transform:scale(.72);
+    margin:-3px -5px;
+    transform-origin:center
+  }
+  .chat-collapse{
+    flex:none;
+    width:26px;
+    height:25px;
+    font-size:11px
+  }
   .chat-messages{height:155px}
   .chat-message{grid-template-columns:1fr auto;gap:4px}
   .chat-from{grid-column:1/2}
   .chat-text{grid-column:1/2}
   .chat-msg-actions{grid-column:2;grid-row:1/3}
+}
+
+@media(max-width:380px){
+  .chat-head{gap:4px;padding:7px 6px}
+  .chat-title{font-size:9px}
+  .chat-mini{font-size:7px}
+  .chat-mini .switch{transform:scale(.68);margin:-4px -6px}
+  .chat-collapse{width:24px;height:24px}
 }
 
 </style>
