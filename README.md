@@ -2,9 +2,14 @@
 
 > **Free • Open Source • Browser-Based Morse Code Training Platform**
 
-[![Live Demo](https://img.shields.io/badge/🚀-Live%20Demo-blue?style=for-the-badge)](https://zp5dxs.github.io/morse-practice/)
+🇪🇸 **¿Prefieres leer las instrucciones en español?** Consulta la [guía completa en español](READEM-ES.md).
 
-Practice, learn and improve Morse code directly from your browser using your **keyboard**, **mouse**, **touchscreen**, **commercial USB key**, **DIY USB adapters**, or **Arduino HID interfaces**.
+[![Live
+Demo](https://img.shields.io/badge/🚀-Live%20Demo-blue?style=for-the-badge)](https://zp5dxs.github.io/morse-practice/)
+
+Practice, learn and improve Morse code directly from your browser using
+your **keyboard**, **mouse**, **touchscreen**, **commercial USB key**,
+**DIY USB adapters**, or **Arduino HID interfaces**.
 
 Morse Practice combines:
 
@@ -45,18 +50,30 @@ Morse Practice combines:
 - SKCC and LICW community membership badges with global onboard counts
 - Practice streak rewards for 7 and 30 consecutive days
 - Top 10 weekly leaderboard achievement
-- Special unlockable themes: Brass Key, LICW Night, CW Heritage, Master Copy, Signal Green and Night Operator
-- VBand-style keyboard input support using Left/Right Ctrl and bracket keys
+- Special unlockable themes: Brass Key, LICW Night, CW Heritage, Master
+  Copy, Signal Green and Night Operator
+- VBand-style keyboard input support using Left/Right Ctrl and bracket
+  keys
+- Optional **DIT / DAH inversion** for left-handed or reversed paddle
+  setups
+- **CW Duel** — realtime head-to-head Morse copying battles at 8, 15 or
+  20 WPM
+- Global lightweight **Chat** with optional Auto CW playback and text
+  hiding
+- Global accumulated **CW Duel** counter in the community footer
 
-**No installation required. No registration required. Completely free and open source.**
+**No installation required. No registration required. Completely free
+and open source.**
 
-Most training data remains local to your browser. Community features such as ON AIR, global usage statistics, 73! and the optional Weekly Leaderboard use lightweight shared realtime data only where needed.
+Most training data remains local to your browser. Community features
+such as ON AIR, global usage statistics, 73! and the optional Weekly
+Leaderboard use lightweight shared realtime data only where needed.
 
 🌐 **Live Demo**
 
-https://zp5dxs.github.io/morse-practice/
+<https://zp5dxs.github.io/morse-practice/>
 
----
+------------------------------------------------------------------------
 
 # 👋 About
 
@@ -64,19 +81,25 @@ Hello!
 
 My name is **Mathias Maidana (ZP5DXS)** 🇵🇾.
 
-I'm an Amateur Radio operator from Paraguay and a passionate CW enthusiast.
+I'm an Amateur Radio operator from Paraguay and a passionate CW
+enthusiast.
 
-I'm currently a student of the **Long Island CW Club (LICW)**, where I discovered how enjoyable and rewarding learning Morse code can be thanks to incredible instructors and an amazing worldwide community.
+I'm currently a student of the **Long Island CW Club (LICW)**, where I
+discovered how enjoyable and rewarding learning Morse code can be thanks
+to incredible instructors and an amazing worldwide community.
 
-Morse Practice is an independent personal project that was born during that learning journey.
+Morse Practice is an independent personal project that was born during
+that learning journey.
 
 The original goal was very simple:
 
 > **"Open a browser and start practicing immediately."**
 
-I wanted something that could be used from the very beginning — even before owning a key, paddle or oscillator.
+I wanted something that could be used from the very beginning — even
+before owning a key, paddle or oscillator.
 
-Over time, the project evolved into a complete browser-based CW training environment.
+Over time, the project evolved into a complete browser-based CW training
+environment.
 
 Today you can use it to:
 
@@ -111,18 +134,27 @@ Today you can use it to:
 - Change the complete visual accent theme of the platform
 - See global community statistics
 - Send a simple **73!** to the project
-- Join an optional weekly CW leaderboard and compare your progress with other operators
+- Join an optional weekly CW leaderboard and compare your progress with
+  other operators
 - Use one global callsign across ON AIR, Leaderboard and Rewards
-- Unlock cosmetic rewards for progress, streaks and community memberships
+- Unlock cosmetic rewards for progress, streaks and community
+  memberships
 - See how many SKCC and LICW members are using Morse Practice
+- Invert DIT and DAH when using a paddle
+- Challenge another operator in realtime CW Duel
+- Find a random Duel opponent or challenge a specific available operator
+- Use the global text Chat and optionally copy incoming messages by ear
+  in CW
 
 And you can do all of this directly from a browser.
 
-If this project helps even one new operator get closer to CW, practice a little more, or simply have fun sending Morse code, then it has already achieved its purpose.
+If this project helps even one new operator get closer to CW, practice a
+little more, or simply have fun sending Morse code, then it has already
+achieved its purpose.
 
 **73!**
 
----
+------------------------------------------------------------------------
 
 # ❤️ Philosophy
 
@@ -144,9 +176,11 @@ Whether you own:
 
 Morse Practice is designed around that idea.
 
-You can start with absolutely nothing except a browser and gradually move toward real keys, paddles and radio equipment as your skills improve.
+You can start with absolutely nothing except a browser and gradually
+move toward real keys, paddles and radio equipment as your skills
+improve.
 
----
+------------------------------------------------------------------------
 
 # ✨ Main Features
 
@@ -165,7 +199,7 @@ You can start with absolutely nothing except a browser and gradually move toward
 ✔ Left / Right Ctrl paddle input  
 ✔ `[` / `]` bracket paddle input
 
----
+------------------------------------------------------------------------
 
 # 🎧 CW Audio
 
@@ -178,11 +212,14 @@ You can start with absolutely nothing except a browser and gradually move toward
 ✔ Real-time Tone Generation  
 ✔ Local browser audio
 
-The CW tone is generated directly by your browser, providing immediate feedback while sending.
+The CW tone is generated directly by your browser, providing immediate
+feedback while sending.
 
-Band Noise is also generated locally with the browser audio engine. It adds a filtered noise bed intended to make listening feel a little closer to an HF receiver without requiring any external audio files.
+Band Noise is also generated locally with the browser audio engine. It
+adds a filtered noise bed intended to make listening feel a little
+closer to an HF receiver without requiring any external audio files.
 
----
+------------------------------------------------------------------------
 
 # ⏱ WPM and Farnsworth Spacing
 
@@ -190,24 +227,29 @@ Morse Practice separates **character speed** from **character spacing**.
 
 This is especially useful for beginners.
 
-The selected **WPM** controls the real speed of the Morse character itself.
+The selected **WPM** controls the real speed of the Morse character
+itself.
 
 For example, the DITs and DAHs of:
 
-```text
+``` text
 K
 -.-
 ```
 
 continue to sound at the selected WPM.
 
-The **Character Spacing / Farnsworth** control adds additional time **between characters** without slowing down the internal rhythm of each character.
+The **Character Spacing / Farnsworth** control adds additional time
+**between characters** without slowing down the internal rhythm of each
+character.
 
-This allows you to learn the sound of complete Morse characters at a realistic speed while giving your brain additional time to recognize them.
+This allows you to learn the sound of complete Morse characters at a
+realistic speed while giving your brain additional time to recognize
+them.
 
 Example:
 
-```text
+``` text
 Normal spacing:
 
 K M R A
@@ -223,7 +265,8 @@ Only the silence between them changes.
 
 Word spacing remains independently adjustable.
 
-The global WPM, Farnsworth spacing and word spacing are used throughout the platform where applicable, including:
+The global WPM, Farnsworth spacing and word spacing are used throughout
+the platform where applicable, including:
 
 - Text → CW
 - CW Racer
@@ -233,7 +276,7 @@ The global WPM, Farnsworth spacing and word spacing are used throughout the plat
 - Koch Challenges
 - QSO Bot playback
 
----
+------------------------------------------------------------------------
 
 # 📻 Band Noise
 
@@ -241,13 +284,14 @@ Morse Practice includes an optional global **Band Noise** control.
 
 The slider ranges from:
 
-```text
+``` text
 0% → 30%
 ```
 
 At **0%**, the platform behaves exactly like a clean CW oscillator.
 
-Increasing the level adds filtered local noise behind the CW tone to create a more radio-like listening environment.
+Increasing the level adds filtered local noise behind the CW tone to
+create a more radio-like listening environment.
 
 The noise is generated directly in the browser using Web Audio.
 
@@ -263,7 +307,7 @@ This feature is intentionally simple:
 
 The selected Band Noise level is remembered locally by your browser.
 
----
+------------------------------------------------------------------------
 
 # 📝 CW Trainer
 
@@ -280,15 +324,16 @@ The selected Band Noise level is remembered locally by your browser.
 ✔ Hold W to Peek  
 ✔ Mobile Friendly
 
-The main trainer can be used simply as a CW oscillator or as a complete sending practice environment.
+The main trainer can be used simply as a CW oscillator or as a complete
+sending practice environment.
 
----
+------------------------------------------------------------------------
 
 # 🚀 Getting Started
 
 Simply visit:
 
-https://zp5dxs.github.io/morse-practice/
+<https://zp5dxs.github.io/morse-practice/>
 
 Choose your preferred input method and start practicing immediately.
 
@@ -300,7 +345,7 @@ For your first practice session, you can use nothing more than:
 
 No Morse key is required.
 
----
+------------------------------------------------------------------------
 
 # 📖 Basic Instructions
 
@@ -322,11 +367,13 @@ Press to transmit.
 
 Release to stop.
 
-The duration of your press determines whether the signal is interpreted as a DIT or DAH.
+The duration of your press determines whether the signal is interpreted
+as a DIT or DAH.
 
-This makes Straight Key mode ideal for practicing your actual sending rhythm.
+This makes Straight Key mode ideal for practicing your actual sending
+rhythm.
 
----
+------------------------------------------------------------------------
 
 # 🎹 Paddle
 
@@ -336,17 +383,45 @@ Select:
 
 Desktop users can operate with a mouse or compatible hardware paddle.
 
-On mobile devices, the keying area automatically becomes a two-sided paddle.
+On mobile devices, the keying area automatically becomes a two-sided
+paddle.
 
 🔵 **Left → DIT**
 
 🟢 **Right → DAH**
 
-The application supports simultaneous touches, allowing iambic operation directly from a touchscreen.
+The application supports simultaneous touches, allowing iambic operation
+directly from a touchscreen.
 
 This means a phone or tablet can become a simple virtual CW paddle.
 
----
+## ↔ Invert DIT / DAH
+
+When **Paddle** mode is selected, Morse Practice also provides an
+optional:
+
+**Invert DIT / DAH**
+
+control in the keying area.
+
+This swaps the paddle sides:
+
+``` text
+Normal:
+Left  → DIT
+Right → DAH
+
+Inverted:
+Left  → DAH
+Right → DIT
+```
+
+This is useful for left-handed operators and for physical paddles or USB
+interfaces wired in the opposite orientation.
+
+The setting affects paddle input only and can be changed at any time.
+
+------------------------------------------------------------------------
 
 # 📱 Mobile Practice
 
@@ -381,9 +456,10 @@ Want to continue learning characters progressively?
 
 Open the **Koch Course**.
 
-The idea is to make CW practice something you can do whenever you have a few free minutes.
+The idea is to make CW practice something you can do whenever you have a
+few free minutes.
 
----
+------------------------------------------------------------------------
 
 # ▶ Text → CW Playback
 
@@ -411,7 +487,7 @@ This is useful for quickly hearing how:
 
 sound in Morse code.
 
----
+------------------------------------------------------------------------
 
 # 🔤 CW Decoder
 
@@ -419,9 +495,11 @@ Everything you transmit can be decoded in real time.
 
 This provides immediate visual feedback while practicing.
 
-It is especially useful for beginners because you can instantly compare what you intended to send with what the application actually decoded.
+It is especially useful for beginners because you can instantly compare
+what you intended to send with what the application actually decoded.
 
-The decoder also recognizes supported punctuation and common prosigns such as:
+The decoder also recognizes supported punctuation and common prosigns
+such as:
 
 - **AR**
 - **BT**
@@ -429,37 +507,45 @@ The decoder also recognizes supported punctuation and common prosigns such as:
 - **AS**
 - **SOS**
 
----
+------------------------------------------------------------------------
 
 # 👁 Visual DIT / DAH Assistance
 
 Visual Morse symbols can be enabled or disabled globally.
 
-When enabled, the application displays the DITs and DAHs as you transmit.
+When enabled, the application displays the DITs and DAHs as you
+transmit.
 
 For example:
 
-```text
+``` text
 . - . .
 ```
 
-Beginners may find this useful while learning the relationship between keying and Morse patterns.
+Beginners may find this useful while learning the relationship between
+keying and Morse patterns.
 
-More experienced operators can disable visual assistance and practice entirely by ear.
+More experienced operators can disable visual assistance and practice
+entirely by ear.
 
-The same setting also affects training modules such as **CW Racer Learn** and **Koch**, so the visual Morse pattern can be hidden throughout the platform.
+The same setting also affects training modules such as **CW Racer
+Learn** and **Koch**, so the visual Morse pattern can be hidden
+throughout the platform.
 
----
+------------------------------------------------------------------------
 
 # 🎧 Audio Only Mode
 
-For operators who want to practice completely by ear, Morse Practice includes a global:
+For operators who want to practice completely by ear, Morse Practice
+includes a global:
 
 **Audio Only**
 
 mode.
 
-When Audio Only is enabled, the application continues decoding and processing CW internally, but hides visual information that could reveal what is being transmitted.
+When Audio Only is enabled, the application continues decoding and
+processing CW internally, but hides visual information that could reveal
+what is being transmitted.
 
 Depending on the active module, this can include:
 
@@ -471,18 +557,22 @@ Depending on the active module, this can include:
 - Custom Lesson target information
 - QSO Bot transmitted text
 - QSO Bot callsign hints
-- ON AIR transmitting operator identification while the transmission is active
+- ON AIR transmitting operator identification while the transmission is
+  active
 - The callsign in the ON AIR **Channel Busy** indication
 
 The important point is:
 
-> **The CW engine still knows what happened. The user simply does not see the answer.**
+> **The CW engine still knows what happened. The user simply does not
+> see the answer.**
 
-This means evaluation, statistics, QSO interpretation, Koch progression and other internal logic continue working normally.
+This means evaluation, statistics, QSO interpretation, Koch progression
+and other internal logic continue working normally.
 
 When Audio Only is active, Visual Aid is temporarily forced off.
 
-When Audio Only is disabled, your previous Visual Aid preference is restored.
+When Audio Only is disabled, your previous Visual Aid preference is
+restored.
 
 ## 👁 Hold W to Peek
 
@@ -496,11 +586,12 @@ The hidden information becomes visible only while the key is held.
 
 Release **W** and the interface returns immediately to Audio Only mode.
 
-This is useful when you want to check what you copied without permanently turning visual assistance back on.
+This is useful when you want to check what you copied without
+permanently turning visual assistance back on.
 
 On text-entry fields, the W key remains available for normal typing.
 
----
+------------------------------------------------------------------------
 
 # ✍️ Custom Lessons
 
@@ -515,9 +606,10 @@ You can choose between two modes:
 - **Character by Character**
 - **Word by Word**
 
-This makes it possible to build personalized exercises without creating lesson files or configuring a database.
+This makes it possible to build personalized exercises without creating
+lesson files or configuring a database.
 
----
+------------------------------------------------------------------------
 
 ## 🔤 Character-by-Character Mode
 
@@ -525,13 +617,13 @@ The lesson breaks the pasted text into individual Morse characters.
 
 For example:
 
-```text
+``` text
 RADIO
 ```
 
 becomes:
 
-```text
+``` text
 R
 A
 D
@@ -541,7 +633,8 @@ O
 
 The application presents each target and waits for you to transmit it.
 
-Your sending is evaluated using the same timing and accuracy system used by CW Racer.
+Your sending is evaluated using the same timing and accuracy system used
+by CW Racer.
 
 ### 🟢 Correct
 
@@ -557,7 +650,7 @@ The character must be repeated.
 
 Each result contributes to your global character statistics.
 
----
+------------------------------------------------------------------------
 
 ## 📝 Word-by-Word Mode
 
@@ -565,24 +658,26 @@ Word Mode uses complete words as training units.
 
 For example:
 
-```text
+``` text
 CQ POTA DE ZP5DXS
 ```
 
 becomes:
 
-```text
+``` text
 CQ
 POTA
 DE
 ZP5DXS
 ```
 
-The application plays or presents the word and expects you to transmit the complete word.
+The application plays or presents the word and expects you to transmit
+the complete word.
 
 Every character inside the word is evaluated individually.
 
-If a character is incorrect, the system can identify the position of the error and repeat the complete word.
+If a character is incorrect, the system can identify the position of the
+error and repeat the complete word.
 
 This is especially useful for practicing:
 
@@ -598,13 +693,14 @@ This is especially useful for practicing:
 
 The original pasted text remains available while you practice.
 
----
+------------------------------------------------------------------------
 
 # 🏁 CW RACER
 
 CW Racer turns Morse practice into an interactive training system.
 
-Instead of simply listening to characters, **you must send them yourself**.
+Instead of simply listening to characters, **you must send them
+yourself**.
 
 The objective is to combine:
 
@@ -621,9 +717,10 @@ CW Racer contains three dedicated training sections:
 - 🏁 **Race**
 - 📅 **Daily**
 
-Statistics are available through the independent **📊 Statistics** module.
+Statistics are available through the independent **📊 Statistics**
+module.
 
----
+------------------------------------------------------------------------
 
 # 🎓 Learn Mode
 
@@ -641,7 +738,7 @@ The application presents a character and waits for you to transmit it.
 
 For example:
 
-```text
+``` text
 A
 .-
 ```
@@ -658,9 +755,10 @@ or
 
 Then transmit it using your selected input method.
 
-The application analyzes your transmission and provides immediate feedback.
+The application analyzes your transmission and provides immediate
+feedback.
 
----
+------------------------------------------------------------------------
 
 # 🟢🟡🔴 Scoring System
 
@@ -676,11 +774,13 @@ The trainer moves to the next character.
 
 ### 🟡 Yellow — Correct, but timing can improve
 
-The Morse sequence was correct, but your DIT/DAH timing could be improved.
+The Morse sequence was correct, but your DIT/DAH timing could be
+improved.
 
 **+0.5 points**
 
-The trainer continues while recording that character as one that may need additional practice.
+The trainer continues while recording that character as one that may
+need additional practice.
 
 ### 🔴 Red — Incorrect
 
@@ -694,7 +794,7 @@ This creates a simple learning loop:
 
 > **See → Hear → Send → Receive Feedback → Improve**
 
----
+------------------------------------------------------------------------
 
 # 🏁 Race Mode
 
@@ -722,9 +822,10 @@ The application presents characters one after another.
 
 Your objective is to transmit them as accurately as possible.
 
-Each race has a fixed number of exercises and automatically ends when the selected distance is completed.
+Each race has a fixed number of exercises and automatically ends when
+the selected distance is completed.
 
----
+------------------------------------------------------------------------
 
 # 🏆 Race Score
 
@@ -732,7 +833,7 @@ At the end of the race, Morse Practice displays your result.
 
 Example:
 
-```text
+``` text
 🏁
 
 Final Score: 43.5 / 50
@@ -746,7 +847,8 @@ Your best result is compared against races using the same:
 - Race length
 - WPM
 
-This means you can gradually compete against your own previous performance.
+This means you can gradually compete against your own previous
+performance.
 
 The objective is not simply speed.
 
@@ -754,27 +856,32 @@ The objective is:
 
 > **Speed + Accuracy + Consistency**
 
----
+------------------------------------------------------------------------
 
 # 📅 Daily
 
-The Daily section provides structured sending exercises that can be repeated regularly as a CW warm-up.
+The Daily section provides structured sending exercises that can be
+repeated regularly as a CW warm-up.
 
-It is based on the Morse sending exercise created by **Bob Carter, WR7Q**.
+It is based on the Morse sending exercise created by **Bob Carter,
+WR7Q**.
 
 The Daily module contains three sections:
 
 ### 🔥 Warm Up
 
-Short patterns designed to get your hand moving and establish rhythm before more complex sending.
+Short patterns designed to get your hand moving and establish rhythm
+before more complex sending.
 
 ### ✍️ Exercise
 
-Structured sequences designed to practice transitions between different Morse characters.
+Structured sequences designed to practice transitions between different
+Morse characters.
 
 ### 🎯 Drill
 
-Longer and more demanding sequences combining characters, numbers, punctuation and prosigns.
+Longer and more demanding sequences combining characters, numbers,
+punctuation and prosigns.
 
 The objective is not to race.
 
@@ -786,7 +893,8 @@ The objective is to develop:
 - Accurate spacing
 - Reliable sending
 
-If you make a mistake during a Daily unit, repeat the unit and try again.
+If you make a mistake during a Daily unit, repeat the unit and try
+again.
 
 Daily can be useful as a regular warm-up before:
 
@@ -802,17 +910,19 @@ Results also contribute to your character statistics.
 
 **Exercise by WR7Q**
 
----
+------------------------------------------------------------------------
 
 # 📚 KOCH COURSE
 
-Morse Practice includes a complete progressive **Koch-style CW learning course**.
+Morse Practice includes a complete progressive **Koch-style CW learning
+course**.
 
 The objective is different from CW Racer.
 
 CW Racer lets you choose what you want to practice.
 
-Koch Course provides a **structured path from the beginning to the complete character set**.
+Koch Course provides a **structured path from the beginning to the
+complete character set**.
 
 The course contains:
 
@@ -827,7 +937,7 @@ The course contains:
 ✔ Periodic CW Challenges  
 ✔ Integration with global Statistics
 
----
+------------------------------------------------------------------------
 
 # 🧠 How the Koch Course Works
 
@@ -837,7 +947,7 @@ New characters are introduced gradually.
 
 Conceptually:
 
-```text
+``` text
 Lesson 01
 K + M
 
@@ -853,11 +963,13 @@ K M U R + E
 
 and so on.
 
-Each lesson continues reviewing characters from previous lessons while introducing the new one.
+Each lesson continues reviewing characters from previous lessons while
+introducing the new one.
 
-The new character receives additional exposure so that it does not become lost inside the growing character pool.
+The new character receives additional exposure so that it does not
+become lost inside the growing character pool.
 
----
+------------------------------------------------------------------------
 
 # 🎧 Part 1 — Listen and Send
 
@@ -871,20 +983,20 @@ You must copy it by ear and then transmit that same character yourself.
 
 Conceptually:
 
-```text
+``` text
 Browser sends:
 -.-
 ```
 
 You recognize:
 
-```text
+``` text
 K
 ```
 
 and then transmit:
 
-```text
+``` text
 -.-
 ```
 
@@ -897,11 +1009,12 @@ This combines:
 - Auditory memory
 - Actual sending
 
----
+------------------------------------------------------------------------
 
 # 👂 Part 2 — Listen and Select
 
-After the transmission section, the lesson changes to pure reception practice.
+After the transmission section, the lesson changes to pure reception
+practice.
 
 The application plays a Morse character.
 
@@ -909,18 +1022,20 @@ You choose the character you heard from the available options.
 
 For example:
 
-```text
+``` text
 🔊 MORSE AUDIO
 
 [K]   [M]
 [U]   [R]
 ```
 
-Only characters already learned in the course are used as normal lesson options.
+Only characters already learned in the course are used as normal lesson
+options.
 
-This keeps the course progressive and avoids testing characters that have not yet been introduced.
+This keeps the course progressive and avoids testing characters that
+have not yet been introduced.
 
----
+------------------------------------------------------------------------
 
 # ⭐ Koch Lesson Scoring
 
@@ -938,11 +1053,12 @@ Approximately 80% or better.
 
 **90% or better.**
 
-Achieving **90%** is the mastery target used to unlock the next Koch lesson.
+Achieving **90%** is the mastery target used to unlock the next Koch
+lesson.
 
 Example:
 
-```text
+``` text
 Lesson 08
 
 Accuracy: 93%
@@ -956,11 +1072,12 @@ If the result is lower, the lesson can simply be repeated.
 
 Your best result is saved locally.
 
----
+------------------------------------------------------------------------
 
 # 🎧 CW Challenges
 
-Every three Koch lessons, Morse Practice provides a cumulative **CW Challenge**.
+Every three Koch lessons, Morse Practice provides a cumulative **CW
+Challenge**.
 
 These Challenges focus entirely on **reception**.
 
@@ -970,7 +1087,7 @@ Instead, they test how well you remember everything learned so far.
 
 Example:
 
-```text
+``` text
 Lessons 01–03
         ↓
 🎧 CW Challenge 01
@@ -978,19 +1095,22 @@ Lessons 01–03
 
 Later:
 
-```text
+``` text
 Lessons 04–06
         ↓
 🎧 CW Challenge 02
 ```
 
-Each Challenge uses characters from the complete set learned up to that checkpoint.
+Each Challenge uses characters from the complete set learned up to that
+checkpoint.
 
-Recent characters receive somewhat more exposure, while earlier characters continue to appear.
+Recent characters receive somewhat more exposure, while earlier
+characters continue to appear.
 
-This helps prevent older characters from being forgotten as the course grows.
+This helps prevent older characters from being forgotten as the course
+grows.
 
----
+------------------------------------------------------------------------
 
 # 🎯 Challenge Format
 
@@ -1000,7 +1120,7 @@ The application sends a character and provides up to four choices.
 
 Example:
 
-```text
+``` text
 🔊
 
 [C]   [K]
@@ -1011,23 +1131,26 @@ Choose the character you copied.
 
 Challenge performance is scored using the same star system.
 
-Unlike the normal Koch lessons, **Challenges are diagnostic checkpoints and do not block your progress through the course**.
+Unlike the normal Koch lessons, **Challenges are diagnostic checkpoints
+and do not block your progress through the course**.
 
 Their purpose is to answer a simple question:
 
 > **Am I still copying the characters I learned earlier?**
 
----
+------------------------------------------------------------------------
 
 # 🏆 Final Koch Challenge
 
-After progressing through the course, a final cumulative listening challenge becomes available.
+After progressing through the course, a final cumulative listening
+challenge becomes available.
 
-This provides an opportunity to review the complete learned character set.
+This provides an opportunity to review the complete learned character
+set.
 
 The Koch Course therefore creates a complete progression:
 
-```text
+``` text
 Learn
  ↓
 Listen
@@ -1045,7 +1168,7 @@ Repeat
 
 until the complete course is finished.
 
----
+------------------------------------------------------------------------
 
 # 💾 Koch Progress
 
@@ -1067,13 +1190,14 @@ You can reset the course at any time using:
 
 **Reset Koch Progress**
 
----
+------------------------------------------------------------------------
 
 # 📊 STATISTICS
 
 Statistics are no longer limited to CW Racer.
 
-The independent **Statistics** module acts as the central local progress dashboard for Morse Practice.
+The independent **Statistics** module acts as the central local progress
+dashboard for Morse Practice.
 
 Opening or closing Statistics does **not** interrupt:
 
@@ -1085,11 +1209,12 @@ Opening or closing Statistics does **not** interrupt:
 
 It is purely a visual dashboard.
 
----
+------------------------------------------------------------------------
 
 # 🔤 Character Performance
 
-The most important part of Statistics remains individual character performance.
+The most important part of Statistics remains individual character
+performance.
 
 Each character develops its own local profile based on your practice.
 
@@ -1111,23 +1236,26 @@ Performance can be influenced by activities such as:
 - Koch listening exercises
 - Koch Challenges
 
-This means your statistics gradually become a broader picture of your real CW strengths and weaknesses.
+This means your statistics gradually become a broader picture of your
+real CW strengths and weaknesses.
 
----
+------------------------------------------------------------------------
 
 # 🧠 Learn From My Mistakes
 
-One of the most useful features of the Statistics module is adaptive practice.
+One of the most useful features of the Statistics module is adaptive
+practice.
 
 Select:
 
 **🧠 Learn From My Mistakes**
 
-Morse Practice analyzes your local character statistics and builds a lesson that gives greater priority to weaker characters.
+Morse Practice analyzes your local character statistics and builds a
+lesson that gives greater priority to weaker characters.
 
 For example:
 
-```text
+``` text
 A 🟢
 N 🟢
 K 🟢
@@ -1138,7 +1266,7 @@ Y 🔴
 
 The adaptive practice session will give greater priority to:
 
-```text
+``` text
 Q
 Y
 F
@@ -1146,7 +1274,7 @@ F
 
 while still periodically checking stronger characters such as:
 
-```text
+``` text
 A
 N
 K
@@ -1154,9 +1282,11 @@ K
 
 The objective is to gradually balance your character proficiency.
 
-Because Custom Lessons, Koch and other evaluated exercises also feed the character statistics, the adaptive trainer can learn from mistakes made across multiple parts of the platform.
+Because Custom Lessons, Koch and other evaluated exercises also feed the
+character statistics, the adaptive trainer can learn from mistakes made
+across multiple parts of the platform.
 
----
+------------------------------------------------------------------------
 
 # 📈 Activity Dashboard
 
@@ -1173,11 +1303,13 @@ The dashboard can track activity across modules such as:
 
 The local Statistics dashboard is focused on your own progress.
 
-It provides a quick visual indication of how you are using Morse Practice.
+It provides a quick visual indication of how you are using Morse
+Practice.
 
-A separate optional **Weekly Leaderboard** is available for operators who want a community challenge.
+A separate optional **Weekly Leaderboard** is available for operators
+who want a community challenge.
 
----
+------------------------------------------------------------------------
 
 # 💾 Local Statistics
 
@@ -1196,24 +1328,28 @@ You can reset your statistics at any time using:
 
 **Reset Statistics**
 
-⚠️ Clearing your browser storage may also remove your saved statistics, Koch progress and local preferences.
+⚠️ Clearing your browser storage may also remove your saved statistics,
+Koch progress and local preferences.
 
----
+------------------------------------------------------------------------
 
 # 🌐 Community Statistics
 
-In addition to your private local Statistics dashboard, Morse Practice displays a small set of **global community statistics**.
+In addition to your private local Statistics dashboard, Morse Practice
+displays a small set of **global community statistics**.
 
-These numbers represent the accumulated activity of the Morse Practice community, not your personal statistics.
+These numbers represent the accumulated activity of the Morse Practice
+community, not your personal statistics.
 
 The footer can display values such as:
 
-```text
+``` text
 🌐 Morse Practice — Community Statistics
 
 👥 Unique visitors
 🌎 Countries
 ⏱ Total practice hours
+⚔️ CW Duels
 ❤️ 73!
 ```
 
@@ -1221,7 +1357,8 @@ The footer can display values such as:
 
 Each browser receives a random anonymous local identifier.
 
-This allows the community counter to estimate unique browsers without requiring:
+This allows the community counter to estimate unique browsers without
+requiring:
 
 - Registration
 - Login
@@ -1233,7 +1370,8 @@ The identifier is stored locally in the browser.
 
 ## 🌎 Countries
 
-Morse Practice can use a lightweight country lookup to count how many different countries have used the platform.
+Morse Practice can use a lightweight country lookup to count how many
+different countries have used the platform.
 
 The global counter stores the country code needed for aggregation.
 
@@ -1241,21 +1379,34 @@ It is not intended to create personal location profiles.
 
 ## ⏱ Total Practice Hours
 
-This number is the **accumulated active practice time of all participating browsers**.
+This number is the **accumulated active practice time of all
+participating browsers**.
 
 It is not simply the amount of time the page has been left open.
 
-Practice time is accumulated only while recent training/keying activity is detected.
+Practice time is accumulated only while recent training/keying activity
+is detected.
 
 So:
 
-```text
+``` text
 ⏱ 420.5 total practice hours
 ```
 
-means approximately **420.5 hours practiced collectively by the Morse Practice community**.
+means approximately **420.5 hours practiced collectively by the Morse
+Practice community**.
 
 It does **not** mean that you personally practiced 420.5 hours.
+
+## ⚔️ CW Duels
+
+The footer also includes a global accumulated **CW Duel** counter.
+
+Each completed Duel contributes to this community total.
+
+Unlike the Weekly Leaderboard, this value is not intended to reset every
+week. It represents the accumulated number of completed battles recorded
+by the shared community statistics.
 
 ## ❤️ 73!
 
@@ -1265,11 +1416,12 @@ The footer also includes a simple global appreciation button:
 
 Each browser can send it once.
 
-It is simply a small community gesture — the amateur-radio version of a lightweight “like”.
+It is simply a small community gesture — the amateur-radio version of a
+lightweight “like”.
 
 No account is required.
 
----
+------------------------------------------------------------------------
 
 # 🏆 Weekly Leaderboard
 
@@ -1296,7 +1448,8 @@ The platform can then display:
 - Country flag when available
 - Other participating operators
 
-The weekly ranking uses a new week identifier automatically, so each new week begins a new comparison period.
+The weekly ranking uses a new week identifier automatically, so each new
+week begins a new comparison period.
 
 Your detailed training history remains local.
 
@@ -1306,16 +1459,21 @@ Only the compact information required for the leaderboard is shared.
 
 Weekly points are derived from local activity during the current week.
 
-The current scoring model combines activity such as:
+The current scoring model combines several transparent activity sources:
 
-- Character attempts
-- Practice sessions
-- Completed simulated QSOs
-- Active practice minutes
+- **+1** for each correct CW Racer character
+- **+1** for each active practice minute
+- **+20** for each completed simulated QSO
+- **+5** for each completed CW Duel
+- **+10 additional points** for each Duel win
+
+Competitive correct-answer streaks from **CW Racer** and **CW Duel** can
+also update the weekly streak shown in the ranking.
 
 The objective is not to reward WPM alone.
 
-It is intended to reward **regular practice and participation**.
+It is intended to reward **regular practice, accuracy and
+participation**.
 
 ## ✏️ Change Callsign
 
@@ -1339,19 +1497,23 @@ at any time.
 
 This stops that browser from publishing new weekly leaderboard updates.
 
-A result that was already published during the current week may remain visible to other users until that weekly dataset is no longer the active one.
+A result that was already published during the current week may remain
+visible to other users until that weekly dataset is no longer the active
+one.
 
 You can rejoin later with the same callsign or a different callsign.
 
 No account is created.
 
-> The Weekly Leaderboard is a friendly practice feature, not an official contest or award system.
+> The Weekly Leaderboard is a friendly practice feature, not an official
+> contest or award system.
 
----
+------------------------------------------------------------------------
 
 # 📡 Global Operator Callsign
 
-Morse Practice uses a single operator callsign across community-oriented features.
+Morse Practice uses a single operator callsign across community-oriented
+features.
 
 In Spanish the field is shown as:
 
@@ -1361,20 +1523,24 @@ In English:
 
 **Callsign**
 
-The objective is simple: you should not have to enter the same callsign separately in different modules.
+The objective is simple: you should not have to enter the same callsign
+separately in different modules.
 
 The saved operator identity can be reused by:
 
 - ON AIR
+- CW Duel
+- Global Chat
 - Weekly Leaderboard
 - Rewards
 - Other community features that may need an operator identity
 
 You can edit it at any time.
 
-Changing the callsign does not reset your local CW training statistics or Koch progress.
+Changing the callsign does not reset your local CW training statistics
+or Koch progress.
 
----
+------------------------------------------------------------------------
 
 # 🏆 Rewards
 
@@ -1395,13 +1561,15 @@ The idea is simple:
 
 > **Practice and participation unlock cosmetics — never advantages.**
 
-The Rewards module shows which achievements are locked and which have already been completed.
+The Rewards module shows which achievements are locked and which have
+already been completed.
 
----
+------------------------------------------------------------------------
 
 # 🔑 SKCC Member Reward
 
-If you are already a member of the **Straight Key Century Club**, you can add your SKCC number inside Rewards.
+If you are already a member of the **Straight Key Century Club**, you
+can add your SKCC number inside Rewards.
 
 The number is stored locally in your browser.
 
@@ -1411,16 +1579,18 @@ Adding it unlocks:
 
 a dark brass / vintage key-inspired theme.
 
-The Rewards module can also show the total number of Morse Practice users who have identified themselves as SKCC members.
+The Rewards module can also show the total number of Morse Practice
+users who have identified themselves as SKCC members.
 
 For example:
 
-```text
+``` text
 SKCC #31269
 84 members aboard
 ```
 
-This count refers only to SKCC members who have added their membership inside Morse Practice.
+This count refers only to SKCC members who have added their membership
+inside Morse Practice.
 
 It is **not** the total membership of SKCC.
 
@@ -1430,13 +1600,15 @@ If you remove it:
 
 - The SKCC reward becomes locked again
 - Brass Key becomes unavailable
-- If Brass Key is currently active, Morse Practice returns to the default Blue theme
+- If Brass Key is currently active, Morse Practice returns to the
+  default Blue theme
 
----
+------------------------------------------------------------------------
 
 # 🌊 LICW Member Reward
 
-Students and members of the **Long Island CW Club** can add their LICW number inside Rewards.
+Students and members of the **Long Island CW Club** can add their LICW
+number inside Rewards.
 
 Adding it unlocks:
 
@@ -1444,9 +1616,10 @@ Adding it unlocks:
 
 a blue / cyan theme inspired by the LICW community.
 
-Like SKCC, the Rewards module can display how many Morse Practice users have identified themselves as LICW members:
+Like SKCC, the Rewards module can display how many Morse Practice users
+have identified themselves as LICW members:
 
-```text
+``` text
 LICW #12345
 42 members aboard
 ```
@@ -1457,7 +1630,7 @@ You can edit or remove it at any time.
 
 Removing the number disables the corresponding reward theme.
 
----
+------------------------------------------------------------------------
 
 # 📻 CW Heritage
 
@@ -1465,11 +1638,12 @@ Operators who add **both** an SKCC number and an LICW number unlock:
 
 **📻 CW Heritage**
 
-This theme is intended as a small tribute to two communities strongly connected with learning, practicing and preserving CW.
+This theme is intended as a small tribute to two communities strongly
+connected with learning, practicing and preserving CW.
 
 If either membership is removed later, CW Heritage becomes locked again.
 
----
+------------------------------------------------------------------------
 
 # 🎧 Master Copy
 
@@ -1477,11 +1651,12 @@ Completing all cumulative Koch Challenges unlocks:
 
 **🎧 Master Copy**
 
-This reward recognizes progression through the complete listening-review path of the Koch course.
+This reward recognizes progression through the complete listening-review
+path of the Koch course.
 
 It is tied to Koch Challenge completion rather than raw WPM.
 
----
+------------------------------------------------------------------------
 
 # 🔥 7 Day Streak
 
@@ -1489,11 +1664,12 @@ Practicing on **7 consecutive days** unlocks:
 
 **🟢 Signal Green**
 
-The streak is based on actual active-practice days recorded locally by Morse Practice.
+The streak is based on actual active-practice days recorded locally by
+Morse Practice.
 
 It is a calendar-day streak:
 
-```text
+``` text
 Day 1
 Day 2
 Day 3
@@ -1507,7 +1683,7 @@ The reward is not based on your best CW Racer character streak.
 
 It represents consistent practice over multiple days.
 
----
+------------------------------------------------------------------------
 
 # ⚡ 30 Day Streak
 
@@ -1517,9 +1693,10 @@ Practicing on **30 consecutive days** unlocks:
 
 This is intended as one of the more demanding long-term rewards.
 
-Like the 7-day reward, it is based on consecutive active-practice days rather than speed or score.
+Like the 7-day reward, it is based on consecutive active-practice days
+rather than speed or score.
 
----
+------------------------------------------------------------------------
 
 # 🏅 Top 10 Operator
 
@@ -1531,19 +1708,22 @@ achievement.
 
 This is primarily a recognition badge rather than another theme.
 
-The Weekly Leaderboard remains informal and should be treated as a friendly community challenge rather than an official contest.
+The Weekly Leaderboard remains informal and should be treated as a
+friendly community challenge rather than an official contest.
 
----
+------------------------------------------------------------------------
 
 # ✨ Reward Notifications
 
-When a reward is unlocked, Morse Practice displays a small visual notification.
+When a reward is unlocked, Morse Practice displays a small visual
+notification.
 
-If several achievements unlock at almost the same time, they are displayed one after another rather than overlapping.
+If several achievements unlock at almost the same time, they are
+displayed one after another rather than overlapping.
 
 For example, adding a second community membership may unlock:
 
-```text
+``` text
 LICW Reward
         ↓
 CW Heritage
@@ -1551,7 +1731,7 @@ CW Heritage
 
 Each notification receives its own display time.
 
----
+------------------------------------------------------------------------
 
 # 🎨 Unlockable Reward Themes
 
@@ -1564,29 +1744,34 @@ In addition to the standard themes, Rewards can unlock:
 - 🟢 **Signal Green** — 7-day practice streak
 - 🌙 **Night Operator** — 30-day practice streak
 
-Locked reward themes remain visible in the theme selector with a lock indicator.
+Locked reward themes remain visible in the theme selector with a lock
+indicator.
 
 This allows operators to see what can still be earned.
 
----
+------------------------------------------------------------------------
 
 # 🤖 QSO BOT
 
-QSO Bot allows you to practice complete simulated CW contacts directly in your browser.
+QSO Bot allows you to practice complete simulated CW contacts directly
+in your browser.
 
-Instead of following a fixed text lesson, you interact with a simulated radio operator.
+Instead of following a fixed text lesson, you interact with a simulated
+radio operator.
 
 The bot calls CQ.
 
 You answer using Morse.
 
-The application decodes your transmission, identifies the information you sent, and generates the next part of the QSO.
+The application decodes your transmission, identifies the information
+you sent, and generates the next part of the QSO.
 
 The objective is not to memorize one exact exchange.
 
-The objective is to practice **understanding and participating in a real CW conversation**.
+The objective is to practice **understanding and participating in a real
+CW conversation**.
 
----
+------------------------------------------------------------------------
 
 # 📻 QSO Bot Modes
 
@@ -1611,13 +1796,13 @@ You do **not** have to transmit every field using one exact sentence.
 
 For example:
 
-```text
+``` text
 UR RST 579 NAME MATT QTH ASUNCION BK
 ```
 
 or:
 
-```text
+``` text
 R R TNX
 579
 NAME MATT
@@ -1627,11 +1812,12 @@ KN
 
 can both represent valid information.
 
----
+------------------------------------------------------------------------
 
 # 🟡 Intermediate QSO
 
-Intermediate contacts can include additional station information such as:
+Intermediate contacts can include additional station information such
+as:
 
 - Rig
 - Power
@@ -1641,26 +1827,30 @@ Intermediate contacts can include additional station information such as:
 
 For example:
 
-```text
+``` text
 RIG TS590
 PWR 100W
 ANT VERTICAL
 BK
 ```
 
-The QSO Bot attempts to extract the useful information from your complete transmission rather than requiring one rigid template.
+The QSO Bot attempts to extract the useful information from your
+complete transmission rather than requiring one rigid template.
 
----
+------------------------------------------------------------------------
 
 # 🔴 Advanced QSO
 
-Advanced practice introduces more uncertainty and more conversational exchanges.
+Advanced practice introduces more uncertainty and more conversational
+exchanges.
 
-The bot may request repetitions, ask about information already exchanged, or create situations where copying and responding become more important than simply completing a predefined sequence.
+The bot may request repetitions, ask about information already
+exchanged, or create situations where copying and responding become more
+important than simply completing a predefined sequence.
 
 The goal is to reduce the feeling of a scripted exercise.
 
----
+------------------------------------------------------------------------
 
 # 🌲 POTA Practice
 
@@ -1668,31 +1858,34 @@ POTA mode simulates a simple Parks on the Air style exchange.
 
 The bot can call:
 
-```text
+``` text
 CQ POTA CQ POTA DE W1ABC W1ABC K
 ```
 
 You can answer naturally:
 
-```text
+``` text
 W1ABC DE ZP5DXS K
 ```
 
 or simply:
 
-```text
+``` text
 ZP5DXS
 ```
 
-The exchange then proceeds using callsigns, reports and park-style operating procedure.
+The exchange then proceeds using callsigns, reports and park-style
+operating procedure.
 
-POTA practice is intentionally faster and more concise than a normal conversational QSO.
+POTA practice is intentionally faster and more concise than a normal
+conversational QSO.
 
----
+------------------------------------------------------------------------
 
 # 🔑 SKCC Practice
 
-SKCC mode provides practice for Straight Key Century Club style CW exchanges.
+SKCC mode provides practice for Straight Key Century Club style CW
+exchanges.
 
 The simulated operator can exchange:
 
@@ -1703,41 +1896,44 @@ The simulated operator can exchange:
 - SKCC number
 - Key type
 
-Supported key descriptions include common manual-key terminology such as:
+Supported key descriptions include common manual-key terminology such
+as:
 
 - **ST** — Straight Key
 - **BUG**
 - **SS / Cootie**
 
-The QSO Bot recognizes that operators do not always transmit every field in exactly the same order.
+The QSO Bot recognizes that operators do not always transmit every field
+in exactly the same order.
 
----
+------------------------------------------------------------------------
 
 # 📡 How to Answer the QSO Bot
 
-The QSO Bot is designed to accept normal CW procedure rather than requiring a form.
+The QSO Bot is designed to accept normal CW procedure rather than
+requiring a form.
 
 For example, if the bot is:
 
-```text
+``` text
 K1ABC
 ```
 
 and your callsign is:
 
-```text
+``` text
 ZP5DXS
 ```
 
 you may answer:
 
-```text
+``` text
 K1ABC DE ZP5DXS K
 ```
 
 The application understands the conventional meaning of **DE**:
 
-```text
+``` text
 K1ABC DE ZP5DXS
 │          │
 │          └── Station transmitting
@@ -1747,7 +1943,7 @@ K1ABC DE ZP5DXS
 
 Therefore:
 
-```text
+``` text
 K1ABC DE ZP5DXS
 ```
 
@@ -1755,11 +1951,12 @@ means:
 
 > **ZP5DXS is transmitting to K1ABC.**
 
-This is important because both callsigns may appear in the same transmission.
+This is important because both callsigns may appear in the same
+transmission.
 
 The parser uses normal CW syntax to distinguish them.
 
----
+------------------------------------------------------------------------
 
 # 🔄 Giving the Turn Back
 
@@ -1769,19 +1966,19 @@ Examples:
 
 ### BK
 
-```text
+``` text
 UR RST 579 NAME MATT BK
 ```
 
 ### KN
 
-```text
+``` text
 QTH ASUNCION KN
 ```
 
 ### K
 
-```text
+``` text
 RIG TS590 ANT VERTICAL K
 ```
 
@@ -1789,9 +1986,10 @@ RIG TS590 ANT VERTICAL K
 
 These may also be used when appropriate.
 
-Explicit turn markers are useful because the bot knows immediately that your transmission is complete.
+Explicit turn markers are useful because the bot knows immediately that
+your transmission is complete.
 
----
+------------------------------------------------------------------------
 
 # ⏱ Pauses While Sending
 
@@ -1799,7 +1997,7 @@ You do not need to send everything without stopping.
 
 For example:
 
-```text
+``` text
 NAME MATT
 
 [pause]
@@ -1815,13 +2013,14 @@ BK
 
 The bot uses a two-stage silence system.
 
-A short pause is treated as a possible pause **inside your transmission**.
+A short pause is treated as a possible pause **inside your
+transmission**.
 
 It waits before assuming you have finished.
 
 If you send:
 
-```text
+``` text
 BK
 KN
 K
@@ -1833,7 +2032,7 @@ the bot can recognize a clear handover and respond much faster.
 
 This allows more natural sending without forcing the operator to rush.
 
----
+------------------------------------------------------------------------
 
 # 🎭 Different Simulated Operators
 
@@ -1851,31 +2050,31 @@ Possible styles include operators who are:
 
 One operator may prefer:
 
-```text
+``` text
 BK
 ```
 
 while another may frequently use:
 
-```text
+``` text
 KN
 ```
 
 Some may say:
 
-```text
+``` text
 TNX CALL
 ```
 
 Others may use:
 
-```text
+``` text
 GM TNX FER CALL
 ```
 
 or:
 
-```text
+``` text
 FB OM TNX CALL
 ```
 
@@ -1883,7 +2082,7 @@ Some operators will close quickly.
 
 Others may continue the conversation and ask about:
 
-```text
+``` text
 RIG?
 ANT?
 PWR?
@@ -1895,41 +2094,42 @@ The selected personality remains consistent during that QSO.
 
 This helps make repeated practice less predictable.
 
----
+------------------------------------------------------------------------
 
 # 🌩 Simulated Radio Conditions
 
 Real CW contacts are not always perfect.
 
-For this reason, the QSO Bot can occasionally introduce simple simulated radio problems.
+For this reason, the QSO Bot can occasionally introduce simple simulated
+radio problems.
 
 You may hear:
 
-```text
+``` text
 SRY QSB RST AGN PSE
 ```
 
 or:
 
-```text
+``` text
 SRY VY QRM AGN PSE
 ```
 
 or:
 
-```text
+``` text
 QRM HR PSE RPT
 ```
 
 or:
 
-```text
+``` text
 SRY WEAK SIG AGN PSE
 ```
 
 or simply:
 
-```text
+``` text
 AGN PSE
 ```
 
@@ -1941,7 +2141,7 @@ They are designed to practice something extremely important in real CW:
 
 After a successful repeat, the simulated operator may answer naturally:
 
-```text
+``` text
 R R FB
 ```
 
@@ -1949,13 +2149,15 @@ and continue the QSO.
 
 The intention is not to make every contact difficult.
 
-Most QSOs remain normal, while occasional QSB, QRM or repeat requests introduce uncertainty.
+Most QSOs remain normal, while occasional QSB, QRM or repeat requests
+introduce uncertainty.
 
----
+------------------------------------------------------------------------
 
 # 🧠 Local AI
 
-QSO Bot can optionally use a **local language model** to help interpret flexible CW exchanges.
+QSO Bot can optionally use a **local language model** to help interpret
+flexible CW exchanges.
 
 Activate:
 
@@ -1969,13 +2171,14 @@ Afterward, the browser can cache them locally.
 
 No AI account or API key is required.
 
----
+------------------------------------------------------------------------
 
 # 💡 Why Local AI?
 
-Traditional parsers work very well when the input follows predictable structures:
+Traditional parsers work very well when the input follows predictable
+structures:
 
-```text
+``` text
 RST 579
 NAME MATT
 QTH ASUNCION
@@ -1983,13 +2186,13 @@ QTH ASUNCION
 
 Real operators, however, may send:
 
-```text
+``` text
 R R TNX UR 579 HR MATT ASUNCION BK
 ```
 
 or:
 
-```text
+``` text
 FB CPY MATT HR ASUNCION RIG TS590 100W VERTICAL KN
 ```
 
@@ -1997,9 +2200,10 @@ The Local AI layer helps interpret these less rigid exchanges.
 
 The goal is not to allow AI to control everything.
 
-Instead, Morse Practice combines deterministic CW rules with AI-assisted interpretation.
+Instead, Morse Practice combines deterministic CW rules with AI-assisted
+interpretation.
 
----
+------------------------------------------------------------------------
 
 # 🧠 AI Status Indicator
 
@@ -2027,13 +2231,229 @@ The model is currently interpreting your completed CW transmission.
 
 The AI model could not be loaded or is unavailable.
 
-The QSO Bot can still use its normal deterministic parser when AI is unavailable.
+The QSO Bot can still use its normal deterministic parser when AI is
+unavailable.
 
----
+------------------------------------------------------------------------
+
+# 💬 Global Chat
+
+Morse Practice includes a lightweight global text Chat that is
+independent from both **ON AIR** and **CW Duel**.
+
+The Chat is available while you use the rest of the platform and can be
+expanded or collapsed at any time.
+
+When expanded, it shows the number of operators currently present in the
+Chat.
+
+You can send a message by typing normally and pressing **Enter** or
+**Send**.
+
+The saved global callsign is used as your Chat identity when available.
+
+## 🔊 Listen to a Message in CW
+
+Every Chat message includes a small **speaker** button.
+
+Press it to replay that message locally as Morse code using the current
+CW audio settings.
+
+After the CW playback finishes successfully, a **✓** appears beside the
+message to indicate that it has already been heard in CW.
+
+## 🎧 Auto CW
+
+Enable:
+
+**Auto CW**
+
+to automatically play new incoming Chat messages in Morse.
+
+Messages are placed in a queue and reproduced:
+
+``` text
+Message 1
+   ↓
+short pause
+   ↓
+Message 2
+   ↓
+short pause
+   ↓
+Message 3
+```
+
+They are not played over one another.
+
+Turning Auto CW off stops automatic Chat playback and clears the pending
+automatic playback queue. It does **not** reveal hidden text or delete
+messages.
+
+You can still use the speaker button to replay individual messages
+manually.
+
+## 🙈 Hide Text
+
+Enable:
+
+**Hide Text**
+
+to hide the text of all currently displayed Chat messages.
+
+This provides a simple reception exercise:
+
+``` text
+Incoming message
+      ↓
+Text hidden
+      ↓
+Listen in CW
+      ↓
+Copy by ear
+```
+
+Hide Text and Auto CW are independent.
+
+For example:
+
+- **Hide Text ON + Auto CW ON** — incoming messages become an automatic
+  CW copying exercise
+- **Hide Text ON + Auto CW OFF** — choose manually which messages to
+  hear
+- **Hide Text OFF + Auto CW ON** — read the normal Chat while also
+  hearing new messages
+- **Both OFF** — conventional text Chat
+
+The Chat does not replace ON AIR. ON AIR carries actual realtime keying
+events, while Chat is intended for lightweight written communication and
+coordination.
+
+------------------------------------------------------------------------
+
+# ⚔️ CW DUEL
+
+**CW Duel** is a realtime head-to-head Morse copying game between two
+operators.
+
+It is independent from ON AIR.
+
+When you enter Duel mode, Morse Practice uses your saved global callsign
+and places you in the Duel lobby.
+
+ON AIR and Duel are mutually exclusive so that a battle does not
+transmit keying into the worldwide ON AIR room.
+
+## 🎚 Duel Speeds
+
+Three fixed speed categories are available:
+
+- **8 WPM**
+- **15 WPM**
+- **20 WPM**
+
+The default Duel speed is **15 WPM**.
+
+Operators can only challenge opponents using the same selected speed.
+
+## 🤝 Finding an Opponent
+
+Inside the Duel lobby you can:
+
+- Allow or disable incoming challenges
+- Challenge a specific available operator
+- Search for a random opponent
+- Accept or decline a challenge
+
+This makes it possible either to meet a specific friend or simply find
+another available operator.
+
+## 🎧 How a Duel Works
+
+A Duel contains:
+
+**30 Morse characters**
+
+using letters and numbers.
+
+For each round:
+
+1.  Morse Practice sends one character in CW.
+2.  No DIT / DAH visual aid is shown.
+3.  Four possible answers appear.
+4.  You select the character you copied.
+5.  You have a maximum of **5 seconds** to answer.
+
+The same 30-round challenge is evaluated independently for both
+operators.
+
+The keying area temporarily becomes the Duel arena while the battle is
+active.
+
+## 🏆 Determining the Winner
+
+After all 30 characters, the winner is determined in this order:
+
+1.  **More correct answers**
+2.  If tied, **best correct-answer streak 🔥 during that Duel**
+3.  If still tied, **lower total response time**
+
+Conceptually:
+
+``` text
+Accuracy
+   ↓ tie
+Best streak
+   ↓ tie
+Total response time
+```
+
+This keeps the game focused primarily on correct CW copy, using
+consistency and speed only as tie-breakers.
+
+## ⏱ Five-Second Answer Limit
+
+Each character has a maximum response window of approximately **5
+seconds**.
+
+If no answer is selected before the timer expires, that round is counted
+without a correct response and the Duel continues.
+
+This prevents an abandoned question from stopping the complete battle.
+
+## 🚪 Abandoning a Duel
+
+A Duel can be abandoned while it is in progress.
+
+The other operator is notified and the active battle is closed instead
+of remaining permanently stuck waiting for a response.
+
+## 🔁 After the Duel
+
+When both operators finish, the result screen shows:
+
+- Correct answers
+- Best streak
+- Total response time
+- Winner
+
+You can then:
+
+- Request a rematch
+- Find a new opponent
+- Return to the Duel lobby
+- Exit Duel mode
+
+Completed Duels contribute to the global Duel counter.
+
+They also participate in the current Weekly Leaderboard scoring system.
+
+------------------------------------------------------------------------
 
 # 🌐 ON AIR — Worldwide CW Practice Room
 
-ON AIR allows Morse Practice users to practice CW together over the Internet.
+ON AIR allows Morse Practice users to practice CW together over the
+Internet.
 
 Activate:
 
@@ -2041,11 +2461,17 @@ Activate:
 
 to join the worldwide practice room.
 
+When ON AIR is active, the interface provides a stronger visual
+indication that you are connected: the ON AIR state changes to red and a
+small live indicator appears in the keying area. This helps make it
+obvious that your keying can currently be heard by other operators.
+
 No account is required.
 
-Name remains optional. When you save a global operator callsign, ON AIR can reuse that same callsign instead of requiring it again.
+Name remains optional. When you save a global operator callsign, ON AIR
+can reuse that same callsign instead of requiring it again.
 
----
+------------------------------------------------------------------------
 
 # 📡 How ON AIR Works
 
@@ -2055,7 +2481,7 @@ Instead, it exchanges keying events.
 
 Essentially:
 
-```text
+``` text
 KEY DOWN
     ↓
 Timing transmitted
@@ -2069,19 +2495,22 @@ Tone generated locally
 KEY UP
 ```
 
-This allows another operator to hear the timing of your actual keying without transmitting an audio stream.
+This allows another operator to hear the timing of your actual keying
+without transmitting an audio stream.
 
-The receiving browser generates its own sidetone using its local audio configuration.
+The receiving browser generates its own sidetone using its local audio
+configuration.
 
----
+------------------------------------------------------------------------
 
 # 🟢 Online Operators
 
-When ON AIR is active, the application displays operators currently connected to the room.
+When ON AIR is active, the application displays operators currently
+connected to the room.
 
 For example:
 
-```text
+``` text
 🟢 Online
 
 🇵🇾 ZP5DXS
@@ -2090,15 +2519,17 @@ For example:
 🇺🇸 Guest-5A8C
 ```
 
-This makes it possible to see when other people are available for practice.
+This makes it possible to see when other people are available for
+practice.
 
----
+------------------------------------------------------------------------
 
 # 🔇 Individual Mute
 
 Each operator in the room can be muted locally.
 
-If someone accidentally leaves ON AIR enabled while practicing, you can simply mute that operator.
+If someone accidentally leaves ON AIR enabled while practicing, you can
+simply mute that operator.
 
 Muting someone affects **only your browser**.
 
@@ -2111,7 +2542,7 @@ It does not:
 
 Every operator controls their own listening experience.
 
----
+------------------------------------------------------------------------
 
 # 🔒 Training Mode Isolation
 
@@ -2123,16 +2554,21 @@ When using training modes such as:
 - QSO Bot
 - Custom Lesson
 - Koch Course
+- CW Duel
 
-ON AIR is disabled so that training activity is not accidentally transmitted into the worldwide practice room.
+ON AIR is disabled so that training activity is not accidentally
+transmitted into the worldwide practice room.
 
-Likewise, ON AIR is intended for real person-to-person practice rather than automated training.
+Likewise, ON AIR is intended for real person-to-person practice rather
+than automated training.
 
-The Statistics dashboard is visual only and does not affect ON AIR or other training modes.
+The Statistics dashboard is visual only and does not affect ON AIR or
+other training modes.
 
-This keeps each mode predictable and prevents training sessions from interfering with other operators.
+This keeps each mode predictable and prevents training sessions from
+interfering with other operators.
 
----
+------------------------------------------------------------------------
 
 # 🤝 Practice Together
 
@@ -2154,7 +2590,7 @@ The concept is intentionally simple:
 
 > **Open the browser, turn ON AIR on, and start sending.**
 
----
+------------------------------------------------------------------------
 
 # 🎨 Appearance and Themes
 
@@ -2187,7 +2623,8 @@ Additional themes can be unlocked through **Rewards**:
 - 🟢 **Signal Green**
 - 🌙 **Night Operator**
 
-The standard color themes change the accent colors used throughout the interface while preserving the same layout and behavior.
+The standard color themes change the accent colors used throughout the
+interface while preserving the same layout and behavior.
 
 ## 🎮 Game Boy Theme
 
@@ -2213,9 +2650,10 @@ It does not change:
 - ON AIR
 - Training logic
 
-Your Light/Dark preference and your selected theme are saved locally and restored automatically.
+Your Light/Dark preference and your selected theme are saved locally and
+restored automatically.
 
----
+------------------------------------------------------------------------
 
 # 🌎 Language
 
@@ -2227,11 +2665,13 @@ The interface supports:
 
 Your language preference is remembered automatically.
 
-Training interface text, Daily instructions, Koch controls, Statistics, Custom Lessons, QSO Bot controls and other user-interface elements follow the selected language.
+Training interface text, Daily instructions, Koch controls, Statistics,
+Custom Lessons, QSO Bot controls and other user-interface elements
+follow the selected language.
 
 CW operating abbreviations such as:
 
-```text
+``` text
 CQ
 DE
 RST
@@ -2247,47 +2687,60 @@ TU
 73
 ```
 
-remain unchanged because they are part of normal international CW operating language.
+remain unchanged because they are part of normal international CW
+operating language.
 
----
+------------------------------------------------------------------------
 
 # 🔧 DIY Hardware
 
-One of the primary goals of this project is making Morse code available to everyone.
+One of the primary goals of this project is making Morse code available
+to everyone.
 
 Learning CW should never depend on owning expensive hardware.
 
-Almost anything capable of behaving like a keyboard or mouse can potentially become a CW interface.
+Almost anything capable of behaving like a keyboard or mouse can
+potentially become a CW interface.
 
----
+------------------------------------------------------------------------
 
 # 🖱 USB Mouse Adapter
 
-A very inexpensive way to connect a real Morse key is to modify a standard USB mouse.
+A very inexpensive way to connect a real Morse key is to modify a
+standard USB mouse.
 
-The mouse buttons already behave as digital inputs understood by the browser.
+The mouse buttons already behave as digital inputs understood by the
+browser.
 
-By connecting the contacts of a straight key or paddle to those switches, an inexpensive mouse can become a simple USB Morse interface.
+By connecting the contacts of a straight key or paddle to those
+switches, an inexpensive mouse can become a simple USB Morse interface.
 
-This is particularly useful for beginners who want to start using a real key without purchasing a dedicated interface.
+This is particularly useful for beginners who want to start using a real
+key without purchasing a dedicated interface.
 
----
+![Example of a USB mouse adapted as a Morse key interface](images/mouse.jpeg)
+
+*Example of a simple DIY interface made by adapting a standard USB mouse.*
+
+------------------------------------------------------------------------
 
 # 📶 Wireless Mouse Adapter
 
 The same concept can be applied to inexpensive wireless mice.
 
-Instead of connecting your Morse key directly to a computer, connect it to the button contacts of a wireless mouse.
+Instead of connecting your Morse key directly to a computer, connect it
+to the button contacts of a wireless mouse.
 
 The mouse receiver handles the USB communication.
 
 This can create an extremely simple wireless Morse practice interface.
 
----
+------------------------------------------------------------------------
 
 # 🤖 Arduino USB HID
 
-Microcontrollers with native USB HID support can emulate a computer keyboard or mouse.
+Microcontrollers with native USB HID support can emulate a computer
+keyboard or mouse.
 
 Compatible boards include:
 
@@ -2299,42 +2752,53 @@ Compatible boards include:
 
 A straight key or paddle can be connected to the microcontroller.
 
-The microcontroller then sends keyboard or mouse events to Morse Practice.
+The microcontroller then sends keyboard or mouse events to Morse
+Practice.
 
-This allows you to build anything from a simple adapter to a custom CW training interface.
+This allows you to build anything from a simple adapter to a custom CW
+training interface.
 
----
+------------------------------------------------------------------------
 
 # 🔌 Commercial USB Adapters
 
 Commercial USB Morse interfaces can also be used.
 
-If the interface presents the key or paddle as normal keyboard or mouse input, Morse Practice can use it directly.
+If the interface presents the key or paddle as normal keyboard or mouse
+input, Morse Practice can use it directly.
 
----
+![Example of a commercial USB Morse adapter](images/adaptador.jpg)
+
+*Example of a commercial USB adapter that can connect a physical Morse key or paddle to a computer.*
+
+------------------------------------------------------------------------
 
 # 🎹 VBand-Style Keyboard Input
 
-Morse Practice also accepts keyboard events commonly used by VBand-style interfaces.
+Morse Practice also accepts keyboard events commonly used by VBand-style
+interfaces.
 
 In Paddle mode:
 
-```text
+``` text
 Left Ctrl   → DIT
 Right Ctrl  → DAH
 [           → DIT
 ]           → DAH
 ```
 
-This improves compatibility with interfaces that present a physical paddle as keyboard input rather than mouse buttons.
+This improves compatibility with interfaces that present a physical
+paddle as keyboard input rather than mouse buttons.
 
-The existing mouse, touchscreen, keyboard and Arduino HID input methods remain available at the same time.
+The existing mouse, touchscreen, keyboard and Arduino HID input methods
+remain available at the same time.
 
----
+------------------------------------------------------------------------
 
 # 💡 DIY Ideas
 
-Morse Practice can be used as the software side of many experimental projects.
+Morse Practice can be used as the software side of many experimental
+projects.
 
 Possible ideas include:
 
@@ -2353,17 +2817,18 @@ Possible ideas include:
 
 Experimentation is encouraged.
 
----
+------------------------------------------------------------------------
 
 # 🤓 Under the Hood — How the QSO Bot Works
 
-For anyone interested in the technical side, QSO Bot is not simply a chatbot connected to a Morse oscillator.
+For anyone interested in the technical side, QSO Bot is not simply a
+chatbot connected to a Morse oscillator.
 
 The system uses several layers.
 
 The basic architecture is:
 
-```text
+``` text
 Your key / paddle
         ↓
 Browser keying engine
@@ -2393,17 +2858,18 @@ Local sidetone
 
 This hybrid approach is intentional.
 
----
+------------------------------------------------------------------------
 
 # 1️⃣ Morse Comes First
 
 The QSO Bot does not receive microphone audio.
 
-It receives the same decoded Morse information generated by the normal trainer.
+It receives the same decoded Morse information generated by the normal
+trainer.
 
 Your actual keying is converted from:
 
-```text
+``` text
 KEY DOWN
 KEY UP
 ```
@@ -2412,7 +2878,7 @@ into timing.
 
 Timing becomes:
 
-```text
+``` text
 DIT
 DAH
 ```
@@ -2421,17 +2887,18 @@ and those sequences become characters.
 
 Characters become the complete CW transmission used by the QSO engine.
 
----
+------------------------------------------------------------------------
 
 # 2️⃣ CW-Aware Deterministic Parser
 
-Before asking an AI model anything, Morse Practice first applies explicit CW rules.
+Before asking an AI model anything, Morse Practice first applies
+explicit CW rules.
 
 This makes important radio procedures deterministic.
 
 For example:
 
-```text
+``` text
 K1ABC DE ZP5DXS K
 ```
 
@@ -2439,7 +2906,7 @@ is interpreted according to CW syntax.
 
 The station after:
 
-```text
+``` text
 DE
 ```
 
@@ -2447,7 +2914,7 @@ is understood as the transmitting station.
 
 Therefore:
 
-```text
+``` text
 USER CALL = ZP5DXS
 ```
 
@@ -2455,7 +2922,7 @@ not K1ABC.
 
 The deterministic parser also recognizes structured information such as:
 
-```text
+``` text
 RST
 NAME
 QTH
@@ -2472,21 +2939,23 @@ Cut numbers are also normalized where appropriate.
 
 For example:
 
-```text
+``` text
 5NN
 ```
 
 can be interpreted as:
 
-```text
+``` text
 599
 ```
 
-This deterministic layer is intentionally placed **before the language model**.
+This deterministic layer is intentionally placed **before the language
+model**.
 
-A language model should not have to guess something that normal CW procedure already defines clearly.
+A language model should not have to guess something that normal CW
+procedure already defines clearly.
 
----
+------------------------------------------------------------------------
 
 # 3️⃣ Local Language Model
 
@@ -2496,9 +2965,11 @@ When Local AI is enabled, Morse Practice can use:
 
 as an additional interpretation layer.
 
-The model runs locally in the browser through a browser-compatible machine-learning runtime.
+The model runs locally in the browser through a browser-compatible
+machine-learning runtime.
 
-When supported by the device, browser and graphics hardware, **WebGPU** can be used for acceleration.
+When supported by the device, browser and graphics hardware, **WebGPU**
+can be used for acceleration.
 
 A CPU/WASM path may be used when appropriate support is available.
 
@@ -2511,9 +2982,10 @@ There is:
 - No API key
 - No external AI account required
 
-The model files are downloaded when needed and may be cached by the browser.
+The model files are downloaded when needed and may be cached by the
+browser.
 
----
+------------------------------------------------------------------------
 
 # 4️⃣ What the AI Actually Does
 
@@ -2523,16 +2995,17 @@ Its main job is interpretation.
 
 Suppose you transmit:
 
-```text
+``` text
 R R TNX BOB UR 579 HR MATT ASUNCION
 RIG TS590 PWR 100W ANT VERTICAL BK
 ```
 
 The deterministic parser extracts everything it can first.
 
-If relevant information remains ambiguous, the AI can analyze the complete transmission and attempt to identify structured fields such as:
+If relevant information remains ambiguous, the AI can analyze the
+complete transmission and attempt to identify structured fields such as:
 
-```text
+``` text
 CALL
 RST
 NAME
@@ -2546,7 +3019,7 @@ KEY
 
 Conceptually:
 
-```text
+``` text
 Natural CW transmission
         ↓
 Local language model
@@ -2558,9 +3031,10 @@ Validation
 QSO state
 ```
 
-The language model therefore acts more like a **local CW interpretation assistant** than an unrestricted chatbot.
+The language model therefore acts more like a **local CW interpretation
+assistant** than an unrestricted chatbot.
 
----
+------------------------------------------------------------------------
 
 # 5️⃣ Why Not Let the AI Do Everything?
 
@@ -2572,7 +3046,7 @@ For this reason, Morse Practice uses a hybrid architecture.
 
 The system prefers:
 
-```text
+``` text
 Known CW rule
         ↓
 Deterministic parser
@@ -2582,29 +3056,32 @@ AI only when useful
 
 rather than:
 
-```text
+``` text
 Everything
         ↓
 AI guess
 ```
 
-The application attempts to validate AI-extracted information against the transmission itself.
+The application attempts to validate AI-extracted information against
+the transmission itself.
 
-The objective is to reduce hallucination and prevent the bot from casually inventing user information.
+The objective is to reduce hallucination and prevent the bot from
+casually inventing user information.
 
 For example, if you never transmitted:
 
-```text
+``` text
 NAME JOHN
 ```
 
 the system should not simply decide that your name is John.
 
----
+------------------------------------------------------------------------
 
 # 6️⃣ The AI Is Selective
 
-Running a language model after every Morse character would be inefficient and would create unnecessary delays.
+Running a language model after every Morse character would be
+inefficient and would create unnecessary delays.
 
 Instead, Morse Practice waits for a complete transmission.
 
@@ -2614,7 +3091,7 @@ The AI is invoked when additional interpretation can actually help.
 
 This provides an important balance:
 
-```text
+``` text
 Simple exchange
 → Fast parser
 → Fast response
@@ -2622,7 +3099,7 @@ Simple exchange
 
 while:
 
-```text
+``` text
 Complex / unusual exchange
 → Parser
 → Local AI
@@ -2632,7 +3109,7 @@ Complex / unusual exchange
 
 This is one reason explicit CW handover markers such as:
 
-```text
+``` text
 BK
 KN
 K
@@ -2642,7 +3119,7 @@ are useful.
 
 They tell the QSO engine that your transmission is complete.
 
----
+------------------------------------------------------------------------
 
 # 7️⃣ Two-Stage End-of-Transmission Detection
 
@@ -2654,13 +3131,13 @@ A pause does not necessarily mean:
 
 You might send:
 
-```text
+``` text
 NAME MATT
 ```
 
 pause briefly and continue:
 
-```text
+``` text
 QTH ASUNCION
 ```
 
@@ -2668,7 +3145,7 @@ For this reason, QSO Bot uses a two-stage silence strategy.
 
 Conceptually:
 
-```text
+``` text
 Last Morse character
         ↓
 Short silence
@@ -2684,7 +3161,7 @@ Process transmission
 
 But if the application sees:
 
-```text
+``` text
 BK
 KN
 K
@@ -2694,9 +3171,10 @@ SK
 
 it has much stronger evidence that you intentionally returned the turn.
 
-This allows the bot to respond quickly without constantly interrupting slower operators.
+This allows the bot to respond quickly without constantly interrupting
+slower operators.
 
----
+------------------------------------------------------------------------
 
 # 8️⃣ QSO State Machine
 
@@ -2706,7 +3184,7 @@ Different scenarios expect different kinds of information.
 
 For example:
 
-```text
+``` text
 CQ
  ↓
 CALLSIGN
@@ -2720,13 +3198,15 @@ OPTIONAL INFORMATION
 73 / SK
 ```
 
-But the state machine does not require all information to arrive one field at a time.
+But the state machine does not require all information to arrive one
+field at a time.
 
-If you send several pieces of information in one transmission, they can be stored together.
+If you send several pieces of information in one transmission, they can
+be stored together.
 
 For example:
 
-```text
+``` text
 UR 579 NAME MATT QTH ASUNCION RIG TS590 BK
 ```
 
@@ -2734,7 +3214,7 @@ may satisfy several parts of the QSO simultaneously.
 
 This is what allows the exchange to feel less like completing a form.
 
----
+------------------------------------------------------------------------
 
 # 9️⃣ Persistent Operator Personality
 
@@ -2744,7 +3224,7 @@ That personality remains active for the complete contact.
 
 The current system can represent styles such as:
 
-```text
+``` text
 TERSE
 FRIENDLY
 OLD-SCHOOL
@@ -2762,7 +3242,7 @@ The personality influences things such as:
 
 A terse operator may send:
 
-```text
+``` text
 R R
 TU
 73
@@ -2770,7 +3250,7 @@ TU
 
 while a more conversational operator may use:
 
-```text
+``` text
 VY FB TNX FER CALL
 ```
 
@@ -2780,49 +3260,53 @@ This is intentionally lightweight.
 
 The goal is not to simulate human psychology.
 
-The goal is simply to stop every QSO from following exactly the same script.
+The goal is simply to stop every QSO from following exactly the same
+script.
 
----
+------------------------------------------------------------------------
 
 # 🔟 Probabilistic Conversation Branches
 
-Not every Basic QSO needs to finish immediately after exchanging RST, name and QTH.
+Not every Basic QSO needs to finish immediately after exchanging RST,
+name and QTH.
 
 Some simulated operators may continue with:
 
-```text
+``` text
 RIG?
 ```
 
 or:
 
-```text
+``` text
 ANT?
 ```
 
 or:
 
-```text
+``` text
 PWR?
 ```
 
 or:
 
-```text
+``` text
 WX?
 ```
 
 or:
 
-```text
+``` text
 HW CPY ME?
 ```
 
-These branches occur probabilistically and are influenced by the simulated operator style.
+These branches occur probabilistically and are influenced by the
+simulated operator style.
 
-This introduces variation without giving the language model unrestricted control over the protocol.
+This introduces variation without giving the language model unrestricted
+control over the protocol.
 
----
+------------------------------------------------------------------------
 
 # 1️⃣1️⃣ Simulated Band Conditions
 
@@ -2830,7 +3314,7 @@ The QSO engine can occasionally introduce a radio-condition event.
 
 Examples include:
 
-```text
+``` text
 QSB
 QRM
 WEAK SIG
@@ -2839,13 +3323,13 @@ AGN PSE
 
 The response generator then produces realistic CW phrases such as:
 
-```text
+``` text
 SRY QSB RST AGN PSE
 ```
 
 or:
 
-```text
+``` text
 SRY VY QRM AGN PSE
 ```
 
@@ -2855,17 +3339,19 @@ The bot then waits for the operator to repeat the requested information.
 
 After successful recovery it can continue with:
 
-```text
+``` text
 R R FB
 ```
 
-This provides practice not only in sending perfect exchanges but also in **repairing imperfect ones**.
+This provides practice not only in sending perfect exchanges but also in
+**repairing imperfect ones**.
 
----
+------------------------------------------------------------------------
 
 # 1️⃣2️⃣ Controlled Generation
 
-One important design principle is that AI interpretation and QSO response generation are separated.
+One important design principle is that AI interpretation and QSO
+response generation are separated.
 
 The AI helps understand:
 
@@ -2881,7 +3367,7 @@ And the response generator decides:
 
 Conceptually:
 
-```text
+``` text
 AI interpretation
         ↓
 INTENT
@@ -2893,19 +3379,22 @@ Controlled CW vocabulary
 Response
 ```
 
-This prevents the language model from freely inventing arbitrary radio procedure.
+This prevents the language model from freely inventing arbitrary radio
+procedure.
 
 It also makes the behavior easier to debug and improve.
 
----
+------------------------------------------------------------------------
 
 # 🧪 Why This Architecture?
 
-The objective of QSO Bot is not to create an AI that happens to know Morse code.
+The objective of QSO Bot is not to create an AI that happens to know
+Morse code.
 
 The objective is to create a **CW training simulator**.
 
-That means several things matter more than raw language-model capability:
+That means several things matter more than raw language-model
+capability:
 
 - Correct CW procedure
 - Predictable callsign interpretation
@@ -2918,25 +3407,30 @@ That means several things matter more than raw language-model capability:
 - Repeatability
 - Ability to work without AI when necessary
 
-A relatively small local language model combined with explicit radio rules can therefore be more useful for this particular task than simply sending every transmission to a much larger general-purpose chatbot.
+A relatively small local language model combined with explicit radio
+rules can therefore be more useful for this particular task than simply
+sending every transmission to a much larger general-purpose chatbot.
 
----
+------------------------------------------------------------------------
 
 # 🔬 Experimental Feature
 
 Local AI and QSO Bot are experimental features.
 
-CW operating styles vary enormously between operators, countries, clubs and operating activities.
+CW operating styles vary enormously between operators, countries, clubs
+and operating activities.
 
 Real operators also make mistakes.
 
 So does software.
 
-The simulator should be considered a **practice tool**, not an authority on the only correct way to conduct a CW QSO.
+The simulator should be considered a **practice tool**, not an authority
+on the only correct way to conduct a CW QSO.
 
-Feedback, unusual exchanges and examples that confuse the parser are especially useful for improving the project.
+Feedback, unusual exchanges and examples that confuse the parser are
+especially useful for improving the project.
 
----
+------------------------------------------------------------------------
 
 # 🔐 Privacy
 
@@ -2948,38 +3442,50 @@ Koch Course progress is stored locally.
 
 Custom Lesson progress and character performance are processed locally.
 
-Your theme, Audio Only, Visual Aid, Band Noise and other interface preferences are stored locally.
+Your theme, Audio Only, Visual Aid, Band Noise and other interface
+preferences are stored locally.
 
 Local AI inference is designed to run in the browser.
 
-ON AIR necessarily exchanges realtime keying information with the realtime relay so that other connected operators can hear your keying.
+ON AIR necessarily exchanges realtime keying information with the
+realtime relay so that other connected operators can hear your keying.
 
-The optional community features use lightweight shared realtime data for:
+The optional community features use lightweight shared realtime data
+for:
 
 - Anonymous visitor counting
 - Country aggregation
 - Total practice-hour aggregation
+- Global completed-Duel counting
 - The global 73! counter
 - Weekly Leaderboard entries
 - Anonymous SKCC / LICW onboard counters
+- Realtime CW Duel presence, challenges and battle state
+- Lightweight global Chat messages and presence
 
-The community statistics use a random browser identifier rather than requiring a user account.
+The community statistics use a random browser identifier rather than
+requiring a user account.
 
-The Weekly Leaderboard shares your callsign only if **you choose to participate**.
+The Weekly Leaderboard shares your callsign only if **you choose to
+participate**.
 
-SKCC and LICW membership counters use anonymous browser-level participation records for counting. Your actual SKCC or LICW number is stored locally and is used to display your personal reward state.
+SKCC and LICW membership counters use anonymous browser-level
+participation records for counting. Your actual SKCC or LICW number is
+stored locally and is used to display your personal reward state.
 
-Your complete detailed training statistics are not uploaded as a user profile.
+Your complete detailed training statistics are not uploaded as a user
+profile.
 
 No registration is required to use Morse Practice.
 
----
+------------------------------------------------------------------------
 
 # 📷 Screenshots
 
-Screenshots and additional hardware examples will be added as the project evolves.
+Screenshots and additional hardware examples will be added as the
+project evolves.
 
----
+------------------------------------------------------------------------
 
 # 🤝 Contributing
 
@@ -3001,49 +3507,75 @@ Whether you're:
 - testing Audio Only practice,
 - trying different themes,
 - participating in the Weekly Leaderboard,
+- testing CW Duel,
+- using the global Chat for CW practice coordination,
 - or an experienced CW operator...
 
 ...your feedback can help improve Morse Practice for everyone.
 
-Particularly useful feedback includes unusual but valid CW exchanges that the QSO Bot fails to understand.
+Particularly useful feedback includes unusual but valid CW exchanges
+that the QSO Bot fails to understand.
 
----
+------------------------------------------------------------------------
 
 # 🙏 Acknowledgements
 
-Special thanks to the instructors and members of the **Long Island CW Club (LICW)**.
+Special thanks to the instructors and members of the **Long Island CW
+Club (LICW)**.
 
-I am a student of LICW, and much of the philosophy behind **Morse Practice** was inspired by my own experience learning and practicing CW with the club — its methodology, its instructors, and especially its approach to making CW something that is learned through practice, progression, and real interaction.
+I am a student of LICW, and much of the philosophy behind **Morse
+Practice** was inspired by my own experience learning and practicing CW
+with the club — its methodology, its instructors, and especially its
+approach to making CW something that is learned through practice,
+progression, and real interaction.
 
-If you are looking for a structured methodology and a community to learn CW, **[Learn Morse Code – CW with The Long Island CW Club](https://longislandcwclub.org/)** is, without a doubt, the place I recommend. Their instructors and teaching approach are a major inspiration behind this project.
+If you are looking for a structured methodology and a community to learn
+CW, **[Learn Morse Code – CW with The Long Island CW
+Club](https://longislandcwclub.org/)** is, without a doubt, the place I
+recommend. Their instructors and teaching approach are a major
+inspiration behind this project.
 
-**Morse Practice** is an independent personal project and a free contribution to anyone interested in learning, practicing, or simply enjoying Morse code.
+**Morse Practice** is an independent personal project and a free
+contribution to anyone interested in learning, practicing, or simply
+enjoying Morse code.
 
----
+------------------------------------------------------------------------
 
 ## 🕯️ In Memory of CX7BBB — Antonio Villano
 
-A very special acknowledgment goes to **Antonio Villano, CX7BBB (Silent Key)**, from whom I first learned CW.
+A very special acknowledgment goes to **Antonio Villano, CX7BBB (Silent
+Key)**, from whom I first learned CW.
 
-My first steps in Morse code were greatly influenced by Antonio and his CW course for **Radio Club Uruguayo**. His way of teaching helped introduce me to this wonderful mode and became part of the foundation of my own journey into CW.
+My first steps in Morse code were greatly influenced by Antonio and his
+CW course for **Radio Club Uruguayo**. His way of teaching helped
+introduce me to this wonderful mode and became part of the foundation of
+my own journey into CW.
 
-His lessons remain available online, allowing new operators to continue learning from him and helping preserve his contribution to amateur radio and CW.
+His lessons remain available online, allowing new operators to continue
+learning from him and helping preserve his contribution to amateur radio
+and CW.
 
-▶️ **[CW Course by CX7BBB – Antonio Villano | Radio Club Uruguayo](https://youtu.be/-8SVQm2Qqsk?si=HI9nJFlXJu4gbjTX)**
+▶️ **[CW Course by CX7BBB – Antonio Villano \| Radio Club
+Uruguayo](https://youtu.be/-8SVQm2Qqsk?si=HI9nJFlXJu4gbjTX)**
 
-Thank you, Antonio. Your teaching continues every time another operator discovers CW through the knowledge you left behind.
+Thank you, Antonio. Your teaching continues every time another operator
+discovers CW through the knowledge you left behind.
 
----
+------------------------------------------------------------------------
 
 ## 📻 Daily Training
 
-Special thanks also to **Bob Carter, WR7Q**, whose sending exercise inspired the **Daily** training section and provided the foundation for its practice format.
+Special thanks also to **Bob Carter, WR7Q**, whose sending exercise
+inspired the **Daily** training section and provided the foundation for
+its practice format.
 
----
+------------------------------------------------------------------------
 
-And finally, thank you to every instructor, mentor, operator, and CW enthusiast who continues to share their knowledge, help newcomers, practice on the air, and keep the art of Morse code alive.
+And finally, thank you to every instructor, mentor, operator, and CW
+enthusiast who continues to share their knowledge, help newcomers,
+practice on the air, and keep the art of Morse code alive.
 
----
+------------------------------------------------------------------------
 
 # ☕ Contact
 
@@ -3053,17 +3585,17 @@ And finally, thank you to every instructor, mentor, operator, and CW enthusiast 
 
 Facebook
 
-https://www.facebook.com/ZP5DXS
+<https://www.facebook.com/ZP5DXS>
 
 GitHub
 
-https://github.com/ZP5DXS
+<https://github.com/ZP5DXS>
 
 🌐 **Live Demo**
 
-https://zp5dxs.github.io/morse-practice/
+<https://zp5dxs.github.io/morse-practice/>
 
----
+------------------------------------------------------------------------
 
 # 📄 License
 
@@ -3083,7 +3615,7 @@ Build something with it.
 
 Keep CW alive.
 
----
+------------------------------------------------------------------------
 
 # 📡 73!
 

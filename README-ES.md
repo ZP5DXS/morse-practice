@@ -2728,6 +2728,15 @@ switches, an inexpensive mouse can become a simple USB Morse interface.
 This is particularly useful for beginners who want to start using a real
 key without purchasing a dedicated interface.
 
+### Ejemplo: mouse adaptado
+
+![Mouse adaptado como interfaz CW](images/mouse.jpeg)
+
+En este ejemplo, un mouse convencional fue modificado para conectar una
+llave Morse directamente a los contactos de sus pulsadores. El navegador
+sigue detectándolo como un mouse normal, por lo que no requiere drivers ni
+software adicional.
+
 ------------------------------------------------------------------------
 
 # 📶 Mouse inalámbrico Adapter
@@ -2772,6 +2781,15 @@ Commercial USB Morse interfaces can also be used.
 
 If the interface presents the key or paddle as normal keyboard or mouse
 input, Morse Practice can use it directly.
+
+### Ejemplo: adaptador USB comercial
+
+![Adaptador USB comercial para llave Morse](images/adaptador.jpg)
+
+También pueden utilizarse adaptadores comerciales que convierten una llave
+recta o paleta en una entrada USB compatible. Si el dispositivo genera eventos
+de teclado o mouse reconocidos por el navegador, puede utilizarse directamente
+con Morse Practice.
 
 ------------------------------------------------------------------------
 
