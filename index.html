@@ -1359,6 +1359,8 @@ if(!statsVisitorId){
   statsVisitorId='v_'+crypto.getRandomValues(new Uint32Array(3)).join('_');
   localStorage.setItem('cw-anon-visitor-id',statsVisitorId);
 }
+let localVisitCount=Math.max(0,Number(localStorage.getItem('cw-visit-count-v1')||0))+1;
+localStorage.setItem('cw-visit-count-v1',String(localVisitCount));
 let localPracticeSeconds=Math.max(0,Number(localStorage.getItem('cw-practice-seconds')||0));
 let lastPracticeActivity=0,practiceStatsDirty=false;
 
@@ -1413,6 +1415,7 @@ function publishMyGlobalVisitor(){
   if(!statsClient?.connected)return;
   statsClient.publish(`${STATS_ROOT}/visitors/${statsVisitorId}`,JSON.stringify({
     country:detectedCountry||'',
+    visits:localVisitCount,
     ts:Date.now()
   }),{qos:0,retain:true});
 }
