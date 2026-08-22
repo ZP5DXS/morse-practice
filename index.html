@@ -1934,9 +1934,6 @@ function publishMyCompletionCounters(){
   renderGlobalStats();
 }
 
-function watchdogFloorIsEmpty(){
-  return Object.values(statsWatchdogFloor).every(v=>Math.max(0,Number(v)||0)===0);
-}
 
 function renderGlobalStats(){
   const reconstructedVisitors=statsVisitors.size;
@@ -1960,15 +1957,19 @@ function renderGlobalStats(){
   // Retained reconstruction stays available for countries/ticker and diagnostics,
   // but never auto-promotes cumulative counters.
   const watchdog=watchdogTotals();
+  const hasAuthoritativeFloor=statsFloorSeen;
 
-  const visitorCount=watchdog.visitors;
-  const visitCount=watchdog.visits;
+  // If an authoritative floor exists, it is the only source for cumulative counters.
+  // If it does not exist, show the retained reconstruction as a read-only fallback;
+  // never create/overwrite a floor automatically from an incomplete MQTT snapshot.
+  const visitorCount=hasAuthoritativeFloor?watchdog.visitors:reconstructedVisitors;
+  const visitCount=hasAuthoritativeFloor?watchdog.visits:reconstructedVisits;
   const countryCount=reconstructedCountries;
-  const seconds=watchdog.practiceSeconds;
-  const likesCount=watchdog.likes;
-  const duelsCount=watchdog.duels;
-  const qsoTotal=watchdog.qso;
-  const racerTotal=watchdog.racer;
+  const seconds=hasAuthoritativeFloor?watchdog.practiceSeconds:reconstructedSeconds;
+  const likesCount=hasAuthoritativeFloor?watchdog.likes:reconstructedLikes;
+  const duelsCount=hasAuthoritativeFloor?watchdog.duels:reconstructedDuels;
+  const qsoTotal=hasAuthoritativeFloor?watchdog.qso:reconstructedQso;
+  const racerTotal=hasAuthoritativeFloor?watchdog.racer:reconstructedRacer;
 
   const v=$("globalVisitors"),vv=$("globalVisits"),c=$("globalCountries"),h=$("globalPracticeHours");
   if(v)v.textContent=visitorCount?visitorCount.toLocaleString():'—';
@@ -2298,19 +2299,10 @@ function connectGlobalStats(){
       // larger floor with an incomplete local view.
       setTimeout(()=>{
         if(!statsClient?.connected)return;
-if(!statsFloorSeen&&watchdogFloorIsEmpty()&&STATS_WRITE_ENABLED){
-          statsWatchdogFloor={
-            visitors:statsVisitors.size,
-            visits:[...statsVisitors.values()].reduce((a,x)=>a+Math.max(0,Number(x?.visits)||0),0),
-            practiceSeconds:[...statsPractice.values()].reduce((a,x)=>a+Math.max(0,Number(x?.seconds)||0),0),
-            likes:statsLikes.size,
-            duels:statsDuels.size,
-            qso:[...statsQsoBot.values()].reduce((a,x)=>a+Math.max(0,Number(x?.count)||0),0),
-            racer:[...statsRacerCompleted.values()].reduce((a,x)=>a+Math.max(0,Number(x?.count)||0),0)
-          };
-          publishWatchdogFloor();
-        }
-        statsSyncReady=true;
+        // Never auto-create an authoritative floor from a timed retained snapshot.
+        // If no floor was received, cumulative watchdog writes stay paused until
+        // an administrator establishes a baseline with the Stats Inspector.
+        statsSyncReady=statsFloorSeen;
         // Legacy aggregate/max is not republished; it may contain inflated historical values.
         publishLocalWatchdog();
         publishMyGlobalVisitor();
@@ -2339,7 +2331,13 @@ if(!statsFloorSeen&&watchdogFloorIsEmpty()&&STATS_WRITE_ENABLED){
           return;
         }
         if(parts[0]==='watchdog'&&parts[1]==='floor'&&parts.length===2){
-          if(raw){statsFloorSeen=true;mergeWatchdogFloor(JSON.parse(raw));renderGlobalStats();}
+          if(raw){
+            statsFloorSeen=true;
+            mergeWatchdogFloor(JSON.parse(raw));
+            // A real retained/admin floor is now available: future deltas may accumulate.
+            statsSyncReady=true;
+            renderGlobalStats();
+          }
           return;
         }
         if(parts[0]==='watchdog'&&parts[1]==='clients'&&parts.length===3){
@@ -3592,9 +3590,12 @@ function kochRenderLesson(){
 
   $("kochLessonNo").textContent=koch.lesson;
   $("kochNewChar").textContent=kochNewChar(koch.lesson);
+
+  // Training remains cumulative, but the lesson preview must show only what is NEW now.
   const chars=kochCharsForLesson(koch.lesson);
-  kochSetTargetVisual(chars.join(' '),false);
-  $("kochCode").textContent=visualAidEnabled?chars.slice(-Math.min(3,chars.length)).map(c=>racerCodeFor(c)).join('   '):'';
+  const previewChars=koch.lesson===1?['K','M']:[KOCH_SEQUENCE[Math.min(KOCH_SEQUENCE.length-1,koch.lesson)]];
+  kochSetTargetVisual(previewChars.join(' '),false);
+  $("kochCode").textContent=visualAidEnabled?previewChars.map(c=>racerCodeFor(c)).join('   '):'';
   $("kochExerciseProgress").textContent='0/16';
   $("kochPhase").textContent=tr('kochReady');
   kochSetFeedback('',tr('kochStartHint'));
