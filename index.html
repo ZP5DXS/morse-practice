@@ -278,6 +278,13 @@ html[data-accent-theme="gameboy"] .koch-level{
   white-space:nowrap;
 }
 
+/* Game Boy: stack the challenge headphone icon above C1/C2/etc. */
+html[data-accent-theme="gameboy"] .koch-level .koch-challenge-icon{
+  display:block;
+  line-height:1;
+  margin-bottom:2px;
+}
+
 
 .site-stats{
   display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;
@@ -3581,7 +3588,7 @@ function kochUpdateMap(){
 
     if(step.type==='challenge'){
       const best=kochChallengeBest(step.challenge);
-      b.innerHTML=`🎧 C${step.challenge}<span class="stars">${kochStarsText(best.stars||0)}</span>`;
+      b.innerHTML=`<span class="koch-challenge-icon">🎧</span> C${step.challenge}<span class="stars">${kochStarsText(best.stars||0)}</span>`;
       b.title=`${tr('kochChallenge')} ${step.challenge} · 1–${step.lesson}`;
     }else{
       const best=kochBest(step.lesson);
@@ -3613,7 +3620,7 @@ function kochRenderLesson(){
   if(koch.challengeMode){
     const end=kochChallengeLesson(koch.challengeNo);
     $("kochLessonNo").textContent=`C${koch.challengeNo}`;
-    $("kochNewChar").textContent=`🎧 ${tr('kochChallenge')} ${koch.challengeNo}`;
+    $("kochNewChar").textContent=`🎧 ${tr('kochChallenge')}`;
     kochSetTargetVisual(`1–${end}`,false);
     $("kochCode").textContent='';
     $("kochExerciseProgress").textContent='0/20';
