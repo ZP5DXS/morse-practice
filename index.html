@@ -1795,14 +1795,7 @@ function mergeStatsMax(obj){
   if(changed)saveStatsMax();
   return changed;
 }
-function publishStatsMaxIfHigher(candidate){
-  const before={...statsMax};
-  const changed=mergeStatsMax(candidate);
-  if(!changed||!STATS_WRITE_ENABLED||!statsClient?.connected)return;
-  // Publish only maxima. Even if two clients race, no client intentionally writes a lower value.
-  const payload={...statsMax,ts:Date.now()};
-  statsClient.publish(STATS_MAX_TOPIC,JSON.stringify(payload),{qos:0,retain:true});
-}
+
 
 // Add-only watchdog counters.
 // Each browser publishes only its own monotonic contributions; globals are the sum of all
@@ -1830,19 +1823,13 @@ function saveLocalWatchdog(){
   try{localStorage.setItem(STATS_WATCHDOG_LOCAL_KEY,JSON.stringify(localWatchdog))}catch{}
 }
 let statsSyncReady=false,statsFloorSeen=false;
-function watchdogClientTotals(){
-  const total=blankWatchdog();
-  for(const rec of statsWatchdogClients.values()){
-    const c=cleanWatchdog(rec);
-    for(const k of Object.keys(total))total[k]+=c[k];
-  }
-  return total;
-}
+
 function watchdogTotals(){
   // Public cumulative totals come only from watchdog/floor.
   // watchdog/clients and aggregate/max are diagnostic/legacy and may be polluted.
   return cleanWatchdog(statsWatchdogFloor);
 }
+// Diagnostic per-browser counters only; never used as the public cumulative source.
 function publishLocalWatchdog(){
   if(!STATS_WRITE_ENABLED||!statsClient?.connected)return;
   statsClient.publish(`${STATS_WATCHDOG_ROOT}/clients/${statsVisitorId}`,JSON.stringify({...localWatchdog,ts:Date.now()}),{qos:0,retain:true});
@@ -1877,16 +1864,7 @@ function mergeWatchdogFloor(obj){
   }
   return changed;
 }
-function publishWatchdogFloorIfHigher(candidate){
-  const c=cleanWatchdog(candidate);
-  let changed=false;
-  for(const k of Object.keys(statsWatchdogFloor)){
-    if(c[k]>statsWatchdogFloor[k]){statsWatchdogFloor[k]=c[k];changed=true}
-  }
-  if(changed&&STATS_WRITE_ENABLED&&statsClient?.connected){
-    statsClient.publish(STATS_WATCHDOG_FLOOR_TOPIC,JSON.stringify({...statsWatchdogFloor,ts:Date.now()}),{qos:0,retain:true});
-  }
-}
+
 
 let statsVisitorId=localStorage.getItem('cw-anon-visitor-id');
 if(!statsVisitorId){
@@ -2320,17 +2298,7 @@ function connectGlobalStats(){
       // larger floor with an incomplete local view.
       setTimeout(()=>{
         if(!statsClient?.connected)return;
-        const bootstrap={
-          visitors:statsVisitors.size,
-          visits:[...statsVisitors.values()].reduce((a,x)=>a+Math.max(0,Number(x?.visits)||0),0),
-          practiceSeconds:[...statsPractice.values()].reduce((a,x)=>a+Math.max(0,Number(x?.seconds)||0),0),
-          likes:statsLikes.size,
-          duels:statsDuels.size,
-          qso:[...statsQsoBot.values()].reduce((a,x)=>a+Math.max(0,Number(x?.count)||0),0),
-          racer:[...statsRacerCompleted.values()].reduce((a,x)=>a+Math.max(0,Number(x?.count)||0),0)
-        };
-        publishWatchdogFloorIfHigher(bootstrap);
-        if(!statsFloorSeen&&watchdogFloorIsEmpty()&&STATS_WRITE_ENABLED){
+if(!statsFloorSeen&&watchdogFloorIsEmpty()&&STATS_WRITE_ENABLED){
           statsWatchdogFloor={
             visitors:statsVisitors.size,
             visits:[...statsVisitors.values()].reduce((a,x)=>a+Math.max(0,Number(x?.visits)||0),0),
@@ -2343,8 +2311,8 @@ function connectGlobalStats(){
           publishWatchdogFloor();
         }
         statsSyncReady=true;
-      // Legacy aggregate/max is not republished; it may contain inflated historical values.
-publishLocalWatchdog();
+        // Legacy aggregate/max is not republished; it may contain inflated historical values.
+        publishLocalWatchdog();
         publishMyGlobalVisitor();
         publishMyPracticeTotal();
         if(STATS_WRITE_ENABLED&&localStorage.getItem('cw-site-liked')==='1'){
