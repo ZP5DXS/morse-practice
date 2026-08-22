@@ -1324,7 +1324,7 @@ function startBandNoiseFromGesture(){if(Number(bandNoise.value)>0)ensureBandNois
 document.addEventListener('pointerdown',startBandNoiseFromGesture,{passive:true});
 document.addEventListener('keydown',startBandNoiseFromGesture,{passive:true});
 
-const VBAND_DEBOUNCE_MS=6;
+const VBAND_DEBOUNCE_MS=8;
 const vbandCtrlHeld=new Set(),vbandRawHeld=new Set(),vbandDownTimers=new Map(),vbandUpTimers=new Map();
 const isVbandCode=code=>code==='ControlLeft'||code==='ControlRight'||code==='BracketLeft'||code==='BracketRight';
 function clearVbandTimer(map,code){const t=map.get(code);if(t){clearTimeout(t);map.delete(code)}}
@@ -1829,25 +1829,44 @@ let localWatchdog=loadLocalWatchdog();
 function saveLocalWatchdog(){
   try{localStorage.setItem(STATS_WATCHDOG_LOCAL_KEY,JSON.stringify(localWatchdog))}catch{}
 }
-function watchdogTotals(){
-  const total={...statsWatchdogFloor};
+let statsSyncReady=false;
+function watchdogClientTotals(){
+  const total=blankWatchdog();
   for(const rec of statsWatchdogClients.values()){
     const c=cleanWatchdog(rec);
     for(const k of Object.keys(total))total[k]+=c[k];
   }
-  // Backstop with the old maxima so migration can never visually regress.
-  total.visitors=Math.max(total.visitors,statsMax.visitors);
-  total.visits=Math.max(total.visits,statsMax.visits);
-  total.practiceSeconds=Math.max(total.practiceSeconds,statsMax.practiceSeconds);
-  total.likes=Math.max(total.likes,statsMax.likes);
-  total.duels=Math.max(total.duels,statsMax.duels);
-  total.qso=Math.max(total.qso,statsMax.qso);
-  total.racer=Math.max(total.racer,statsMax.racer);
+  return total;
+}
+function watchdogTotals(){
+  const clients=watchdogClientTotals(),total=blankWatchdog();
+  // IMPORTANT: floor is an authoritative accumulated total, not something to add
+  // on top of client contributions. Clients are only a reconstruction/fallback.
+  for(const k of Object.keys(total)){
+    total[k]=Math.max(
+      Math.max(0,Number(statsWatchdogFloor[k])||0),
+      Math.max(0,Number(clients[k])||0),
+      Math.max(0,Number(statsMax[k])||0)
+    );
+  }
   return total;
 }
 function publishLocalWatchdog(){
   if(!STATS_WRITE_ENABLED||!statsClient?.connected)return;
   statsClient.publish(`${STATS_WATCHDOG_ROOT}/clients/${statsVisitorId}`,JSON.stringify({...localWatchdog,ts:Date.now()}),{qos:0,retain:true});
+}
+function publishWatchdogFloor(){
+  if(!STATS_WRITE_ENABLED||!statsClient?.connected)return;
+  statsClient.publish(STATS_WATCHDOG_FLOOR_TOPIC,JSON.stringify({...statsWatchdogFloor,ts:Date.now()}),{qos:0,retain:true});
+}
+function addToWatchdogFloor(field,delta){
+  if(!(field in statsWatchdogFloor))return;
+  delta=Math.max(0,Number(delta)||0);if(!delta)return;
+  if(!statsSyncReady)return
+  statsWatchdogFloor[field]=Math.max(0,Number(statsWatchdogFloor[field])||0)+delta;
+  publishWatchdogFloor();
+  // Keep the legacy maximum as an additional safety net.
+  publishStatsMaxIfHigher({...statsWatchdogFloor,countries:statsMax.countries});
 }
 function watchdogIncrement(field,delta=1){
   if(!STATS_WRITE_ENABLED)return;
@@ -1857,6 +1876,7 @@ function watchdogIncrement(field,delta=1){
   localWatchdog[field]+=delta;
   saveLocalWatchdog();
   publishLocalWatchdog();
+  addToWatchdogFloor(field,delta);
 }
 function mergeWatchdogFloor(obj){
   const c=cleanWatchdog(obj);
@@ -1917,15 +1937,23 @@ function localRacerCompletedTotal(){
 function publishMyCompletionCounters(){
   if(!STATS_WRITE_ENABLED||!statsClient?.connected)return;
   try{
-    const qNow=Math.max(0,Number(localStorage.getItem('cw-qso-completed')||0));
-    const qPrev=Math.max(0,Number(localStorage.getItem('cw-watchdog-qso-last')||0));
-    if(qNow>qPrev)watchdogIncrement('qso',qNow-qPrev);
-    localStorage.setItem('cw-watchdog-qso-last',String(qNow));
+    const qNow=localQsoCompletedTotal();
+    const qSaved=localStorage.getItem('cw-watchdog-qso-last');
+    if(qSaved===null)localStorage.setItem('cw-watchdog-qso-last',String(qNow));
+    else{
+      const qPrev=Math.max(0,Number(qSaved)||0);
+      if(qNow>qPrev)watchdogIncrement('qso',qNow-qPrev);
+      localStorage.setItem('cw-watchdog-qso-last',String(qNow));
+    }
 
-    const rNow=Math.max(0,Number(localStorage.getItem('cw-racer-completed')||0));
-    const rPrev=Math.max(0,Number(localStorage.getItem('cw-watchdog-racer-last')||0));
-    if(rNow>rPrev)watchdogIncrement('racer',rNow-rPrev);
-    localStorage.setItem('cw-watchdog-racer-last',String(rNow));
+    const rNow=localRacerCompletedTotal();
+    const rSaved=localStorage.getItem('cw-watchdog-racer-last');
+    if(rSaved===null)localStorage.setItem('cw-watchdog-racer-last',String(rNow));
+    else{
+      const rPrev=Math.max(0,Number(rSaved)||0);
+      if(rNow>rPrev)watchdogIncrement('racer',rNow-rPrev);
+      localStorage.setItem('cw-watchdog-racer-last',String(rNow));
+    }
   }catch{}
   const now=Date.now();
   const q={count:localQsoCompletedTotal(),ts:now};
@@ -2043,9 +2071,15 @@ function publishMyPracticeTotal(){
   if(!STATS_WRITE_ENABLED||!statsClient?.connected)return;
   try{
     const current=Math.max(0,Number(localStorage.getItem('cw-practice-seconds')||0));
-    const prev=Math.max(0,Number(localStorage.getItem('cw-watchdog-practice-last')||0));
-    if(current>prev)watchdogIncrement('practiceSeconds',current-prev);
-    localStorage.setItem('cw-watchdog-practice-last',String(current));
+    const saved=localStorage.getItem('cw-watchdog-practice-last');
+    if(saved===null){
+      // Existing historical practice is already represented by retained/legacy totals.
+      localStorage.setItem('cw-watchdog-practice-last',String(current));
+    }else{
+      const prev=Math.max(0,Number(saved)||0);
+      if(current>prev)watchdogIncrement('practiceSeconds',current-prev);
+      localStorage.setItem('cw-watchdog-practice-last',String(current));
+    }
   }catch{}
   const payload={seconds:Math.round(localPracticeSeconds),ts:Date.now()};
   statsPractice.set(statsVisitorId,payload);
@@ -2288,6 +2322,10 @@ function setupCommunity(){
   $("siteLikeBtn").onclick=()=>{
     if(localStorage.getItem('cw-site-liked')==='1')return;
     localStorage.setItem('cw-site-liked','1');
+    if(!localStorage.getItem('cw-watchdog-like-counted')){
+      watchdogIncrement('likes',1);
+      localStorage.setItem('cw-watchdog-like-counted','1');
+    }
     statsLikes.set(statsVisitorId,{ts:Date.now()});
     $("siteLikeBtn").classList.add('liked');
     if(STATS_WRITE_ENABLED&&statsClient?.connected)statsClient.publish(`${STATS_ROOT}/likes/${statsVisitorId}`,JSON.stringify({ts:Date.now()}),{qos:0,retain:true});
@@ -2303,20 +2341,40 @@ function connectGlobalStats(){
     });
     statsClient.on('connect',()=>{
       statsClient.subscribe(`${STATS_ROOT}/#`,{qos:0});
-      // If this production browser has previously seen a higher historical snapshot,
-      // it can restore that floor to the retained topic after broker loss/restart.
-      if(STATS_WRITE_ENABLED&&Object.values(statsMax).some(v=>Number(v)>0)){
-        statsClient.publish(STATS_MAX_TOPIC,JSON.stringify({...statsMax,ts:Date.now()}),{qos:0,retain:true});
-      }
-      publishLocalWatchdog();
-      publishMyGlobalVisitor();
-      publishMyPracticeTotal();
-      if(STATS_WRITE_ENABLED&&localStorage.getItem('cw-site-liked')==='1')statsClient.publish(`${STATS_ROOT}/likes/${statsVisitorId}`,JSON.stringify({ts:Date.now()}),{qos:0,retain:true});
-      publishWeeklyLeader();
-      publishMembership('skcc');publishMembership('licw');flushGlobalDuelRecords();publishMyCompletionCounters();
-      detectCountryByIP().then(()=>{
-        publishMyGlobalVisitor();publishWeeklyLeader();
-      }).catch(()=>{});
+      // Give retained messages a short window to rebuild the historical baseline before
+      // this browser adds new deltas. This prevents a fresh client from overwriting a
+      // larger floor with an incomplete local view.
+      setTimeout(()=>{
+        if(!statsClient?.connected)return;
+        const bootstrap={
+          visitors:statsVisitors.size,
+          visits:[...statsVisitors.values()].reduce((a,x)=>a+Math.max(0,Number(x?.visits)||0),0),
+          practiceSeconds:[...statsPractice.values()].reduce((a,x)=>a+Math.max(0,Number(x?.seconds)||0),0),
+          likes:statsLikes.size,
+          duels:statsDuels.size,
+          qso:[...statsQsoBot.values()].reduce((a,x)=>a+Math.max(0,Number(x?.count)||0),0),
+          racer:[...statsRacerCompleted.values()].reduce((a,x)=>a+Math.max(0,Number(x?.count)||0),0)
+        };
+        publishWatchdogFloorIfHigher(bootstrap);
+        statsSyncReady=true;
+
+        if(STATS_WRITE_ENABLED&&Object.values(statsMax).some(v=>Number(v)>0)){
+          statsClient.publish(STATS_MAX_TOPIC,JSON.stringify({...statsMax,ts:Date.now()}),{qos:0,retain:true});
+        }
+        publishLocalWatchdog();
+        publishMyGlobalVisitor();
+        publishMyPracticeTotal();
+        if(STATS_WRITE_ENABLED&&localStorage.getItem('cw-site-liked')==='1'){
+          // Historical likes are already covered by the reconstructed baseline.
+          if(!localStorage.getItem('cw-watchdog-like-counted'))localStorage.setItem('cw-watchdog-like-counted','1');
+          statsClient.publish(`${STATS_ROOT}/likes/${statsVisitorId}`,JSON.stringify({ts:Date.now()}),{qos:0,retain:true});
+        }
+        publishWeeklyLeader();
+        publishMembership('skcc');publishMembership('licw');flushGlobalDuelRecords();publishMyCompletionCounters();
+        detectCountryByIP().then(()=>{
+          publishMyGlobalVisitor();publishWeeklyLeader();
+        }).catch(()=>{});
+      },1200);
     });
     statsClient.on('message',(topic,payload)=>{
       if(!topic.startsWith(STATS_ROOT+'/'))return;
