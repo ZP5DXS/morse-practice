@@ -205,8 +205,6 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:1
 .stats-panel.open{display:block}
 .stats-panel #racerPaneStats{display:block}
 .stats-section-title{font-size:9px;font-weight:900;color:var(--accent2);text-transform:uppercase;letter-spacing:.06em;margin:11px 0 6px}
-.stats-shortcuts{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
-.stats-shortcuts .action{font-size:9px;padding:7px 5px}
 .activity-bars{display:grid;gap:6px;margin-top:7px}
 .activity-row{display:grid;grid-template-columns:68px 1fr 28px;align-items:center;gap:6px;font-size:9px;color:var(--muted)}
 .activity-row b{color:var(--text);text-align:right}
@@ -318,6 +316,8 @@ html[data-accent-theme="brass"]{--bg:#0d0b08;--panel:#17130d;--panel2:#211b12;--
 html[data-theme="light"][data-accent-theme="brass"]{--bg:#eee6d5;--panel:#fffaf0;--panel2:#f4ead5;--panel3:#fffdf7;--text:#332819;--muted:#7d6849;--line:#cdbb98;--accent:#9b6d19;--accent2:#79500e;--accent-alt:#b58b3d;--good:#7b711e}
 html[data-accent-theme="licw"]{--bg:#06101d;--panel:#0b192a;--panel2:#10243a;--panel3:#071421;--text:#e7f5ff;--muted:#86a9c2;--line:#1e4561;--accent:#18a8e8;--accent2:#6bd5ff;--accent-alt:#35c6d0;--good:#55d99a}
 html[data-theme="light"][data-accent-theme="licw"]{--bg:#eaf6fc;--panel:#fff;--panel2:#eef8fd;--panel3:#f8fcff;--text:#12334a;--muted:#5c7d91;--line:#b8d9e9;--accent:#087cad;--accent2:#056b98;--accent-alt:#1d9fa8;--good:#168a58}
+html[data-accent-theme="lxcw"]{--bg:#06111f;--panel:#0b1b30;--panel2:#102944;--panel3:#071626;--text:#f4f9ff;--muted:#8faac2;--line:#244c70;--accent:#1687d9;--accent2:#72c7ff;--accent-alt:#dceeff;--good:#55d99a}
+html[data-theme="light"][data-accent-theme="lxcw"]{--bg:#edf6fc;--panel:#fff;--panel2:#f1f8fd;--panel3:#fbfdff;--text:#102f49;--muted:#617e96;--line:#bed8ea;--accent:#0b6fb5;--accent2:#075b94;--accent-alt:#78b9e4;--good:#168a58}
 html[data-accent-theme="heritage"]{--bg:#17120d;--panel:#211a12;--panel2:#2c2318;--panel3:#130f0b;--text:#f4ead6;--muted:#ad9a7a;--line:#59462c;--accent:#d39b42;--accent2:#f1c875;--accent-alt:#b75f36;--good:#b8c86a;--warn:#e3b95e;--danger:#d46d55}
 html[data-theme="light"][data-accent-theme="heritage"]{--bg:#e8dcc3;--panel:#f8f0df;--panel2:#eadcc2;--panel3:#fff8e9;--text:#35281b;--muted:#79674f;--line:#bca684;--accent:#8c5a1d;--accent2:#68400f;--accent-alt:#9c4c2c;--good:#65762f}
 html[data-accent-theme="master"]{--bg:#080b09;--panel:#101612;--panel2:#172019;--panel3:#0b100c;--text:#f1ead6;--muted:#9c9a7e;--line:#3e4532;--accent:#e4a72b;--accent2:#ffc857;--accent-alt:#d97822;--good:#a8cf45;--warn:#f0c14b;--danger:#df6650}
@@ -504,6 +504,186 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     white-space:nowrap;
   }
 }
+
+/* Desktop-only customizable module rail */
+.desktop-modules{display:none}
+@media(min-width:901px){
+  .layout{
+    grid-template-columns:270px minmax(0,1fr) 286px;
+    grid-template-areas:"modules main config";
+    gap:14px;
+    align-items:start
+  }
+  .desktop-modules{
+    display:block;
+    grid-area:modules;
+    padding:12px 13px;
+    position:static;
+    max-height:none;
+    overflow:visible
+  }
+  .layout>.main{grid-area:main;min-width:0}
+  .layout>.config{
+    grid-area:config;
+    position:static;
+    max-height:none;
+    overflow:visible
+  }
+
+  .desktop-profile-host{margin-bottom:10px}
+  .desktop-profile-host .profile-box{
+    margin:0;padding:10px;
+    border:1px solid color-mix(in srgb,var(--accent) 42%,var(--line));
+    background:linear-gradient(120deg,color-mix(in srgb,var(--accent) 8%,var(--panel3)),var(--panel3));
+    box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 7%,transparent)
+  }
+  .desktop-profile-host .profile-title{
+    font-size:10px!important;letter-spacing:.08em!important;color:var(--accent2)!important
+  }
+  .desktop-profile-host .profile-row input{font-size:11px;font-weight:850}
+  .desktop-profile-host .profile-note{font-size:8px;opacity:.78}
+
+  .desktop-modules-toolbar{
+    display:flex;align-items:center;justify-content:space-between;
+    gap:8px;padding-bottom:8px;border-bottom:1px solid var(--line)
+  }
+  .desktop-modules-title{
+    font-size:11px;font-weight:900;letter-spacing:.07em;color:var(--accent2)
+  }
+  .module-tool-main,.module-tool-text,.module-order-btn{
+    border:1px solid var(--line);background:var(--panel2);color:var(--muted);
+    border-radius:7px;font-weight:900
+  }
+  .module-tool-main{width:27px;height:25px;padding:0;font-size:11px}
+  .desktop-modules.customizing .module-tool-main{border-color:var(--accent);color:var(--accent2);background:color-mix(in srgb,var(--accent) 9%,var(--panel2))}
+  .module-tool-text{padding:5px 7px;font-size:8px}
+  .module-tool-main:hover,.module-tool-text:hover,.module-order-btn:hover{
+    border-color:var(--accent);color:var(--accent2)
+  }
+  .desktop-customize-panel{
+    display:none;padding:8px 0 2px;font-size:8px;line-height:1.35;color:var(--muted);
+    border-bottom:1px solid var(--line)
+  }
+  .desktop-modules.customizing .desktop-customize-panel{display:block}
+  .desktop-customize-actions{display:flex;gap:5px;margin-top:6px}
+  .desktop-hidden-panel{
+    display:none;margin-top:7px;padding:6px;border:1px solid var(--line);
+    border-radius:8px;background:var(--panel3)
+  }
+  .desktop-hidden-panel.open{display:grid;gap:4px}
+  .hidden-module-row{
+    display:flex;align-items:center;justify-content:space-between;gap:6px;
+    color:var(--text);font-size:8px
+  }
+  .hidden-module-row button{
+    border:1px solid var(--line);background:var(--panel2);color:var(--accent2);
+    border-radius:6px;padding:3px 6px;font-size:8px;font-weight:900
+  }
+
+  #desktopModulesHost>.desktop-module{
+    margin-top:0!important;
+    padding:11px 0!important;
+    border-top:1px solid var(--line)!important
+  }
+  #desktopModulesHost>.desktop-module:first-child{
+    border-top:0!important;padding-top:10px!important
+  }
+  #desktopModulesHost>.desktop-module.user-hidden{display:none!important}
+
+  .module-order-controls{
+    display:none;align-items:center;gap:3px;margin-left:auto;margin-right:5px
+  }
+  .desktop-modules.customizing .module-order-controls{display:flex}
+  /* In organize mode, module activation switches are intentionally hidden.
+     The gear only edits layout; normal module controls return when exiting. */
+  .desktop-modules.customizing .module-order-controls + .switch{display:none!important}
+  .desktop-modules.customizing .custom-lesson>.switchline>.switch{display:none!important}
+  .module-order-btn{
+    width:22px;height:21px;padding:0;font-size:9px;line-height:1
+  }
+  .module-order-btn.hide-module{font-size:9px}
+  .desktop-modules.customizing .onair-head,
+  .desktop-modules.customizing .duel-head,
+  .desktop-modules.customizing .cwracer-head,
+  .desktop-modules.customizing .stats-head,
+  .desktop-modules.customizing .koch-head,
+  .desktop-modules.customizing .qsobot-head,
+  .desktop-modules.customizing .community-head,
+  .desktop-modules.customizing .rewards-head,
+  .desktop-modules.customizing .custom-lesson>.switchline{
+    min-height:26px
+  }
+
+  /* Slightly tighter left rail without changing the actual module panels. */
+  .desktop-modules .onair-box,
+  .desktop-modules .duel-box,
+  .desktop-modules .cwracer-box,
+  .desktop-modules .stats-box,
+  .desktop-modules .koch-box,
+  .desktop-modules .qsobot-box,
+  .desktop-modules .community-box,
+  .desktop-modules .rewards-box,
+  .desktop-modules .custom-lesson{
+    margin-top:0
+  }
+  #desktopModulesHost>.custom-lesson{
+    padding:11px 0!important;
+    border-top:1px solid var(--line)!important
+  }
+}
+
+@media(max-width:900px){
+  /* Desktop customization disappears completely on tablet/mobile. */
+  .desktop-modules{display:none!important}
+}
+
+
+.personal-practice-tabs{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:8px}
+.personal-practice-tab{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:8px;padding:7px 5px;font-size:9px;font-weight:900}
+.personal-practice-tab.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.personal-practice-note{border:1px solid var(--line);border-radius:8px;background:var(--panel3);padding:8px;margin-bottom:7px;font-size:9px;line-height:1.35;color:var(--muted)}
+
+
+/* Final Game Boy layout polish */
+html[data-accent-theme="gameboy"] .field-head{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  column-gap:8px
+}
+html[data-accent-theme="gameboy"] .field-head label{
+  min-width:0;
+  white-space:normal
+}
+html[data-accent-theme="gameboy"] .field-head .value{
+  white-space:nowrap!important;
+  align-self:center;
+  justify-self:end
+}
+@media(min-width:901px){
+  html[data-accent-theme="gameboy"] .layout>.config,
+  html[data-accent-theme="gameboy"] .layout>.main>.key-card{
+    box-shadow:0 4px 0 rgba(8,18,10,.22)!important;
+  }
+}
+
+
+/* Game Boy: keep Rewards summary compact on one line */
+html[data-accent-theme="gameboy"] .rewards-summary{
+  font-size:7.5px;
+  gap:5px;
+  flex-wrap:nowrap;
+}
+html[data-accent-theme="gameboy"] .rewards-summary > span{
+  min-width:0;
+  white-space:nowrap;
+}
+html[data-accent-theme="gameboy"] .rewards-summary b{
+  font-size:10px;
+  white-space:nowrap;
+  flex:none;
+}
+
 </style>
 <script src="https://unpkg.com/mqtt@5.15.2/dist/mqtt.min.js"></script>
 </head>
@@ -548,7 +728,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 <div class="layout">
 <aside class="card config">
   <h2 class="section-title" data-i18n="settings">Configuración</h2>
-  <div class="field"><div class="field-head"><label data-i18n="mode">Modo</label></div><div class="segmented"><button class="seg-btn active" data-mode="straight" type="button" data-i18n="straight">Llave recta</button><button class="seg-btn" data-mode="iambicA" type="button" data-i18n="paddle">Paleta</button></div><select id="mode" hidden><option value="straight">Straight</option><option value="iambicA">Paddle</option></select></div><div class="field"><div class="field-head"><label for="accentTheme" data-i18n="colorTheme">Tema</label></div><select id="accentTheme" class="racer-select" style="margin-bottom:0"><option value="blue" data-i18n="themeBlue">Blue</option><option value="green" data-i18n="themeGreen">Green</option><option value="purple" data-i18n="themePurple">Purple</option><option value="pink" data-i18n="themePink">Pink</option><option value="gameboy" data-i18n="themeGameboy">Game Boy</option><option value="brass">🔒 Brass Key</option><option value="licw">🔒 LICW Night</option><option value="heritage">🔒 CW Heritage</option><option value="master">🔒 Master Copy</option><option value="signal">🔒 Signal Green</option><option value="nightop">🔒 Night Operator</option></select></div>
+  <div class="field"><div class="field-head"><label data-i18n="mode">Modo</label></div><div class="segmented"><button class="seg-btn active" data-mode="straight" type="button" data-i18n="straight">Llave recta</button><button class="seg-btn" data-mode="iambicA" type="button" data-i18n="paddle">Paleta</button></div><select id="mode" hidden><option value="straight">Straight</option><option value="iambicA">Paddle</option></select></div><div class="field"><div class="field-head"><label for="accentTheme" data-i18n="colorTheme">Tema</label></div><select id="accentTheme" class="racer-select" style="margin-bottom:0"><option value="blue" data-i18n="themeBlue">Blue</option><option value="green" data-i18n="themeGreen">Green</option><option value="purple" data-i18n="themePurple">Purple</option><option value="pink" data-i18n="themePink">Pink</option><option value="gameboy" data-i18n="themeGameboy">Game Boy</option><option value="lxcw">🔒 LXCW</option><option value="brass">🔒 Brass Key</option><option value="licw">🔒 LICW Night</option><option value="heritage">🔒 CW Heritage</option><option value="master">🔒 Master Copy</option><option value="signal">🔒 Signal Green</option><option value="nightop">🔒 Night Operator</option></select></div>
   <div class="field"><div class="field-head"><label for="wpm" data-i18n="speed">Velocidad</label><span class="value"><span id="wpmValue">15</span> WPM</span></div><input id="wpm" type="range" min="5" max="60" step="1" value="15"><div class="preset-row"><button class="preset" data-wpm="10">10</button><button class="preset" data-wpm="15">15</button><button class="preset" data-wpm="20">20</button><button class="preset" data-wpm="25">25</button><button class="preset" data-wpm="30">30</button></div></div>
   <div class="field"><div class="field-head"><label for="tone" data-i18n="tone">Tono</label><span class="value"><span id="toneValue">650</span> Hz</span></div><input id="tone" type="range" min="250" max="1200" step="10" value="650"><div class="preset-row"><button class="preset tone-preset" data-tone="500">500</button><button class="preset tone-preset" data-tone="600">600</button><button class="preset tone-preset" data-tone="700">700</button><button class="preset tone-preset" data-tone="800">800</button><button class="preset tone-preset" data-tone="900">900</button></div></div>
   <div class="field"><div class="field-head"><label for="volume" data-i18n="volume">Volumen</label><span class="value"><span id="volumeValue">25</span>%</span></div><input id="volume" type="range" min="0" max="1" step="0.01" value="0.25"></div><div class="field"><div class="field-head"><label for="bandNoise" data-i18n="bandNoise">Ruido de banda</label><span class="value"><span id="bandNoiseValue">0</span>%</span></div><input id="bandNoise" type="range" min="0" max="0.30" step="0.01" value="0"></div>
@@ -557,12 +737,12 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   <div class="field"><div class="field-head"><label for="wordSpacing" data-i18n="wordSpacing">Espaciado de palabras</label><span class="value"><span id="spacingValue">7</span> dits</span></div><input id="wordSpacing" type="range" min="5" max="10" step="1" value="7"></div>
   <div class="profile-box"><div class="profile-title" data-i18n="operatorProfile">Indicativo</div><div class="profile-row"><input id="globalCall" type="text" maxlength="16" autocomplete="off" spellcheck="false" placeholder="Indicativo"><button id="globalCallSave" class="action" type="button" data-i18n="saveCall">Save</button></div><div class="profile-note" data-i18n="profileNote">Your operator identity across Morse Practice.</div></div>
   <div class="onair-box">
-    <div class="onair-head"><div id="onAirLabel" class="onair-label"><span class="dot"></span>ON AIR <span style="font-size:9px;color:var(--muted)">BETA</span></div><label class="switch"><input id="onAirToggle" type="checkbox"><span></span></label></div>
+    <div class="onair-head"><div id="onAirLabel" class="onair-label"><span class="dot"></span>ON AIR</div><label class="switch"><input id="onAirToggle" type="checkbox"><span></span></label></div>
     <div id="onAirPanel" class="onair-panel"><input id="operatorName" type="text" maxlength="30" placeholder="Nombre (opcional)"><input id="operatorCall" type="hidden"><div id="channelState" class="channel-state channel-free">● Canal libre</div><div id="onlineList" class="online-list"><b>0</b> operadores en línea</div></div>
   </div>
 
   <div class="duel-box">
-    <div class="duel-head"><div id="duelLabel" class="duel-label">⚔️ CW DUEL <span style="font-size:9px;color:var(--muted)">BETA</span></div><label class="switch"><input id="duelToggle" type="checkbox"><span></span></label></div>
+    <div class="duel-head"><div id="duelLabel" class="duel-label">⚔️ CW DUEL</div><label class="switch"><input id="duelToggle" type="checkbox"><span></span></label></div>
     <div id="duelPanel" class="duel-panel">
       <div class="duel-card">
         <div class="duel-speed">
@@ -667,10 +847,6 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
           <div><b id="statsBestStreak">0</b><span data-i18n="racerBestStreak">Mejor racha</span></div>
         </div>
         <div id="statsGrid" class="stats-grid"></div>
-        <div class="stats-shortcuts">
-          <button id="learnMistakesBtn" class="action primary" type="button">🧠 <span data-i18n="racerMistakes">Aprende de tus errores</span></button>
-          <button id="statsCustomLessonBtn" class="action" type="button">📝 <span data-i18n="customLesson">Lección personalizada</span></button>
-        </div>
         <div class="stats-section-title" data-i18n="statsActivity">Actividad</div>
         <div id="activityBars" class="activity-bars"></div>
         <div class="racer-actions">
@@ -703,7 +879,6 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
       <div class="koch-course-head">
         <div>
           <div class="koch-course-title" data-i18n="kochCourseTitle">Curso progresivo de CW</div>
-          <div class="koch-course-sub" data-i18n="kochCourseSub">40 lecciones · escucha + transmisión · 90% desbloquea el siguiente nivel</div>
         </div>
         <button id="kochReset" class="action danger" type="button" style="padding:5px 7px;font-size:8px" data-i18n="kochReset">Reset</button>
       </div>
@@ -789,6 +964,22 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   </div>
 
 </aside>
+<aside id="desktopModules" class="card desktop-modules" aria-label="Practice modules">
+  <div id="desktopProfileHost" class="desktop-profile-host"></div>
+  <div class="desktop-modules-toolbar">
+    <div class="desktop-modules-title">MÓDULOS</div>
+    <button id="desktopCustomizeBtn" class="module-tool-main" type="button" title="Personalizar módulos">⚙</button>
+  </div>
+  <div id="desktopCustomizePanel" class="desktop-customize-panel">
+    <span id="desktopCustomizeHint">Organiza la interfaz: ↑ ↓ ordenar · 👁 ocultar</span>
+    <div class="desktop-customize-actions">
+      <button id="desktopHiddenBtn" class="module-tool-text" type="button">Ocultos <b id="desktopHiddenCount">0</b></button>
+      <button id="desktopResetModulesBtn" class="module-tool-text" type="button">Restaurar</button>
+    </div>
+    <div id="desktopHiddenPanel" class="desktop-hidden-panel"></div>
+  </div>
+  <div id="desktopModulesHost"></div>
+</aside>
 <main class="main">
 <section class="card key-card"><div class="key-head"><div class="title" data-i18n="keyArea">Área de manipulación</div><div id="captureHelp" class="small" data-i18n="captureHelp">Mouse, teclado, touch o adaptador USB</div></div>
 <div id="keyarea" class="keyarea" tabindex="0">
@@ -808,31 +999,51 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 </div><div class="key-content"><div class="mouse-icon" aria-hidden="true"><span class="mouse-left"></span><span class="mouse-right"></span></div><div class="hero" data-i18n="hero">Haz clic, toca la pantalla o usa tu adaptador</div><div id="modeHint" class="modehint"></div><div id="symbols" class="big"></div><div id="decoded" class="decoded"></div><div id="status" class="status"></div><div class="legend"><span><kbd>ESC</kbd> <span data-i18n="esc">libera el mouse</span></span><span><kbd>SPACE</kbd> <span data-i18n="space">llave recta</span></span><span><kbd>C</kbd> <span data-i18n="clear">limpiar</span></span></div></div></div></section>
 <section class="card practice-card"><div class="practice-head"><div class="title" data-i18n="text">Texto / Decoder</div><div class="value" data-i18n="bidirectional">Bidireccional: escribe o manipula</div></div><textarea id="practice" placeholder="CQ CQ DE ZP5DXS..." spellcheck="false"></textarea><div class="actions"><button id="playBtn" class="action primary" type="button">▶ <span data-i18n="playCW">Reproducir CW</span></button><button id="stopBtn" class="action danger" type="button">■ <span data-i18n="stop">Detener</span></button><button id="clearBtn" class="action" type="button" data-i18n="clearBtn">Limpiar</button><button id="copyBtn" class="action" type="button" data-i18n="copy">Copiar</button><button id="saveBtn" class="action" type="button" data-i18n="save">Guardar TXT</button></div>
 <div id="customLessonBox" class="custom-lesson">
-  <div class="switchline"><div><b style="font-size:12px" data-i18n="customLesson">Lección personalizada</b><div class="value" data-i18n="customLessonHelp">Aprende del texto pegado</div></div><label class="switch"><input id="customLessonToggle" type="checkbox"><span></span></label></div>
+  <div class="switchline">
+    <div><b style="font-size:12px">🧠 <span data-i18n="personalPractice">Práctica personalizada</span></b></div>
+    <label class="switch"><input id="customLessonToggle" type="checkbox"><span></span></label>
+  </div>
+
   <div id="customLessonPanel" class="custom-lesson-panel">
-    <div class="custom-lesson-row">
-      <select id="customLessonMode" class="racer-select" style="margin:0">
-        <option value="char" data-i18n="customByChar">Carácter por carácter</option>
-        <option value="word" data-i18n="customByWord">Palabra por palabra</option>
-      </select>
-      <button id="customLessonStart" class="action primary" type="button" data-i18n="customStart">Iniciar lección</button>
+    <div class="personal-practice-tabs">
+      <button id="personalTextTab" class="personal-practice-tab" type="button" data-i18n="practiceFromText">DESDE TEXTO</button>
+      <button id="personalMistakesTab" class="personal-practice-tab" type="button" data-i18n="practiceFromMistakes">DESDE TUS ERRORES</button>
     </div>
-    <div class="custom-lesson-stage">
-      <div id="customLessonCurrent" class="custom-lesson-current">—</div>
-      <div id="customLessonAttempt" class="custom-lesson-attempt">—</div>
-      <div id="customLessonFeedback" class="custom-lesson-feedback" data-i18n="customReady">Pega un texto y comienza</div>
-      <div class="custom-lesson-meta"><span>📍 <b id="customLessonProgress">0/0</b></span><span>⭐ <b id="customLessonScore">0</b></span></div>
+
+    <div id="personalPracticeNotice" class="custom-lesson-feedback"></div>
+
+    <div id="personalTextControls" style="display:none">
+      <div class="custom-lesson-row">
+        <select id="customLessonMode" class="racer-select" style="margin:0">
+          <option value="char" data-i18n="customByCharShort">Caracteres</option>
+          <option value="word" data-i18n="customByWordShort">Palabras</option>
+        </select>
+        <button id="customLessonStart" class="action primary" type="button" data-i18n="customStart">Iniciar lección</button>
+      </div>
     </div>
-    <div class="racer-actions">
-      <button id="customLessonHear" class="action" type="button">🔊 CW</button>
-      <button id="customLessonStop" class="action danger" type="button" data-i18n="customStop">Terminar</button>
+
+    <div id="personalPracticeExercise" style="display:none">
+      <div class="custom-lesson-stage">
+        <div id="customLessonCurrent" class="custom-lesson-current">—</div>
+        <div id="customLessonAttempt" class="custom-lesson-attempt">—</div>
+        <div id="customLessonFeedback" class="custom-lesson-feedback" data-i18n="customReady">Pega un texto y comienza</div>
+        <div class="custom-lesson-meta">
+          <span>📍 <b id="customLessonProgress">0/0</b></span>
+          <span>⭐ <b id="customLessonScore">0</b></span>
+        </div>
+      </div>
+
+      <div class="racer-actions">
+        <button id="customLessonHear" class="action" type="button">🔊 CW</button>
+        <button id="customLessonStop" class="action danger" type="button" data-i18n="customStop">Terminar</button>
+      </div>
     </div>
   </div>
 </div>
 <div id="playStatus" class="play-status"></div>
 <div class="community-box">
   <div class="community-head">
-    <div class="community-label">🏆 <span data-i18n="communityLeaderboard">LEADERBOARD SEMANAL</span></div>
+    <div class="community-label">🏆 <span data-i18n="communityLeaderboard">LEADERBOARD</span></div>
     <label class="switch"><input id="communityToggle" type="checkbox"><span></span></label>
   </div>
   <div id="communityPanel" class="community-panel">
@@ -851,13 +1062,13 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
         <button id="leaderLeaveBtn" class="action danger" type="button" data-i18n="leaderLeave">Dejar de participar</button>
       </div>
       <div id="leaderList" class="leader-list"></div>
-      <div class="community-note" data-i18n="leaderNote">Se reinicia cada semana. Solo participas si ingresas tu indicativo; tus estadísticas de práctica permanecen locales y solo se publica el resumen semanal necesario para la clasificación.</div>
+      <div class="community-note" data-i18n="leaderNote">Basado en las estadísticas semanales.</div>
     </div>
   </div>
 </div>
 <div class="rewards-box">
-  <div class="rewards-head"><div class="rewards-label">🏆 <span data-i18n="rewards">REWARDS</span></div><label class="switch"><input id="rewardsToggle" type="checkbox"><span></span></label></div>
-  <div id="rewardsPanel" class="rewards-panel"><div class="rewards-summary"><span data-i18n="rewardsSub">Achievements unlock cosmetic rewards.</span><b id="rewardsCount">0 / 7</b></div>
+  <div class="rewards-head"><div class="rewards-label">🎁 <span data-i18n="rewards">REWARDS</span></div><label class="switch"><input id="rewardsToggle" type="checkbox"><span></span></label></div>
+  <div id="rewardsPanel" class="rewards-panel"><div class="rewards-summary"><span data-i18n="rewardsSub">Achievements unlock cosmetic rewards.</span><b id="rewardsCount">0 / 8</b></div>
     <div id="rewardGrid" class="reward-grid"></div>
     <div class="membership-box"><div class="membership-title" data-i18n="memberships">Community memberships</div>
       <div class="membership-row"><label>SKCC</label><input id="rewardSkcc" type="text" maxlength="12" inputmode="numeric" placeholder="Pon tu número SKCC"><button id="rewardSkccSave" class="action" type="button">Save</button></div>
@@ -880,13 +1091,13 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
       <button id="footerLicwBtn" class="footer-member-link" type="button" title="LICW">🎓 <b id="footerLicwCount">0</b> LICW</button>
     </div>
     <div id="countryTicker" class="country-ticker" aria-label="Countries using Morse Practice"><div id="countryTickerTrack" class="country-ticker-track"></div></div>
-    <div class="memorial">In memory of CX7BBB — Antonio Villano · from whom I, and so many others, learned CW.</div><div class="app-version" title="Morse Practice release">v1.0 · 2026.08</div></div>
+    <div class="memorial">In memory of CX7BBB — Antonio Villano · from whom I, and so many others, learned CW.</div><div class="app-version" title="Morse Practice release">v1.2 · 2026.08</div></div>
 </div>
 <script>
 (()=>{
 const MORSE={".-":"A","-...":"B","-.-.":"C","-..":"D",".":"E","..-.":"F","--.":"G","....":"H","..":"I",".---":"J","-.-":"K",".-..":"L","--":"M","-.":"N","---":"O",".--.":"P","--.-":"Q",".-.":"R","...":"S","-":"T","..-":"U","...-":"V",".--":"W","-..-":"X","-.--":"Y","--..":"Z","-----":"0",".----":"1","..---":"2","...--":"3","....-":"4",".....":"5","-....":"6","--...":"7","---..":"8","----.":"9",".-.-.-":".","--..--":",","..--..":"?","-..-.":"/","-....-":"-",".--.-.":"@",".----.":"'","-.-.--":"!","-.--.":"(","-.--.-":")","---...":":","-.-.-.":";",".-..-.":"\"","..--.-":"_","...-..-":"$",".-.-.":"<AR>","-...-":"<BT>","...-.-":"<SK>",".-...":"<AS>","...---...":"<SOS>"};
 const REVERSE={};for(const [code,ch] of Object.entries(MORSE)){if(!ch.startsWith('<')&&!REVERSE[ch])REVERSE[ch]=code;}Object.assign(REVERSE,{"=":"-...-","+":".-.-."});
-const I18N={es:{subtitle:"Práctica de Código Morse",courtesy:"Cortesía de",instructions:"Instrucciones",settings:"Configuración",colorTheme:"Tema",themeBlue:"Azul",themeGreen:"Verde",themePurple:"Violeta",themePink:"Rosado",themeGameboy:"Game Boy",operatorProfile:"Indicativo",saveCall:"Guardar",profileNote:"Tu identidad como operador dentro de Morse Practice.",rewards:"RECOMPENSAS",rewardsSub:"Los logros desbloquean recompensas cosméticas.",memberships:"Membresías de comunidad",membershipNote:"Se guarda localmente. Borra un número cuando quieras para desactivar su tema.",globalVisitors:"visitantes únicos",globalCountries:"países",globalHours:"horas totales de práctica",globalDuels:"duelos",communityStats:"🌐 Morse Practice — Estadísticas de la comunidad",communityLeaderboard:"LEADERBOARD SEMANAL",leaderJoin:"Participar",leaderEdit:"Cambiar indicativo",leaderLeave:"Dejar de participar",leaderPosition:"Posición",leaderPoints:"Puntos",leaderStreak:"Racha",leaderNote:"Se reinicia cada semana. Solo participas si ingresas tu indicativo; tus estadísticas de práctica permanecen locales y solo se publica el resumen semanal necesario para la clasificación.",mode:"Modo",straight:"Llave recta",paddle:"Paleta",invertPaddle:"Invertir DIT / DAH",speed:"Velocidad",tone:"Tono",volume:"Volumen",bandNoise:"Ruido de banda",oscAudio:"Audio del oscilador",visualAid:"Ayuda visual",visualAidHelp:"Mostrar puntos y rayas",audioOnly:"Solo audio",audioOnlyHelp:"Desactiva decodificación visual · W para mirar",audioOnlyTitle:"Modo avanzado: oculta caracteres, decodificación e información visual del CW. Mantén W para una vista rápida.",wordSpacing:"Espaciado de palabras",keyArea:"Área de manipulación",captureHelp:"Mouse, teclado, touch o adaptador USB",hero:"Haz clic, toca la pantalla o usa tu adaptador",esc:"libera el mouse",space:"llave recta",clear:"limpiar",text:"Texto / Decoder",bidirectional:"Bidireccional: escribe o manipula",playCW:"Reproducir CW",stop:"Detener",clearBtn:"Limpiar",copy:"Copiar",save:"Guardar TXT",betaNote:"Sala mundial experimental. La identidad es opcional y los eventos de manipulación viajan por un relay público.",straightHint:"Llave recta · mouse, SPACE o toca la superficie táctil",paddleHint:"Paleta · izquierda DIT (.) · derecha DAH (-)",idle:"Listo · clic para capturar mouse o toca la superficie",active:"Activo · mouse capturado · ESC libera",touchReady:"Touch activo · levanta el dedo para cortar",free:"● Canal libre",busy:"● Canal ocupado",online:"operadores en línea",connecting:"Conectando…",onair:"ON AIR conectado",copied:"Copiado",playing:"Reproduciendo",stopped:"Detenido",anonymous:"Anónimo",countries:"países",you:"tú",mute:"Silenciar",unmute:"Escuchar",racerLearn:"Learn",racerRace:"Race",racerStats:"Stats",racerLetters:"Letras A–Z",racerNumbers:"Números 0–9",racerPunct:"Signos",racerProsigns:"Prosigns",racerMixed:"Mixto",racerVoice:"Voz opcional",racerReady:"Listo para comenzar",racerStart:"Comenzar",racerNext:"Siguiente",racerEnd:"Fin",racerStartRace:"Iniciar carrera",racerSessions:"Sesiones",racerAttempts:"Intentos",racerBestScore:"Mejor score",racerBestStreak:"Mejor racha",racerMistakes:"Aprende de tus errores",racerReset:"Resetear estadísticas",racerCorrect:"Correcto",racerImperfect:"Correcto, pero mejora el timing",racerWrong:"Incorrecto",racerAgain:"Repite",racerFinished:"¡Completado!",racerFinalScore:"Puntaje final",racerBestSimilar:"Mejor carrera similar",racerNoWeak:"Todavía no hay suficientes errores para crear una lección adaptativa",racerResetConfirm:"¿Seguro que quieres borrar todas las estadísticas de CW Racer?",racerTransmit:"Transmítelo",racerListenRepeat:"Escucha y repite",racerRestartUnit:"Error: repite la unidad desde el comienzo",qsoBasic:"QSO básico",qsoIntermediate:"QSO intermedio",qsoAdvanced:"QSO avanzado",qsoReady:"Selecciona un modo e inicia el QSO.",qsoIdle:"Bot listo.",qsoStart:"Iniciar QSO",qsoRepeat:"Repetir bot",qsoStop:"Finalizar",qsoNeedCall:"Ingresa tu indicativo para comenzar.",qsoAnswerCQ:"Responde al CQ con tu indicativo.",qsoSendExchange:"Envía tu RST, nombre y QTH.",qsoSendMore:"Agrega RST, nombre/QTH y algunos datos de estación.",qsoSendSkcc:"Envía RST, SPC/QTH, nombre y número SKCC (o NONE).",qsoSendPota:"Envía un RST realista; QTH es opcional.",qsoRepeatNeeded:"No copié todo. Repite el intercambio.",qsoComplete:"QSO completado",qsoStopped:"QSO finalizado.",qsoBotTx:"El bot está transmitiendo…",qsoAdvancedRepeat:"El bot pide una repetición.",qsoLocked:"ON AIR no está disponible durante CW Racer o QSO Bot.",qsoCopied:"Datos copiados",qsoNeedName:"NAME?",qsoNeedQth:"QTH?",qsoNeedSkcc:"SKCC NR?",qsoNeedKey:"KEY?",qsoNeedRig:"RIG?",qsoNeedPwr:"PWR?",qsoNeedAnt:"ANT?",qsoCopying:"Copiando tu transmisión…",charSpacing:"Espaciado de caracteres (Farnsworth)",customLesson:"Lección personalizada",customLessonHelp:"Aprende del texto pegado",customByChar:"Carácter por carácter",customByWord:"Palabra por palabra",customStart:"Iniciar lección",customStop:"Terminar",customReady:"Pega un texto y comienza",customTransmit:"Transmite lo mostrado",customCorrect:"Correcto",customImperfect:"Correcto · cuida el ritmo",customWrong:"Incorrecto · repite",customFinished:"Lección completada",customNoText:"Pega primero un texto válido",customAttempt:"TX",kochCourseTitle:"Progressive CW course",kochCourseSub:"40 lessons + 13 listening Challenges · 90% unlocks the next step",kochReset:"Reset",kochReady:"Ready",kochLesson:"Lesson",kochNewChar:"New",kochStartHint:"Start when you are ready",kochStart:"Start lesson",kochStop:"End",kochRetry:"Retry",kochNext:"Next level",kochListen:"LISTEN",kochSend:"SEND",kochMixed:"MIXED",kochChoose:"Listen and select",kochTransmit:"Send the character",kochCorrect:"Correct",kochWrong:"Incorrect",kochTiming:"Correct · watch the timing",kochPassed:"Level unlocked!",kochReview:"Good try · reach 90% to advance",kochMastered:"Lesson mastered",kochResetConfirm:"Reset all Koch course progress?",kochLocked:"Complete the previous lesson with 90% or better",kochCourseDone:"Koch course completed!",kochPartSend:"LISTEN AND SEND",kochPartListen:"LISTEN AND SELECT",kochSendHeard:"Listen and send",kochChallenge:"CW Challenge",kochChallengeSub:"Listening only · cumulative review",kochChallengeStart:"Start",kochChallengeDone:"Challenge completed",kochChallengeLocked:"Complete the previous 3 lessons",kochChallengeFinal:"Final challenge",statsModule:"STATISTICS",statsActivity:"Activity",statsRacer:"Racer",statsDaily:"Daily",statsKoch:"Koch",statsChallenges:"Challenges",statsQso:"QSOs",statsCustom:"Custom",statsStart:"Start",statsFinish:"Finish",kochCourseTitle:"Curso progresivo de CW",kochCourseSub:"40 lecciones + 13 Challenges auditivos · 90% desbloquea el siguiente paso",kochReset:"Reset",kochReady:"Listo",kochLesson:"Lección",kochNewChar:"Nuevo",kochStartHint:"Comienza cuando estés listo",kochStart:"Iniciar lección",kochStop:"Terminar",kochRetry:"Repetir",kochNext:"Siguiente nivel",kochListen:"ESCUCHA",kochSend:"TRANSMITE",kochMixed:"MIXTO",kochChoose:"Escucha y selecciona",kochTransmit:"Transmite el carácter",kochCorrect:"Correcto",kochWrong:"Incorrecto",kochTiming:"Correcto · cuida el ritmo",kochPassed:"¡Nivel desbloqueado!",kochReview:"Buen intento · alcanza 90% para avanzar",kochMastered:"Lección dominada",kochResetConfirm:"¿Resetear todo el progreso del curso Koch?",kochLocked:"Completa la lección anterior con 90% o más",kochCourseDone:"¡Curso Koch completado!",kochPartSend:"ESCUCHA Y TRANSMITE",kochPartListen:"ESCUCHA Y SELECCIONA",kochSendHeard:"Escucha y transmite",kochChallenge:"CW Challenge",kochChallengeSub:"Solo recepción · repaso acumulativo",kochChallengeStart:"Iniciar",kochChallengeDone:"Challenge completado",kochChallengeLocked:"Completa las 3 lecciones anteriores",kochChallengeFinal:"Challenge final",statsModule:"ESTADÍSTICAS",statsActivity:"Actividad",statsRacer:"Racer",statsDaily:"Daily",statsKoch:"Koch",statsChallenges:"Challenges",statsQso:"QSOs",statsCustom:"Personalizadas",statsStart:"Inicio",statsFinish:"Meta",dailyTab:"Diario",dailyWarmup:"Calentamiento",dailyExercise:"Ejercicio",dailyDrill:"Práctica",dailyCredit:"Ejercicio de WR7Q",qsoYou:"TÚ",qsoRepeatsLabel:"REPETICIONES",duelRookie:"Rookie",duelIntermediate:"Intermedio",duelAdvanced:"Avanzado",duelAllow:"Aceptar desafíos",duelRandom:"Buscar aleatorio",duelCancel:"Cancelar",duelReady:"Listo para desafiar.",duelAccept:"Aceptar",duelDecline:"Rechazar",duelRematch:"Revancha",duelNew:"Nuevo rival",duelExit:"Salir",duelAbandon:"Abandonar duelo",aiOff:"IA apagada",aiLoading:"Cargando modelo de IA",aiReady:"IA lista",aiThinking:"IA interpretando CW",aiError:"IA no disponible",aiLocalTitle:"IA local",},en:{operatorProfile:"Callsign",saveCall:"Save",profileNote:"Your operator identity across Morse Practice.",rewards:"REWARDS",rewardsSub:"Achievements unlock cosmetic rewards.",memberships:"Community memberships",footerSkcc:"SKCC members on board",footerLicw:"LICW members on board",subtitle:"Morse Code Practice",courtesy:"Courtesy of",instructions:"Instructions",settings:"Settings",colorTheme:"Theme",themeBlue:"Blue",themeGreen:"Green",themePurple:"Purple",themePink:"Pink",themeGameboy:"Game Boy",globalVisitors:"unique visitors",globalCountries:"countries",globalHours:"total practice hours",globalDuels:"duels",communityStats:"🌐 Morse Practice — Community Stats",communityLeaderboard:"WEEKLY LEADERBOARD",leaderJoin:"Join",leaderEdit:"Change callsign",leaderLeave:"Leave leaderboard",leaderPosition:"Position",leaderPoints:"Points",leaderStreak:"Streak",leaderNote:"Resets every week. You only participate after entering your callsign; your detailed practice statistics stay local and only the weekly summary needed for ranking is published.",mode:"Mode",straight:"Straight Key",paddle:"Paddle",invertPaddle:"Invert DIT / DAH",speed:"Speed",tone:"Tone",volume:"Volume",bandNoise:"Band Noise",oscAudio:"Oscillator audio",visualAid:"Visual aid",visualAidHelp:"Show dots and dashes",audioOnly:"Audio Only",audioOnlyHelp:"Disables visual decoding · W to peek",audioOnlyTitle:"Advanced mode: hides characters, decoding and visual CW information. Hold W for a quick peek.",wordSpacing:"Word spacing",keyArea:"Keying Area",captureHelp:"Mouse, keyboard, touch or USB adapter",hero:"Click, touch the screen or use your adapter",esc:"releases mouse",space:"straight key",clear:"clear",text:"Text / Decoder",bidirectional:"Bidirectional: type or key",playCW:"Play CW",stop:"Stop",clearBtn:"Clear",copy:"Copy",save:"Save TXT",betaNote:"Experimental global room. Identity is optional and keying events travel through a public relay.",straightHint:"Straight key · mouse, SPACE or touch the surface",paddleHint:"Paddle · left DIT (.) · right DAH (-)",idle:"Ready · click to capture mouse or touch the surface",active:"Active · mouse captured · ESC releases",touchReady:"Touch active · lift your finger to release",free:"● Channel free",busy:"● Channel busy",online:"operators online",connecting:"Connecting…",onair:"ON AIR connected",copied:"Copied",playing:"Playing",stopped:"Stopped",anonymous:"Anonymous",countries:"countries",you:"you",mute:"Mute",unmute:"Listen",racerLearn:"Learn",racerRace:"Race",racerStats:"Stats",racerLetters:"Letters A–Z",racerNumbers:"Numbers 0–9",racerPunct:"Punctuation",racerProsigns:"Prosigns",racerMixed:"Mixed",racerVoice:"Optional voice",racerReady:"Ready to start",racerStart:"Start",racerNext:"Next",racerEnd:"End",racerStartRace:"Start race",racerSessions:"Sessions",racerAttempts:"Attempts",racerBestScore:"Best score",racerBestStreak:"Best streak",racerMistakes:"Learn from my mistakes",racerReset:"Reset statistics",racerCorrect:"Correct",racerImperfect:"Correct, but improve your timing",racerWrong:"Wrong",racerAgain:"Repeat",racerFinished:"Completed!",racerFinalScore:"Final score",racerBestSimilar:"Best similar race",racerNoWeak:"There are not enough weak characters yet to build an adaptive lesson",racerResetConfirm:"Are you sure you want to erase all CW Racer statistics?",racerTransmit:"Transmit it",racerListenRepeat:"Listen and repeat",racerRestartUnit:"Error: restart the unit from the beginning",qsoBasic:"Basic QSO",qsoIntermediate:"Intermediate QSO",qsoAdvanced:"Advanced QSO",qsoReady:"Select a mode and start the QSO.",qsoIdle:"Bot ready.",qsoStart:"Start QSO",qsoRepeat:"Repeat bot",qsoStop:"End",qsoNeedCall:"Enter your callsign to start.",qsoAnswerCQ:"Answer the CQ with your callsign.",qsoSendExchange:"Send your RST, name and QTH.",qsoSendMore:"Add RST, name/QTH and some station details.",qsoSendSkcc:"Send RST, SPC/QTH, name and SKCC number (or NONE).",qsoSendPota:"Send a realistic RST; QTH is optional.",qsoRepeatNeeded:"I did not copy everything. Repeat the exchange.",qsoComplete:"QSO completed",qsoStopped:"QSO ended.",qsoBotTx:"The bot is transmitting…",qsoAdvancedRepeat:"The bot requests a repeat.",qsoLocked:"ON AIR is unavailable while CW Racer or QSO Bot is active.",qsoCopied:"Copied data",qsoNeedName:"NAME?",qsoNeedQth:"QTH?",qsoNeedSkcc:"SKCC NR?",qsoNeedKey:"KEY?",qsoNeedRig:"RIG?",qsoNeedPwr:"PWR?",qsoNeedAnt:"ANT?",qsoCopying:"Copying your transmission…",charSpacing:"Character spacing (Farnsworth)",customLesson:"Custom lesson",customLessonHelp:"Learn from the pasted text",customByChar:"Character by character",customByWord:"Word by word",customStart:"Start lesson",customStop:"End",customReady:"Paste text and start",customTransmit:"Send the target",customCorrect:"Correct",customImperfect:"Correct · watch the timing",customWrong:"Incorrect · repeat",customFinished:"Lesson completed",customNoText:"Paste valid text first",customAttempt:"TX",kochCourseTitle:"Progressive CW course",kochCourseSub:"40 lessons + 13 listening Challenges · 90% unlocks the next step",kochReset:"Reset",kochReady:"Ready",kochLesson:"Lesson",kochNewChar:"New",kochStartHint:"Start when you are ready",kochStart:"Start lesson",kochStop:"End",kochRetry:"Retry",kochNext:"Next level",kochListen:"LISTEN",kochSend:"SEND",kochMixed:"MIXED",kochChoose:"Listen and select",kochTransmit:"Send the character",kochCorrect:"Correct",kochWrong:"Incorrect",kochTiming:"Correct · watch the timing",kochPassed:"Level unlocked!",kochReview:"Good try · reach 90% to advance",kochMastered:"Lesson mastered",kochResetConfirm:"Reset all Koch course progress?",kochLocked:"Complete the previous lesson with 90% or better",kochCourseDone:"Koch course completed!",kochPartSend:"LISTEN AND SEND",kochPartListen:"LISTEN AND SELECT",kochSendHeard:"Listen and send",kochChallenge:"CW Challenge",kochChallengeSub:"Listening only · cumulative review",kochChallengeStart:"Start",kochChallengeDone:"Challenge completed",kochChallengeLocked:"Complete the previous 3 lessons",kochChallengeFinal:"Final challenge",statsModule:"STATISTICS",statsActivity:"Activity",statsRacer:"Racer",statsDaily:"Daily",statsKoch:"Koch",statsChallenges:"Challenges",statsQso:"QSOs",statsCustom:"Custom",statsStart:"Start",statsFinish:"Finish",dailyTab:"Daily",dailyWarmup:"Warm Up",dailyExercise:"Exercise",dailyDrill:"Drill",dailyCredit:"Exercise by WR7Q",qsoYou:"YOU",qsoRepeatsLabel:"REPEATS",duelRookie:"Rookie",duelIntermediate:"Intermediate",duelAdvanced:"Advanced",duelAllow:"Accept challenges",duelRandom:"Find random",duelCancel:"Cancel",duelReady:"Ready to challenge.",duelAccept:"Accept",duelDecline:"Decline",duelRematch:"Rematch",duelNew:"New opponent",duelExit:"Exit",duelAbandon:"Abandon duel",aiOff:"AI off",aiLoading:"AI model loading",aiReady:"AI ready",aiThinking:"AI interpreting CW",aiError:"AI unavailable",aiLocalTitle:"Local AI",}};
+const I18N={es:{subtitle:"Práctica de Código Morse",courtesy:"Cortesía de",instructions:"Instrucciones",settings:"Configuración",colorTheme:"Tema",themeBlue:"Azul",themeGreen:"Verde",themePurple:"Violeta",themePink:"Rosado",themeGameboy:"Game Boy",operatorProfile:"Indicativo",saveCall:"Guardar",editCall:"Editar",profileNote:"Tu identidad como operador dentro de Morse Practice.",rewards:"RECOMPENSAS",rewardsSub:"Los logros desbloquean recompensas cosméticas.",memberships:"Membresías de comunidad",membershipNote:"Se guarda localmente. Borra un número cuando quieras para desactivar su tema.",globalVisitors:"visitantes únicos",globalCountries:"países",globalHours:"horas totales de práctica",globalDuels:"duelos",communityStats:"🌐 Morse Practice — Estadísticas de la comunidad",communityLeaderboard:"LEADERBOARD",leaderJoin:"Participar",leaderEdit:"Cambiar indicativo",leaderLeave:"Dejar de participar",leaderPosition:"Posición",leaderPoints:"Puntos",leaderStreak:"Racha",leaderNote:"Basado en las estadísticas semanales.",mode:"Modo",straight:"Llave recta",paddle:"Paleta",invertPaddle:"Invertir DIT / DAH",speed:"Velocidad",tone:"Tono",volume:"Volumen",bandNoise:"Ruido de banda",oscAudio:"Audio del oscilador",visualAid:"Ayuda visual",visualAidHelp:"Mostrar puntos y rayas",audioOnly:"Solo audio",audioOnlyHelp:"Desactiva decodificación visual · W para mirar",audioOnlyTitle:"Modo avanzado: oculta caracteres, decodificación e información visual del CW. Mantén W para una vista rápida.",wordSpacing:"Espaciado de palabras",keyArea:"Área de manipulación",captureHelp:"Mouse, teclado, touch o adaptador USB",hero:"Haz clic, toca la pantalla o usa tu adaptador",esc:"libera el mouse",space:"llave recta",clear:"limpiar",text:"Texto / Decoder",bidirectional:"Bidireccional: escribe o manipula",playCW:"Reproducir CW",stop:"Detener",clearBtn:"Limpiar",copy:"Copiar",save:"Guardar TXT",betaNote:"Sala mundial experimental. La identidad es opcional y los eventos de manipulación viajan por un relay público.",straightHint:"Llave recta · mouse, SPACE o toca la superficie táctil",paddleHint:"Paleta · izquierda DIT (.) · derecha DAH (-)",idle:"Listo · clic para capturar mouse o toca la superficie",active:"Activo · mouse capturado · ESC libera",touchReady:"Touch activo · levanta el dedo para cortar",free:"● Canal libre",busy:"● Canal ocupado",online:"operadores en línea",connecting:"Conectando…",onair:"ON AIR conectado",copied:"Copiado",playing:"Reproduciendo",stopped:"Detenido",anonymous:"Anónimo",countries:"países",you:"tú",mute:"Silenciar",unmute:"Escuchar",racerLearn:"Learn",racerRace:"Race",racerStats:"Stats",racerLetters:"Letras A–Z",racerNumbers:"Números 0–9",racerPunct:"Signos",racerProsigns:"Prosigns",racerMixed:"Mixto",racerVoice:"Voz opcional",racerReady:"Listo para comenzar",racerStart:"Comenzar",racerNext:"Siguiente",racerEnd:"Fin",racerStartRace:"Iniciar carrera",racerSessions:"Sesiones",racerAttempts:"Intentos",racerBestScore:"Mejor score",racerBestStreak:"Mejor racha",racerMistakes:"Aprende de tus errores",racerReset:"Resetear estadísticas",racerCorrect:"Correcto",racerImperfect:"Correcto, pero mejora el timing",racerWrong:"Incorrecto",racerAgain:"Repite",racerFinished:"¡Completado!",racerFinalScore:"Puntaje final",racerBestSimilar:"Mejor carrera similar",racerNoWeak:"Todavía no hay suficientes errores para crear una lección adaptativa",racerResetConfirm:"¿Seguro que quieres borrar todas las estadísticas de CW Racer?",racerTransmit:"Transmítelo",racerListenRepeat:"Escucha y repite",racerRestartUnit:"Error: repite la unidad desde el comienzo",qsoBasic:"QSO básico",qsoIntermediate:"QSO intermedio",qsoAdvanced:"QSO avanzado",qsoReady:"Selecciona un modo e inicia el QSO.",qsoIdle:"Bot listo.",qsoStart:"Iniciar QSO",qsoRepeat:"Repetir bot",qsoStop:"Finalizar",qsoNeedCall:"Ingresa tu indicativo para comenzar.",qsoAnswerCQ:"Responde al CQ con tu indicativo.",qsoSendExchange:"Envía tu RST, nombre y QTH.",qsoSendMore:"Agrega RST, nombre/QTH y algunos datos de estación.",qsoSendSkcc:"Envía RST, SPC/QTH, nombre y número SKCC (o NONE).",qsoSendPota:"Envía un RST realista; QTH es opcional.",qsoRepeatNeeded:"No copié todo. Repite el intercambio.",qsoComplete:"QSO completado",qsoStopped:"QSO finalizado.",qsoBotTx:"El bot está transmitiendo…",qsoAdvancedRepeat:"El bot pide una repetición.",qsoLocked:"ON AIR no está disponible durante CW Racer o QSO Bot.",qsoCopied:"Datos copiados",qsoNeedName:"NAME?",qsoNeedQth:"QTH?",qsoNeedSkcc:"SKCC NR?",qsoNeedKey:"KEY?",qsoNeedRig:"RIG?",qsoNeedPwr:"PWR?",qsoNeedAnt:"ANT?",qsoCopying:"Copiando tu transmisión…",charSpacing:"Espaciado de caracteres (Farnsworth)",personalPractice:"Práctica personalizada",personalPracticeHelp:"Texto propio o práctica basada en tus errores",practiceFromText:"DESDE TEXTO",practiceFromMistakes:"DESDE TUS ERRORES",mistakesPracticeHelp:"Crea una sesión con los caracteres que más necesitas reforzar.",mistakesStart:"Iniciar práctica de errores",customLesson:"Lección personalizada",customLessonHelp:"Aprende del texto pegado",customByChar:"Carácter por carácter",customByWord:"Palabra por palabra",customByCharShort:"Caracteres",customByWordShort:"Palabras",customStart:"Iniciar lección",customStop:"Terminar",customReady:"Pega un texto y comienza",customTransmit:"Transmite lo mostrado",customCorrect:"Correcto",customImperfect:"Correcto · cuida el ritmo",customWrong:"Incorrecto · repite",customFinished:"Lección completada",customNoText:"Pega primero un texto válido",customAttempt:"TX",kochCourseTitle:"Curso progresivo de CW",kochCourseSub:"",kochReset:"Reset",kochReady:"Listo",kochLesson:"Lección",kochNewChar:"Nuevo",kochStartHint:"Comienza cuando estés listo",kochStart:"Iniciar lección",kochStop:"Terminar",kochRetry:"Repetir",kochNext:"Siguiente nivel",kochListen:"ESCUCHA",kochSend:"TRANSMITE",kochMixed:"MIXTO",kochChoose:"Escucha y selecciona",kochTransmit:"Transmite el carácter",kochCorrect:"Correcto",kochWrong:"Incorrecto",kochTiming:"Correcto · cuida el ritmo",kochPassed:"¡Nivel desbloqueado!",kochReview:"Buen intento · alcanza 90% para avanzar",kochMastered:"Lección dominada",kochResetConfirm:"¿Resetear todo el progreso del curso Koch?",kochLocked:"Completa la lección anterior con 90% o más",kochCourseDone:"¡Curso Koch completado!",kochPartSend:"ESCUCHA Y TRANSMITE",kochPartListen:"ESCUCHA Y SELECCIONA",kochSendHeard:"Escucha y transmite",kochChallenge:"CW Challenge",kochChallengeSub:"Solo recepción · repaso acumulativo",kochChallengeStart:"Iniciar",kochChallengeDone:"Challenge completado",kochChallengeLocked:"Completa las 3 lecciones anteriores",kochChallengeFinal:"Challenge final",statsModule:"ESTADÍSTICAS",statsActivity:"Actividad",statsRacer:"Racer",statsDaily:"Daily",statsKoch:"Koch",statsChallenges:"Challenges",statsQso:"QSOs",statsCustom:"Personalizadas",statsStart:"Inicio",statsFinish:"Meta",dailyTab:"Diario",dailyWarmup:"Calentamiento",dailyExercise:"Ejercicio",dailyDrill:"Práctica",dailyCredit:"Ejercicio de WR7Q",qsoYou:"TÚ",qsoRepeatsLabel:"REPETICIONES",duelRookie:"Rookie",duelIntermediate:"Intermedio",duelAdvanced:"Avanzado",duelAllow:"Aceptar desafíos",duelRandom:"Buscar aleatorio",duelCancel:"Cancelar",duelReady:"Listo para desafiar.",duelAccept:"Aceptar",duelDecline:"Rechazar",duelRematch:"Revancha",duelNew:"Nuevo rival",duelExit:"Salir",duelAbandon:"Abandonar duelo",aiOff:"IA apagada",aiLoading:"Cargando modelo de IA",aiReady:"IA lista",aiThinking:"IA interpretando CW",aiError:"IA no disponible",aiLocalTitle:"IA local",},en:{operatorProfile:"Callsign",saveCall:"Save",editCall:"Edit",profileNote:"Your operator identity across Morse Practice.",rewards:"REWARDS",rewardsSub:"Achievements unlock cosmetic rewards.",memberships:"Community memberships",footerSkcc:"SKCC members on board",footerLicw:"LICW members on board",subtitle:"Morse Code Practice",courtesy:"Courtesy of",instructions:"Instructions",settings:"Settings",colorTheme:"Theme",themeBlue:"Blue",themeGreen:"Green",themePurple:"Purple",themePink:"Pink",themeGameboy:"Game Boy",globalVisitors:"unique visitors",globalCountries:"countries",globalHours:"total practice hours",globalDuels:"duels",communityStats:"🌐 Morse Practice — Community Stats",communityLeaderboard:"LEADERBOARD",leaderJoin:"Join",leaderEdit:"Change callsign",leaderLeave:"Leave leaderboard",leaderPosition:"Position",leaderPoints:"Points",leaderStreak:"Streak",leaderNote:"Based on weekly statistics.",mode:"Mode",straight:"Straight Key",paddle:"Paddle",invertPaddle:"Invert DIT / DAH",speed:"Speed",tone:"Tone",volume:"Volume",bandNoise:"Band Noise",oscAudio:"Oscillator audio",visualAid:"Visual aid",visualAidHelp:"Show dots and dashes",audioOnly:"Audio Only",audioOnlyHelp:"Disables visual decoding · W to peek",audioOnlyTitle:"Advanced mode: hides characters, decoding and visual CW information. Hold W for a quick peek.",wordSpacing:"Word spacing",keyArea:"Keying Area",captureHelp:"Mouse, keyboard, touch or USB adapter",hero:"Click, touch the screen or use your adapter",esc:"releases mouse",space:"straight key",clear:"clear",text:"Text / Decoder",bidirectional:"Bidirectional: type or key",playCW:"Play CW",stop:"Stop",clearBtn:"Clear",copy:"Copy",save:"Save TXT",betaNote:"Experimental global room. Identity is optional and keying events travel through a public relay.",straightHint:"Straight key · mouse, SPACE or touch the surface",paddleHint:"Paddle · left DIT (.) · right DAH (-)",idle:"Ready · click to capture mouse or touch the surface",active:"Active · mouse captured · ESC releases",touchReady:"Touch active · lift your finger to release",free:"● Channel free",busy:"● Channel busy",online:"operators online",connecting:"Connecting…",onair:"ON AIR connected",copied:"Copied",playing:"Playing",stopped:"Stopped",anonymous:"Anonymous",countries:"countries",you:"you",mute:"Mute",unmute:"Listen",racerLearn:"Learn",racerRace:"Race",racerStats:"Stats",racerLetters:"Letters A–Z",racerNumbers:"Numbers 0–9",racerPunct:"Punctuation",racerProsigns:"Prosigns",racerMixed:"Mixed",racerVoice:"Optional voice",racerReady:"Ready to start",racerStart:"Start",racerNext:"Next",racerEnd:"End",racerStartRace:"Start race",racerSessions:"Sessions",racerAttempts:"Attempts",racerBestScore:"Best score",racerBestStreak:"Best streak",racerMistakes:"Learn from my mistakes",racerReset:"Reset statistics",racerCorrect:"Correct",racerImperfect:"Correct, but improve your timing",racerWrong:"Wrong",racerAgain:"Repeat",racerFinished:"Completed!",racerFinalScore:"Final score",racerBestSimilar:"Best similar race",racerNoWeak:"There are not enough weak characters yet to build an adaptive lesson",racerResetConfirm:"Are you sure you want to erase all CW Racer statistics?",racerTransmit:"Transmit it",racerListenRepeat:"Listen and repeat",racerRestartUnit:"Error: restart the unit from the beginning",qsoBasic:"Basic QSO",qsoIntermediate:"Intermediate QSO",qsoAdvanced:"Advanced QSO",qsoReady:"Select a mode and start the QSO.",qsoIdle:"Bot ready.",qsoStart:"Start QSO",qsoRepeat:"Repeat bot",qsoStop:"End",qsoNeedCall:"Enter your callsign to start.",qsoAnswerCQ:"Answer the CQ with your callsign.",qsoSendExchange:"Send your RST, name and QTH.",qsoSendMore:"Add RST, name/QTH and some station details.",qsoSendSkcc:"Send RST, SPC/QTH, name and SKCC number (or NONE).",qsoSendPota:"Send a realistic RST; QTH is optional.",qsoRepeatNeeded:"I did not copy everything. Repeat the exchange.",qsoComplete:"QSO completed",qsoStopped:"QSO ended.",qsoBotTx:"The bot is transmitting…",qsoAdvancedRepeat:"The bot requests a repeat.",qsoLocked:"ON AIR is unavailable while CW Racer or QSO Bot is active.",qsoCopied:"Copied data",qsoNeedName:"NAME?",qsoNeedQth:"QTH?",qsoNeedSkcc:"SKCC NR?",qsoNeedKey:"KEY?",qsoNeedRig:"RIG?",qsoNeedPwr:"PWR?",qsoNeedAnt:"ANT?",qsoCopying:"Copying your transmission…",charSpacing:"Character spacing (Farnsworth)",personalPractice:"Personalized practice",personalPracticeHelp:"Your own text or practice based on your mistakes",practiceFromText:"FROM TEXT",practiceFromMistakes:"FROM YOUR MISTAKES",mistakesPracticeHelp:"Build a session from the characters that need the most reinforcement.",mistakesStart:"Start mistakes practice",customLesson:"Custom lesson",customLessonHelp:"Learn from the pasted text",customByChar:"Character by character",customByWord:"Word by word",customByCharShort:"Characters",customByWordShort:"Words",customStart:"Start lesson",customStop:"End",customReady:"Paste text and start",customTransmit:"Send the target",customCorrect:"Correct",customImperfect:"Correct · watch the timing",customWrong:"Incorrect · repeat",customFinished:"Lesson completed",customNoText:"Paste valid text first",customAttempt:"TX",kochCourseTitle:"Progressive CW course",kochCourseSub:"40 lessons + 13 listening Challenges · 90% unlocks the next step",kochReset:"Reset",kochReady:"Ready",kochLesson:"Lesson",kochNewChar:"New",kochStartHint:"Start when you are ready",kochStart:"Start lesson",kochStop:"End",kochRetry:"Retry",kochNext:"Next level",kochListen:"LISTEN",kochSend:"SEND",kochMixed:"MIXED",kochChoose:"Listen and select",kochTransmit:"Send the character",kochCorrect:"Correct",kochWrong:"Incorrect",kochTiming:"Correct · watch the timing",kochPassed:"Level unlocked!",kochReview:"Good try · reach 90% to advance",kochMastered:"Lesson mastered",kochResetConfirm:"Reset all Koch course progress?",kochLocked:"Complete the previous lesson with 90% or better",kochCourseDone:"Koch course completed!",kochPartSend:"LISTEN AND SEND",kochPartListen:"LISTEN AND SELECT",kochSendHeard:"Listen and send",kochChallenge:"CW Challenge",kochChallengeSub:"Listening only · cumulative review",kochChallengeStart:"Start",kochChallengeDone:"Challenge completed",kochChallengeLocked:"Complete the previous 3 lessons",kochChallengeFinal:"Final challenge",statsModule:"STATISTICS",statsActivity:"Activity",statsRacer:"Racer",statsDaily:"Daily",statsKoch:"Koch",statsChallenges:"Challenges",statsQso:"QSOs",statsCustom:"Custom",statsStart:"Start",statsFinish:"Finish",dailyTab:"Daily",dailyWarmup:"Warm Up",dailyExercise:"Exercise",dailyDrill:"Drill",dailyCredit:"Exercise by WR7Q",qsoYou:"YOU",qsoRepeatsLabel:"REPEATS",duelRookie:"Rookie",duelIntermediate:"Intermediate",duelAdvanced:"Advanced",duelAllow:"Accept challenges",duelRandom:"Find random",duelCancel:"Cancel",duelReady:"Ready to challenge.",duelAccept:"Accept",duelDecline:"Decline",duelRematch:"Rematch",duelNew:"New opponent",duelExit:"Exit",duelAbandon:"Abandon duel",aiOff:"AI off",aiLoading:"AI model loading",aiReady:"AI ready",aiThinking:"AI interpreting CW",aiError:"AI unavailable",aiLocalTitle:"Local AI",}};
 const $=id=>document.getElementById(id),keyarea=$("keyarea"),symbols=$("symbols"),decoded=$("decoded"),practice=$("practice"),status=$("status"),mode=$("mode"),wpm=$("wpm"),tone=$("tone"),volume=$("volume"),bandNoise=$("bandNoise"),sidetone=$("sidetoneToggle"),visualAid=$("visualAidToggle"),audioOnly=$("audioOnlyToggle"),charSpacing=$("charSpacing"),spacing=$("wordSpacing");
 let lang=localStorage.getItem('cw-lang')||'es'; const tr=k=>I18N[lang][k]||k;
 let visualAidEnabled=localStorage.getItem('cw-visual-aid')==='on';
@@ -1132,7 +1343,7 @@ root.dataset.theme=savedTheme;
 $("themeToggle").classList.toggle('on',savedTheme==='dark');
 $("themeToggle").onclick=()=>{root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';localStorage.setItem('cw-theme',root.dataset.theme);$("themeToggle").classList.toggle('on',root.dataset.theme==='dark')};
 const accentTheme=$("accentTheme");
-function rewardThemeAllowed(v){const sk=!!localStorage.getItem('cw-reward-skcc'),li=!!localStorage.getItem('cw-reward-licw');let kp={};try{kp=JSON.parse(localStorage.getItem('cw-koch-progress-v1')||'{}')}catch{};const allCh=Object.keys(kp.challenges||{}).length>=13&&Object.values(kp.challenges||{}).every(x=>Number(x?.stars||0)>=1),days=consecutivePracticeDays();return !['brass','licw','heritage','master','signal','nightop'].includes(v)||(v==='brass'&&sk)||(v==='licw'&&li)||(v==='heritage'&&sk&&li)||(v==='master'&&allCh)||(v==='signal'&&days>=7)||(v==='nightop'&&days>=30)}
+function rewardThemeAllowed(v){const sk=!!localStorage.getItem('cw-reward-skcc'),li=!!localStorage.getItem('cw-reward-licw');let kp={};try{kp=JSON.parse(localStorage.getItem('cw-koch-progress-v1')||'{}')}catch{};const allCh=Object.keys(kp.challenges||{}).length>=13&&Object.values(kp.challenges||{}).every(x=>Number(x?.stars||0)>=1),days=consecutivePracticeDays();const sessions=Math.max(0,Number(localStorage.getItem('cw-racer-completed-total')||0))+Math.max(0,Number(localStorage.getItem('cw-qso-completed')||0))+Math.max(0,Number(localStorage.getItem('cw-duel-completed-total')||0));return !['brass','licw','lxcw','heritage','master','signal','nightop'].includes(v)||(v==='brass'&&sk)||(v==='licw'&&li)||(v==='lxcw'&&sessions>=3)||(v==='heritage'&&sk&&li)||(v==='master'&&allCh)||(v==='signal'&&days>=7)||(v==='nightop'&&days>=30)}
 let savedAccentTheme=localStorage.getItem('cw-accent-theme')||'blue';if(!rewardThemeAllowed(savedAccentTheme)){savedAccentTheme='blue';localStorage.setItem('cw-accent-theme','blue')}
 root.dataset.accentTheme=savedAccentTheme;accentTheme.value=savedAccentTheme;
 accentTheme.onchange=()=>{if(!rewardThemeAllowed(accentTheme.value)){accentTheme.value=root.dataset.accentTheme||'blue';return}root.dataset.accentTheme=accentTheme.value;localStorage.setItem('cw-accent-theme',accentTheme.value)};
@@ -1281,7 +1492,9 @@ function chatAddMessage(msg,isMine=false,opts={}){
   if(next)box.insertBefore(row,next);else box.appendChild(row);
 
   if(!opts.historical&&!chatOpen&&!isMine){chatUnread++;chatUpdateUnread()}
-  if(!opts.historical)chatScrollBottom();
+  // Always keep the most recent message in view when the chat is expanded,
+  // including retained history arriving immediately after a reload.
+  if(chatOpen)requestAnimationFrame(chatScrollBottom);
   chatPruneHistory();
   return {row,hear,heard}
 }
@@ -1396,7 +1609,8 @@ function chatConnect(){
   chatClient.on('connect',()=>{
     chatSetConnected(true);
     chatClient.subscribe(`${CHAT_ROOT}/#`,{qos:0});
-    chatPublishPresence();setTimeout(chatPruneHistory,1800);
+    chatPublishPresence();
+    setTimeout(()=>{chatPruneHistory();if(chatOpen)chatScrollBottom()},1800);
     clearInterval(chatPresenceTimer);
     chatPresenceTimer=setInterval(chatPublishPresence,10000);
     clearInterval(chatCleanupTimer);
@@ -1662,10 +1876,8 @@ function renderWeeklyLeaderboard(){
   const list=$("leaderList");if(!list)return;
   const call=leaderCallsign(),joined=leaderIsJoined();
 
-  // Several browsers/devices can legitimately publish the same callsign under
-  // different anonymous visitor IDs. For display/ranking, collapse them by
-  // normalized callsign and keep the strongest weekly result. Raw MQTT records
-  // remain untouched.
+  // Several browsers/devices can publish the same callsign. For ranking,
+  // collapse by normalized callsign and keep the strongest weekly result.
   const grouped=new Map();
   for(const [id,v] of weeklyLeaders.entries()){
     const c=sanitizeCall(v?.call);
@@ -1700,16 +1912,70 @@ function renderWeeklyLeaderboard(){
     $("leaderStreak").textContent=my.streak||0;
   }
 
-  list.innerHTML=arr.slice(0,20).map((v,i)=>{
-    const mine=joined&&call&&v.call===call;
-    return `<div class="leader-row ${mine?'me':''}"><b>#${i+1}</b><span class="leader-call">${countryFlag(v.country)} ${mine&&rewardFlags().top10?'🏅 ':''}${escapeHtml(v.call)}</span><b class="leader-score">${Number(v.score)||0}</b><b class="leader-streak" title="${lang==='es'?'Mejor racha semanal de aciertos consecutivos en Racer/Duel':'Best weekly consecutive correct streak in Racer/Duel'}">🔥${Number(v.streak)||0}</b></div>`
-  }).join('') || `<div class="community-note">${lang==='es'?'Aún no hay participantes esta semana.':'No participants yet this week.'}</div>`;
+  // Compact leaderboard:
+  // - Always keep Top 3 visible.
+  // - Show up to 7 additional rows (10 total).
+  // - Outside Top 3, those 7 rows become the current operator's context:
+  //   nearby operators above and below, while Top 3 remains visible.
+  // - If the operator is Top 3 (or is not participating), show ranks 4–10.
+  const selected=new Set();
+  for(let i=0;i<Math.min(3,arr.length);i++)selected.add(i);
+
+  const room=7;
+  if(joined&&myIndex>=3){
+    let from=Math.max(3,myIndex-3);
+    let to=Math.min(arr.length-1,from+room-1);
+    from=Math.max(3,to-room+1);
+    for(let i=from;i<=to;i++)selected.add(i);
+  }else{
+    for(let i=3;i<Math.min(10,arr.length);i++)selected.add(i);
+  }
+
+  const indexes=[...selected].sort((a,b)=>a-b);
+  let last=-1;
+  const parts=[];
+  for(const i of indexes){
+    if(last>=0&&i>last+1){
+      parts.push(`<div class="community-note" style="text-align:center;padding:2px 0">•••</div>`);
+    }
+    const v=arr[i],mine=joined&&call&&v.call===call;
+    parts.push(`<div class="leader-row ${mine?'me':''}"><b>#${i+1}</b><span class="leader-call">${countryFlag(v.country)} ${mine&&rewardFlags().top10?'🏅 ':''}${escapeHtml(v.call)}</span><b class="leader-score">${Number(v.score)||0}</b><b class="leader-streak" title="${lang==='es'?'Mejor racha semanal de aciertos consecutivos en Racer/Duel':'Best weekly consecutive correct streak in Racer/Duel'}">🔥${Number(v.streak)||0}</b></div>`);
+    last=i;
+  }
+
+  list.innerHTML=parts.join('') || `<div class="community-note">${lang==='es'?'Aún no hay participantes esta semana.':'No participants yet this week.'}</div>`;
 }
 
 function sanitizeCall(v){return String(v||'').toUpperCase().replace(/[^A-Z0-9/]/g,'').slice(0,16)}
-function syncGlobalCallUI(){const c=sanitizeCall(localStorage.getItem('cw-global-call')||localStorage.getItem('cw-leader-call')||localStorage.getItem('cw-onair-call')||'');if(c)localStorage.setItem('cw-global-call',c);if($('globalCall'))$('globalCall').value=c;if($('operatorCall'))$('operatorCall').value=c;if($('leaderCall'))$('leaderCall').value=c;}
-function saveGlobalCall(){const c=sanitizeCall($('globalCall').value);if(c)localStorage.setItem('cw-global-call',c);else localStorage.removeItem('cw-global-call');localStorage.setItem('cw-leader-call',c);if($('operatorCall'))$('operatorCall').value=c;if($('leaderCall'))$('leaderCall').value=c;if(leaderIsJoined()&&!c)localStorage.setItem('cw-leader-active','0');publishPresence?.('heartbeat');publishWeeklyLeader();renderWeeklyLeaderboard();renderRewards();}
-function rewardFlags(){let kp={};try{kp=JSON.parse(localStorage.getItem('cw-koch-progress-v1')||'{}')}catch{}const ch=kp.challenges||{};const allChallenges=Object.keys(ch).length>=13&&Array.from({length:13},(_,i)=>Number(ch[String(i+1)]?.stars||0)>=1).every(Boolean);const skcc=!!String(localStorage.getItem('cw-reward-skcc')||'').trim(),licw=!!String(localStorage.getItem('cw-reward-licw')||'').trim(),days=consecutivePracticeDays(),weekStreak=days>=7,monthStreak=days>=30,top10=localStorage.getItem('cw-reward-top10')==='1';return{skcc,licw,both:skcc&&licw,allChallenges,weekStreak,monthStreak,top10,days};}
+function setGlobalCallEditMode(editing){
+  const input=$('globalCall'),btn=$('globalCallSave');
+  if(!input||!btn)return;
+  input.readOnly=!editing;
+  btn.textContent=editing?tr('saveCall'):tr('editCall');
+}
+function syncGlobalCallUI(){
+  const c=sanitizeCall(localStorage.getItem('cw-global-call')||localStorage.getItem('cw-leader-call')||localStorage.getItem('cw-onair-call')||'');
+  if(c)localStorage.setItem('cw-global-call',c);
+  if($('globalCall'))$('globalCall').value=c;
+  if($('operatorCall'))$('operatorCall').value=c;
+  if($('leaderCall'))$('leaderCall').value=c;
+  setGlobalCallEditMode(!c);
+}
+function saveGlobalCall(){
+  const c=sanitizeCall($('globalCall').value);
+  if(c)localStorage.setItem('cw-global-call',c);
+  else localStorage.removeItem('cw-global-call');
+  localStorage.setItem('cw-leader-call',c);
+  if($('operatorCall'))$('operatorCall').value=c;
+  if($('leaderCall'))$('leaderCall').value=c;
+  if(leaderIsJoined()&&!c)localStorage.setItem('cw-leader-active','0');
+  publishPresence?.('heartbeat');
+  publishWeeklyLeader();
+  renderWeeklyLeaderboard();
+  renderRewards();
+  setGlobalCallEditMode(!c);
+}
+function rewardFlags(){let kp={};try{kp=JSON.parse(localStorage.getItem('cw-koch-progress-v1')||'{}')}catch{}const ch=kp.challenges||{};const allChallenges=Object.keys(ch).length>=13&&Array.from({length:13},(_,i)=>Number(ch[String(i+1)]?.stars||0)>=1).every(Boolean);const skcc=!!String(localStorage.getItem('cw-reward-skcc')||'').trim(),licw=!!String(localStorage.getItem('cw-reward-licw')||'').trim(),sessions=Math.max(0,Number(localStorage.getItem('cw-racer-completed-total')||0))+Math.max(0,Number(localStorage.getItem('cw-qso-completed')||0))+Math.max(0,Number(localStorage.getItem('cw-duel-completed-total')||0)),lxcw=sessions>=3,days=consecutivePracticeDays(),weekStreak=days>=7,monthStreak=days>=30,top10=localStorage.getItem('cw-reward-top10')==='1';return{skcc,licw,lxcw,sessions,both:skcc&&licw,allChallenges,weekStreak,monthStreak,top10,days};}
 function rewardToast(msg){
   const el=$('rewardToast');if(!el||!msg)return;
   rewardToast.q=rewardToast.q||[];
@@ -1727,7 +1993,7 @@ function rewardToast(msg){
   };
   next();
 }
-function refreshRewardThemes(){const f=rewardFlags(),allowed={brass:f.skcc,licw:f.licw,heritage:f.both,master:f.allChallenges,signal:f.weekStreak,nightop:f.monthStreak};[...accentTheme.options].forEach(o=>{if(o.value in allowed){o.disabled=!allowed[o.value];const name={brass:'Brass Key',licw:'LICW Night',heritage:'CW Heritage',master:'Master Copy',signal:'Signal Green',nightop:'Night Operator'}[o.value];o.textContent=(allowed[o.value]?'✨ ':'🔒 ')+name;}});const cur=root.dataset.accentTheme;if(cur in allowed&&!allowed[cur]){root.dataset.accentTheme='blue';accentTheme.value='blue';localStorage.setItem('cw-accent-theme','blue');rewardToast(lang==='es'?'Tema bloqueado · volvimos a Azul':'Theme locked · returned to Blue');}}
+function refreshRewardThemes(){const f=rewardFlags(),allowed={brass:f.skcc,licw:f.licw,lxcw:f.lxcw,heritage:f.both,master:f.allChallenges,signal:f.weekStreak,nightop:f.monthStreak};[...accentTheme.options].forEach(o=>{if(o.value in allowed){o.disabled=!allowed[o.value];const name={brass:'Brass Key',licw:'LICW Night',lxcw:'LXCW',heritage:'CW Heritage',master:'Master Copy',signal:'Signal Green',nightop:'Night Operator'}[o.value];o.textContent=(allowed[o.value]?'✨ ':'🔒 ')+name;}});const cur=root.dataset.accentTheme;if(cur in allowed&&!allowed[cur]){root.dataset.accentTheme='blue';accentTheme.value='blue';localStorage.setItem('cw-accent-theme','blue');rewardToast(lang==='es'?'Tema bloqueado · volvimos a Azul':'Theme locked · returned to Blue');}}
 function renderMembershipCounts(){const fsk=$('footerSkccCount'),fli=$('footerLicwCount');const skn=communityMembers.skcc.size,lin=communityMembers.licw.size;if(fsk)fsk.textContent=skn.toLocaleString();if(fli)fli.textContent=lin.toLocaleString();}
 function countryName(code){
   try{return new Intl.DisplayNames([lang==='es'?'es':'en'],{type:'region'}).of(code)||code}catch{return code}
@@ -1757,8 +2023,19 @@ function openMembership(kind){
 }
 
 function publishMembership(kind){if(!statsClient?.connected)return;const key='cw-reward-'+kind,v=String(localStorage.getItem(key)||'').trim(),topic=`${STATS_ROOT}/members/${kind}/${statsVisitorId}`;statsClient.publish(topic,v?JSON.stringify({number:v,call:leaderCallsign()||'',ts:Date.now()}):'',{qos:0,retain:true});}
-function renderRewards(){if(!$('rewardGrid'))return;const f=rewardFlags();refreshRewardThemes();const cards=[['skcc','🔑','Brass Key',lang==='es'?'Agrega tu número SKCC':'Add your SKCC number',f.skcc],['licw','🌊','LICW Night',lang==='es'?'Agrega tu número LICW':'Add your LICW number',f.licw],['both','📻','CW Heritage','SKCC + LICW',f.both],['koch','🎧','Master Copy',lang==='es'?'Completa los 13 Koch Challenges':'Complete all 13 Koch Challenges',f.allChallenges],['week','🔥','7 Day Streak',lang==='es'?`Practica 7 días seguidos · desbloquea Signal Green · actual ${f.days} días`:`Practice 7 days in a row · unlocks Signal Green · current ${f.days} days`,f.weekStreak],['month','⚡','30 Day Streak',lang==='es'?`Practica 30 días seguidos · desbloquea Night Operator · actual ${f.days} días`:`Practice 30 days in a row · unlocks Night Operator · current ${f.days} days`,f.monthStreak],['top10','🏅','Top 10 Operator',lang==='es'?'Alcanza el Top 10 del Leaderboard semanal':'Reach the Weekly Leaderboard Top 10',f.top10]];$('rewardGrid').innerHTML=cards.map(x=>`<div class="reward-card ${x[4]?'unlocked':''}"><div class="reward-icon">${x[1]}</div><div><div class="reward-name">${x[2]}</div><div class="reward-desc">${x[3]}</div></div><div class="reward-state">${x[4]?(lang==='es'?'DESBLOQUEADO':'UNLOCKED'):'🔒'}</div></div>`).join('');$('rewardsCount').textContent=`${cards.filter(x=>x[4]).length} / ${cards.length}`;$('rewardSkcc').value=localStorage.getItem('cw-reward-skcc')||'';$('rewardLicw').value=localStorage.getItem('cw-reward-licw')||'';renderMembershipCounts();}
-function setupRewards(){syncGlobalCallUI();$('globalCallSave').onclick=saveGlobalCall;$('globalCall').addEventListener('keydown',e=>{if(e.key==='Enter')saveGlobalCall()});$('rewardsToggle').onchange=e=>$('rewardsPanel').classList.toggle('open',e.target.checked);const saveMember=(kind)=>{const before=rewardFlags(),el=$(kind==='skcc'?'rewardSkcc':'rewardLicw'),key='cw-reward-'+kind,had=!!localStorage.getItem(key),v=String(el.value||'').replace(/[^0-9A-Za-z-]/g,'').slice(0,12);if(v)localStorage.setItem(key,v);else localStorage.removeItem(key);const has=!!v,after=rewardFlags();if(has&&!had)rewardToast((kind.toUpperCase())+' · '+(lang==='es'?'¡Recompensa desbloqueada!':'Reward unlocked!'));if(!before.both&&after.both)rewardToast(lang==='es'?'📻 CW Heritage · ¡Recompensa desbloqueada!':'📻 CW Heritage · Reward unlocked!');publishMembership(kind);renderRewards();};$('rewardSkccSave').onclick=()=>saveMember('skcc');$('rewardLicwSave').onclick=()=>saveMember('licw');renderRewards();}
+function renderRewards(){if(!$('rewardGrid'))return;const f=rewardFlags();refreshRewardThemes();const cards=[['lxcw','📻','LXCW',lang==='es'?`Practica para desbloquear · ${Math.min(f.sessions,3)}/3`:`Practice to unlock · ${Math.min(f.sessions,3)}/3`,f.lxcw],['skcc','🔑','Brass Key',lang==='es'?'Agrega tu número SKCC':'Add your SKCC number',f.skcc],['licw','🌊','LICW Night',lang==='es'?'Agrega tu número LICW':'Add your LICW number',f.licw],['both','📻','CW Heritage','SKCC + LICW',f.both],['koch','🎧','Master Copy',lang==='es'?'Completa los 13 Koch Challenges':'Complete all 13 Koch Challenges',f.allChallenges],['week','🔥','7 Day Streak',lang==='es'?`Practica 7 días seguidos · desbloquea Signal Green · actual ${f.days} días`:`Practice 7 days in a row · unlocks Signal Green · current ${f.days} days`,f.weekStreak],['month','⚡','30 Day Streak',lang==='es'?`Practica 30 días seguidos · desbloquea Night Operator · actual ${f.days} días`:`Practice 30 days in a row · unlocks Night Operator · current ${f.days} days`,f.monthStreak],['top10','🏅','Top 10 Operator',lang==='es'?'Alcanza el Top 10 del Leaderboard semanal':'Reach the Weekly Leaderboard Top 10',f.top10]];$('rewardGrid').innerHTML=cards.map(x=>`<div class="reward-card ${x[4]?'unlocked':''}"><div class="reward-icon">${x[1]}</div><div><div class="reward-name">${x[2]}</div><div class="reward-desc">${x[3]}</div></div><div class="reward-state">${x[4]?(lang==='es'?'DESBLOQUEADO':'UNLOCKED'):'🔒'}</div></div>`).join('');$('rewardsCount').textContent=`${cards.filter(x=>x[4]).length} / ${cards.length}`;$('rewardSkcc').value=localStorage.getItem('cw-reward-skcc')||'';$('rewardLicw').value=localStorage.getItem('cw-reward-licw')||'';renderMembershipCounts();}
+function setupRewards(){syncGlobalCallUI();$('globalCallSave').onclick=()=>{
+  const input=$('globalCall');
+  if(input.readOnly){
+    setGlobalCallEditMode(true);
+    input.focus();
+    input.select();
+  }else{
+    saveGlobalCall();
+  }
+};$('globalCall').addEventListener('keydown',e=>{
+  if(e.key==='Enter'&&!$('globalCall').readOnly)saveGlobalCall();
+});$('rewardsToggle').onchange=e=>$('rewardsPanel').classList.toggle('open',e.target.checked);const saveMember=(kind)=>{const before=rewardFlags(),el=$(kind==='skcc'?'rewardSkcc':'rewardLicw'),key='cw-reward-'+kind,had=!!localStorage.getItem(key),v=String(el.value||'').replace(/[^0-9A-Za-z-]/g,'').slice(0,12);if(v)localStorage.setItem(key,v);else localStorage.removeItem(key);const has=!!v,after=rewardFlags();if(has&&!had)rewardToast((kind.toUpperCase())+' · '+(lang==='es'?'¡Recompensa desbloqueada!':'Reward unlocked!'));if(!before.both&&after.both)rewardToast(lang==='es'?'📻 CW Heritage · ¡Recompensa desbloqueada!':'📻 CW Heritage · Reward unlocked!');publishMembership(kind);renderRewards();};$('rewardSkccSave').onclick=()=>saveMember('skcc');$('rewardLicwSave').onclick=()=>saveMember('licw');renderRewards();}
 function setupCommunity(){
   if($("footerSkccBtn"))$("footerSkccBtn").onclick=()=>openMembership("skcc");
   if($("footerLicwBtn"))$("footerLicwBtn").onclick=()=>openMembership("licw");
@@ -2089,11 +2366,18 @@ function disconnectOnAir(){
 }
 
 $("onAirToggle").onchange=e=>{
-  if(e.target.checked&&(racerOn||qsoOn||customLessonOn||kochOn)){
-    e.target.checked=false;
-    return;
+  if(e.target.checked){
+    // ON AIR has priority: close any active practice automatically.
+    forceDuelOff();
+    if(racerOn)forceRacerOff();
+    if(qsoOn)forceQsoOff();
+    if(customLessonOn)forceCustomLessonOff();
+    if(kochOn)forceKochOff();
+    syncTrainingLocks();
+    connectOnAir();
+  }else{
+    disconnectOnAir();
   }
-  if(e.target.checked)forceDuelOff();e.target.checked?connectOnAir():disconnectOnAir();
 };
 
 for(const id of ["operatorName","operatorCall"]){
@@ -2361,13 +2645,26 @@ function racerSetTab(tab){
 document.querySelectorAll('.racer-tab').forEach(b=>b.onclick=()=>racerSetTab(b.dataset.racerTab));
 
 function syncTrainingLocks(){
-  const locked=racerOn||qsoOn||customLessonOn||kochOn;
+  // ON AIR always remains available. Starting it automatically closes any
+  // currently active practice, so a hidden module can never block the user.
   const sw=$("onAirToggle");
-  sw.disabled=locked;
-  sw.parentElement.classList.toggle('locked',locked);
-  sw.parentElement.title=locked?tr('qsoLocked'):'';
-  const dt=$('duelToggle');if(dt){const duelLocked=racerOn||qsoOn||customLessonOn||kochOn;dt.disabled=duelLocked;dt.parentElement.classList.toggle('locked',duelLocked);}
-  for(const id of ['cwRacerToggle','qsoBotToggle','customLessonToggle','kochToggle']){const t=$(id);if(t){t.disabled=!!duelOn;t.parentElement.classList.toggle('locked',!!duelOn)}}
+  sw.disabled=false;
+  sw.parentElement.classList.remove('locked');
+  sw.parentElement.title='';
+
+  const dt=$('duelToggle');
+  if(dt){
+    const duelLocked=racerOn||qsoOn||customLessonOn||kochOn;
+    dt.disabled=duelLocked;
+    dt.parentElement.classList.toggle('locked',duelLocked);
+  }
+  for(const id of ['cwRacerToggle','qsoBotToggle','customLessonToggle','kochToggle']){
+    const t=$(id);
+    if(t){
+      t.disabled=!!duelOn;
+      t.parentElement.classList.toggle('locked',!!duelOn);
+    }
+  }
 }
 function forceOnAirOff(){
   if(onAir)disconnectOnAir();
@@ -2424,11 +2721,14 @@ function endRacer(){
   learn.active=false;
   race.active=false;
   wr7q.active=false;
-  racerOn=false;
   localToneOff();
   flash(false);
-  $("cwRacerToggle").checked=false;
-  $("cwRacerPanel").classList.remove('open');
+
+  // Fin solo termina el ejercicio actual.
+  // El módulo CW Racer permanece activo y desplegado.
+  racerOn=true;
+  $("cwRacerToggle").checked=true;
+  $("cwRacerPanel").classList.add('open');
   syncTrainingLocks();
 }
 
@@ -2574,22 +2874,6 @@ if(statsToggleEl)statsToggleEl.onchange=e=>{
   $("statsPanel").classList.toggle('open',e.target.checked);
   if(e.target.checked)renderRacerStats();
 };
-$("statsCustomLessonBtn").onclick=()=>{
-  const t=$("customLessonToggle");
-  if(t&&!t.checked){t.checked=true;t.dispatchEvent(new Event('change'))}
-  $("customLessonBox")?.scrollIntoView({behavior:'smooth',block:'center'});
-};
-
-$("learnMistakesBtn").onclick=()=>{
-  const all=[...RACER_SETS.letters,...RACER_SETS.numbers,...RACER_SETS.punct,...RACER_SETS.prosigns];
-  const weak=all.filter(ch=>racerLevel(ch)==='red'||racerLevel(ch)==='yellow');
-  if(!weak.length){alert(tr('racerNoWeak'));return}
-  const strong=all.filter(ch=>racerLevel(ch)==='green');
-  const pool=[];
-  for(let i=0;i<14;i++)pool.push(randomFrom(weak));
-  for(let i=0;i<6&&strong.length;i++)pool.push(randomFrom(strong));
-  startLearn(pool);
-};
 $("resetStatsBtn").onclick=()=>{
   if(!confirm(tr('racerResetConfirm')))return;
   racerStats=racerDefaultStats();saveRacerStats();renderRacerStats();
@@ -2654,12 +2938,19 @@ updateWr7qTarget();
 
 // ==================== CUSTOM LESSON ====================
 let customLessonOn=false;
+let personalPracticeMode='none';
 let customLesson={active:false,mode:'char',source:'',units:[],index:0,target:'',attempt:[],score:0,token:0};
 
 function customSetFeedback(kind,text){
   const el=$("customLessonFeedback");
   el.className='custom-lesson-feedback '+(kind||'');
   el.textContent=text;
+}
+function customSetNotice(kind,text){
+  const el=$("personalPracticeNotice");
+  if(!el)return;
+  el.className='custom-lesson-feedback '+(kind||'');
+  el.textContent=text||'';
 }
 function customValidChars(text){
   return racerTokens(String(text||'').toUpperCase()).filter(ch=>!!racerCodeFor(ch));
@@ -2714,13 +3005,94 @@ function customFinish(){
   customSetFeedback('green',tr('customFinished')+` · ⭐ ${customLesson.score.toFixed(1).replace('.0','')}`);
   renderRacerStats();
 }
+function setPersonalPracticeMode(mode){
+  personalPracticeMode=(mode==='text'||mode==='mistakes')?mode:'none';
+  $("personalTextTab")?.classList.toggle('active',personalPracticeMode==='text');
+  $("personalMistakesTab")?.classList.toggle('active',personalPracticeMode==='mistakes');
+  if($("personalTextControls"))$("personalTextControls").style.display=personalPracticeMode==='text'?'':'none';
+
+  // Before choosing a source, the module shows only the two source buttons.
+  if($("personalPracticeExercise")){
+    $("personalPracticeExercise").style.display=customLesson.active?'':'none';
+  }
+
+  if(!customLesson.active){
+    $("customLessonCurrent").textContent='—';
+    $("customLessonAttempt").textContent='—';
+    $("customLessonProgress").textContent='0/0';
+    $("customLessonScore").textContent='0';
+    customSetFeedback('',personalPracticeMode==='text'?tr('customReady'):'');
+    customSetNotice('',personalPracticeMode==='text'?tr('customReady'):'');
+  }
+}
+
+function customStartMistakes(){
+  const all=[...RACER_SETS.letters,...RACER_SETS.numbers,...RACER_SETS.punct,...RACER_SETS.prosigns];
+  const weak=all.filter(ch=>racerLevel(ch)==='red'||racerLevel(ch)==='yellow');
+
+  if(!weak.length){
+    customSetFeedback('yellow',tr('racerNoWeak'));
+    customSetNotice('yellow',tr('racerNoWeak'));
+    return;
+  }
+
+  // Weighted session: mainly weak characters, with a little variation.
+  const strong=all.filter(ch=>racerLevel(ch)==='green');
+  const pool=[];
+  for(let i=0;i<16;i++)pool.push(randomFrom(weak));
+  for(let i=0;i<4&&strong.length;i++)pool.push(randomFrom(strong));
+  while(pool.length<20)pool.push(randomFrom(weak));
+
+  // Shuffle without touching the stored statistics.
+  for(let i=pool.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [pool[i],pool[j]]=[pool[j],pool[i]];
+  }
+
+  forceOnAirOff();
+  forceRacerOff();
+  if(qsoOn)forceQsoOff();
+  if(kochOn)forceKochOff();
+
+  customLessonOn=true;
+  $("customLessonToggle").checked=true;
+  $("customLessonPanel").classList.add('open');
+  if($("personalPracticeExercise"))$("personalPracticeExercise").style.display='';
+
+  customSetNotice('','');
+  customLesson={
+    active:true,
+    mode:'char',
+    source:'mistakes',
+    units:pool.map(ch=>[ch]),
+    index:0,
+    target:[],
+    attempt:[],
+    score:0,
+    token:customLesson.token+1
+  };
+
+  racerStats.sessions++;
+  racerStats.lastMode='custom';
+  saveRacerStats();
+  syncTrainingLocks();
+  customDisplayUnit();
+}
+
 function customStart(){
   const modeName=$("customLessonMode").value;
   const source=practice.value;
   const units=customBuildUnits(source,modeName);
-  if(!units.length){customSetFeedback('red',tr('customNoText'));return}
+  if(!units.length){
+    customSetFeedback('red',tr('customNoText'));
+    customSetNotice('red',tr('customNoText'));
+    practice.focus();
+    return;
+  }
+  customSetNotice('','');
   forceOnAirOff();forceRacerOff();if(qsoOn)forceQsoOff();if(kochOn)forceKochOff();
   customLessonOn=true;$("customLessonToggle").checked=true;$("customLessonPanel").classList.add('open');
+  if($("personalPracticeExercise"))$("personalPracticeExercise").style.display='';
   customLesson={active:true,mode:modeName,source,units,index:0,target:[],attempt:[],score:0,token:customLesson.token+1};
   practice.readOnly=true;
   racerStats.sessions++;racerStats.lastMode='custom';saveRacerStats();
@@ -2729,7 +3101,8 @@ function customStart(){
 function customStop(){
   customLesson.token++;customLesson.active=false;localToneOff();flash(false);symbols.textContent='';
   practice.readOnly=false;
-  customSetFeedback('',tr('customReady'));
+  if($("personalPracticeExercise"))$("personalPracticeExercise").style.display='none';
+  customSetFeedback('',personalPracticeMode==='text'?tr('customReady'):'');
 }
 function forceCustomLessonOff(){
   customStop();customLessonOn=false;
@@ -2787,8 +3160,20 @@ $("customLessonToggle").onchange=e=>{
   $("customLessonPanel").classList.toggle('open',customLessonOn);
   if(customLessonOn){
     forceOnAirOff();forceRacerOff();if(qsoOn)forceQsoOff();if(kochOn)forceKochOff();
+    customLesson.active=false;
+    personalPracticeMode='none';
+    setPersonalPracticeMode('none');
   }else customStop();
   syncTrainingLocks();
+};
+$("personalTextTab").onclick=()=>{
+  customStop();
+  setPersonalPracticeMode('text');
+};
+$("personalMistakesTab").onclick=()=>{
+  customStop();
+  setPersonalPracticeMode('mistakes');
+  customStartMistakes();
 };
 $("customLessonStart").onclick=customStart;
 $("customLessonStop").onclick=customStop;
@@ -4068,4 +4453,227 @@ updateOnAirVisual();
 })();
 
 </script>
+
+<script>
+(() => {
+  const MQ = window.matchMedia('(min-width:901px)');
+  const ORDER_KEY = 'cw-desktop-module-order-v2';
+  const HIDDEN_KEY = 'cw-desktop-module-hidden-v2';
+
+  // Default order chosen to put the most participatory / frequently-used
+  // functions closest to the keying area.
+  const defs = [
+    {id:'onair',     selector:'.onair-box',        head:'.onair-head',                 title:'ON AIR'},
+    {id:'duel',      selector:'.duel-box',         head:'.duel-head',                  title:'CW DUEL'},
+    {id:'racer',     selector:'.cwracer-box',      head:'.cwracer-head',               title:'CW RACER'},
+    {id:'community', selector:'.community-box',    head:'.community-head',             title:'LEADERBOARD'},
+    {id:'koch',      selector:'.koch-box',         head:'.koch-head',                  title:'KOCH'},
+    {id:'qso',       selector:'.qsobot-box',       head:'.qsobot-head',                title:'QSO BOT'},
+    {id:'stats',     selector:'.stats-box',        head:'.stats-head',                 title:'ESTADÍSTICAS'},
+    {id:'rewards',   selector:'.rewards-box',      head:'.rewards-head',               title:'RECOMPENSAS'},
+    {id:'custom',    selector:'#customLessonBox',  head:':scope > .switchline',        title:'PRÁCTICA PERSONALIZADA'}
+  ];
+
+  const config = document.querySelector('.config');
+  const rail = document.getElementById('desktopModules');
+  const host = document.getElementById('desktopModulesHost');
+  const profileHost = document.getElementById('desktopProfileHost');
+  const profile = document.querySelector('.profile-box');
+  const customizeBtn = document.getElementById('desktopCustomizeBtn');
+  const hiddenBtn = document.getElementById('desktopHiddenBtn');
+  const hiddenPanel = document.getElementById('desktopHiddenPanel');
+  const hiddenCount = document.getElementById('desktopHiddenCount');
+  const resetBtn = document.getElementById('desktopResetModulesBtn');
+
+  if(!config || !rail || !host || !profileHost) return;
+
+  const nodes = new Map();
+  const anchors = new Map();
+  const originalParents = new Map();
+  const defaultOrder = defs.map(d=>d.id);
+
+  function preserveNode(id,node){
+    if(!node||anchors.has(id))return;
+    const anchor=document.createComment(`restore-${id}`);
+    node.parentNode.insertBefore(anchor,node);
+    anchors.set(id,anchor);
+    originalParents.set(id,node.parentNode);
+  }
+
+  // Callsign/profile is not an optional module: it is always visible above modules.
+  preserveNode('profile',profile);
+
+  for(const d of defs){
+    const node=document.querySelector(d.selector);
+    if(!node)continue;
+    preserveNode(d.id,node);
+    node.dataset.desktopModule=d.id;
+    node.classList.add('desktop-module');
+    nodes.set(d.id,node);
+
+    const head=node.querySelector(d.head);
+    if(head&&!head.querySelector('.module-order-controls')){
+      const controls=document.createElement('span');
+      controls.className='module-order-controls';
+      controls.innerHTML=
+        `<button type="button" class="module-order-btn module-up" title="Subir">↑</button>`+
+        `<button type="button" class="module-order-btn module-down" title="Bajar">↓</button>`+
+        `<button type="button" class="module-order-btn hide-module" title="Ocultar módulo">👁</button>`;
+
+      const activationSwitch=[...head.children].find(el=>el.classList?.contains('switch'));
+      if(activationSwitch)head.insertBefore(controls,activationSwitch);
+      else head.appendChild(controls);
+
+      controls.querySelector('.module-up').addEventListener('click',e=>{
+        e.preventDefault();e.stopPropagation();moveModule(d.id,-1);
+      });
+      controls.querySelector('.module-down').addEventListener('click',e=>{
+        e.preventDefault();e.stopPropagation();moveModule(d.id,1);
+      });
+      controls.querySelector('.hide-module').addEventListener('click',e=>{
+        e.preventDefault();e.stopPropagation();hideModule(d.id);
+      });
+    }
+  }
+
+  function readOrder(){
+    try{
+      const saved=JSON.parse(localStorage.getItem(ORDER_KEY)||'[]');
+      if(Array.isArray(saved)&&saved.length){
+        const valid=saved.filter(id=>nodes.has(id));
+        for(const id of defaultOrder)if(nodes.has(id)&&!valid.includes(id))valid.push(id);
+        return valid;
+      }
+    }catch{}
+    return defaultOrder.filter(id=>nodes.has(id));
+  }
+  function readHidden(){
+    try{
+      const a=JSON.parse(localStorage.getItem(HIDDEN_KEY)||'[]');
+      return new Set(Array.isArray(a)?a.filter(id=>nodes.has(id)):[]);
+    }catch{return new Set()}
+  }
+  function writeOrder(a){localStorage.setItem(ORDER_KEY,JSON.stringify(a))}
+  function writeHidden(s){localStorage.setItem(HIDDEN_KEY,JSON.stringify([...s]))}
+
+  function applyDesktopState(){
+    if(profile)profileHost.appendChild(profile);
+    const order=readOrder(),hidden=readHidden();
+    for(const id of order){
+      const n=nodes.get(id);if(!n)continue;
+      host.appendChild(n);
+      n.classList.toggle('user-hidden',hidden.has(id));
+    }
+    renderHidden();
+    updateMoveButtons();
+  }
+
+  function restoreNode(id,node){
+    const anchor=anchors.get(id),parent=originalParents.get(id);
+    if(!node||!anchor||!parent)return;
+    node.classList.remove('user-hidden');
+    parent.insertBefore(node,anchor.nextSibling);
+  }
+
+  function restoreMobile(){
+    restoreNode('profile',profile);
+    for(const d of defs)restoreNode(d.id,nodes.get(d.id));
+    rail.classList.remove('customizing');
+    hiddenPanel?.classList.remove('open');
+  }
+
+  function currentVisibleOrder(){
+    return [...host.querySelectorAll('.desktop-module:not(.user-hidden)')].map(n=>n.dataset.desktopModule);
+  }
+
+  function moveModule(id,delta){
+    if(!MQ.matches)return;
+    const all=readOrder(),hidden=readHidden(),visible=all.filter(x=>!hidden.has(x));
+    const i=visible.indexOf(id),j=i+delta;
+    if(i<0||j<0||j>=visible.length)return;
+    const other=visible[j],ai=all.indexOf(id),bi=all.indexOf(other);
+    [all[ai],all[bi]]=[all[bi],all[ai]];
+    writeOrder(all);applyDesktopState();
+  }
+
+  function hideModule(id){
+    if(!MQ.matches)return;
+    const hidden=readHidden();hidden.add(id);writeHidden(hidden);applyDesktopState();
+  }
+
+  function showModule(id){
+    const hidden=readHidden();hidden.delete(id);writeHidden(hidden);applyDesktopState();
+  }
+
+  function renderHidden(){
+    if(!hiddenPanel||!hiddenCount)return;
+    const hidden=readHidden();
+    hiddenCount.textContent=String(hidden.size);
+    hiddenPanel.innerHTML='';
+    if(!hidden.size){
+      const empty=document.createElement('div');
+      empty.style.cssText='color:var(--muted);font-size:8px';
+      empty.textContent='No hay módulos ocultos.';
+      hiddenPanel.appendChild(empty);return;
+    }
+    for(const id of readOrder()){
+      if(!hidden.has(id))continue;
+      const d=defs.find(x=>x.id===id);
+      const row=document.createElement('div');row.className='hidden-module-row';
+      const name=document.createElement('span');name.textContent=d?.title||id;
+      const show=document.createElement('button');show.type='button';show.textContent='Mostrar';
+      show.addEventListener('click',()=>showModule(id));
+      row.append(name,show);hiddenPanel.appendChild(row);
+    }
+  }
+
+  function updateMoveButtons(){
+    const visible=currentVisibleOrder();
+    for(const [id,node] of nodes){
+      const controls=node.querySelector('.module-order-controls');if(!controls)continue;
+      const i=visible.indexOf(id);
+      const up=controls.querySelector('.module-up'),down=controls.querySelector('.module-down');
+      if(up)up.disabled=i<=0;
+      if(down)down.disabled=i<0||i>=visible.length-1;
+    }
+  }
+
+  function syncCustomizeButton(){
+    const active=rail.classList.contains('customizing');
+    if(customizeBtn){
+      customizeBtn.title=active?'Salir de organizar módulos':'Organizar módulos';
+      customizeBtn.setAttribute('aria-pressed',active?'true':'false');
+    }
+  }
+
+  customizeBtn?.addEventListener('click',()=>{
+    if(!MQ.matches)return;
+    rail.classList.toggle('customizing');
+    if(!rail.classList.contains('customizing'))hiddenPanel?.classList.remove('open');
+    syncCustomizeButton();
+  });
+
+  hiddenBtn?.addEventListener('click',()=>{
+    if(MQ.matches)hiddenPanel?.classList.toggle('open');
+  });
+
+  resetBtn?.addEventListener('click',()=>{
+    if(!MQ.matches)return;
+    localStorage.removeItem(ORDER_KEY);
+    localStorage.removeItem(HIDDEN_KEY);
+    applyDesktopState();
+  });
+
+  function syncLayout(){
+    if(MQ.matches)applyDesktopState();
+    else restoreMobile();
+    syncCustomizeButton();
+  }
+
+  if(MQ.addEventListener)MQ.addEventListener('change',syncLayout);
+  else MQ.addListener(syncLayout);
+  syncLayout();
+})();
+</script>
+
 </body></html>
