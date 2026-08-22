@@ -507,7 +507,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 
 /* Desktop-only customizable module rail */
 .desktop-modules{display:none}
-@media(min-width:901px){
+@media(min-width:901px) and (hover:hover) and (pointer:fine){
   .layout{
     grid-template-columns:270px minmax(0,1fr) 286px;
     grid-template-areas:"modules main config";
@@ -632,9 +632,28 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   }
 }
 
-@media(max-width:900px){
-  /* Desktop customization disappears completely on tablet/mobile. */
+@media(max-width:900px), (hover:none), (pointer:coarse){
+  /* Phone/tablet: original continuous-scroll layout.
+     Desktop module ordering/hiding controls never appear here. */
   .desktop-modules{display:none!important}
+  .module-order-controls,
+  .module-order-btn,
+  .module-tool-main,
+  .module-tool-text,
+  .desktop-customize-panel,
+  .desktop-hidden-panel{display:none!important}
+  .layout{
+    grid-template-columns:1fr!important;
+    grid-template-areas:none!important
+  }
+  .layout>.main,
+  .layout>.config{
+    grid-area:auto!important;
+    position:static!important;
+    max-height:none!important;
+    overflow:visible!important
+  }
+  .desktop-module.user-hidden{display:block!important}
 }
 
 
@@ -660,7 +679,7 @@ html[data-accent-theme="gameboy"] .field-head .value{
   align-self:center;
   justify-self:end
 }
-@media(min-width:901px){
+@media(min-width:901px) and (hover:hover) and (pointer:fine){
   html[data-accent-theme="gameboy"] .layout>.config,
   html[data-accent-theme="gameboy"] .layout>.main>.key-card{
     box-shadow:0 4px 0 rgba(8,18,10,.22)!important;
@@ -4456,7 +4475,7 @@ updateOnAirVisual();
 
 <script>
 (() => {
-  const MQ = window.matchMedia('(min-width:901px)');
+  const MQ = window.matchMedia('(min-width:901px) and (hover:hover) and (pointer:fine)');
   const ORDER_KEY = 'cw-desktop-module-order-v2';
   const HIDDEN_KEY = 'cw-desktop-module-hidden-v2';
 
