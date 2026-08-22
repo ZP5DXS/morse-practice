@@ -271,6 +271,14 @@ html[data-accent-theme="gameboy"] .racer-tab,
 html[data-accent-theme="gameboy"] .seg-btn,
 html[data-accent-theme="gameboy"] select{border-radius:3px}
 
+/* Game Boy: keep compact Koch challenge labels on one line */
+html[data-accent-theme="gameboy"] .koch-challenge-title,
+html[data-accent-theme="gameboy"] .koch-level{
+  font-size:7px;
+  white-space:nowrap;
+}
+
+
 .site-stats{
   display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;
   margin:6px auto 2px;font-size:9px;color:var(--muted);opacity:.82
@@ -1349,8 +1357,9 @@ function resetVbandInput(){
 }
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){deactivate();return}
-  if((e.key==='c'||e.key==='C')&&document.activeElement!==practice){practice.value='';current='';symbols.textContent='';decoded.textContent=''}
-  if(e.code==='Space'&&mode.value==='straight'&&document.activeElement!==practice){
+  const typingTarget=audioOnlyTypingTarget();
+  if((e.key==='c'||e.key==='C')&&!typingTarget){practice.value='';current='';symbols.textContent='';decoded.textContent=''}
+  if(e.code==='Space'&&mode.value==='straight'&&!typingTarget){
     e.preventDefault();if(!active)ensureAudio();straightDown('keyboard');return
   }
   if(isVbandCode(e.code)){
@@ -1362,7 +1371,7 @@ document.addEventListener('keydown',e=>{
   }
 });
 document.addEventListener('keyup',e=>{
-  if(e.code==='Space'&&mode.value==='straight'&&document.activeElement!==practice){
+  if(e.code==='Space'&&mode.value==='straight'&&!audioOnlyTypingTarget()){
     e.preventDefault();straightUp();return
   }
   if(isVbandCode(e.code)){
@@ -1802,7 +1811,8 @@ function mergeStatsMax(obj){
 // currently retained watchdog records plus a retained historical floor. This favors over-counting
 // over ever losing growth, as requested.
 const STATS_WATCHDOG_ROOT=`${STATS_ROOT}/watchdog`;
-const STATS_WATCHDOG_FLOOR_TOPIC=`${STATS_WATCHDOG_ROOT}/floor`;
+const STATS_WATCHDOG_V2_ROOT=`${STATS_ROOT}/watchdog-v2`;
+const STATS_WATCHDOG_FLOOR_TOPIC=`${STATS_WATCHDOG_V2_ROOT}/floor`;
 const STATS_WATCHDOG_LOCAL_KEY='cw-stats-watchdog-local-v1';
 let statsWatchdogFloor={visitors:0,visits:0,practiceSeconds:0,likes:0,duels:0,qso:0,racer:0};
 const statsWatchdogClients=new Map();
@@ -1823,10 +1833,31 @@ function saveLocalWatchdog(){
   try{localStorage.setItem(STATS_WATCHDOG_LOCAL_KEY,JSON.stringify(localWatchdog))}catch{}
 }
 let statsSyncReady=false,statsFloorSeen=false;
+let statsPendingWatchdog=blankWatchdog();
+
+function queueWatchdogDelta(field,delta){
+  if(!(field in statsPendingWatchdog))return;
+  delta=Math.max(0,Number(delta)||0);
+  if(!delta)return;
+  statsPendingWatchdog[field]+=delta;
+}
+function flushPendingWatchdog(){
+  if(!statsSyncReady)return;
+  let changed=false;
+  for(const k of Object.keys(statsPendingWatchdog)){
+    const delta=Math.max(0,Number(statsPendingWatchdog[k])||0);
+    if(delta){
+      statsWatchdogFloor[k]=Math.max(0,Number(statsWatchdogFloor[k])||0)+delta;
+      statsPendingWatchdog[k]=0;
+      changed=true;
+    }
+  }
+  if(changed)publishWatchdogFloor();
+}
 
 function watchdogTotals(){
-  // Public cumulative totals come only from watchdog/floor.
-  // watchdog/clients and aggregate/max are diagnostic/legacy and may be polluted.
+  // Public cumulative totals come only from watchdog-v2/floor.
+  // Legacy watchdog/floor, watchdog/clients and aggregate/max are diagnostic/legacy and may be polluted.
   return cleanWatchdog(statsWatchdogFloor);
 }
 // Diagnostic per-browser counters only; never used as the public cumulative source.
@@ -1841,7 +1872,7 @@ function publishWatchdogFloor(){
 function addToWatchdogFloor(field,delta){
   if(!(field in statsWatchdogFloor))return;
   delta=Math.max(0,Number(delta)||0);if(!delta)return;
-  if(!statsSyncReady)return
+  if(!statsSyncReady){queueWatchdogDelta(field,delta);return}
   statsWatchdogFloor[field]=Math.max(0,Number(statsWatchdogFloor[field])||0)+delta;
   publishWatchdogFloor();
 }
@@ -1856,7 +1887,7 @@ function watchdogIncrement(field,delta=1){
   addToWatchdogFloor(field,delta);
 }
 function mergeWatchdogFloor(obj){
-  // Authoritative retained floor; it may be corrected downward from the admin inspector.
+  // Authoritative retained V2 floor; it may be corrected downward from the admin inspector.
   const c=cleanWatchdog(obj);
   let changed=false;
   for(const k of Object.keys(statsWatchdogFloor)){
@@ -2330,16 +2361,19 @@ function connectGlobalStats(){
           if(raw){mergeStatsMax(JSON.parse(raw));renderGlobalStats();}
           return;
         }
-        if(parts[0]==='watchdog'&&parts[1]==='floor'&&parts.length===2){
+        if(parts[0]==='watchdog-v2'&&parts[1]==='floor'&&parts.length===2){
           if(raw){
             statsFloorSeen=true;
             mergeWatchdogFloor(JSON.parse(raw));
-            // A real retained/admin floor is now available: future deltas may accumulate.
+            // Only the isolated v2 floor is authoritative.
             statsSyncReady=true;
+            flushPendingWatchdog();
             renderGlobalStats();
           }
           return;
         }
+        // Legacy watchdog/floor is intentionally ignored: old cached builds may still overwrite it.
+        if(parts[0]==='watchdog'&&parts[1]==='floor'&&parts.length===2)return;
         if(parts[0]==='watchdog'&&parts[1]==='clients'&&parts.length===3){
           if(raw)statsWatchdogClients.set(parts[2],JSON.parse(raw));
           else statsWatchdogClients.delete(parts[2]);
