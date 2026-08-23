@@ -289,21 +289,44 @@ html[data-accent-theme="gameboy"] .koch-level .koch-challenge-icon{
 
 
 .site-stats{
-  display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;
-  margin:6px auto 2px;font-size:9px;color:var(--muted);opacity:.82
+  display:flex;justify-content:center;align-items:center;gap:12px;
+  margin:6px auto 2px;font-size:9px;color:var(--muted);opacity:.88;
+  flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none
 }
+.site-stats::-webkit-scrollbar{display:none}
 .site-stats span{white-space:nowrap}
 .site-stats b{color:var(--text);font-variant-numeric:tabular-nums}
-.site-stats{flex-wrap:nowrap;overflow-x:auto;justify-content:center;scrollbar-width:none}
-.site-stats::-webkit-scrollbar{display:none}
-.footer-member-link{border:0;background:transparent;color:var(--accent2);padding:0;font-size:9px;font-weight:900;white-space:nowrap;text-decoration:none;opacity:.88;transition:.15s}
-.footer-member-link:hover{color:var(--accent);text-decoration:none;opacity:1}
-.country-ticker{max-width:760px;margin:5px auto 0;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.site-stats-more{
+  width:22px;height:22px;min-width:22px;padding:0;border:1px solid var(--line);
+  border-radius:50%;background:var(--panel2);color:var(--accent2);font-size:14px;
+  font-weight:900;line-height:20px;display:inline-flex;align-items:center;justify-content:center
+}
+.site-stats-more:hover{border-color:var(--accent)}
+.site-stats-more.open{transform:rotate(45deg)}
+.global-stats-expanded{
+  display:none;max-width:760px;margin:7px auto 0;padding:9px;
+  border:1px solid var(--line);border-radius:10px;background:var(--panel3);
+  box-shadow:0 8px 20px rgba(0,0,0,.12)
+}
+.global-stats-expanded.open{display:block}
+.global-stats-grid{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;
+  text-align:center
+}
+.global-stat{
+  border:1px solid color-mix(in srgb,var(--line) 72%,transparent);
+  border-radius:8px;background:var(--panel2);padding:7px 4px;
+  font-size:8px;color:var(--muted);min-width:0
+}
+.global-stat b{display:block;color:var(--text);font-size:13px;margin-bottom:2px;font-variant-numeric:tabular-nums}
+.global-stats-source{margin-top:7px;font-size:7px;color:var(--muted);opacity:.7}
+.country-ticker{max-width:760px;margin:7px auto 0;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
 .country-ticker-track{display:flex;width:max-content;gap:9px;align-items:center;animation:countryTicker 28s linear infinite;font-size:15px;line-height:1}
 .country-flag{display:inline-flex;align-items:center;justify-content:center;min-width:18px;cursor:default}
 @keyframes countryTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media(max-width:620px){
   .site-stats{justify-content:flex-start;padding:0 4px}
+  .global-stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .country-ticker{max-width:100%}
   .country-ticker-track{gap:8px;font-size:14px}
 }
@@ -1772,15 +1795,28 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
 </section>
 </main></div>
 <div id="rewardToast" class="reward-toast"></div>
-<div class="footer">Morse Practice · <a href="https://www.facebook.com/ZP5DXS" target="_blank" rel="noopener noreferrer">ZP5DXS</a> · <a href="https://github.com/ZP5DXS/morse-practice#readme" target="_blank" rel="noopener noreferrer"><span data-i18n="instructions">Instrucciones</span> / README</a><div class="footer-community-title" data-i18n="communityStats">🌐 Morse Practice — Estadísticas de la comunidad</div><div id="siteStats" class="site-stats" aria-live="polite">
-      <span>👥 <b id="globalVisitors">—</b> <span data-i18n="globalVisitors">visitas totales</span></span>
-      <span>🌎 <b id="globalCountries">—</b> <span data-i18n="globalCountries">países</span></span>
-      <span>⏱ <b id="globalPracticeHours">—</b> <span data-i18n="globalHours">horas totales de práctica</span></span>
-      <button id="siteLikeBtn" class="like-btn" type="button" title="73!">❤️ 73! · <b id="globalLikes">—</b></button>
-      <button id="footerSkccBtn" class="footer-member-link" type="button" title="SKCC">🔑 <b id="footerSkccCount">0</b> SKCC</button>
-      <button id="footerLicwBtn" class="footer-member-link" type="button" title="LICW">🎓 <b id="footerLicwCount">0</b> LICW</button>
+<div class="footer">Morse Practice · <a href="https://www.facebook.com/ZP5DXS" target="_blank" rel="noopener noreferrer">ZP5DXS</a> · <a href="https://github.com/ZP5DXS/morse-practice#readme" target="_blank" rel="noopener noreferrer"><span data-i18n="instructions">Instrucciones</span> / README</a>
+    <div class="footer-community-title" data-i18n="communityStats">🌐 Morse Practice — Estadísticas de la comunidad</div>
+    <div id="siteStats" class="site-stats" aria-live="polite">
+      <span>👥 <b id="stableVisits">—</b> <span id="stableVisitsLabel">visitas</span></span>
+      <span>⏱ <b id="stablePracticeHours">—</b> <span id="stableHoursLabel">horas de uso</span></span>
+      <button id="siteLikeBtn" class="like-btn" type="button" title="73!">❤️ 73! · <b id="stableLikes">—</b></button>
+      <button id="globalStatsMoreBtn" class="site-stats-more" type="button" aria-expanded="false" aria-controls="globalStatsExpanded" title="Más estadísticas">+</button>
     </div>
-    <div id="countryTicker" class="country-ticker" aria-label="Countries using Morse Practice"><div id="countryTickerTrack" class="country-ticker-track"></div></div>
+    <div id="globalStatsExpanded" class="global-stats-expanded">
+      <div class="global-stats-grid">
+        <div class="global-stat"><b id="stableUniqueVisitors">—</b><span id="stableUniqueLabel">visitantes únicos</span></div>
+        <div class="global-stat"><b id="stableCountries">—</b><span id="stableCountriesLabel">países</span></div>
+        <div class="global-stat"><b id="stableSkcc">—</b><span>SKCC</span></div>
+        <div class="global-stat"><b id="stableLicw">—</b><span>LICW</span></div>
+        <div class="global-stat"><b id="stableQso">—</b><span>QSO BOT</span></div>
+        <div class="global-stat"><b id="stableRacer">—</b><span>CW RACER</span></div>
+        <div class="global-stat"><b id="stableDuels">—</b><span>CW DUEL</span></div>
+        <div class="global-stat"><b id="stablePracticeHoursFull">—</b><span id="stablePracticeLabel">horas activas</span></div>
+      </div>
+      <div id="stableCountryTicker" class="country-ticker" aria-label="Countries using Morse Practice"><div id="stableCountryTickerTrack" class="country-ticker-track"></div></div>
+      <div id="stableStatsSource" class="global-stats-source">Supabase · persistent global counters</div>
+    </div>
     <div class="memorial">In memory of CX7BBB — Antonio Villano · from whom I, and so many others, learned CW.</div><div class="app-version" title="Morse Practice release">v1.2 · 2026.08</div></div>
 </div>
 <script>
@@ -1843,7 +1879,15 @@ visualAid.addEventListener('change',()=>{
 
 function applyLang(){document.documentElement.lang=lang;document.querySelectorAll('[data-i18n]').forEach(n=>{const k=n.dataset.i18n;if(I18N[lang][k])n.textContent=I18N[lang][k]});$("langToggle").classList.toggle('on',lang==='en');$("operatorName").placeholder=lang==='es'?'Nombre (opcional)':'Name (optional)';$("operatorCall").placeholder=lang==='es'?'Indicativo (opcional)':'Callsign (optional)';const audioOnlyLabel=document.querySelector('[data-audio-only-title]');if(audioOnlyLabel)audioOnlyLabel.title=tr('audioOnlyTitle');const aiLabel=document.getElementById('qsoAiSwitchLabel');if(aiLabel)aiLabel.title=tr('aiLocalTitle');if(typeof qsoSmartVisual==='function')qsoSmartVisual(qsoSmartCurrentState||'');if(typeof qsoSetYou==='function')qsoSetYou();if(typeof kochRenderLesson==='function'){kochRenderLesson();kochUpdateMap();}if(typeof renderRacerStats==='function')renderRacerStats();if($("footerSkccBtn"))$("footerSkccBtn").title=lang==='es'?'Miembros SKCC a bordo · clic para editar':'SKCC members aboard · click to edit';if($("footerLicwBtn"))$("footerLicwBtn").title=lang==='es'?'Miembros LICW a bordo · clic para editar':'LICW members aboard · click to edit';
 
-renderCountryTicker();if($("globalCall"))$("globalCall").placeholder=lang==='es'?'Indicativo':'Callsign';
+renderCountryTicker();
+if($('stableVisitsLabel'))$('stableVisitsLabel').textContent=lang==='es'?'visitas':'visits';
+if($('stableHoursLabel'))$('stableHoursLabel').textContent=lang==='es'?'horas de uso':'usage hours';
+if($('stableUniqueLabel'))$('stableUniqueLabel').textContent=lang==='es'?'visitantes únicos':'unique visitors';
+if($('stableCountriesLabel'))$('stableCountriesLabel').textContent=lang==='es'?'países':'countries';
+if($('stablePracticeLabel'))$('stablePracticeLabel').textContent=lang==='es'?'horas activas':'active hours';
+if($('globalStatsMoreBtn'))$('globalStatsMoreBtn').title=lang==='es'?'Más estadísticas globales':'More global stats';
+if(stableStatsState.last)renderStableStats(stableStatsState.last);
+if($("globalCall"))$("globalCall").placeholder=lang==='es'?'Indicativo':'Callsign';
 if($("rewardSkcc"))$("rewardSkcc").placeholder=lang==='es'?'Pon tu número SKCC':'Enter your SKCC number';
 if($("rewardLicw"))$("rewardLicw").placeholder=lang==='es'?'Número de estudiante LICW':'LICW student number';
 if($("rewardSkccSave"))$("rewardSkccSave").textContent=lang==='es'?'Guardar':'Save';
@@ -2622,6 +2666,146 @@ localStorage.setItem('cw-visit-count-v1',String(localVisitCount));
 let localPracticeSeconds=Math.max(0,Number(localStorage.getItem('cw-practice-seconds')||0));
 let lastPracticeActivity=0,practiceStatsDirty=false;
 
+// Persistent community totals: Supabase/PostgreSQL.
+// MQTT remains unchanged for ON AIR, DUEL and leaderboards.
+const SUPABASE_STATS_URL='https://mdwmqgwgrsycelickpyj.supabase.co';
+const SUPABASE_STATS_KEY='sb_publishable_2Pg2V9qOlQaeHfZ2LAYIww_I3C_D0UV';
+
+const stableStatsState={loaded:false,loading:false,visitRecorded:false,syncTimer:0,last:null};
+function stableStatsConfigured(){
+  return /^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(SUPABASE_STATS_URL)
+    && SUPABASE_STATS_KEY
+    && !SUPABASE_STATS_KEY.includes('REPLACE_ME');
+}
+function stableStatsCanWrite(){
+  return stableStatsConfigured()
+    && location.protocol==='https:'
+    && location.hostname.toLowerCase()==='zp5dxs.github.io';
+}
+async function stableStatsRpc(name,args={}){
+  if(!stableStatsConfigured())throw new Error('Supabase stats not configured');
+  const r=await fetch(`${SUPABASE_STATS_URL}/rest/v1/rpc/${name}`,{
+    method:'POST',mode:'cors',cache:'no-store',
+    headers:{
+      'apikey':SUPABASE_STATS_KEY,
+      'Authorization':`Bearer ${SUPABASE_STATS_KEY}`,
+      'Content-Type':'application/json'
+    },
+    body:JSON.stringify(args)
+  });
+  if(!r.ok)throw new Error(`Supabase ${name}: ${r.status}`);
+  const txt=await r.text();
+  return txt?JSON.parse(txt):null;
+}
+function stableStatsNumber(id,value,fallback='—'){
+  const el=$(id);if(!el)return;
+  const n=Number(value);
+  el.textContent=Number.isFinite(n)?Math.max(0,n).toLocaleString():fallback;
+}
+function stableStatsHours(seconds){
+  const n=Math.max(0,Number(seconds)||0)/3600;
+  return n?Math.max(.1,n).toLocaleString(undefined,{maximumFractionDigits:1}):'0';
+}
+function stableStatsCountryFlag(code){
+  code=normalizeCountry(code);
+  return code?countryFlag(code):'';
+}
+function stableStatsRenderCountries(countries){
+  const track=$('stableCountryTickerTrack');if(!track)return;
+  const rows=(Array.isArray(countries)?countries:[])
+    .map(x=>({code:normalizeCountry(x?.code),visitors:Math.max(0,Number(x?.visitors)||0)}))
+    .filter(x=>x.code);
+  if(!rows.length){track.textContent='';return}
+  const one=rows.map(x=>`<span class="country-flag" title="${escapeHtml(x.code)} · ${x.visitors.toLocaleString()}">${stableStatsCountryFlag(x.code)}</span>`).join('');
+  track.innerHTML=one+one;
+  track.style.animation='none';void track.offsetWidth;track.style.animation='';
+}
+function renderStableStats(data){
+  if(!data||typeof data!=='object')return;
+  stableStatsState.last=data;stableStatsState.loaded=true;
+  stableStatsNumber('stableVisits',data.visits);
+  stableStatsNumber('stableUniqueVisitors',data.unique_visitors);
+  stableStatsNumber('stableCountries',data.country_count);
+  stableStatsNumber('stableLikes',data.likes);
+  stableStatsNumber('stableSkcc',data.skcc);
+  stableStatsNumber('stableLicw',data.licw);
+  stableStatsNumber('stableQso',data.qso);
+  stableStatsNumber('stableRacer',data.racer);
+  stableStatsNumber('stableDuels',data.duels);
+  const hrs=stableStatsHours(data.practice_seconds);
+  if($('stablePracticeHours'))$('stablePracticeHours').textContent=hrs;
+  if($('stablePracticeHoursFull'))$('stablePracticeHoursFull').textContent=hrs;
+  stableStatsRenderCountries(data.countries);
+  if($('stableStatsSource'))$('stableStatsSource').textContent='Supabase · persistent global counters';
+}
+function stableStatsRenderUnconfigured(){
+  for(const id of ['stableVisits','stablePracticeHours','stableLikes','stableUniqueVisitors','stableCountries','stableSkcc','stableLicw','stableQso','stableRacer','stableDuels','stablePracticeHoursFull']){
+    const el=$(id);if(el)el.textContent='—';
+  }
+}
+async function stableStatsRefresh(){
+  if(!stableStatsConfigured()){stableStatsRenderUnconfigured();return}
+  if(stableStatsState.loading)return;
+  stableStatsState.loading=true;
+  try{renderStableStats(await stableStatsRpc('mp_get_stats',{}))}
+  catch{
+    if($('stableStatsSource'))$('stableStatsSource').textContent=lang==='es'
+      ?'Supabase · sin conexión temporal'
+      :'Supabase · temporarily offline';
+  }finally{stableStatsState.loading=false}
+}
+async function stableStatsSync(){
+  if(!stableStatsCanWrite())return;
+  try{
+    await stableStatsRpc('mp_sync_visitor',{
+      p_visitor_id:statsVisitorId,
+      p_country:normalizeCountry(detectedCountry)||null,
+      p_practice_seconds:Math.round(Math.max(0,localPracticeSeconds)),
+      p_qso_count:Math.round(Math.max(0,localQsoCompletedTotal())),
+      p_racer_count:Math.round(Math.max(0,localRacerCompletedTotal())),
+      p_duel_count:Math.round(Math.max(0,duelCompletedTotal())),
+      p_liked:localStorage.getItem('cw-site-liked')==='1',
+      p_skcc:!!String(localStorage.getItem('cw-reward-skcc')||'').trim(),
+      p_licw:!!String(localStorage.getItem('cw-reward-licw')||'').trim()
+    });
+    await stableStatsRefresh();
+  }catch{}
+}
+function stableStatsSyncSoon(delay=450){
+  clearTimeout(stableStatsState.syncTimer);
+  stableStatsState.syncTimer=setTimeout(stableStatsSync,delay);
+}
+async function stableStatsRecordVisit(){
+  if(!stableStatsCanWrite()||stableStatsState.visitRecorded)return;
+  stableStatsState.visitRecorded=true;
+  try{
+    await stableStatsRpc('mp_record_visit',{
+      p_visitor_id:statsVisitorId,
+      p_country:normalizeCountry(detectedCountry)||null
+    });
+    await stableStatsSync();
+  }catch{
+    stableStatsState.visitRecorded=false;
+  }
+}
+function setupStableGlobalStats(){
+  const more=$('globalStatsMoreBtn'),panel=$('globalStatsExpanded');
+  if(more&&panel)more.onclick=()=>{
+    const open=panel.classList.toggle('open');
+    more.classList.toggle('open',open);
+    more.setAttribute('aria-expanded',open?'true':'false');
+    if(open)stableStatsRefresh();
+  };
+  stableStatsRefresh();
+  if(stableStatsCanWrite()){
+    stableStatsRecordVisit();
+    detectCountryByIP().then(()=>stableStatsSyncSoon(0)).catch(()=>{});
+    setInterval(()=>stableStatsSyncSoon(0),120000);
+    window.addEventListener('pagehide',()=>stableStatsSyncSoon(0));
+  }
+}
+
+
 function dayKey(d=new Date()){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
 function updatePracticeDay(){
   const today=dayKey();let days=[];try{days=JSON.parse(localStorage.getItem('cw-practice-days-v1')||'[]')}catch{}
@@ -2656,6 +2840,7 @@ function publishMyCompletionCounters(){
   statsQsoBot.set(statsVisitorId,q);
   statsRacerCompleted.set(statsVisitorId,r);
   renderGlobalStats();
+  stableStatsSyncSoon();
   if(!STATS_WRITE_ENABLED||!statsClient?.connected)return;
   try{
     const qNow=localQsoCompletedTotal();
@@ -2811,6 +2996,7 @@ function publishMyPracticeTotal(){
   statsClient.publish(`${STATS_ROOT}/practice/${statsVisitorId}`,JSON.stringify(payload),{qos:0,retain:true});
   renderGlobalStats();
   practiceStatsDirty=false;
+  stableStatsSyncSoon();
 }
 function weekKey(d=new Date()){
   const x=new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate()));
@@ -3019,6 +3205,7 @@ function openMembership(kind){
 }
 
 function publishMembership(kind){
+  stableStatsSyncSoon();
   if(!STATS_WRITE_ENABLED||!statsClient?.connected)return;
   const key='cw-reward-'+kind,v=String(localStorage.getItem(key)||'').trim();
   const topic=`${STATS_ROOT}/members/${kind}/${statsVisitorId}`;
@@ -3229,6 +3416,7 @@ function setupCommunity(){
     $("siteLikeBtn").classList.add('liked');
     if(STATS_WRITE_ENABLED&&statsClient?.connected)statsClient.publish(`${STATS_ROOT}/likes/${statsVisitorId}`,JSON.stringify({ts:Date.now()}),{qos:0,retain:true});
     renderGlobalStats();
+    stableStatsSyncSoon(0);
   };
   renderWeeklyLeaderboard();
 }
@@ -7262,7 +7450,7 @@ function setupInvaders(){
 // ================== END CW INVADERS ==================
 
 applyLang();applyAudioOnly();setupCommunity();
-setupRewards();setupDuel();setupInvaders();setupBentWire();setupBattleship();connectGlobalStats();updateModeHint();updatePresenceUI();applyVisualAid();syncTrainingLocks();qsoSmartStatus('off');$('charSpacingValue').textContent=charSpacing.value;
+setupRewards();setupDuel();setupInvaders();setupBentWire();setupBattleship();setupStableGlobalStats();connectGlobalStats();updateModeHint();updatePresenceUI();applyVisualAid();syncTrainingLocks();qsoSmartStatus('off');$('charSpacingValue').textContent=charSpacing.value;
 setupChat();
 syncPaddleReverseUI();
 updateOnAirVisual();
