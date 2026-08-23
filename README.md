@@ -2,7 +2,7 @@
 
 > **Free • Open Source • Browser-Based Morse Code Training Platform**
 
-🇪🇸 **¿Prefieres leer las instrucciones en español?** Consulta la [guía completa en español](README-ES.md).
+🇪🇸 **¿Prefieres leer las instrucciones en español?** Consulta la [guía completa en español](READEM-ES.md).
 
 [![Live
 Demo](https://img.shields.io/badge/🚀-Live%20Demo-blue?style=for-the-badge)](https://zp5dxs.github.io/morse-practice/)
@@ -58,6 +58,10 @@ Morse Practice combines:
   setups
 - **CW Duel** — realtime head-to-head Morse copying battles at 8, 15 or
   20 WPM
+- **CW Invaders** — arcade-style TX/RX practice with letters, numbers, mixed characters and CW words
+- **CW Battleship** — naval-themed listening and sending game with Cadet, Operator and Contester levels
+- **World Record / Ben’s Best Bent Wire** — continuous-speed sending challenge with Practice and Ranked modes
+- **CW Racer Timed mode** — race against the clock for 30, 60 or 120 seconds
 - Global lightweight **Chat** with optional Auto CW playback and text
   hiding
 - Global accumulated **CW Duel** counter in the community footer
@@ -142,6 +146,11 @@ Today you can use it to:
 - See how many SKCC and LICW members are using Morse Practice
 - Invert DIT and DAH when using a paddle
 - Challenge another operator in realtime CW Duel
+- Play CW Invaders in TX or RX mode
+- Play CW Battleship at 12, 18 or 25 WPM
+- Take the World Record / Ben’s Best Bent Wire continuous-speed challenge
+- Run CW Racer as a fixed Sprint or a 30/60/120-second Timed race
+- Organize the desktop workspace by reordering or hiding modules without changing their underlying functions
 - Find a random Duel opponent or challenge a specific available operator
 - Use the global text Chat and optionally copy incoming messages by ear
   in CW
@@ -909,6 +918,34 @@ Daily can be useful as a regular warm-up before:
 Results also contribute to your character statistics.
 
 **Exercise by WR7Q**
+
+------------------------------------------------------------------------
+
+# 🎮 CW GAMES & CHALLENGES
+
+Morse Practice now includes several game-style activities designed to turn sending and receiving practice into short, repeatable challenges. They use the same CW engine and global practice settings where applicable.
+
+## 👾 CW Invaders
+
+An arcade-style Morse game with dedicated **TX** and **RX** modes. Choose letters, numbers, mixed characters or common CW words, select a difficulty level, and try to clear incoming targets while building score and preserving your lives.
+
+## ⚓ CW Battleship
+
+A naval-themed CW challenge that combines copying and sending inside a visual battle scenario. Three preset levels are available: **Cadet (12 WPM)**, **Operator (18 WPM)** and **Contester (25 WPM)**. The game tracks score, combo, waves, lives and ships sunk.
+
+## 🌍 World Record / Ben’s Best Bent Wire
+
+A continuous-speed sending challenge inspired by the classic **Ben’s Best Bent Wire** exercise. It includes a normal **Practice** mode and a **Ranked** mode for competitive attempts. The objective is to keep the sequence moving accurately as speed and pressure increase.
+
+## ⏱ CW Racer — Sprint & Timed
+
+CW Racer now offers two race formats. **Sprint** keeps the traditional fixed distances of 20, 50 or 100 characters, while **Timed** gives you 30, 60 or 120 seconds to send as accurately as possible.
+
+------------------------------------------------------------------------
+
+# 🧩 Modular Desktop Workspace
+
+On wider desktop screens, Morse Practice uses a modular workspace. Training and community modules can be **reordered or hidden** from the desktop module rail, allowing each operator to keep the tools they use most within easy reach. This is a layout feature only: hiding or moving a module does not remove its data or change its internal logic.
 
 ------------------------------------------------------------------------
 

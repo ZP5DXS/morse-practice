@@ -51,6 +51,10 @@ Morse Practice combina:
 - Compatibilidad con entrada estilo VBand mediante Ctrl izquierdo/derecho y teclas `[` / `]`
 - Opción de **invertir DIT / DAH** para operadores zurdos o manipuladores cableados al revés
 - **Duelo CW** — batallas de recepción Morse en tiempo real a 8, 15 o 20 WPM
+- **CW Invaders** — práctica estilo arcade en TX/RX con letras, números, caracteres mixtos y palabras CW
+- **CW Battleship** — juego de temática naval de escucha y transmisión con niveles Cadet, Operator y Contester
+- **World Record / Ben’s Best Bent Wire** — desafío de transmisión a velocidad continua con modos Práctica y Ranking
+- **CW Racer Contra reloj** — carrera de 30, 60 o 120 segundos
 - **Chat** global ligero con reproducción Auto CW opcional y posibilidad de ocultar el texto
 - Contador global acumulado de **Duelos CW** en el pie de página
 
@@ -119,6 +123,11 @@ Hoy puedes utilizarlo para:
 - Ver cuántos miembros de SKCC y LICW utilizan Morse Practice
 - Invertir DIT y DAH al utilizar un manipulador
 - Desafiar a otro operador en tiempo real mediante Duelo CW
+- Jugar CW Invaders en modo TX o RX
+- Jugar CW Battleship a 12, 18 o 25 WPM
+- Intentar el desafío continuo World Record / Ben’s Best Bent Wire
+- Usar CW Racer como Sprint fijo o carrera Contra reloj de 30/60/120 segundos
+- Organizar el espacio de trabajo de escritorio reordenando u ocultando módulos sin alterar sus funciones
 - Encontrar un rival aleatorio o desafiar a un operador disponible específico
 - Utilizar el Chat global y, opcionalmente, copiar de oído los mensajes entrantes en CW
 
@@ -827,6 +836,34 @@ Diario puede ser útil como calentamiento regular antes de:
 Los resultados también contribuyen a tus estadísticas de caracteres.
 
 **Ejercicio por WR7Q**
+
+------------------------------------------------------------------------
+
+# 🎮 JUEGOS Y DESAFÍOS CW
+
+Morse Practice incorpora varias actividades con formato de juego para convertir la práctica de transmisión y recepción en desafíos cortos y repetibles. Utilizan el mismo motor CW y, cuando corresponde, la configuración global de práctica.
+
+## 👾 CW Invaders
+
+Juego Morse estilo arcade con modos independientes de **TX** y **RX**. Puedes elegir letras, números, caracteres mixtos o palabras habituales de CW, seleccionar la dificultad e intentar eliminar los objetivos mientras acumulas puntos y conservas tus vidas.
+
+## ⚓ CW Battleship
+
+Desafío CW de temática naval que combina escucha y transmisión dentro de un escenario de batalla visual. Dispone de tres niveles: **Cadet (12 WPM)**, **Operator (18 WPM)** y **Contester (25 WPM)**. El juego registra puntuación, combo, oleadas, vidas y barcos hundidos.
+
+## 🌍 World Record / Ben’s Best Bent Wire
+
+Desafío de transmisión a velocidad continua inspirado en el clásico ejercicio **Ben’s Best Bent Wire**. Incluye un modo normal de **Práctica** y un modo **Ranking** para intentos competitivos. El objetivo es mantener la secuencia con precisión a medida que aumenta la exigencia.
+
+## ⏱ CW Racer — Sprint y Contra reloj
+
+CW Racer ahora ofrece dos formatos de carrera. **Sprint** mantiene las distancias tradicionales de 20, 50 o 100 caracteres, mientras que **Contra reloj** te da 30, 60 o 120 segundos para transmitir con la mayor precisión posible.
+
+------------------------------------------------------------------------
+
+# 🧩 Espacio de trabajo modular en escritorio
+
+En pantallas de escritorio amplias, Morse Practice utiliza un espacio de trabajo modular. Los módulos de entrenamiento y comunidad pueden **reordenarse u ocultarse** desde la barra de módulos, permitiendo que cada operador mantenga a mano las herramientas que más utiliza. Es únicamente una función de organización visual: ocultar o mover un módulo no elimina sus datos ni modifica su lógica interna.
 
 ------------------------------------------------------------------------
 
