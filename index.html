@@ -2539,6 +2539,10 @@ function chatHandleMessage(topic,payload,packet){
 }
 function chatConnect(){
   if(chatClient)return;
+  if(!window.mqtt){
+    chatSetConnected(false);
+    return;
+  }
   chatClient=mqtt.connect('wss://broker.emqx.io:8084/mqtt',{
     clientId:chatClientId,clean:true,keepalive:20,connectTimeout:8000,reconnectPeriod:4000,
     will:{topic:`${CHAT_ROOT}/presence/${chatClientId}`,payload:'',qos:0,retain:true}
@@ -2687,7 +2691,7 @@ function statsPresenceCount(now=Date.now()){
 }
 function statsPublishPresence(){
   if(!STATS_WRITE_ENABLED||!statsClient?.connected)return;
-  const payload={ts:Date.now()};
+  const payload={ts:Date.now(),visible:document.visibilityState==='visible'};
   statsPresence.set(statsVisitorId,payload);
   try{statsClient.publish(statsPresenceTopic(),JSON.stringify(payload),{qos:0,retain:true})}catch{}
   statsMaybePublishPresenceMax();
@@ -2713,12 +2717,13 @@ async function stableStatsPersistOnlineMax(candidate){
   if(!candidate)return;
   try{
     const saved=await stableStatsRpc('mp_update_online_max',{p_online_max:candidate});
-    const max=Math.max(candidate,Math.max(0,Number(saved)||0));
+    // Supabase is authoritative. Never mirror the raw browser candidate as historical truth.
+    const max=Math.max(0,Number(saved)||0);
     if(max>statsPresenceMax)statsPresenceMax=max;
-    if(statsClient?.connected){
+    if(statsClient?.connected&&max){
       statsClient.publish(
         statsPresenceMaxTopic(),
-        JSON.stringify({max:statsPresenceMax,ts:Date.now(),source:'supabase'}),
+        JSON.stringify({max,ts:Date.now(),source:'supabase'}),
         {qos:0,retain:true}
       );
     }
@@ -2728,10 +2733,8 @@ function statsMaybePublishPresenceMax(){
   if(!STATS_WRITE_ENABLED||!statsClient?.connected)return;
   const current=statsPresenceCount();
   if(current<=statsPresenceMax)return;
-  statsPresenceMax=current;
-  // MQTT remains the live transport, but Supabase is the authoritative historical high-water mark.
-  // mp_update_online_max uses GREATEST(), so concurrent browsers can never lower the record.
-  try{statsClient.publish(statsPresenceMaxTopic(),JSON.stringify({max:current,ts:Date.now(),source:'mqtt-pending-db'}),{qos:0,retain:true})}catch{}
+  // MQTT tells us the live candidate; only the validated value returned by Supabase
+  // is allowed to become the historical retained record.
   stableStatsPersistOnlineMax(current);
 }
 function statsStartPresence(){
@@ -2746,6 +2749,9 @@ function statsStopPresence(clearRetained=true){
     try{statsClient.publish(statsPresenceTopic(),'',{qos:0,retain:true})}catch{}
   }
 }
+document.addEventListener('visibilitychange',()=>{
+  if(statsClient?.connected)statsPublishPresence();
+});
 
 const PUBLIC_HIGHWATER_KEY='cw-public-stats-highwater-v2';
 const KNOWN_COUNTRIES_KEY='cw-known-countries-v1';
@@ -2918,7 +2924,7 @@ function stableStatsCanWrite(){
 async function stableStatsRpc(name,args={}){
   if(!stableStatsConfigured())throw new Error('Supabase stats not configured');
   const r=await fetch(`${SUPABASE_STATS_URL}/rest/v1/rpc/${name}`,{
-    method:'POST',mode:'cors',cache:'no-store',
+    method:'POST',mode:'cors',cache:'no-store',keepalive:true,
     headers:{
       'apikey':SUPABASE_STATS_KEY,
       'Authorization':`Bearer ${SUPABASE_STATS_KEY}`,
@@ -3808,7 +3814,7 @@ function connectGlobalStats(){
           else{
             const obj=JSON.parse(raw);
             const ts=Math.max(0,Number(obj?.ts)||0);
-            if(ts)statsPresence.set(parts[1],{ts});
+            if(ts)statsPresence.set(parts[1],{ts,visible:obj?.visible!==false});
           }
           statsMaybePublishPresenceMax();
           return;
@@ -5188,6 +5194,8 @@ function errorsPracticeStart(){
   }
   forceOnAirOff();forceDuelOff();
   if(invadersOn)forceInvadersOff();
+  if(battleshipOn)battleForceOff();
+  if(typeof bentWireOn!=='undefined'&&bentWireOn)bentWireStop();
   forceRacerOff();
   if(qsoOn)forceQsoOff();
   if(customLessonOn)forceCustomLessonOff();
@@ -7026,17 +7034,17 @@ function battleOnDecoded(ch){
     // Correct characters reveal permanently, one position at a time.
     // Example BUG + operator sends BOS -> B remains visible, O/S do not reveal U/G.
     let rxProgress=false,rxCompleted=null;
-    for(const s of battleActiveShips().filter(s=>s.rx&&!s.decoded)){
+    const rxShips=battleActiveShips().filter(s=>s.rx&&!s.decoded);
+    for(const s of rxShips){
       const pos=Math.max(0,Number(s.rxRevealCount)||0);
       if(pos<s.word.length&&ch===s.word[pos]){
         s.rxRevealCount=pos+1;
         rxProgress=true;
         battle.rxCorrect++;
         if(s.rxRevealCount>=s.word.length){rxCompleted=s;break}
-      }else if(pos<s.word.length){
-        battle.rxWrong++;
       }
     }
+    if(rxShips.length&&!rxProgress)battle.rxWrong++;
 
     if(rxCompleted){
       battle.targetId=rxCompleted.id;
