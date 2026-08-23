@@ -5956,7 +5956,7 @@ kochUpdateMap();kochRenderLesson();
 // ==================== SMART INTERPRETATION (local generative AI) ====================
 // SmolLM2 runs locally in the browser. The AI extracts fields from the complete CW turn.
 // Deterministic validation remains authoritative: the AI is not allowed to invent user data.
-let qsoSmartEnabled=false,qsoSmartPipe=null,qsoSmartLoading=false,qsoSmartCurrentState='';
+let qsoSmartEnabled=false,qsoSmartPipe=null,qsoSmartLoading=false,qsoSmartLoadPromise=null,qsoSmartCurrentState='';
 const QSO_SMART_MODEL='HuggingFaceTB/SmolLM2-135M-Instruct';
 
 function qsoSmartVisual(state){
@@ -5995,46 +5995,59 @@ function qsoSmartSyncStartButton(){
 function qsoSmartStatus(state){qsoSmartVisual(state)}
 
 async function qsoSmartLoad(){
-  if(qsoSmartPipe)return true;
-  if(qsoSmartLoading)return false;
-  qsoSmartLoading=true;
-  qsoSmartStatus('loading');
-  try{
-    const {pipeline}=await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1/+esm');
-    const opts={
-      dtype:'q4',
-      progress_callback:p=>{
-        if(p?.status==='progress'&&Number.isFinite(p.progress)){
-          qsoSmartStatus('loading');
-          const led=document.getElementById('qsoAiLed');
-          if(led)led.title=`AI downloading ${Math.round(p.progress)}%`;
-        }
-      }
-    };
-    // q4 is broadly compatible. Prefer WebGPU; fall back to WASM/CPU.
-    if(navigator.gpu)opts.device='webgpu';
-    try{
-      qsoSmartPipe=await pipeline('text-generation',QSO_SMART_MODEL,opts);
-    }catch(webgpuErr){
-      console.warn('WebGPU AI load failed, retrying CPU/WASM',webgpuErr);
-      delete opts.device;
-      qsoSmartPipe=await pipeline('text-generation',QSO_SMART_MODEL,opts);
-    }
-
-    // Real generation warm-up: green means the model is actually usable.
-    await qsoSmartPipe(
-      [{role:'system',content:'Reply only OK.'},{role:'user',content:'OK?'}],
-      {max_new_tokens:3,do_sample:false}
-    );
-    qsoSmartStatus('ready');
+  if(qsoSmartPipe){
+    if(qsoSmartEnabled)qsoSmartStatus('ready');
     return true;
-  }catch(err){
-    console.warn('Local generative AI unavailable',err);
-    qsoSmartStatus('error');
-    return false;
-  }finally{
-    qsoSmartLoading=false;
   }
+
+  if(qsoSmartLoadPromise)return qsoSmartLoadPromise;
+
+  qsoSmartLoading=true;
+  if(qsoSmartEnabled)qsoSmartStatus('loading');
+
+  qsoSmartLoadPromise=(async()=>{
+    try{
+      const {pipeline}=await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1/+esm');
+      const opts={
+        dtype:'q4',
+        progress_callback:p=>{
+          if(p?.status==='progress'&&Number.isFinite(p.progress)&&qsoSmartEnabled){
+            qsoSmartStatus('loading');
+            const led=document.getElementById('qsoAiLed');
+            if(led)led.title=`AI downloading ${Math.round(p.progress)}%`;
+          }
+        }
+      };
+
+      if(navigator.gpu)opts.device='webgpu';
+      try{
+        qsoSmartPipe=await pipeline('text-generation',QSO_SMART_MODEL,opts);
+      }catch(webgpuErr){
+        console.warn('WebGPU AI load failed, retrying CPU/WASM',webgpuErr);
+        delete opts.device;
+        qsoSmartPipe=await pipeline('text-generation',QSO_SMART_MODEL,opts);
+      }
+
+      await qsoSmartPipe(
+        [{role:'system',content:'Reply only OK.'},{role:'user',content:'OK?'}],
+        {max_new_tokens:3,do_sample:false}
+      );
+
+      if(qsoSmartEnabled)qsoSmartStatus('ready');
+      else qsoSmartStatus('');
+      return true;
+    }catch(err){
+      console.warn('Local generative AI unavailable',err);
+      qsoSmartPipe=null;
+      if(qsoSmartEnabled)qsoSmartStatus('error');
+      return false;
+    }finally{
+      qsoSmartLoading=false;
+      qsoSmartLoadPromise=null;
+    }
+  })();
+
+  return qsoSmartLoadPromise;
 }
 
 function qsoSmartJsonFromOutput(output){
@@ -6736,7 +6749,7 @@ async function startQsoBot(){
   activityInstruction('Escucha al corresponsal y responde en CW. El QSO completo ocurre en el área central.','Listen to the other station and answer in CW. The full QSO happens in the center area.','qso');
 
   const mode=$("qsoBotMode").value,bot=qsoBuildBot();
-  qsoSession={mode,bot,user:{call:'',rst:'',name:'',qth:'',skcc:'',key:'',rig:'',pwr:'',ant:''},state:'awaitCall',steps:0,repeats:0,repeatField:null,personality:qsoWeightedPersonality(),radioEventUsed:false,radioEvent:'',branchUsed:false};
+  qsoSession={mode,bot,user:{call:'',rst:'',name:'',qth:'',skcc:'',key:'',rig:'',pwr:'',ant:''},state:'awaitCall',steps:0,repeats:0,repeatField:null,personality:qsoWeightedPersonality(),radioEventUsed:false,radioEvent:'',branchUsed:false,ai:!!(qsoSmartEnabled&&qsoSmartPipe)};
   $("qsoBotCall").textContent=`${bot.call} · ${mode.toUpperCase()}${qsoSmartEnabled&&qsoSmartPipe?' · AI':''}`;qsoUpdateMeta();
   $("qsoBotMessage").classList.remove('complete');
 
@@ -6776,22 +6789,30 @@ const qsoSmartToggle=document.getElementById('qsoSmartToggle');
 if(qsoSmartToggle)qsoSmartToggle.addEventListener('change',async()=>{
   qsoSmartEnabled=qsoSmartToggle.checked;
   qsoSmartSyncStartButton();
+
   if(!qsoSmartEnabled){
-    qsoSmartStatus('off');
+    qsoSmartStatus('');
     return;
   }
 
-  // Immediate visual confirmation that the switch actually triggered the loader.
-  qsoSmartStatus('loading');
-
+  qsoSmartStatus(qsoSmartPipe?'ready':'loading');
   const ok=await qsoSmartLoad();
+
+  if(!qsoSmartEnabled){
+    qsoSmartStatus('');
+    return;
+  }
+
   if(!ok){
     qsoSmartEnabled=false;
     qsoSmartToggle.checked=false;
     qsoSmartStatus('error');
     qsoSmartSyncStartButton();
-    setTimeout(()=>qsoSmartStatus('off'),1800);
+    setTimeout(()=>{if(!qsoSmartEnabled)qsoSmartStatus('')},1800);
+    return;
   }
+
+  qsoSmartStatus('ready');
 });
 
 
