@@ -1986,11 +1986,11 @@ async function iambicLoop(){if(iambicRunning)return;iambicRunning=true;try{while
 function updateModeHint(){keyarea.classList.toggle('paddle-touch',mode.value!=='straight');keyarea.classList.toggle('paddle-mode',mode.value!=='straight');if(mode.value==='straight')$("modeHint").innerHTML=tr('straightHint');else{const l=paddleLogicalSide('left').toUpperCase(),r=paddleLogicalSide('right').toUpperCase();$("modeHint").innerHTML=`<span class="${l.toLowerCase()}">${lang==='es'?'Izquierda':'Left'} = ${l} (${l==='DIT'?'.':'-'})</span> · <span class="${r.toLowerCase()}">${lang==='es'?'Derecha':'Right'} = ${r} (${r==='DIT'?'.':'-'})</span>`}document.querySelectorAll('.seg-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode.value));syncPaddleReverseUI();status.textContent=tr('idle')}
 function activateMouse(){if(active)return;active=true;keyarea.focus();ensureAudio();status.textContent=tr('active');if(keyarea.requestPointerLock)try{keyarea.requestPointerLock()}catch{}}
 function deactivate(){active=false;leftHeld=rightHeld=false;if(typeof resetVbandInput==='function')resetVbandInput();else if(typeof vbandCtrlHeld!=='undefined')vbandCtrlHeld.clear();if(downAt)straightUp();localToneOff();flash(false);status.textContent=tr('idle');if(document.pointerLockElement&&document.exitPointerLock)document.exitPointerLock()}
-keyarea.addEventListener('click',e=>{if(duelOn||e.target.closest('.duel-arena')||e.target.closest('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.game-ranking-panel'))return;if(window.matchMedia('(pointer:coarse)').matches)return;if(e.pointerType!=='touch'&&!active)activateMouse()});keyarea.addEventListener('contextmenu',e=>{if(e.target.closest('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.game-ranking-panel'))return;e.preventDefault()});
-document.addEventListener('mousedown',e=>{if(e.target.closest?.('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.game-ranking-panel'))return;if(!active||!canTransmit()||(e.button!==0&&e.button!==2))return;e.preventDefault();if(mode.value==='straight')straightDown('mouse');else{if(e.button===0)setPaddlePhysical('left',true);if(e.button===2)setPaddlePhysical('right',true);iambicLoop()}},true);document.addEventListener('mouseup',e=>{if(e.target.closest?.('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.game-ranking-panel'))return;if(!active||(e.button!==0&&e.button!==2))return;e.preventDefault();if(mode.value==='straight')straightUp();else{if(e.button===0)setPaddlePhysical('left',false);if(e.button===2)setPaddlePhysical('right',false)}},true);
+keyarea.addEventListener('click',e=>{if(duelOn||e.target.closest('.duel-arena')||e.target.closest('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel'))return;if(window.matchMedia('(pointer:coarse)').matches)return;if(e.pointerType!=='touch'&&!active)activateMouse()});keyarea.addEventListener('contextmenu',e=>{if(e.target.closest('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel'))return;e.preventDefault()});
+document.addEventListener('mousedown',e=>{if(e.target.closest?.('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel'))return;if(!active||!canTransmit()||(e.button!==0&&e.button!==2))return;e.preventDefault();if(mode.value==='straight')straightDown('mouse');else{if(e.button===0)setPaddlePhysical('left',true);if(e.button===2)setPaddlePhysical('right',true);iambicLoop()}},true);document.addEventListener('mouseup',e=>{if(e.target.closest?.('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel'))return;if(!active||(e.button!==0&&e.button!==2))return;e.preventDefault();if(mode.value==='straight')straightUp();else{if(e.button===0)setPaddlePhysical('left',false);if(e.button===2)setPaddlePhysical('right',false)}},true);
 function touchSide(x){const r=keyarea.getBoundingClientRect();return paddleLogicalSide(x<r.left+r.width/2?'left':'right')}
 function refreshTouchHolds(){if(mode.value==='straight')return;leftHeld=[...touchPointers.values()].includes('dit');rightHeld=[...touchPointers.values()].includes('dah');$("ditZone").classList.toggle('pressed',leftHeld);$("dahZone").classList.toggle('pressed',rightHeld);if(leftHeld||rightHeld)iambicLoop()}
-keyarea.addEventListener('pointerdown',e=>{if(duelOn||e.target.closest('.duel-arena')||e.target.closest('.paddle-reverse-control')||e.target.closest('.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action'))return;if(e.pointerType!=='touch')return;e.preventDefault();ensureAudio();status.textContent=tr('touchReady');try{keyarea.setPointerCapture(e.pointerId)}catch{}if(mode.value==='straight'){touchPointers.set(e.pointerId,'straight');if(touchPointers.size===1)straightDown('touch')}else{touchPointers.set(e.pointerId,touchSide(e.clientX));refreshTouchHolds()}});
+keyarea.addEventListener('pointerdown',e=>{if(duelOn||e.target.closest('.duel-arena')||e.target.closest('.paddle-reverse-control')||e.target.closest('.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel'))return;if(e.pointerType!=='touch')return;e.preventDefault();ensureAudio();status.textContent=tr('touchReady');try{keyarea.setPointerCapture(e.pointerId)}catch{}if(mode.value==='straight'){touchPointers.set(e.pointerId,'straight');if(touchPointers.size===1)straightDown('touch')}else{touchPointers.set(e.pointerId,touchSide(e.clientX));refreshTouchHolds()}});
 function touchEnd(e){if(e.pointerType!=='touch')return;e.preventDefault();touchPointers.delete(e.pointerId);if(mode.value==='straight'){if(touchPointers.size===0)straightUp()}else refreshTouchHolds();if(touchPointers.size===0)status.textContent=tr('idle')}
 keyarea.addEventListener('pointerup',touchEnd);keyarea.addEventListener('pointercancel',touchEnd);
 function audioOnlyTypingTarget(){
@@ -2772,11 +2772,10 @@ function publishMyGlobalVisitor(){
     window.__cwWatchdogVisitCounted=true;
   }
   const country=normalizeCountry(detectedCountry);
-  statsClient.publish(`${STATS_ROOT}/visitors/${statsVisitorId}`,JSON.stringify({
-    country:country||'',
-    visits:localVisitCount,
-    ts:Date.now()
-  }),{qos:0,retain:true});
+  const visitorPayload={country:country||'',visits:localVisitCount,ts:Date.now()};
+  statsVisitors.set(statsVisitorId,visitorPayload);
+  statsClient.publish(`${STATS_ROOT}/visitors/${statsVisitorId}`,JSON.stringify(visitorPayload),{qos:0,retain:true});
+  renderGlobalStats();
   if(country){
     const marker={country,ts:Date.now()};
     statsCountryMarkers.set(country,marker);
@@ -3059,17 +3058,20 @@ function gameBetter(metric,a,b){
   if(!Number.isFinite(b)||b<=0)return true;
   return metric==='low'?a<b:a>b;
 }
-function gameRecordKey(game,bucket){return `${weekKey()}|${game}|${bucket}`}
+function gameRecordKey(game,bucket,call=leaderCallsign()){
+  return `${weekKey()}|${game}|${bucket}|${sanitizeCall(call)||'NO-CALL'}`;
+}
 function gameCurrentLocal(game,bucket){
-  const all=gameLocalRecords(),rec=all[gameRecordKey(game,bucket)];
-  return rec&&rec.week===weekKey()?rec:null;
+  const call=leaderCallsign();
+  const all=gameLocalRecords(),rec=all[gameRecordKey(game,bucket,call)];
+  return rec&&rec.week===weekKey()&&sanitizeCall(rec.call)===call?rec:null;
 }
 function gameStoreWeeklyResult(game,bucket,value,metric,meta={}){
   const call=leaderCallsign();
   if(!call)return null;
   value=Number(value);
   if(!Number.isFinite(value)||value<0)return null;
-  const all=gameLocalRecords(),key=gameRecordKey(game,bucket),prev=all[key];
+  const all=gameLocalRecords(),key=gameRecordKey(game,bucket,call),prev=all[key];
   if(prev&&!gameBetter(metric,value,prev.value))return prev;
   const rec={
     week:weekKey(),game,bucket,call,value,metric:metric==='low'?'low':'high',
@@ -3233,6 +3235,9 @@ function connectGlobalStats(){
       generalLeaderboardLoading=true;
       renderWeeklyLeaderboard();
       statsClient.subscribe(`${STATS_ROOT}/#`,{qos:0});
+      // Safe immediately: this browser owns visitors/{statsVisitorId}.
+      // Reloads increase total visits without creating a new unique visitor.
+      publishMyGlobalVisitor();
       // MQTT retained messages arrive progressively. After this short snapshot window
       // the general leaderboard stops showing "loading" even when the week is empty.
       setTimeout(()=>{generalLeaderboardLoading=false;renderWeeklyLeaderboard()},1800);
@@ -3652,8 +3657,43 @@ function duelToneOff(){if(!duelOsc)return;try{duelOsc.stop()}catch{}try{duelOsc.
 async function duelPlayChar(ch,token){const code=REVERSE[ch];if(!code||!duelSession)return;const d=1200/duelSession.speed;for(const el of code){if(!duelSession||duelSession.token!==token)return;duelToneOn();await sleep(el==='.'?d:d*3);duelToneOff();await sleep(d)}}
 function duelArenaOn(on){keyarea.classList.toggle('duel-active',!!on);if(on){deactivate();if(bandNoiseGain&&audioCtx){bandNoiseGain.gain.cancelScheduledValues(audioCtx.currentTime);bandNoiseGain.gain.setTargetAtTime(0,audioCtx.currentTime,.04)}}else{duelToneOff();if(bandNoiseGain)updateBandNoise()}}
 function duelResetArena(){clearTimeout(duelQuestionTimer);clearInterval(duelWatchdog);duelToneOff();$('duelChoices').innerHTML='';$('duelCountdown').textContent='';$('duelQuestion').textContent='';$('duelResult').classList.remove('open');$('duelBattle').style.display='block';$('duelAbandonBtn').style.display='block';$('duelTimerBar').style.transition='none';$('duelTimerBar').style.transform='scaleX(1)'}
+function duelNormalizeSession(data){
+  if(!data||typeof data!=='object')return null;
+  const sessionId=String(data.sessionId||'');
+  if(!/^s_[A-Za-z0-9_]{3,96}$/.test(sessionId))return null;
+  const speed=Number(data.speed);
+  if(![12,18,25].includes(speed))return null;
+  if(!Array.isArray(data.rounds)||data.rounds.length!==30)return null;
+
+  const allowed=new Set(DUEL_CHARS),rounds=[];
+  for(const r of data.rounds){
+    if(!r||typeof r!=='object')return null;
+    const target=String(r.target||'').toUpperCase();
+    const choices=Array.isArray(r.choices)?r.choices.map(x=>String(x||'').toUpperCase()):[];
+    if(!allowed.has(target)||choices.length!==4||new Set(choices).size!==4||!choices.includes(target)||choices.some(x=>!allowed.has(x)))return null;
+    rounds.push({target,choices});
+  }
+
+  const cleanPeer=p=>{
+    if(!p||typeof p!=='object')return null;
+    const id=String(p.id||'').replace(/[^A-Za-z0-9_-]/g,'').slice(0,96);
+    const call=sanitizeCall(p.call);
+    const country=normalizeCountry(p.country);
+    return id&&call?{id,call,country}:null;
+  };
+  const a=cleanPeer(data.a),b=cleanPeer(data.b);
+  if(!a||!b||a.id===b.id)return null;
+  return {sessionId,rounds,speed,a,b};
+}
 function duelStartSession(data,opponentId){
-  duelPendingOutgoing=null;duelSearching=false;duelSession={id:data.sessionId,opponentId,rounds:data.rounds,speed:Number(data.speed)||duelSpeed,index:0,correct:0,streak:0,bestStreak:0,totalTime:0,questionStarted:0,answered:false,finished:false,opponent:null,token:1,awarded:false,winAwarded:false,lastOpp:Date.now()};
+  data=duelNormalizeSession(data);
+  if(!data){
+    duelPendingOutgoing=null;
+    duelSetStatus(lang==='es'?'Sesión DUEL inválida o dañada.':'Invalid or malformed DUEL session.','bad');
+    duelRenderLobby();
+    return false;
+  }
+  duelPendingOutgoing=null;duelSearching=false;duelSession={id:data.sessionId,opponentId,rounds:data.rounds,speed:data.speed,index:0,correct:0,streak:0,bestStreak:0,totalTime:0,questionStarted:0,answered:false,finished:false,opponent:null,token:1,awarded:false,winAwarded:false,lastOpp:Date.now()};
   const me=data.a.id===duelClientId?data.a:data.b,opp=data.a.id===duelClientId?data.b:data.a;duelSession.opponentCall=opp.call;duelSession.opponentCountry=opp.country||'';
   $('duelMeCall').textContent=`${countryFlag(me.country)} ${me.call}`;$('duelOppCall').textContent=`${countryFlag(opp.country)} ${opp.call}`;duelUpdateBattleUI();duelArenaOn(true);duelResetArena();duelSetStatus((lang==='es'?'Duelo contra ':'Duel vs ')+opp.call,'good');duelPublishPresence();
   duelVsCountdown(me.call,opp.call).then(()=>{if(duelSession)duelNextQuestion()});
@@ -3663,7 +3703,14 @@ async function duelVsCountdown(me,opp){$('duelVs').innerHTML=`<b>${escapeHtml(me
 function duelUpdateBattleUI(){if(!duelSession)return;$('duelMeCorrect').textContent=duelSession.correct;$('duelMeStreak').textContent=duelSession.streak;$('duelMeBar').style.width=`${Math.min(100,duelSession.index/30*100)}%`;const o=duelSession.opponent||{};$('duelOppCorrect').textContent=Number(o.correct)||0;$('duelOppStreak').textContent=Number(o.streak)||0;$('duelOppBar').style.width=`${Math.min(100,(Number(o.index)||0)/30*100)}%`}
 async function duelNextQuestion(){
   if(!duelSession||duelSession.finished)return;if(duelSession.index>=30){duelFinishLocal();return}clearTimeout(duelQuestionTimer);const r=duelSession.rounds[duelSession.index],token=++duelSession.token;duelSession.answered=false;$('duelChoices').innerHTML='';$('duelQuestion').textContent=`${duelSession.index+1} / 30 · ${duelSession.speed} WPM`;$('duelTimerBar').style.transition='none';$('duelTimerBar').style.transform='scaleX(1)';await duelPlayChar(r.target,token);if(!duelSession||duelSession.token!==token||duelSession.finished)return;
-  $('duelChoices').innerHTML=r.choices.map(c=>`<button type="button" class="duel-choice" data-duel-choice="${c}">${c}</button>`).join('');duelSession.questionStarted=performance.now();requestAnimationFrame(()=>requestAnimationFrame(()=>{$('duelTimerBar').style.transition='transform 5s linear';$('duelTimerBar').style.transform='scaleX(0)'}));duelQuestionTimer=setTimeout(()=>duelAnswer(null),5000)
+  const choicesEl=$('duelChoices');
+  choicesEl.replaceChildren();
+  for(const c of r.choices){
+    const b=document.createElement('button');
+    b.type='button';b.className='duel-choice';b.dataset.duelChoice=c;b.textContent=c;
+    choicesEl.appendChild(b);
+  }
+  duelSession.questionStarted=performance.now();requestAnimationFrame(()=>requestAnimationFrame(()=>{$('duelTimerBar').style.transition='transform 5s linear';$('duelTimerBar').style.transform='scaleX(0)'}));duelQuestionTimer=setTimeout(()=>duelAnswer(null),5000)
 }
 function duelAnswer(choice){if(!duelSession||duelSession.finished||duelSession.answered)return;duelSession.answered=true;clearTimeout(duelQuestionTimer);const r=duelSession.rounds[duelSession.index],elapsed=choice===null?5000:Math.min(5000,Math.max(0,performance.now()-duelSession.questionStarted));duelSession.totalTime+=elapsed;const ok=choice===r.target;if(ok){duelSession.correct++;duelSession.streak++;duelSession.bestStreak=Math.max(duelSession.bestStreak,duelSession.streak);recordWeeklyCompetitiveStreak(duelSession.streak)}else duelSession.streak=0;document.querySelectorAll('.duel-choice').forEach(b=>{b.disabled=true;if(b.dataset.duelChoice===r.target)b.classList.add('correct');if(choice!==null&&b.dataset.duelChoice===choice&&!ok)b.classList.add('wrong')});duelSession.index++;duelUpdateBattleUI();duelPublishProgress();setTimeout(()=>{if(duelSession)duelNextQuestion()},260)}
 function duelSendFinished(){
@@ -6334,9 +6381,13 @@ function battleSpawnShip(forceBoss=false){
     type=pool[Math.floor(Math.random()*pool.length)];
   }
   const cfg=BATTLE_SHIPS[type];
-  const usedWords=new Set(battleActiveShips().map(s=>s.word));
-  const availableWords=BATTLE_WORDS.filter(w=>!usedWords.has(w));
-  const word=(availableWords.length?availableWords:BATTLE_WORDS)[Math.floor(Math.random()*(availableWords.length||BATTLE_WORDS.length))];
+  const usedWords=battleActiveShips().map(s=>String(s.word||'').toUpperCase());
+  const availableWords=BATTLE_WORDS.filter(raw=>{
+    const w=String(raw||'').toUpperCase();
+    return w && !usedWords.some(u=>u===w||u.startsWith(w)||w.startsWith(u));
+  });
+  if(!availableWords.length)return;
+  const word=availableWords[Math.floor(Math.random()*availableWords.length)];
   const id=`bs_${Date.now()}_${Math.random().toString(36).slice(2,7)}`;
   const dir=battleChooseSpawnDirection();
   let x=.5,y=.5;
