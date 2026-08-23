@@ -1822,6 +1822,7 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
       <span>👥 <b id="stableVisits">—</b> <span id="stableVisitsLabel">visitas</span></span>
       <span>⏱ <b id="stablePracticeHours">—</b> <span id="stableHoursLabel">horas de uso</span></span>
       <button id="siteLikeBtn" class="like-btn" type="button" title="73!">❤️ 73! · <b id="stableLikes">—</b></button>
+      <div id="stableCountryTicker" class="country-ticker" aria-label="Countries using Morse Practice"><div id="stableCountryTickerTrack" class="country-ticker-track"></div></div>
       <button id="globalStatsMoreBtn" class="site-stats-more" type="button" aria-expanded="false" aria-controls="globalStatsExpanded" title="Más estadísticas">+</button>
     </div>
     <div id="globalStatsExpanded" class="global-stats-expanded">
@@ -1835,9 +1836,9 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
         <div class="global-stat"><span class="global-stat-icon">⚔️</span><b id="stableDuels">—</b><span>CW DUEL</span></div>
         <div class="global-stat"><span class="global-stat-icon">⏱️</span><b id="stablePracticeHoursFull">—</b><span id="stablePracticeLabel">horas activas</span></div>
       </div>
-      <div id="stableStatsSource" class="global-stats-source">Supabase · persistent global counters</div>
+      
     </div>
-    <div id="stableCountryTicker" class="country-ticker" aria-label="Countries using Morse Practice"><div id="stableCountryTickerTrack" class="country-ticker-track"></div></div>
+    
     <div class="memorial">In memory of CX7BBB — Antonio Villano · from whom I, and so many others, learned CW.</div><div class="app-version" title="Morse Practice release">v1.2 · 2026.08</div></div>
 </div>
 <script>
@@ -7764,3 +7765,14 @@ updateOnAirVisual();
 </script>
 
 </body></html>
+<style>
+/* Countries are part of the always-visible main stats */
+.site-stats .country-ticker{
+  flex:0 0 100%;
+  width:100%;
+  max-width:760px;
+  margin:2px auto 0;
+  order:20;
+}
+.site-stats .site-stats-more{order:21}
+</style>
