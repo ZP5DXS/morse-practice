@@ -2686,12 +2686,47 @@ function statsPublishPresence(){
   try{statsClient.publish(statsPresenceTopic(),JSON.stringify(payload),{qos:0,retain:true})}catch{}
   statsMaybePublishPresenceMax();
 }
+async function stableStatsLoadOnlineMax(){
+  if(!stableStatsCanWrite())return;
+  try{
+    const saved=await stableStatsRpc('mp_get_online_max',{});
+    const max=Math.max(0,Number(saved)||0);
+    if(max>statsPresenceMax)statsPresenceMax=max;
+    if(statsClient?.connected){
+      statsClient.publish(
+        statsPresenceMaxTopic(),
+        JSON.stringify({max:statsPresenceMax,ts:Date.now(),source:'supabase'}),
+        {qos:0,retain:true}
+      );
+    }
+  }catch{}
+}
+async function stableStatsPersistOnlineMax(candidate){
+  if(!stableStatsCanWrite())return;
+  candidate=Math.max(0,Math.round(Number(candidate)||0));
+  if(!candidate)return;
+  try{
+    const saved=await stableStatsRpc('mp_update_online_max',{p_online_max:candidate});
+    const max=Math.max(candidate,Math.max(0,Number(saved)||0));
+    if(max>statsPresenceMax)statsPresenceMax=max;
+    if(statsClient?.connected){
+      statsClient.publish(
+        statsPresenceMaxTopic(),
+        JSON.stringify({max:statsPresenceMax,ts:Date.now(),source:'supabase'}),
+        {qos:0,retain:true}
+      );
+    }
+  }catch{}
+}
 function statsMaybePublishPresenceMax(){
   if(!STATS_WRITE_ENABLED||!statsClient?.connected)return;
   const current=statsPresenceCount();
   if(current<=statsPresenceMax)return;
   statsPresenceMax=current;
-  try{statsClient.publish(statsPresenceMaxTopic(),JSON.stringify({max:current,ts:Date.now()}),{qos:0,retain:true})}catch{}
+  // MQTT remains the live transport, but Supabase is the authoritative historical high-water mark.
+  // mp_update_online_max uses GREATEST(), so concurrent browsers can never lower the record.
+  try{statsClient.publish(statsPresenceMaxTopic(),JSON.stringify({max:current,ts:Date.now(),source:'mqtt-pending-db'}),{qos:0,retain:true})}catch{}
+  stableStatsPersistOnlineMax(current);
 }
 function statsStartPresence(){
   clearInterval(statsPresenceTimer);
@@ -3721,6 +3756,9 @@ function connectGlobalStats(){
       generalLeaderboardLoading=true;
       renderWeeklyLeaderboard();
       statsClient.subscribe(`${STATS_ROOT}/#`,{qos:0});
+      // Restore the authoritative historical online record from Supabase.
+      // This also repairs the retained MQTT mirror if a stale client ever wrote a lower value.
+      stableStatsLoadOnlineMax();
       statsStartPresence();
       // Safe immediately: this browser owns visitors/{statsVisitorId}.
       // Reloads increase total visits without creating a new unique visitor.
