@@ -2509,7 +2509,13 @@ function chatHandleMessage(topic,payload,packet){
   if(topic.startsWith(`${CHAT_ROOT}/presence/`)){
     const id=topic.slice(`${CHAT_ROOT}/presence/`.length);
     if(!raw){chatPresence.delete(id);chatRenderPresence();return}
-    try{const p=JSON.parse(raw);p.ts=Date.now();chatPresence.set(id,p);chatRenderPresence()}catch{}
+    try{
+      const p=JSON.parse(raw);
+      p.ts=Math.max(0,Number(p?.ts)||0);
+      if(p.ts&&Date.now()-p.ts<=35000)chatPresence.set(id,p);
+      else chatPresence.delete(id);
+      chatRenderPresence()
+    }catch{}
     return
   }
   if(topic.startsWith(`${CHAT_ROOT}/messages/`)){
@@ -6861,7 +6867,7 @@ function battleRenderMessage(){
   if(battle.phase==='decode'){
     const rxCount=battleActiveShips().filter(s=>s.rx&&!s.decoded).length;
     const buf=battle.acquireBuffer?`<div class="battleship-word">${escapeHtml(battle.acquireBuffer)}</div>`:'';
-    $('battleshipMessage').innerHTML=`📡 ${lang==='es'?'ELIGE OBJETIVO · retransmite la palabra del barco':'CHOOSE TARGET · retransmit the ship word'}${rxCount?` · ${lang==='es'?'📻 oculto = escucha':'📻 hidden = listen'}`:''}${buf}`;
+    $('battleshipMessage').innerHTML=`📡 ${lang==='es'?'ELIGE OBJETIVO':'CHOOSE TARGET'}${rxCount?` · ${lang==='es'?'📻 escucha y copia':'📻 listen & copy'}`:''}${buf}`;
     return;
   }
   if(!ship){battle.targetId=null;battleSetPhase('decode');battleRenderMessage();return}
@@ -6974,7 +6980,7 @@ function battleSpawnShip(forceBoss=false){
   else if(dir==='right'){x=-.08;y=(Math.floor(Math.random()*5)+.5)/5}
   else {x=1.08;y=(Math.floor(Math.random()*5)+.5)/5}
   const ship={id,type,...cfg,dir,x,y,hp:cfg.hp,maxHp:cfg.hp,word,decoded:false,dead:false,rx:!!cfg.rx,boss:!!cfg.boss,
-    weakPhase:Math.random()*6.28,lockCode:'',lockCol:null,lockRow:null,rxPlayed:false,rxPlaying:false,rxNextAt:0,lastHit:0};
+    weakPhase:Math.random()*6.28,lockCode:'',lockCol:null,lockRow:null,rxPlayed:false,rxPlaying:false,rxNextAt:0,rxRevealCount:0,lastHit:0};
   battle.ships.push(ship);
   // Spawning is passive: never interrupt an acquisition/target/fire sequence.
   battleRenderMessage();
@@ -7005,7 +7011,9 @@ async function battlePlayWord(ship){
     await sleep(unit*2);
   }
   ship.rxPlaying=false;
-  ship.rxNextAt=performance.now()+6500;
+  // Repeat the encrypted/hidden call often enough to copy it by ear.
+  // A new repeat will only be started by battleLoop while the operator is not keying.
+  ship.rxNextAt=performance.now()+4200;
 }
 function battleOnDecoded(ch){
   if(!battle.playing||!['decode','target'].includes(battle.phase))return;
@@ -7013,21 +7021,54 @@ function battleOnDecoded(ch){
 
   if(battle.phase==='decode'){
     battle.sent++;
+
+    // Hidden RADIO ships are copied independently from visible ship selection.
+    // Correct characters reveal permanently, one position at a time.
+    // Example BUG + operator sends BOS -> B remains visible, O/S do not reveal U/G.
+    let rxProgress=false,rxCompleted=null;
+    for(const s of battleActiveShips().filter(s=>s.rx&&!s.decoded)){
+      const pos=Math.max(0,Number(s.rxRevealCount)||0);
+      if(pos<s.word.length&&ch===s.word[pos]){
+        s.rxRevealCount=pos+1;
+        rxProgress=true;
+        battle.rxCorrect++;
+        if(s.rxRevealCount>=s.word.length){rxCompleted=s;break}
+      }else if(pos<s.word.length){
+        battle.rxWrong++;
+      }
+    }
+
+    if(rxCompleted){
+      battle.targetId=rxCompleted.id;
+      rxCompleted.decoded=true;
+      battle.decoded++;
+      battle.acquireBuffer='';
+      battleAssignIntercept(rxCompleted);
+      battle.score+=50+rxCompleted.word.length*10;
+      battle.combo++;battle.bestCombo=Math.max(battle.bestCombo,battle.combo);
+      battleSetPhase('target');
+      battleInstruction(
+        `CONTACTO DECODIFICADO: ${rxCompleted.word}. El radar calcula ${rxCompleted.lockCode}. Transmite ${rxCompleted.lockCode}, fija la mira y espéralo allí.`,
+        `CONTACT DECODED: ${rxCompleted.word}. Radar predicts ${rxCompleted.lockCode}. Send ${rxCompleted.lockCode}, lock the reticle and wait for it there.`
+      );
+      battleRenderMessage();battleHud();
+      return;
+    }
+
+    // Visible ships keep the original prefix-selection mechanic.
     const next=(battle.acquireBuffer+ch).toUpperCase();
-    const candidates=battleAcquireCandidates(next);
+    const candidates=battleActiveShips().filter(s=>!s.rx&&!s.decoded&&s.word.startsWith(next));
 
     if(candidates.length){
       battle.acquireBuffer=next;
       battle.txCorrect++;
       battle.combo++;battle.bestCombo=Math.max(battle.bestCombo,battle.combo);
 
-      // Exact word = operator has explicitly chosen this ship.
       const exact=candidates.find(s=>s.word===battle.acquireBuffer);
       if(exact){
         battle.targetId=exact.id;
         exact.decoded=true;
         battle.decoded++;
-        if(exact.rx)battle.rxCorrect+=exact.word.length;
         battle.acquireBuffer='';
         battleAssignIntercept(exact);
         battle.score+=50+exact.word.length*10;
@@ -7037,13 +7078,19 @@ function battleOnDecoded(ch){
           `TARGET SELECTED: ${exact.word}. Radar predicts ${exact.lockCode}. Send ${exact.lockCode}, lock the reticle and wait for it there.`
         );
       }
-    }else{
-      // Wrong prefix: nothing on screen matches what was sent.
+    }else if(!rxProgress){
+      // Only penalize when the character matched neither a visible target prefix
+      // nor the next hidden character of any RADIO contact.
       battle.txWrong++;battle.combo=0;
       battle.acquireBuffer='';
       battle.score=Math.max(0,battle.score-10);
       battleCombatToast(`${lang==='es'?'SEÑAL NO COINCIDE':'NO MATCH'}  -10`,'bad');
       battleSound('error');
+    }else{
+      // RX progress is valid even if it does not belong to a visible ship word.
+      battle.acquireBuffer='';
+      battle.txCorrect++;
+      battle.combo++;battle.bestCombo=Math.max(battle.bestCombo,battle.combo);
     }
 
     battleRenderMessage();battleHud();
@@ -7176,15 +7223,20 @@ function battleDraw(){
     if(!s.decoded){
       const danger=battleShipProgress(s);
       ctx.font=`900 ${Math.max(12,Math.min(17,w*.018))}px monospace`;ctx.textAlign='center';
+      // First-row labels go below the hull so the top instruction panel never covers them.
+      const firstRow=y<g.top+g.rh*1.15;
+      const labelY=firstRow?y+Math.max(24,L*.86):y-Math.max(18,L*.75);
       if(s.rx){
         ctx.fillStyle=danger>.72?'#ff7d73':'#8edfff';
-        ctx.fillText('📻',x,y-Math.max(18,L*.75));
+        const reveal=Math.max(0,Math.min(s.word.length,Number(s.rxRevealCount)||0));
+        const hidden=s.word.split('').map((ch,i)=>i<reveal?ch:'_').join('');
+        ctx.fillText(`📻 ${hidden}`,x,labelY);
       }else{
         ctx.fillStyle=danger>.78?'#ff746c':danger>.58?'#ffd36a':'#eaf9ff';
         const label=s.word.startsWith(battle.acquireBuffer)&&battle.acquireBuffer
           ?`${battle.acquireBuffer}·${s.word.slice(battle.acquireBuffer.length)}`
           :s.word;
-        ctx.fillText(label,x,y-Math.max(18,L*.75));
+        ctx.fillText(label,x,labelY);
       }
     }
   }
@@ -7233,7 +7285,8 @@ function battleLoop(ts){
   if(battle.phase==='decode'){
     const now=performance.now();
     const anyRxPlaying=battleActiveShips().some(s=>s.rxPlaying);
-    if(!anyRxPlaying){
+    // Do not begin another RX transmission while the operator is actively keying.
+    if(!anyRxPlaying&&!active){
       const due=battleActiveShips()
         .filter(s=>s.rx&&!s.decoded&&!s.rxPlaying&&now>=Number(s.rxNextAt||0))
         .sort((a,b)=>battleShipProgress(b)-battleShipProgress(a))[0];
