@@ -289,22 +289,29 @@ html[data-accent-theme="gameboy"] .koch-level .koch-challenge-icon{
 
 
 .site-stats{
-  display:flex;justify-content:center;align-items:center;gap:12px;
-  margin:6px auto 2px;font-size:9px;color:var(--muted);opacity:.88;
-  flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none
+  display:flex;justify-content:center;align-items:center;gap:8px 12px;
+  margin:7px auto 3px;font-size:9px;color:var(--muted);opacity:.9;
+  flex-wrap:wrap;overflow:visible;max-width:760px
 }
-.site-stats::-webkit-scrollbar{display:none}
 .site-stats span{white-space:nowrap}
 .site-stats b{color:var(--text);font-variant-numeric:tabular-nums}
 .site-stats-more{
-  width:22px;height:22px;min-width:22px;padding:0;border:1px solid var(--line);
-  border-radius:50%;background:var(--panel2);color:var(--accent2);font-size:14px;
-  font-weight:900;line-height:20px;display:inline-flex;align-items:center;justify-content:center
+  width:24px;height:24px;min-width:24px;padding:0;border:1px solid var(--line);
+  border-radius:50%;background:var(--panel2);color:var(--accent2);
+  display:inline-grid;place-items:center;font-size:0;line-height:1;position:relative;
+  transition:border-color .16s,background .16s
 }
-.site-stats-more:hover{border-color:var(--accent)}
-.site-stats-more.open{transform:rotate(45deg)}
+.site-stats-more::before{
+  content:"+";position:absolute;left:50%;top:50%;
+  font:900 16px/16px ui-monospace,SFMono-Regular,Consolas,monospace;
+  width:16px;height:16px;text-align:center;
+  transform:translate(-50%,-50%) rotate(0deg);transform-origin:50% 50%;
+  transition:transform .22s ease;color:var(--accent2)
+}
+.site-stats-more:hover{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 7%,var(--panel2))}
+.site-stats-more.open::before{transform:translate(-50%,-50%) rotate(45deg)}
 .global-stats-expanded{
-  display:none;max-width:760px;margin:7px auto 0;padding:9px;
+  display:none;max-width:760px;margin:8px auto 0;padding:10px;
   border:1px solid var(--line);border-radius:10px;background:var(--panel3);
   box-shadow:0 8px 20px rgba(0,0,0,.12)
 }
@@ -315,20 +322,33 @@ html[data-accent-theme="gameboy"] .koch-level .koch-challenge-icon{
 }
 .global-stat{
   border:1px solid color-mix(in srgb,var(--line) 72%,transparent);
-  border-radius:8px;background:var(--panel2);padding:7px 4px;
+  border-radius:8px;background:var(--panel2);padding:8px 5px;
   font-size:8px;color:var(--muted);min-width:0
 }
+.global-stat .global-stat-icon{display:block;font-size:15px;line-height:1;margin-bottom:4px}
 .global-stat b{display:block;color:var(--text);font-size:13px;margin-bottom:2px;font-variant-numeric:tabular-nums}
 .global-stats-source{margin-top:7px;font-size:7px;color:var(--muted);opacity:.7}
-.country-ticker{max-width:760px;margin:7px auto 0;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-.country-ticker-track{display:flex;width:max-content;gap:9px;align-items:center;animation:countryTicker 28s linear infinite;font-size:15px;line-height:1}
-.country-flag{display:inline-flex;align-items:center;justify-content:center;min-width:18px;cursor:default}
+.country-ticker{
+  max-width:760px;margin:8px auto 0;overflow:hidden;
+  mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)
+}
+.country-ticker-track{
+  display:flex;width:max-content;gap:10px;align-items:center;
+  animation:countryTicker 28s linear infinite;font-size:16px;line-height:1
+}
+.country-flag{
+  display:inline-flex;align-items:center;justify-content:center;min-width:20px;cursor:default;
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,.22))
+}
+.country-ticker:hover .country-ticker-track{animation-play-state:paused}
 @keyframes countryTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media(max-width:620px){
-  .site-stats{justify-content:flex-start;padding:0 4px}
+  .site-stats{justify-content:center;padding:0 4px;gap:7px 10px}
+  .global-stats-expanded{margin-left:4px;margin-right:4px}
   .global-stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .country-ticker{max-width:100%}
-  .country-ticker-track{gap:8px;font-size:14px}
+  .country-ticker-track{gap:9px;font-size:15px}
 }
 
 
@@ -1162,10 +1182,11 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
 
 @media(max-width:620px){
   .battleship-hud{font-size:7px;gap:4px}.battleship-hud .hud-left,.battleship-hud .hud-right{gap:5px}
-  .battleship-message{top:38px;font-size:8px;min-width:86%;padding:5px 7px}.battleship-word{font-size:15px}
+  .battleship-message{top:42px;font-size:8px;min-width:88%;padding:5px 7px}.battleship-word{font-size:15px}
   .battleship-result-main{grid-template-columns:repeat(3,1fr);gap:4px}.battleship-result-main b{font-size:14px}
   .battleship-stat-grid{grid-template-columns:repeat(2,1fr)}
-  .battleship-exit{top:28px}
+  .battleship-exit{top:auto;bottom:8px;right:8px}
+  .battleship-fire-mode{bottom:40px}
 }
 
 </style>
@@ -1805,18 +1826,18 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
     </div>
     <div id="globalStatsExpanded" class="global-stats-expanded">
       <div class="global-stats-grid">
-        <div class="global-stat"><b id="stableUniqueVisitors">—</b><span id="stableUniqueLabel">visitantes únicos</span></div>
-        <div class="global-stat"><b id="stableCountries">—</b><span id="stableCountriesLabel">países</span></div>
-        <div class="global-stat"><b id="stableSkcc">—</b><span>SKCC</span></div>
-        <div class="global-stat"><b id="stableLicw">—</b><span>LICW</span></div>
-        <div class="global-stat"><b id="stableQso">—</b><span>QSO BOT</span></div>
-        <div class="global-stat"><b id="stableRacer">—</b><span>CW RACER</span></div>
-        <div class="global-stat"><b id="stableDuels">—</b><span>CW DUEL</span></div>
-        <div class="global-stat"><b id="stablePracticeHoursFull">—</b><span id="stablePracticeLabel">horas activas</span></div>
+        <div class="global-stat"><span class="global-stat-icon">👤</span><b id="stableUniqueVisitors">—</b><span id="stableUniqueLabel">visitantes únicos</span></div>
+        <div class="global-stat"><span class="global-stat-icon">🌎</span><b id="stableCountries">—</b><span id="stableCountriesLabel">países</span></div>
+        <div class="global-stat"><span class="global-stat-icon">🔑</span><b id="stableSkcc">—</b><span>SKCC</span></div>
+        <div class="global-stat"><span class="global-stat-icon">🎓</span><b id="stableLicw">—</b><span>LICW</span></div>
+        <div class="global-stat"><span class="global-stat-icon">🤖</span><b id="stableQso">—</b><span>QSO BOT</span></div>
+        <div class="global-stat"><span class="global-stat-icon">🏁</span><b id="stableRacer">—</b><span>CW RACER</span></div>
+        <div class="global-stat"><span class="global-stat-icon">⚔️</span><b id="stableDuels">—</b><span>CW DUEL</span></div>
+        <div class="global-stat"><span class="global-stat-icon">⏱️</span><b id="stablePracticeHoursFull">—</b><span id="stablePracticeLabel">horas activas</span></div>
       </div>
-      <div id="stableCountryTicker" class="country-ticker" aria-label="Countries using Morse Practice"><div id="stableCountryTickerTrack" class="country-ticker-track"></div></div>
       <div id="stableStatsSource" class="global-stats-source">Supabase · persistent global counters</div>
     </div>
+    <div id="stableCountryTicker" class="country-ticker" aria-label="Countries using Morse Practice"><div id="stableCountryTickerTrack" class="country-ticker-track"></div></div>
     <div class="memorial">In memory of CX7BBB — Antonio Villano · from whom I, and so many others, learned CW.</div><div class="app-version" title="Morse Practice release">v1.2 · 2026.08</div></div>
 </div>
 <script>
@@ -2775,6 +2796,48 @@ function stableStatsSyncSoon(delay=450){
   clearTimeout(stableStatsState.syncTimer);
   stableStatsState.syncTimer=setTimeout(stableStatsSync,delay);
 }
+function stableStatsCompactMeta(meta={}){
+  try{
+    const clean={};
+    for(const [k,v] of Object.entries(meta||{})){
+      if(v==null)continue;
+      if(typeof v==='number')clean[k]=Number.isFinite(v)?v:0;
+      else if(typeof v==='boolean')clean[k]=v;
+      else if(typeof v==='string')clean[k]=v.slice(0,160);
+    }
+    return clean;
+  }catch{return {}}
+}
+async function stableStatsRecordEvent(activity,eventType='complete',meta={}){
+  if(!stableStatsCanWrite())return;
+  try{
+    await stableStatsRpc('mp_record_event',{
+      p_visitor_id:statsVisitorId,
+      p_callsign:leaderCallsign()||null,
+      p_country:normalizeCountry(detectedCountry)||null,
+      p_activity:String(activity||'unknown').slice(0,40),
+      p_event_type:String(eventType||'complete').slice(0,32),
+      p_meta:stableStatsCompactMeta(meta)
+    });
+  }catch{}
+}
+async function stableStatsRecordGame(game,bucket,value,metric='high',meta={},resultId=null){
+  if(!stableStatsCanWrite())return;
+  try{
+    await stableStatsRpc('mp_record_game_result',{
+      p_result_id:resultId||((crypto?.randomUUID&&crypto.randomUUID())||`r_${Date.now()}_${Math.random().toString(36).slice(2)}`),
+      p_visitor_id:statsVisitorId,
+      p_callsign:leaderCallsign()||null,
+      p_country:normalizeCountry(detectedCountry)||null,
+      p_game:String(game||'game').slice(0,40),
+      p_bucket:String(bucket||'default').slice(0,80),
+      p_metric:metric==='low'?'low':'high',
+      p_value:Number(value)||0,
+      p_week:weekKey(),
+      p_meta:stableStatsCompactMeta(meta)
+    });
+  }catch{}
+}
 async function stableStatsRecordVisit(){
   if(!stableStatsCanWrite()||stableStatsState.visitRecorded)return;
   stableStatsState.visitRecorded=true;
@@ -3266,6 +3329,8 @@ function gameStoreWeeklyResult(game,bucket,value,metric,meta={}){
   if(!call)return null;
   value=Number(value);
   if(!Number.isFinite(value)||value<0)return null;
+  // Supabase archives every completed run; MQTT/localStorage still keep only the weekly best.
+  stableStatsRecordGame(game,bucket,value,metric,meta);
   const all=gameLocalRecords(),key=gameRecordKey(game,bucket,call),prev=all[key];
   if(prev&&!gameBetter(metric,value,prev.value))return prev;
   const rec={
@@ -3933,6 +3998,14 @@ function publishFullDuelResult(me,opp,cmp){
   const mine={call:duelCall(),country:detectedCountry||'',correct:me.correct,bestStreak:me.bestStreak,totalTime:me.totalTime};
   const theirs={call:duelSession.opponentCall||'',country:duelSession.opponentCountry||'',correct:opp.correct,bestStreak:opp.bestStreak,totalTime:opp.totalTime};
   const pair=[mine,theirs].sort((x,y)=>String(x.call).localeCompare(String(y.call)));
+  stableStatsRecordGame('duel',`${duelSession.speed}wpm`,Math.max(mine.correct,theirs.correct),'high',{
+    speed:duelSession.speed,rounds:30,
+    callA:pair[0].call,callB:pair[1].call,
+    scoreA:pair[0].correct,scoreB:pair[1].correct,
+    streakA:pair[0].bestStreak,streakB:pair[1].bestStreak,
+    timeA:pair[0].totalTime,timeB:pair[1].totalTime,
+    winner:cmp===0?'DRAW':(cmp>0?mine.call:theirs.call)
+  },`duel_${duelSession.id}`);
   publishGlobalDuelRecord(duelSession.id,duelSession.speed,{
     ts:Date.now(),rounds:30,
     callA:pair[0].call,countryA:pair[0].country,scoreA:pair[0].correct,streakA:pair[0].bestStreak,timeA:pair[0].totalTime,
@@ -4837,6 +4910,7 @@ function errorsPracticeFinish(){
   if(!errorsPracticeOn)return;
   errorsPractice.active=false;
   racerStats.activity.errors=(racerStats.activity.errors||0)+1;
+  stableStatsRecordEvent('errors_practice','complete',{hits:errorsPractice.hits,misses:errorsPractice.misses,score:errorsPractice.score,total:errorsPractice.units.length});
   saveRacerStats();renderRacerStats();
   $("errorsArenaTarget").textContent='🎯';
   if($("errorsArenaCode"))$("errorsArenaCode").textContent='';
@@ -5425,6 +5499,9 @@ function kochFinish(){
   const acc=Math.max(0,Math.min(1,koch.points/total));
   const stars=kochStars(acc),pct=Math.round(acc*100);
   const passed=acc>=.90;
+  stableStatsRecordEvent(koch.challengeMode?'koch_challenge':'koch','complete',{
+    lesson:koch.lesson,challenge:koch.challengeMode?koch.challengeNo:0,accuracy:pct,stars,passed
+  });
 
   if(koch.challengeMode){
     racerStats.activity.challenge=(racerStats.activity.challenge||0)+1;saveRacerStats();
@@ -6110,6 +6187,7 @@ function qsoComplete(message){
   if(!qsoSession)return;
   qsoSession.state='done';qsoCompletedCount++;
   localStorage.setItem('cw-qso-completed',String(qsoCompletedCount));
+  stableStatsRecordEvent('qso_bot','complete',{mode:qsoSession?.mode||'',ai:!!qsoSession?.ai});
   publishMyCompletionCounters();
   renderRacerStats();
   qsoUpdateMeta();qsoSetStatus(tr('qsoComplete')+' ✅','good');
