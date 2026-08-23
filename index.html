@@ -1014,10 +1014,11 @@ html[data-accent-theme="gameboy"] .rewards-summary b{
 
 /* QSO BOT: central experience first */
 #activityQso .activity-qso-center{
-  width:min(820px,calc(100% - 26px));
-  top:44px;bottom:30px;
-  justify-content:flex-start;
-  padding-top:14px;
+  width:min(650px,calc(100% - 32px));
+  left:50%;right:auto;transform:translateX(-50%);
+  top:48px;bottom:40px;
+  justify-content:center;
+  padding-top:0;
 }
 #activityQso .qso-bot-call{
   font-size:clamp(22px,4vw,34px);
@@ -1062,9 +1063,11 @@ html[data-accent-theme="gameboy"] .rewards-summary b{
   letter-spacing:3px;
 }
 @media(max-width:620px){
-  #activityQso .activity-qso-center{width:calc(100% - 14px);top:40px;bottom:28px;padding-top:6px}
-  #activityQso .qso-bot-message{font-size:11px}
-  #activityQso .qso-you{font-size:10px}
+  #activityQso .activity-qso-center{width:calc(100% - 18px);left:50%;right:auto;transform:translateX(-50%);top:43px;bottom:40px;padding:0;justify-content:center}
+  #activityQso .qso-bot-call{font-size:22px}
+  #activityQso .qso-bot-message{font-size:11px;min-height:72px;flex:0 1 auto;max-height:130px;overflow:auto}
+  #activityQso .qso-you{font-size:10px;min-height:34px}
+  #activityQso .qso-live-cw{min-height:32px}
 }
 
 
@@ -6546,7 +6549,7 @@ function battleDraw(){
     ctx.restore();ctx.globalAlpha=1;
     if(!s.decoded){
       const danger=battleShipProgress(s);
-      ctx.font=`900 ${Math.max(8,w*.012)}px monospace`;ctx.textAlign='center';
+      ctx.font=`900 ${Math.max(12,Math.min(17,w*.018))}px monospace`;ctx.textAlign='center';
       if(s.rx){
         ctx.fillStyle=danger>.72?'#ff7d73':'#8edfff';
         ctx.fillText('📻',x,y-Math.max(18,L*.75));
