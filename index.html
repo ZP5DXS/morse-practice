@@ -418,9 +418,15 @@ html[data-accent-theme="gameboy"] .koch-level .koch-challenge-icon{
   .header-73-cta .like-btn{font-size:11px;padding:7px 11px}
 }
 @media(max-width:620px){
-  .header-73-cta{width:100%;min-width:0;flex-wrap:wrap;justify-content:center}
-  .header-73-main{font-size:10px}
-  .header-73-free{width:100%;text-align:center}
+  .header-73-cta{
+    width:100%;min-width:0;display:grid;
+    grid-template-columns:1fr auto 1fr;
+    grid-template-areas:"main button spacer" "free free free";
+    column-gap:8px;row-gap:3px
+  }
+  .header-73-main{grid-area:main;font-size:10px;justify-self:start}
+  .header-73-cta .like-btn{grid-area:button;justify-self:center}
+  .header-73-free{grid-area:free;width:100%;text-align:left}
   .header-73-tooltip{right:auto;left:50%;transform:translate(-50%,-3px)}
   .header-73-cta:hover .header-73-tooltip,.header-73-cta:focus-within .header-73-tooltip{transform:translate(-50%,0)}
 }
@@ -429,13 +435,13 @@ html[data-accent-theme="gameboy"] .koch-level .koch-challenge-icon{
 @media(min-width:621px){
   .header-73-cta{
     display:grid;
-    grid-template-columns:auto auto;
-    grid-template-areas:"main button" "free free";
+    grid-template-columns:1fr auto 1fr;
+    grid-template-areas:"main button spacer" "free free free";
     column-gap:12px;row-gap:3px
   }
-  .header-73-main{grid-area:main}
-  .header-73-cta .like-btn{grid-area:button}
-  .header-73-free{grid-area:free;text-align:center}
+  .header-73-main{grid-area:main;justify-self:start}
+  .header-73-cta .like-btn{grid-area:button;justify-self:center}
+  .header-73-free{grid-area:free;text-align:left}
 }
 
 .header-73-close{
@@ -451,22 +457,21 @@ html[data-accent-theme="gameboy"] .header-73-cta .like-btn{font-size:10px;paddin
 html[data-accent-theme="gameboy"] .header-73-free{font-size:7px}
 @media(min-width:621px){
   html[data-accent-theme="gameboy"] .header-73-cta{
-    grid-template-columns:minmax(0,auto) auto;
+    grid-template-columns:1fr auto 1fr;
     width:max-content;max-width:100%
   }
 }
 
 
 .footer-like-btn{
-  border:0;background:transparent;color:var(--muted);padding:3px 5px;margin:0;
-  border-radius:7px;font-size:9px;line-height:1;font-weight:700;
-  display:inline-flex;align-items:center;gap:3px;white-space:nowrap;
-  transition:.15s
+  border:0;background:transparent;color:var(--muted);padding:0;margin:0;
+  border-radius:0;font-size:9px;line-height:inherit;font-weight:700;
+  display:inline-flex;align-items:center;justify-content:center;gap:3px;white-space:nowrap;
+  vertical-align:middle;transition:color .15s
 }
 .footer-like-btn b{color:var(--text);font-variant-numeric:tabular-nums}
 .footer-like-btn:not(:disabled):hover{
-  color:var(--text);background:color-mix(in srgb,var(--accent) 7%,transparent);
-  box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 20%,transparent)
+  color:var(--text);background:transparent;box-shadow:none
 }
 .footer-like-btn:not(:disabled){cursor:pointer}
 .footer-like-btn:disabled{cursor:default;opacity:1}
@@ -2657,8 +2662,50 @@ const STATS_ROOT='zp5dxs/morse-practice/stats-v1';
 const STATS_WRITE_ENABLED=location.protocol==='https:'&&location.hostname.toLowerCase()==='zp5dxs.github.io';
 let statsClient=null;
 const statsVisitors=new Map(),statsPractice=new Map(),statsLikes=new Map(),statsDuels=new Map(),statsQsoBot=new Map(),statsRacerCompleted=new Map(),weeklyLeaders=new Map();
+const statsPresence=new Map();
+let statsPresenceMax=0,statsPresenceTimer=0;
+const STATS_PRESENCE_TTL=75000;
 const statsCountryMarkers=new Map();
 const communityMembersEver={skcc:new Map(),licw:new Map()};
+
+function statsPresenceTopic(){return `${STATS_ROOT}/presence/${statsVisitorId}`}
+function statsPresenceMaxTopic(){return `${STATS_ROOT}/presence-max/record`}
+function statsPresenceCount(now=Date.now()){
+  let n=0;
+  for(const [id,v] of statsPresence){
+    const ts=Math.max(0,Number(v?.ts)||0);
+    if(ts && now-ts<=STATS_PRESENCE_TTL)n++;
+    else if(ts && now-ts>STATS_PRESENCE_TTL*4)statsPresence.delete(id);
+  }
+  return n;
+}
+function statsPublishPresence(){
+  if(!STATS_WRITE_ENABLED||!statsClient?.connected)return;
+  const payload={ts:Date.now()};
+  statsPresence.set(statsVisitorId,payload);
+  try{statsClient.publish(statsPresenceTopic(),JSON.stringify(payload),{qos:0,retain:true})}catch{}
+  statsMaybePublishPresenceMax();
+}
+function statsMaybePublishPresenceMax(){
+  if(!STATS_WRITE_ENABLED||!statsClient?.connected)return;
+  const current=statsPresenceCount();
+  if(current<=statsPresenceMax)return;
+  statsPresenceMax=current;
+  try{statsClient.publish(statsPresenceMaxTopic(),JSON.stringify({max:current,ts:Date.now()}),{qos:0,retain:true})}catch{}
+}
+function statsStartPresence(){
+  clearInterval(statsPresenceTimer);
+  statsPublishPresence();
+  statsPresenceTimer=setInterval(statsPublishPresence,20000);
+}
+function statsStopPresence(clearRetained=true){
+  clearInterval(statsPresenceTimer);statsPresenceTimer=0;
+  statsPresence.delete(statsVisitorId);
+  if(clearRetained&&STATS_WRITE_ENABLED&&statsClient?.connected){
+    try{statsClient.publish(statsPresenceTopic(),'',{qos:0,retain:true})}catch{}
+  }
+}
+
 const PUBLIC_HIGHWATER_KEY='cw-public-stats-highwater-v2';
 const KNOWN_COUNTRIES_KEY='cw-known-countries-v1';
 let publicHighwater={visitors:0,visits:0,countries:0,practiceSeconds:0,likes:0,duels:0,qso:0,racer:0,skcc:0,licw:0};
@@ -3667,12 +3714,14 @@ function connectGlobalStats(){
   try{
     const sid='mp_stats_'+crypto.getRandomValues(new Uint32Array(2)).join('_');
     statsClient=mqtt.connect('wss://broker.emqx.io:8084/mqtt',{
-      clientId:sid,clean:true,keepalive:30,connectTimeout:7000,reconnectPeriod:5000
+      clientId:sid,clean:true,keepalive:30,connectTimeout:7000,reconnectPeriod:5000,
+      will:{topic:`${STATS_ROOT}/presence/${statsVisitorId}`,payload:'',qos:0,retain:true}
     });
     statsClient.on('connect',()=>{
       generalLeaderboardLoading=true;
       renderWeeklyLeaderboard();
       statsClient.subscribe(`${STATS_ROOT}/#`,{qos:0});
+      statsStartPresence();
       // Safe immediately: this browser owns visitors/{statsVisitorId}.
       // Reloads increase total visits without creating a new unique visitor.
       publishMyGlobalVisitor();
@@ -3710,6 +3759,23 @@ function connectGlobalStats(){
       if(parts.length<2)return;
       try{
         const raw=payload.toString();
+        if(parts[0]==='presence'&&parts.length===2){
+          if(!raw)statsPresence.delete(parts[1]);
+          else{
+            const obj=JSON.parse(raw);
+            const ts=Math.max(0,Number(obj?.ts)||0);
+            if(ts)statsPresence.set(parts[1],{ts});
+          }
+          statsMaybePublishPresenceMax();
+          return;
+        }
+        if(parts[0]==='presence-max'&&parts[1]==='record'&&parts.length===2){
+          if(raw){
+            const obj=JSON.parse(raw);
+            statsPresenceMax=Math.max(statsPresenceMax,Math.max(0,Number(obj?.max)||0));
+          }
+          return;
+        }
         if(parts[0]==='members'&&parts.length===3&&(parts[1]==='skcc'||parts[1]==='licw')){
           if(!raw)communityMembers[parts[1]].delete(parts[2]);else communityMembers[parts[1]].set(parts[2],JSON.parse(raw));
           renderMembershipCounts();return;
@@ -6683,6 +6749,8 @@ document.addEventListener('click',e=>{
 
 
 
+
+window.addEventListener('beforeunload',()=>{try{statsStopPresence(true)}catch{}});
 
 // ==================== CW BATTLESHIP ====================
 let battleshipOn=false;
