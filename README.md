@@ -2,7 +2,7 @@
 
 > **Free • Open Source • Browser-Based Morse Code Training Platform**
 
-🇪🇸 **¿Prefieres leer las instrucciones en español?** Consulta la [guía completa en español](READEM-ES.md).
+🇪🇸 **¿Prefieres leer las instrucciones en español?** Consulta la [guía completa en español](README-ES.md).
 
 [![Live
 Demo](https://img.shields.io/badge/🚀-Live%20Demo-blue?style=for-the-badge)](https://zp5dxs.github.io/morse-practice/)
