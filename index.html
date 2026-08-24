@@ -9,7 +9,12 @@
 :root{--bg:#0b0d10;--panel:#12161b;--panel2:#171c22;--panel3:#0f1318;--text:#eef2f5;--muted:#93a0ad;--line:#27313a;--accent:#2d8cff;--accent2:#5aa8ff;--accent-alt:#54d66f;--good:#54d66f;--warn:#f0c86b;--danger:#ff6b6b;--shadow:0 12px 32px rgba(0,0,0,.25)}
 html[data-theme="light"]{--bg:#eef2f6;--panel:#fff;--panel2:#f6f8fb;--panel3:#fff;--text:#18212a;--muted:#687583;--line:#d8e0e8;--accent:#146ee8;--accent2:#2d8cff;--accent-alt:#20a83f;--good:#20a83f;--warn:#a87900;--danger:#c73939;--shadow:0 10px 28px rgba(31,45,61,.10)}
 *{box-sizing:border-box}html,body{min-height:100%}body{margin:0;min-height:100vh;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:radial-gradient(circle at 15% 0%,color-mix(in srgb,var(--accent) 10%,transparent),transparent 32%),var(--bg);color:var(--text)}
-button,input,select,textarea{font:inherit}button{cursor:pointer}.app{width:100%;max-width:none;margin:0;padding:18px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:14px 16px;box-shadow:var(--shadow);margin-bottom:14px}.brand{display:flex;align-items:center;gap:14px;min-width:0}.brand-logo{width:66px;height:66px;border-radius:50%;object-fit:contain;background:#050607;border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line));padding:5px;flex:none}.brand h1{margin:0;font-size:24px;letter-spacing:-.02em}.brand .sub{margin-top:2px;color:var(--muted);font-size:13px;white-space:nowrap}.courtesy{margin-top:5px;color:var(--muted);font-size:12px}.courtesy a,.footer a,.header-links a{color:var(--accent2);text-decoration:none;font-weight:700}.courtesy a:hover,.footer a:hover,.header-links a:hover{text-decoration:underline}.footer-member-link:hover{text-decoration:none!important}.header-links{margin-top:5px;display:flex;gap:10px;flex-wrap:wrap;font-size:12px}.top-controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:flex-end}.compact-control{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px}.pill-switch{width:48px;height:27px;padding:0;border-radius:999px;border:1px solid var(--line);background:var(--panel2);position:relative}.pill-switch::after{content:"";position:absolute;top:3px;left:3px;width:19px;height:19px;border-radius:50%;background:var(--accent);transition:.18s}.pill-switch.on::after{left:24px}.lang-btn{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:999px;padding:6px 10px;font-size:11px;font-weight:800}.layout{display:grid;grid-template-columns:300px minmax(0,1fr);gap:14px;align-items:start}.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}.config{padding:15px;position:sticky;top:12px}.section-title{margin:0 0 12px;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--accent2)}.field{margin-bottom:16px}.field:last-child{margin-bottom:0}.field-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:7px;min-width:0}.field label{font-size:12px;font-weight:700;min-width:0}.value{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap;flex:none}select,input[type="text"],textarea{width:100%;border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--text)}input[type="text"]{padding:10px 11px}input[type="range"]{width:100%;accent-color:var(--accent)}.segmented{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.seg-btn{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:9px;padding:9px 6px;font-size:12px;font-weight:700}.seg-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 18%,transparent)}.preset-row{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:8px}.preset{padding:7px 2px;border-radius:8px;border:1px solid var(--line);background:var(--panel2);color:var(--text);font-size:11px;font-weight:700}.preset:hover{border-color:var(--accent)}.switchline{display:flex;align-items:center;justify-content:space-between;gap:10px}.switch{position:relative;width:43px;height:24px;border-radius:999px;border:1px solid var(--line);background:var(--panel2);flex:none}.switch input{display:none}.switch span{position:absolute;width:17px;height:17px;left:3px;top:50%;transform:translateY(-50%);border-radius:50%;background:var(--muted);transition:left .18s,background .18s}.switch input:checked+span{left:21px;background:var(--accent)}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.app{
+  width:calc(100vw - 20px);
+  max-width:none;
+  margin:0 auto;
+  padding:18px
+}.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:14px 16px;box-shadow:var(--shadow);margin-bottom:14px}.brand{display:flex;align-items:center;gap:14px;min-width:0}.brand-logo{width:66px;height:66px;border-radius:50%;object-fit:contain;background:#050607;border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line));padding:5px;flex:none}.brand h1{margin:0;font-size:24px;letter-spacing:-.02em}.brand .sub{margin-top:2px;color:var(--muted);font-size:13px;white-space:nowrap}.courtesy{margin-top:5px;color:var(--muted);font-size:12px}.courtesy a,.footer a,.header-links a{color:var(--accent2);text-decoration:none;font-weight:700}.courtesy a:hover,.footer a:hover,.header-links a:hover{text-decoration:underline}.footer-member-link:hover{text-decoration:none!important}.header-links{margin-top:5px;display:flex;gap:10px;flex-wrap:wrap;font-size:12px}.top-controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:flex-end}.compact-control{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px}.pill-switch{width:48px;height:27px;padding:0;border-radius:999px;border:1px solid var(--line);background:var(--panel2);position:relative}.pill-switch::after{content:"";position:absolute;top:3px;left:3px;width:19px;height:19px;border-radius:50%;background:var(--accent);transition:.18s}.pill-switch.on::after{left:24px}.lang-btn{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:999px;padding:6px 10px;font-size:11px;font-weight:800}.layout{display:grid;grid-template-columns:clamp(300px,20vw,360px) minmax(0,1fr);gap:14px;align-items:start}.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}.config{padding:15px;position:sticky;top:12px}.section-title{margin:0 0 12px;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--accent2)}.field{margin-bottom:16px}.field:last-child{margin-bottom:0}.field-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:7px;min-width:0}.field label{font-size:12px;font-weight:700;min-width:0}.value{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}select,input[type="text"],textarea{width:100%;border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--text)}input[type="text"]{padding:10px 11px}input[type="range"]{width:100%;accent-color:var(--accent)}.segmented{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.seg-btn{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:9px;padding:9px 6px;font-size:12px;font-weight:700}.seg-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 18%,transparent)}.preset-row{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:8px}.preset{padding:7px 2px;border-radius:8px;border:1px solid var(--line);background:var(--panel2);color:var(--text);font-size:11px;font-weight:700}.preset:hover{border-color:var(--accent)}.switchline{display:flex;align-items:center;justify-content:space-between;gap:10px}.switch{position:relative;width:43px;height:24px;border-radius:999px;border:1px solid var(--line);background:var(--panel2);flex:none}.switch input{display:none}.switch span{position:absolute;width:17px;height:17px;left:3px;top:50%;transform:translateY(-50%);border-radius:50%;background:var(--muted);transition:left .18s,background .18s}.switch input:checked+span{left:21px;background:var(--accent)}
 .onair-box{margin-top:18px;padding-top:15px;border-top:1px solid var(--line)}
 /* Discreet controls inside the keying area */
 .paddle-reverse-control{
@@ -52,7 +57,7 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}.app{width:100%;
 .operator-ident.me{font-weight:800;color:var(--accent2)}
 .mute-btn{border:1px solid var(--line);background:var(--panel3);color:var(--text);width:30px;height:26px;border-radius:7px;padding:0;display:flex;align-items:center;justify-content:center;font-size:13px}
 .mute-btn:hover{border-color:var(--accent)}
-.mute-btn.muted{opacity:.55}.channel-state{margin-top:8px;font-size:11px;font-weight:800}.channel-free{color:var(--good)}.channel-busy{color:var(--warn)}.beta-note{font-size:10px;line-height:1.35;color:var(--muted);margin-top:8px}.main{display:grid;gap:14px}.key-card,.practice-card{padding:13px}.key-head,.practice-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:9px}.key-head .title,.practice-head .title{font-weight:800;color:var(--accent2);font-size:12px;text-transform:uppercase;letter-spacing:.05em}.key-head .small{color:var(--muted);font-size:12px}.keyarea{min-height:380px;border:2px dashed color-mix(in srgb,var(--muted) 45%,transparent);border-radius:15px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;user-select:none;-webkit-user-select:none;touch-action:none;background:radial-gradient(circle at center,color-mix(in srgb,var(--accent) 5%,transparent),transparent 55%),var(--panel3);padding:28px;cursor:crosshair;outline:none;transition:.16s;position:relative;overflow:hidden}.keyarea:hover{border-color:color-mix(in srgb,var(--accent) 55%,var(--line))}.keyarea.active{border-style:solid;border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent),0 0 28px color-mix(in srgb,var(--accent) 15%,transparent)}.touch-zones{position:absolute;inset:0;display:none;pointer-events:none}.keyarea.paddle-touch .touch-zones{display:grid;grid-template-columns:1fr 1fr}.touch-zone{display:flex;align-items:flex-end;justify-content:center;padding:18px;font-size:13px;font-weight:900;opacity:.22}.touch-zone.dit{background:var(--accent)}.touch-zone.dah{background:var(--good)}.touch-zone.pressed{opacity:.38}.key-content{position:relative;z-index:2;pointer-events:none}.mouse-icon{width:78px;height:100px;border:3px solid var(--muted);border-radius:38px;position:relative;margin:0 auto 18px;opacity:.9}.mouse-icon::before{content:"";position:absolute;left:50%;top:0;bottom:50%;width:3px;background:var(--muted);transform:translateX(-50%)}.mouse-left,.mouse-right{position:absolute;top:4px;width:31px;height:39px}.mouse-left{left:5px;border-radius:28px 0 0 0;background:color-mix(in srgb,var(--accent) 75%,transparent)}.mouse-right{right:5px;border-radius:0 28px 0 0;background:color-mix(in srgb,var(--accent-alt) 75%,transparent)}.hero{font-size:22px;font-weight:800;margin-bottom:8px}.modehint{font-size:13px;color:var(--muted);margin-bottom:10px}.modehint .dit{color:var(--accent2);font-weight:800}.modehint .dah{color:var(--good);font-weight:800}.big{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:48px;font-weight:900;letter-spacing:9px;min-height:62px;margin:6px 0;color:var(--good)}.decoded{font-size:34px;min-height:44px;color:var(--accent2);font-weight:900}.status{margin-top:9px;font-size:12px;color:var(--muted)}.legend{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;color:var(--muted);font-size:12px;margin-top:16px}kbd{background:var(--panel2);border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:2px 6px;color:var(--text);font-size:11px}textarea{min-height:150px;resize:vertical;padding:16px;font:20px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace;outline:none}textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 14%,transparent)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.actions>.action{flex:1 1 140px;text-align:center}.action{width:auto;border:1px solid var(--line);border-radius:9px;background:var(--panel2);color:var(--text);padding:9px 12px;font-size:12px;font-weight:700}.action.primary{background:var(--accent);border-color:var(--accent);color:#fff}.action.danger{border-color:color-mix(in srgb,var(--danger) 45%,var(--line))}.action:hover{border-color:var(--accent)}.play-status{margin-top:8px;font-size:11px;color:var(--muted)}.footer{text-align:center;color:var(--muted);font-size:11px;padding:14px 6px 4px}.memorial{margin-top:9px;font-size:9px;opacity:.42;letter-spacing:.02em}
+.mute-btn.muted{opacity:.55}.channel-state{margin-top:8px;font-size:11px;font-weight:800}.channel-free{color:var(--good)}.channel-busy{color:var(--warn)}.beta-note{font-size:10px;line-height:1.35;color:var(--muted);margin-top:8px}.main{display:grid;gap:14px}.key-card,.practice-card{padding:13px}.key-head,.practice-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:9px}.key-head .title,.practice-head .title{font-weight:800;color:var(--accent2);font-size:12px;text-transform:uppercase;letter-spacing:.05em}.key-head .small{color:var(--muted);font-size:12px}.keyarea{min-height:clamp(380px,34vw,560px);border:2px dashed color-mix(in srgb,var(--muted) 45%,transparent);border-radius:15px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;user-select:none;-webkit-user-select:none;touch-action:none;background:radial-gradient(circle at center,color-mix(in srgb,var(--accent) 5%,transparent),transparent 55%),var(--panel3);padding:28px;cursor:crosshair;outline:none;transition:.16s;position:relative;overflow:hidden}.keyarea:hover{border-color:color-mix(in srgb,var(--accent) 55%,var(--line))}.keyarea.active{border-style:solid;border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent),0 0 28px color-mix(in srgb,var(--accent) 15%,transparent)}.touch-zones{position:absolute;inset:0;display:none;pointer-events:none}.keyarea.paddle-touch .touch-zones{display:grid;grid-template-columns:1fr 1fr}.touch-zone{display:flex;align-items:flex-end;justify-content:center;padding:18px;font-size:13px;font-weight:900;opacity:.22}.touch-zone.dit{background:var(--accent)}.touch-zone.dah{background:var(--good)}.touch-zone.pressed{opacity:.38}.key-content{position:relative;z-index:2;pointer-events:none}.mouse-icon{width:78px;height:100px;border:3px solid var(--muted);border-radius:38px;position:relative;margin:0 auto 18px;opacity:.9}.mouse-icon::before{content:"";position:absolute;left:50%;top:0;bottom:50%;width:3px;background:var(--muted);transform:translateX(-50%)}.mouse-left,.mouse-right{position:absolute;top:4px;width:31px;height:39px}.mouse-left{left:5px;border-radius:28px 0 0 0;background:color-mix(in srgb,var(--accent) 75%,transparent)}.mouse-right{right:5px;border-radius:0 28px 0 0;background:color-mix(in srgb,var(--accent-alt) 75%,transparent)}.hero{font-size:22px;font-weight:800;margin-bottom:8px}.modehint{font-size:13px;color:var(--muted);margin-bottom:10px}.modehint .dit{color:var(--accent2);font-weight:800}.modehint .dah{color:var(--good);font-weight:800}.big{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:48px;font-weight:900;letter-spacing:9px;min-height:62px;margin:6px 0;color:var(--good)}.decoded{font-size:34px;min-height:44px;color:var(--accent2);font-weight:900}.status{margin-top:9px;font-size:12px;color:var(--muted)}.legend{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;color:var(--muted);font-size:12px;margin-top:16px}kbd{background:var(--panel2);border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:2px 6px;color:var(--text);font-size:11px}textarea{min-height:150px;resize:vertical;padding:16px;font:20px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace;outline:none}textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 14%,transparent)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.actions>.action{flex:1 1 140px;text-align:center}.action{width:auto;border:1px solid var(--line);border-radius:9px;background:var(--panel2);color:var(--text);padding:9px 12px;font-size:12px;font-weight:700}.action.primary{background:var(--accent);border-color:var(--accent);color:#fff}.action.danger{border-color:color-mix(in srgb,var(--danger) 45%,var(--line))}.action:hover{border-color:var(--accent)}.play-status{margin-top:8px;font-size:11px;color:var(--muted)}.footer{text-align:center;color:var(--muted);font-size:11px;padding:14px 6px 4px}.memorial{margin-top:9px;font-size:9px;opacity:.42;letter-spacing:.02em}
 
 @media(min-width:901px){
   .topbar{
@@ -1336,7 +1341,22 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
 .battleship-hud .hud-left,.battleship-hud .hud-right{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
 .battleship-hud b{color:#fff}
 .battleship-phase{padding:4px 8px;border:1px solid rgba(255,255,255,.2);border-radius:999px;background:rgba(3,14,24,.68);backdrop-filter:blur(3px)}
-.battleship-message{position:absolute;left:50%;top:44px;transform:translateX(-50%);z-index:5;min-width:min(520px,82%);max-width:86%;padding:7px 10px;border:1px solid rgba(122,211,255,.34);border-radius:8px;background:rgba(4,18,31,.78);color:#dff7ff;text-align:center;font:900 10px/1.35 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.03em;backdrop-filter:blur(4px);pointer-events:none}
+.battleship-message{
+  position:absolute;left:50%;top:27px;
+  transform:translateX(-50%) translateY(-3px);
+  z-index:5;min-width:min(500px,78%);max-width:82%;
+  padding:5px 9px;border:1px solid rgba(122,211,255,.34);border-radius:8px;
+  background:rgba(4,18,31,.84);color:#dff7ff;text-align:center;
+  font:900 9px/1.3 ui-monospace,SFMono-Regular,Consolas,monospace;
+  letter-spacing:.02em;backdrop-filter:blur(4px);pointer-events:none;
+  opacity:0;visibility:hidden;
+  transition:opacity .18s ease,transform .18s ease,visibility 0s linear .18s
+}
+.battleship-message.show{
+  opacity:1;visibility:visible;
+  transform:translateX(-50%) translateY(0);
+  transition:opacity .18s ease,transform .18s ease
+}
 .battleship-word{font-size:18px;letter-spacing:2px;color:#fff}
 .battleship-word .done{color:#73e39b}.battleship-word .current{color:#ffd86a;text-decoration:underline}
 .battleship-fire-mode{position:absolute;left:50%;bottom:13px;transform:translateX(-50%);z-index:6;display:none;gap:8px;align-items:center;padding:6px 10px;border:1px solid rgba(255,255,255,.2);border-radius:999px;background:rgba(3,14,24,.76);font:950 9px ui-monospace,SFMono-Regular,Consolas,monospace;color:#fff}
@@ -1362,7 +1382,7 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
 
 @media(max-width:620px){
   .battleship-hud{font-size:7px;gap:4px}.battleship-hud .hud-left,.battleship-hud .hud-right{gap:5px}
-  .battleship-message{top:42px;font-size:8px;min-width:88%;padding:5px 7px}.battleship-word{font-size:15px}
+  .battleship-message{top:27px;font-size:8px;min-width:84%;max-width:90%;padding:4px 7px}.battleship-word{font-size:15px}
   .battleship-result-main{grid-template-columns:repeat(3,1fr);gap:4px}.battleship-result-main b{font-size:14px}
   .battleship-stat-grid{grid-template-columns:repeat(2,1fr)}
   .battleship-exit{top:auto;bottom:8px;right:8px}
@@ -1370,11 +1390,31 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
 }
 
 
-/* Final layout polish */
-.field-head .value,
-#wordGapVal,
-#letterGapVal,
-[id*="GapVal"]{white-space:nowrap!important}
+/* Keep only the numeric spacing readouts together: "3 dits", "7 dits". */
+.field-head > .value{
+  white-space:nowrap!important;
+  flex:none
+}
+
+
+/* Desktop scaling: use available width and grow height proportionally too. */
+@media(min-width:901px){
+  .layout{
+    grid-template-columns:clamp(300px,18vw,350px) minmax(0,1fr)
+  }
+  .keyarea{
+    min-height:430px;
+    height:auto;
+    aspect-ratio:2.15 / 1
+  }
+  .invaders-arena,
+  .battleship-arena,
+  .racer-arena,
+  .bentwire-arena,
+  .duel-arena{
+    min-height:0
+  }
+}
 
 </style>
 <script src="https://unpkg.com/mqtt@5.15.2/dist/mqtt.min.js"></script>
@@ -1434,7 +1474,7 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
   <div class="field"><div class="field-head"><label for="wpm" data-i18n="speed">Velocidad</label><span class="value"><span id="wpmValue">15</span> WPM</span></div><input id="wpm" type="range" min="5" max="60" step="1" value="15"><div class="preset-row"><button class="preset" data-wpm="10">10</button><button class="preset" data-wpm="15">15</button><button class="preset" data-wpm="20">20</button><button class="preset" data-wpm="25">25</button><button class="preset" data-wpm="30">30</button></div></div>
   <div class="field"><div class="field-head"><label for="tone" data-i18n="tone">Tono</label><span class="value"><span id="toneValue">650</span> Hz</span></div><input id="tone" type="range" min="250" max="1200" step="10" value="650"><div class="preset-row"><button class="preset tone-preset" data-tone="500">500</button><button class="preset tone-preset" data-tone="600">600</button><button class="preset tone-preset" data-tone="700">700</button><button class="preset tone-preset" data-tone="800">800</button><button class="preset tone-preset" data-tone="900">900</button></div></div>
   <div class="field"><div class="field-head"><label for="volume" data-i18n="volume">Volumen</label><span class="value"><span id="volumeValue">25</span>%</span></div><input id="volume" type="range" min="0" max="1" step="0.01" value="0.25"></div><div class="field"><div class="field-head"><label for="bandNoise" data-i18n="bandNoise">Ruido de banda</label><span class="value"><span id="bandNoiseValue">0</span>%</span></div><input id="bandNoise" type="range" min="0" max="0.30" step="0.01" value="0"></div>
-  <div class="field"><div class="switchline"><div><label for="sidetoneToggle">Sidetone</label><div class="value" data-i18n="oscAudio">Audio del oscilador</div></div><label class="switch"><input id="sidetoneToggle" type="checkbox" checked><span></span></label></div></div><div class="field"><div class="switchline"><div><label for="visualAidToggle" data-i18n="visualAid">Ayuda visual</label><div class="value" data-i18n="visualAidHelp">Mostrar puntos y rayas</div></div><label class="switch"><input id="visualAidToggle" type="checkbox"><span></span></label></div></div><div class="field"><div class="switchline"><div><label for="audioOnlyToggle" data-i18n="audioOnly" data-audio-only-title>Solo audio</label><div class="value" data-i18n="audioOnlyHelp">Desactiva decodificación visual · W para mirar</div></div><label class="switch"><input id="audioOnlyToggle" type="checkbox"><span></span></label></div></div>
+  <div class="field"><div class="switchline"><div><label for="sidetoneToggle">Sidetone</label><div class="value" data-i18n="oscAudio">Audio del oscilador</div></div><label class="switch"><input id="sidetoneToggle" type="checkbox" checked><span></span></label></div></div><div class="field"><div class="switchline"><div><label for="visualAidToggle" data-i18n="visualAid">Ayuda visual</label><div class="value" data-i18n="visualAidHelp">Mostrar puntos y rayas</div></div><label class="switch"><input id="visualAidToggle" type="checkbox"><span></span></label></div></div><div class="field"><div class="switchline"><div><label for="audioOnlyToggle" data-i18n="audioOnly" data-audio-only-title>Solo audio</label><div class="value" data-i18n="audioOnlyHelp">W para vista rápida</div></div><label class="switch"><input id="audioOnlyToggle" type="checkbox"><span></span></label></div></div>
   <div class="field"><div class="field-head"><label for="charSpacing" data-i18n="charSpacing">Espaciado de caracteres (Farnsworth)</label><span class="value"><span id="charSpacingValue">3</span> dits</span></div><input id="charSpacing" type="range" min="3" max="12" step="1" value="3"></div>
   <div class="field"><div class="field-head"><label for="wordSpacing" data-i18n="wordSpacing">Espaciado de palabras</label><span class="value"><span id="spacingValue">7</span> dits</span></div><input id="wordSpacing" type="range" min="5" max="10" step="1" value="7"></div>
   <div class="profile-box"><div class="profile-title" data-i18n="operatorProfile">Indicativo</div><div class="profile-row"><input id="globalCall" type="text" maxlength="16" autocomplete="off" spellcheck="false" placeholder="Indicativo"><button id="globalCallSave" class="action" type="button" data-i18n="saveCall">Save</button></div><div class="profile-note" data-i18n="profileNote">Your operator identity across Morse Practice.</div></div>
@@ -2052,7 +2092,7 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
 (()=>{
 const MORSE={".-":"A","-...":"B","-.-.":"C","-..":"D",".":"E","..-.":"F","--.":"G","....":"H","..":"I",".---":"J","-.-":"K",".-..":"L","--":"M","-.":"N","---":"O",".--.":"P","--.-":"Q",".-.":"R","...":"S","-":"T","..-":"U","...-":"V",".--":"W","-..-":"X","-.--":"Y","--..":"Z","-----":"0",".----":"1","..---":"2","...--":"3","....-":"4",".....":"5","-....":"6","--...":"7","---..":"8","----.":"9",".-.-.-":".","--..--":",","..--..":"?","-..-.":"/","-....-":"-",".--.-.":"@",".----.":"'","-.-.--":"!","-.--.":"(","-.--.-":")","---...":":","-.-.-.":";",".-..-.":"\"","..--.-":"_","...-..-":"$",".-.-.":"<AR>","-...-":"<BT>","...-.-":"<SK>",".-...":"<AS>","...---...":"<SOS>"};
 const REVERSE={};for(const [code,ch] of Object.entries(MORSE)){if(!ch.startsWith('<')&&!REVERSE[ch])REVERSE[ch]=code;}Object.assign(REVERSE,{"=":"-...-","+":".-.-."});
-const I18N={es:{subtitle:"Practica · Transmite · Escucha · Aprende CW",courtesy:"Cortesía de",instructions:"Instrucciones",settings:"Configuración",colorTheme:"Tema",themeBlue:"Azul",themeGreen:"Verde",themePurple:"Violeta",themePink:"Rosado",themeGameboy:"Game Boy",operatorProfile:"Indicativo",saveCall:"Guardar",editCall:"Editar",profileNote:"Tu identidad como operador dentro de Morse Practice.",rewards:"RECOMPENSAS",rewardsSub:"Los logros desbloquean recompensas cosméticas.",memberships:"Membresías de comunidad",membershipNote:"Se guarda localmente. Borra un número cuando quieras para desactivar su tema.",globalVisitors:"visitas totales",globalVisits:"visitas totales",globalCountries:"países",globalHours:"horas totales de práctica",globalDuels:"duelos",communityStats:"🌐 Morse Practice — Estadísticas de la comunidad",communityLeaderboard:"LEADERBOARD",leaderJoin:"Participar",leaderEdit:"Cambiar indicativo",leaderLeave:"Dejar de participar",leaderPosition:"Posición",leaderPoints:"Puntos",leaderStreak:"Racha",leaderNote:"Basado en las estadísticas semanales.",mode:"Modo",straight:"Llave recta",paddle:"Paleta",invertPaddle:"Invertir DIT / DAH",speed:"Velocidad",tone:"Tono",volume:"Volumen",bandNoise:"Ruido de banda",oscAudio:"Audio del oscilador",visualAid:"Ayuda visual",visualAidHelp:"Mostrar puntos y rayas",audioOnly:"Solo audio",audioOnlyHelp:"Desactiva decodificación visual · W para mirar",audioOnlyTitle:"Modo avanzado: oculta caracteres, decodificación e información visual del CW. Mantén W para una vista rápida.",wordSpacing:"Espaciado de palabras",keyArea:"Área de manipulación",captureHelp:"Mouse, teclado, touch o adaptador USB",hero:"Haz clic, toca la pantalla o usa tu adaptador",esc:"libera el mouse",space:"llave recta",clear:"limpiar",text:"Texto / Decoder",bidirectional:"Bidireccional: escribe o manipula",playCW:"Reproducir CW",stop:"Detener",clearBtn:"Limpiar",copy:"Copiar",save:"Guardar",betaNote:"Sala mundial experimental. La identidad es opcional y los eventos de manipulación viajan por un relay público.",straightHint:"Llave recta · mouse, SPACE o toca la superficie táctil",paddleHint:"Paleta · izquierda DIT (.) · derecha DAH (-)",idle:"Listo · clic para capturar mouse o toca la superficie",active:"Activo · mouse capturado · ESC libera",touchReady:"Touch activo · levanta el dedo para cortar",free:"● Canal libre",busy:"● Canal ocupado",online:"operadores en línea",connecting:"Conectando…",onair:"ON AIR conectado",copied:"Copiado",playing:"Reproduciendo",stopped:"Detenido",anonymous:"Anónimo",countries:"países",you:"tú",mute:"Silenciar",unmute:"Escuchar",racerLearn:"Learn",racerRace:"Race",racerStats:"Stats",learnModule:"LEARN",exercisesModule:"EJERCICIOS",racerSprint:"Sprint",racerTimed:"Contra reloj",racerAgainGame:"Repetir",racerTimeUp:"Tiempo",racerNewRecord:"¡Nuevo récord!",racerLetters:"Letras A–Z",racerNumbers:"Números 0–9",racerPunct:"Signos",racerProsigns:"Prosigns",racerMixed:"Mixto",racerVoice:"Voz opcional",racerReady:"Listo para comenzar",racerStart:"Comenzar",racerNext:"Siguiente",racerEnd:"Fin",racerStartRace:"Iniciar carrera",racerSessions:"Sesiones",racerAttempts:"Intentos",racerBestScore:"Mejor score",racerBestStreak:"Mejor racha",racerMistakes:"Aprende de tus errores",racerReset:"Resetear estadísticas",racerCorrect:"Correcto",racerImperfect:"Correcto, pero mejora el timing",racerWrong:"Incorrecto",racerAgain:"Repite",racerFinished:"¡Completado!",racerFinalScore:"Puntaje final",racerBestSimilar:"Mejor carrera similar",racerNoWeak:"Todavía no hay suficientes errores para crear una lección adaptativa",racerResetConfirm:"¿Seguro que quieres borrar todas las estadísticas de CW Racer?",racerTransmit:"Transmítelo",racerListenRepeat:"Escucha y repite",racerRestartUnit:"Error: repite la unidad desde el comienzo",qsoBasic:"QSO básico",qsoIntermediate:"QSO intermedio",qsoAdvanced:"QSO avanzado",qsoReady:"Selecciona un modo e inicia el QSO.",qsoIdle:"Bot listo.",qsoStart:"Iniciar QSO",qsoRepeat:"Repetir bot",qsoStop:"Finalizar",qsoNeedCall:"Ingresa tu indicativo para comenzar.",qsoAnswerCQ:"Responde al CQ con tu indicativo.",qsoSendExchange:"Envía tu RST, nombre y QTH.",qsoSendMore:"Agrega RST, nombre/QTH y algunos datos de estación.",qsoSendSkcc:"Envía RST, SPC/QTH, nombre y número SKCC (o NONE).",qsoSendPota:"Envía un RST realista; QTH es opcional.",qsoRepeatNeeded:"No copié todo. Repite el intercambio.",qsoComplete:"QSO completado",qsoStopped:"QSO finalizado.",qsoBotTx:"El bot está transmitiendo…",qsoAdvancedRepeat:"El bot pide una repetición.",qsoLocked:"ON AIR no está disponible durante CW Racer o QSO Bot.",qsoCopied:"Datos copiados",qsoNeedName:"NAME?",qsoNeedQth:"QTH?",qsoNeedSkcc:"SKCC NR?",qsoNeedKey:"KEY?",qsoNeedRig:"RIG?",qsoNeedPwr:"PWR?",qsoNeedAnt:"ANT?",qsoCopying:"Copiando tu transmisión…",charSpacing:"Espaciado de caracteres (Farnsworth)",personalPractice:"PRACTICA LIBRE",personalPracticeHelp:"Practica tu propio texto por caracteres o palabras",practiceFromText:"DESDE TEXTO",practiceFromMistakes:"DESDE TUS ERRORES",mistakesPracticeHelp:"Crea una sesión con los caracteres que más necesitas reforzar.",mistakesStart:"Iniciar práctica de errores",customLesson:"Lección personalizada",customLessonHelp:"Aprende del texto pegado",customByChar:"Carácter por carácter",customByWord:"Palabra por palabra",customByCharShort:"Caracteres",customByWordShort:"Palabras",customStart:"Iniciar lección",customStop:"Terminar",customReady:"Pega un texto y comienza",customTransmit:"Transmite lo mostrado",customCorrect:"Correcto",customImperfect:"Correcto · cuida el ritmo",customWrong:"Incorrecto · repite",customFinished:"Lección completada",customNoText:"Pega primero un texto válido",customAttempt:"TX",kochCourseTitle:"Curso progresivo de CW",kochCourseSub:"",kochReset:"Reset",kochReady:"Listo",kochLesson:"Lección",kochNewChar:"Nuevo",kochStartHint:"Comienza cuando estés listo",kochStart:"Iniciar lección",kochStop:"Terminar",kochRetry:"Repetir",kochNext:"Siguiente nivel",kochListen:"ESCUCHA",kochSend:"TRANSMITE",kochMixed:"MIXTO",kochChoose:"Escucha y selecciona",kochTransmit:"Transmite el carácter",kochCorrect:"Correcto",kochWrong:"Incorrecto",kochTiming:"Correcto · cuida el ritmo",kochPassed:"¡Nivel desbloqueado!",kochReview:"Buen intento · alcanza 90% para avanzar",kochMastered:"Lección dominada",kochResetConfirm:"¿Resetear todo el progreso del curso Koch?",kochLocked:"Completa la lección anterior con 90% o más",kochCourseDone:"¡Curso Koch completado!",kochPartSend:"ESCUCHA Y TRANSMITE",kochPartListen:"ESCUCHA Y SELECCIONA",kochSendHeard:"Escucha y transmite",kochChallenge:"CW Challenge",kochChallengeSub:"Solo recepción · repaso acumulativo",kochChallengeStart:"Iniciar",kochChallengeDone:"Challenge completado",kochChallengeLocked:"Completa las 3 lecciones anteriores",kochChallengeFinal:"Challenge final",statsModule:"ESTADÍSTICAS",statsActivity:"Actividad",statsRacer:"Racer",statsDaily:"Daily",statsKoch:"Koch",statsChallenges:"Challenges",statsQso:"QSOs",statsCustom:"Práctica libre",statsErrors:"Errores",statsStart:"Inicio",statsFinish:"Meta",dailyTab:"Diario",dailyWarmup:"Calentamiento",dailyExercise:"Ejercicio",dailyDrill:"Práctica",dailyCredit:"Ejercicio de WR7Q",qsoYou:"TÚ",qsoRepeatsLabel:"REPETICIONES",duelRookie:"Rookie",duelIntermediate:"Intermedio",duelAdvanced:"Avanzado",duelAllow:"Aceptar desafíos",duelRandom:"Buscar aleatorio",duelCancel:"Cancelar",duelReady:"Listo para desafiar.",duelAccept:"Aceptar",duelDecline:"Rechazar",duelRematch:"Revancha",duelNew:"Nuevo rival",duelExit:"Salir",duelAbandon:"Abandonar duelo",aiOff:"IA apagada",aiLoading:"Cargando modelo de IA",aiReady:"IA lista",aiThinking:"IA interpretando CW",aiError:"IA no disponible",aiLocalTitle:"IA local",},en:{operatorProfile:"Callsign",saveCall:"Save",editCall:"Edit",profileNote:"Your operator identity across Morse Practice.",rewards:"REWARDS",rewardsSub:"Achievements unlock cosmetic rewards.",memberships:"Community memberships",footerSkcc:"SKCC members on board",footerLicw:"LICW members on board",subtitle:"Practice · Send · Listen · Learn CW",courtesy:"Courtesy of",instructions:"Instructions",settings:"Settings",colorTheme:"Theme",themeBlue:"Blue",themeGreen:"Green",themePurple:"Purple",themePink:"Pink",themeGameboy:"Game Boy",globalVisitors:"total visits",globalVisits:"total visits",globalCountries:"countries",globalHours:"total practice hours",globalDuels:"duels",communityStats:"🌐 Morse Practice — Community Stats",communityLeaderboard:"LEADERBOARD",leaderJoin:"Join",leaderEdit:"Change callsign",leaderLeave:"Leave leaderboard",leaderPosition:"Position",leaderPoints:"Points",leaderStreak:"Streak",leaderNote:"Based on weekly statistics.",mode:"Mode",straight:"Straight Key",paddle:"Paddle",invertPaddle:"Invert DIT / DAH",speed:"Speed",tone:"Tone",volume:"Volume",bandNoise:"Band Noise",oscAudio:"Oscillator audio",visualAid:"Visual aid",visualAidHelp:"Show dots and dashes",audioOnly:"Audio Only",audioOnlyHelp:"Disables visual decoding · W to peek",audioOnlyTitle:"Advanced mode: hides characters, decoding and visual CW information. Hold W for a quick peek.",wordSpacing:"Word spacing",keyArea:"Keying Area",captureHelp:"Mouse, keyboard, touch or USB adapter",hero:"Click, touch the screen or use your adapter",esc:"releases mouse",space:"straight key",clear:"clear",text:"Text / Decoder",bidirectional:"Bidirectional: type or key",playCW:"Play CW",stop:"Stop",clearBtn:"Clear",copy:"Copy",save:"Save",betaNote:"Experimental global room. Identity is optional and keying events travel through a public relay.",straightHint:"Straight key · mouse, SPACE or touch the surface",paddleHint:"Paddle · left DIT (.) · right DAH (-)",idle:"Ready · click to capture mouse or touch the surface",active:"Active · mouse captured · ESC releases",touchReady:"Touch active · lift your finger to release",free:"● Channel free",busy:"● Channel busy",online:"operators online",connecting:"Connecting…",onair:"ON AIR connected",copied:"Copied",playing:"Playing",stopped:"Stopped",anonymous:"Anonymous",countries:"countries",you:"you",mute:"Mute",unmute:"Listen",racerLearn:"Learn",racerRace:"Race",racerStats:"Stats",learnModule:"LEARN",exercisesModule:"EXERCISES",racerSprint:"Sprint",racerTimed:"Time Attack",racerAgainGame:"Again",racerTimeUp:"Time",racerNewRecord:"New record!",racerLetters:"Letters A–Z",racerNumbers:"Numbers 0–9",racerPunct:"Punctuation",racerProsigns:"Prosigns",racerMixed:"Mixed",racerVoice:"Optional voice",racerReady:"Ready to start",racerStart:"Start",racerNext:"Next",racerEnd:"End",racerStartRace:"Start race",racerSessions:"Sessions",racerAttempts:"Attempts",racerBestScore:"Best score",racerBestStreak:"Best streak",racerMistakes:"Learn from my mistakes",racerReset:"Reset statistics",racerCorrect:"Correct",racerImperfect:"Correct, but improve your timing",racerWrong:"Wrong",racerAgain:"Repeat",racerFinished:"Completed!",racerFinalScore:"Final score",racerBestSimilar:"Best similar race",racerNoWeak:"There are not enough weak characters yet to build an adaptive lesson",racerResetConfirm:"Are you sure you want to erase all CW Racer statistics?",racerTransmit:"Transmit it",racerListenRepeat:"Listen and repeat",racerRestartUnit:"Error: restart the unit from the beginning",qsoBasic:"Basic QSO",qsoIntermediate:"Intermediate QSO",qsoAdvanced:"Advanced QSO",qsoReady:"Select a mode and start the QSO.",qsoIdle:"Bot ready.",qsoStart:"Start QSO",qsoRepeat:"Repeat bot",qsoStop:"End",qsoNeedCall:"Enter your callsign to start.",qsoAnswerCQ:"Answer the CQ with your callsign.",qsoSendExchange:"Send your RST, name and QTH.",qsoSendMore:"Add RST, name/QTH and some station details.",qsoSendSkcc:"Send RST, SPC/QTH, name and SKCC number (or NONE).",qsoSendPota:"Send a realistic RST; QTH is optional.",qsoRepeatNeeded:"I did not copy everything. Repeat the exchange.",qsoComplete:"QSO completed",qsoStopped:"QSO ended.",qsoBotTx:"The bot is transmitting…",qsoAdvancedRepeat:"The bot requests a repeat.",qsoLocked:"ON AIR is unavailable while CW Racer or QSO Bot is active.",qsoCopied:"Copied data",qsoNeedName:"NAME?",qsoNeedQth:"QTH?",qsoNeedSkcc:"SKCC NR?",qsoNeedKey:"KEY?",qsoNeedRig:"RIG?",qsoNeedPwr:"PWR?",qsoNeedAnt:"ANT?",qsoCopying:"Copying your transmission…",charSpacing:"Character spacing (Farnsworth)",personalPractice:"FREE PRACTICE",personalPracticeHelp:"Practice your own text by characters or words",practiceFromText:"FROM TEXT",practiceFromMistakes:"FROM YOUR MISTAKES",mistakesPracticeHelp:"Build a session from the characters that need the most reinforcement.",mistakesStart:"Start mistakes practice",customLesson:"Custom lesson",customLessonHelp:"Learn from the pasted text",customByChar:"Character by character",customByWord:"Word by word",customByCharShort:"Characters",customByWordShort:"Words",customStart:"Start lesson",customStop:"End",customReady:"Paste text and start",customTransmit:"Send the target",customCorrect:"Correct",customImperfect:"Correct · watch the timing",customWrong:"Incorrect · repeat",customFinished:"Lesson completed",customNoText:"Paste valid text first",customAttempt:"TX",kochCourseTitle:"Progressive CW course",kochCourseSub:"40 lessons + 13 listening Challenges · 90% unlocks the next step",kochReset:"Reset",kochReady:"Ready",kochLesson:"Lesson",kochNewChar:"New",kochStartHint:"Start when you are ready",kochStart:"Start lesson",kochStop:"End",kochRetry:"Retry",kochNext:"Next level",kochListen:"LISTEN",kochSend:"SEND",kochMixed:"MIXED",kochChoose:"Listen and select",kochTransmit:"Send the character",kochCorrect:"Correct",kochWrong:"Incorrect",kochTiming:"Correct · watch the timing",kochPassed:"Level unlocked!",kochReview:"Good try · reach 90% to advance",kochMastered:"Lesson mastered",kochResetConfirm:"Reset all Koch course progress?",kochLocked:"Complete the previous lesson with 90% or better",kochCourseDone:"Koch course completed!",kochPartSend:"LISTEN AND SEND",kochPartListen:"LISTEN AND SELECT",kochSendHeard:"Listen and send",kochChallenge:"CW Challenge",kochChallengeSub:"Listening only · cumulative review",kochChallengeStart:"Start",kochChallengeDone:"Challenge completed",kochChallengeLocked:"Complete the previous 3 lessons",kochChallengeFinal:"Final challenge",statsModule:"STATISTICS",statsActivity:"Activity",statsRacer:"Racer",statsDaily:"Daily",statsKoch:"Koch",statsChallenges:"Challenges",statsQso:"QSOs",statsCustom:"Free practice",statsErrors:"Mistakes",statsStart:"Start",statsFinish:"Finish",dailyTab:"Daily",dailyWarmup:"Warm Up",dailyExercise:"Exercise",dailyDrill:"Drill",dailyCredit:"Exercise by WR7Q",qsoYou:"YOU",qsoRepeatsLabel:"REPEATS",duelRookie:"Rookie",duelIntermediate:"Intermediate",duelAdvanced:"Advanced",duelAllow:"Accept challenges",duelRandom:"Find random",duelCancel:"Cancel",duelReady:"Ready to challenge.",duelAccept:"Accept",duelDecline:"Decline",duelRematch:"Rematch",duelNew:"New opponent",duelExit:"Exit",duelAbandon:"Abandon duel",aiOff:"AI off",aiLoading:"AI model loading",aiReady:"AI ready",aiThinking:"AI interpreting CW",aiError:"AI unavailable",aiLocalTitle:"Local AI",}};
+const I18N={es:{subtitle:"Practica · Transmite · Escucha · Aprende CW",courtesy:"Cortesía de",instructions:"Instrucciones",settings:"Configuración",colorTheme:"Tema",themeBlue:"Azul",themeGreen:"Verde",themePurple:"Violeta",themePink:"Rosado",themeGameboy:"Game Boy",operatorProfile:"Indicativo",saveCall:"Guardar",editCall:"Editar",profileNote:"Tu identidad como operador dentro de Morse Practice.",rewards:"RECOMPENSAS",rewardsSub:"Los logros desbloquean recompensas cosméticas.",memberships:"Membresías de comunidad",membershipNote:"Se guarda localmente. Borra un número cuando quieras para desactivar su tema.",globalVisitors:"visitas totales",globalVisits:"visitas totales",globalCountries:"países",globalHours:"horas totales de práctica",globalDuels:"duelos",communityStats:"🌐 Morse Practice — Estadísticas de la comunidad",communityLeaderboard:"LEADERBOARD",leaderJoin:"Participar",leaderEdit:"Cambiar indicativo",leaderLeave:"Dejar de participar",leaderPosition:"Posición",leaderPoints:"Puntos",leaderStreak:"Racha",leaderNote:"Basado en las estadísticas semanales.",mode:"Modo",straight:"Llave recta",paddle:"Paleta",invertPaddle:"Invertir DIT / DAH",speed:"Velocidad",tone:"Tono",volume:"Volumen",bandNoise:"Ruido de banda",oscAudio:"Audio del oscilador",visualAid:"Ayuda visual",visualAidHelp:"Mostrar puntos y rayas",audioOnly:"Solo audio",audioOnlyHelp:"W para vista rápida",audioOnlyTitle:"Modo avanzado: oculta caracteres, decodificación e información visual del CW. Mantén W para una vista rápida.",wordSpacing:"Espaciado de palabras",keyArea:"Área de manipulación",captureHelp:"Mouse, teclado, touch o adaptador USB",hero:"Haz clic, toca la pantalla o usa tu adaptador",esc:"libera el mouse",space:"llave recta",clear:"limpiar",text:"Texto / Decoder",bidirectional:"Bidireccional: escribe o manipula",playCW:"Reproducir CW",stop:"Detener",clearBtn:"Limpiar",copy:"Copiar",save:"Guardar",betaNote:"Sala mundial experimental. La identidad es opcional y los eventos de manipulación viajan por un relay público.",straightHint:"Llave recta · mouse, SPACE o toca la superficie táctil",paddleHint:"Paleta · izquierda DIT (.) · derecha DAH (-)",idle:"Listo · clic para capturar mouse o toca la superficie",active:"Activo · mouse capturado · ESC libera",touchReady:"Touch activo · levanta el dedo para cortar",free:"● Canal libre",busy:"● Canal ocupado",online:"operadores en línea",connecting:"Conectando…",onair:"ON AIR conectado",copied:"Copiado",playing:"Reproduciendo",stopped:"Detenido",anonymous:"Anónimo",countries:"países",you:"tú",mute:"Silenciar",unmute:"Escuchar",racerLearn:"Learn",racerRace:"Race",racerStats:"Stats",learnModule:"LEARN",exercisesModule:"EJERCICIOS",racerSprint:"Sprint",racerTimed:"Contra reloj",racerAgainGame:"Repetir",racerTimeUp:"Tiempo",racerNewRecord:"¡Nuevo récord!",racerLetters:"Letras A–Z",racerNumbers:"Números 0–9",racerPunct:"Signos",racerProsigns:"Prosigns",racerMixed:"Mixto",racerVoice:"Voz opcional",racerReady:"Listo para comenzar",racerStart:"Comenzar",racerNext:"Siguiente",racerEnd:"Fin",racerStartRace:"Iniciar carrera",racerSessions:"Sesiones",racerAttempts:"Intentos",racerBestScore:"Mejor score",racerBestStreak:"Mejor racha",racerMistakes:"Aprende de tus errores",racerReset:"Resetear estadísticas",racerCorrect:"Correcto",racerImperfect:"Correcto, pero mejora el timing",racerWrong:"Incorrecto",racerAgain:"Repite",racerFinished:"¡Completado!",racerFinalScore:"Puntaje final",racerBestSimilar:"Mejor carrera similar",racerNoWeak:"Todavía no hay suficientes errores para crear una lección adaptativa",racerResetConfirm:"¿Seguro que quieres borrar todas las estadísticas de CW Racer?",racerTransmit:"Transmítelo",racerListenRepeat:"Escucha y repite",racerRestartUnit:"Error: repite la unidad desde el comienzo",qsoBasic:"QSO básico",qsoIntermediate:"QSO intermedio",qsoAdvanced:"QSO avanzado",qsoReady:"Selecciona un modo e inicia el QSO.",qsoIdle:"Bot listo.",qsoStart:"Iniciar QSO",qsoRepeat:"Repetir bot",qsoStop:"Finalizar",qsoNeedCall:"Ingresa tu indicativo para comenzar.",qsoAnswerCQ:"Responde al CQ con tu indicativo.",qsoSendExchange:"Envía tu RST, nombre y QTH.",qsoSendMore:"Agrega RST, nombre/QTH y algunos datos de estación.",qsoSendSkcc:"Envía RST, SPC/QTH, nombre y número SKCC (o NONE).",qsoSendPota:"Envía un RST realista; QTH es opcional.",qsoRepeatNeeded:"No copié todo. Repite el intercambio.",qsoComplete:"QSO completado",qsoStopped:"QSO finalizado.",qsoBotTx:"El bot está transmitiendo…",qsoAdvancedRepeat:"El bot pide una repetición.",qsoLocked:"ON AIR no está disponible durante CW Racer o QSO Bot.",qsoCopied:"Datos copiados",qsoNeedName:"NAME?",qsoNeedQth:"QTH?",qsoNeedSkcc:"SKCC NR?",qsoNeedKey:"KEY?",qsoNeedRig:"RIG?",qsoNeedPwr:"PWR?",qsoNeedAnt:"ANT?",qsoCopying:"Copiando tu transmisión…",charSpacing:"Espaciado de caracteres (Farnsworth)",personalPractice:"PRACTICA LIBRE",personalPracticeHelp:"Practica tu propio texto por caracteres o palabras",practiceFromText:"DESDE TEXTO",practiceFromMistakes:"DESDE TUS ERRORES",mistakesPracticeHelp:"Crea una sesión con los caracteres que más necesitas reforzar.",mistakesStart:"Iniciar práctica de errores",customLesson:"Lección personalizada",customLessonHelp:"Aprende del texto pegado",customByChar:"Carácter por carácter",customByWord:"Palabra por palabra",customByCharShort:"Caracteres",customByWordShort:"Palabras",customStart:"Iniciar lección",customStop:"Terminar",customReady:"Pega un texto y comienza",customTransmit:"Transmite lo mostrado",customCorrect:"Correcto",customImperfect:"Correcto · cuida el ritmo",customWrong:"Incorrecto · repite",customFinished:"Lección completada",customNoText:"Pega primero un texto válido",customAttempt:"TX",kochCourseTitle:"Curso progresivo de CW",kochCourseSub:"",kochReset:"Reset",kochReady:"Listo",kochLesson:"Lección",kochNewChar:"Nuevo",kochStartHint:"Comienza cuando estés listo",kochStart:"Iniciar lección",kochStop:"Terminar",kochRetry:"Repetir",kochNext:"Siguiente nivel",kochListen:"ESCUCHA",kochSend:"TRANSMITE",kochMixed:"MIXTO",kochChoose:"Escucha y selecciona",kochTransmit:"Transmite el carácter",kochCorrect:"Correcto",kochWrong:"Incorrecto",kochTiming:"Correcto · cuida el ritmo",kochPassed:"¡Nivel desbloqueado!",kochReview:"Buen intento · alcanza 90% para avanzar",kochMastered:"Lección dominada",kochResetConfirm:"¿Resetear todo el progreso del curso Koch?",kochLocked:"Completa la lección anterior con 90% o más",kochCourseDone:"¡Curso Koch completado!",kochPartSend:"ESCUCHA Y TRANSMITE",kochPartListen:"ESCUCHA Y SELECCIONA",kochSendHeard:"Escucha y transmite",kochChallenge:"CW Challenge",kochChallengeSub:"Solo recepción · repaso acumulativo",kochChallengeStart:"Iniciar",kochChallengeDone:"Challenge completado",kochChallengeLocked:"Completa las 3 lecciones anteriores",kochChallengeFinal:"Challenge final",statsModule:"ESTADÍSTICAS",statsActivity:"Actividad",statsRacer:"Racer",statsDaily:"Daily",statsKoch:"Koch",statsChallenges:"Challenges",statsQso:"QSOs",statsCustom:"Práctica libre",statsErrors:"Errores",statsStart:"Inicio",statsFinish:"Meta",dailyTab:"Diario",dailyWarmup:"Calentamiento",dailyExercise:"Ejercicio",dailyDrill:"Práctica",dailyCredit:"Ejercicio de WR7Q",qsoYou:"TÚ",qsoRepeatsLabel:"REPETICIONES",duelRookie:"Rookie",duelIntermediate:"Intermedio",duelAdvanced:"Avanzado",duelAllow:"Aceptar desafíos",duelRandom:"Buscar aleatorio",duelCancel:"Cancelar",duelReady:"Listo para desafiar.",duelAccept:"Aceptar",duelDecline:"Rechazar",duelRematch:"Revancha",duelNew:"Nuevo rival",duelExit:"Salir",duelAbandon:"Abandonar duelo",aiOff:"IA apagada",aiLoading:"Cargando modelo de IA",aiReady:"IA lista",aiThinking:"IA interpretando CW",aiError:"IA no disponible",aiLocalTitle:"IA local",},en:{operatorProfile:"Callsign",saveCall:"Save",editCall:"Edit",profileNote:"Your operator identity across Morse Practice.",rewards:"REWARDS",rewardsSub:"Achievements unlock cosmetic rewards.",memberships:"Community memberships",footerSkcc:"SKCC members on board",footerLicw:"LICW members on board",subtitle:"Practice · Send · Listen · Learn CW",courtesy:"Courtesy of",instructions:"Instructions",settings:"Settings",colorTheme:"Theme",themeBlue:"Blue",themeGreen:"Green",themePurple:"Purple",themePink:"Pink",themeGameboy:"Game Boy",globalVisitors:"total visits",globalVisits:"total visits",globalCountries:"countries",globalHours:"total practice hours",globalDuels:"duels",communityStats:"🌐 Morse Practice — Community Stats",communityLeaderboard:"LEADERBOARD",leaderJoin:"Join",leaderEdit:"Change callsign",leaderLeave:"Leave leaderboard",leaderPosition:"Position",leaderPoints:"Points",leaderStreak:"Streak",leaderNote:"Based on weekly statistics.",mode:"Mode",straight:"Straight Key",paddle:"Paddle",invertPaddle:"Invert DIT / DAH",speed:"Speed",tone:"Tone",volume:"Volume",bandNoise:"Band Noise",oscAudio:"Oscillator audio",visualAid:"Visual aid",visualAidHelp:"Show dots and dashes",audioOnly:"Audio Only",audioOnlyHelp:"Disables visual decoding · W quick view",audioOnlyTitle:"Advanced mode: hides characters, decoding and visual CW information. Hold W for a quick peek.",wordSpacing:"Word spacing",keyArea:"Keying Area",captureHelp:"Mouse, keyboard, touch or USB adapter",hero:"Click, touch the screen or use your adapter",esc:"releases mouse",space:"straight key",clear:"clear",text:"Text / Decoder",bidirectional:"Bidirectional: type or key",playCW:"Play CW",stop:"Stop",clearBtn:"Clear",copy:"Copy",save:"Save",betaNote:"Experimental global room. Identity is optional and keying events travel through a public relay.",straightHint:"Straight key · mouse, SPACE or touch the surface",paddleHint:"Paddle · left DIT (.) · right DAH (-)",idle:"Ready · click to capture mouse or touch the surface",active:"Active · mouse captured · ESC releases",touchReady:"Touch active · lift your finger to release",free:"● Channel free",busy:"● Channel busy",online:"operators online",connecting:"Connecting…",onair:"ON AIR connected",copied:"Copied",playing:"Playing",stopped:"Stopped",anonymous:"Anonymous",countries:"countries",you:"you",mute:"Mute",unmute:"Listen",racerLearn:"Learn",racerRace:"Race",racerStats:"Stats",learnModule:"LEARN",exercisesModule:"EXERCISES",racerSprint:"Sprint",racerTimed:"Time Attack",racerAgainGame:"Again",racerTimeUp:"Time",racerNewRecord:"New record!",racerLetters:"Letters A–Z",racerNumbers:"Numbers 0–9",racerPunct:"Punctuation",racerProsigns:"Prosigns",racerMixed:"Mixed",racerVoice:"Optional voice",racerReady:"Ready to start",racerStart:"Start",racerNext:"Next",racerEnd:"End",racerStartRace:"Start race",racerSessions:"Sessions",racerAttempts:"Attempts",racerBestScore:"Best score",racerBestStreak:"Best streak",racerMistakes:"Learn from my mistakes",racerReset:"Reset statistics",racerCorrect:"Correct",racerImperfect:"Correct, but improve your timing",racerWrong:"Wrong",racerAgain:"Repeat",racerFinished:"Completed!",racerFinalScore:"Final score",racerBestSimilar:"Best similar race",racerNoWeak:"There are not enough weak characters yet to build an adaptive lesson",racerResetConfirm:"Are you sure you want to erase all CW Racer statistics?",racerTransmit:"Transmit it",racerListenRepeat:"Listen and repeat",racerRestartUnit:"Error: restart the unit from the beginning",qsoBasic:"Basic QSO",qsoIntermediate:"Intermediate QSO",qsoAdvanced:"Advanced QSO",qsoReady:"Select a mode and start the QSO.",qsoIdle:"Bot ready.",qsoStart:"Start QSO",qsoRepeat:"Repeat bot",qsoStop:"End",qsoNeedCall:"Enter your callsign to start.",qsoAnswerCQ:"Answer the CQ with your callsign.",qsoSendExchange:"Send your RST, name and QTH.",qsoSendMore:"Add RST, name/QTH and some station details.",qsoSendSkcc:"Send RST, SPC/QTH, name and SKCC number (or NONE).",qsoSendPota:"Send a realistic RST; QTH is optional.",qsoRepeatNeeded:"I did not copy everything. Repeat the exchange.",qsoComplete:"QSO completed",qsoStopped:"QSO ended.",qsoBotTx:"The bot is transmitting…",qsoAdvancedRepeat:"The bot requests a repeat.",qsoLocked:"ON AIR is unavailable while CW Racer or QSO Bot is active.",qsoCopied:"Copied data",qsoNeedName:"NAME?",qsoNeedQth:"QTH?",qsoNeedSkcc:"SKCC NR?",qsoNeedKey:"KEY?",qsoNeedRig:"RIG?",qsoNeedPwr:"PWR?",qsoNeedAnt:"ANT?",qsoCopying:"Copying your transmission…",charSpacing:"Character spacing (Farnsworth)",personalPractice:"FREE PRACTICE",personalPracticeHelp:"Practice your own text by characters or words",practiceFromText:"FROM TEXT",practiceFromMistakes:"FROM YOUR MISTAKES",mistakesPracticeHelp:"Build a session from the characters that need the most reinforcement.",mistakesStart:"Start mistakes practice",customLesson:"Custom lesson",customLessonHelp:"Learn from the pasted text",customByChar:"Character by character",customByWord:"Word by word",customByCharShort:"Characters",customByWordShort:"Words",customStart:"Start lesson",customStop:"End",customReady:"Paste text and start",customTransmit:"Send the target",customCorrect:"Correct",customImperfect:"Correct · watch the timing",customWrong:"Incorrect · repeat",customFinished:"Lesson completed",customNoText:"Paste valid text first",customAttempt:"TX",kochCourseTitle:"Progressive CW course",kochCourseSub:"40 lessons + 13 listening Challenges · 90% unlocks the next step",kochReset:"Reset",kochReady:"Ready",kochLesson:"Lesson",kochNewChar:"New",kochStartHint:"Start when you are ready",kochStart:"Start lesson",kochStop:"End",kochRetry:"Retry",kochNext:"Next level",kochListen:"LISTEN",kochSend:"SEND",kochMixed:"MIXED",kochChoose:"Listen and select",kochTransmit:"Send the character",kochCorrect:"Correct",kochWrong:"Incorrect",kochTiming:"Correct · watch the timing",kochPassed:"Level unlocked!",kochReview:"Good try · reach 90% to advance",kochMastered:"Lesson mastered",kochResetConfirm:"Reset all Koch course progress?",kochLocked:"Complete the previous lesson with 90% or better",kochCourseDone:"Koch course completed!",kochPartSend:"LISTEN AND SEND",kochPartListen:"LISTEN AND SELECT",kochSendHeard:"Listen and send",kochChallenge:"CW Challenge",kochChallengeSub:"Listening only · cumulative review",kochChallengeStart:"Start",kochChallengeDone:"Challenge completed",kochChallengeLocked:"Complete the previous 3 lessons",kochChallengeFinal:"Final challenge",statsModule:"STATISTICS",statsActivity:"Activity",statsRacer:"Racer",statsDaily:"Daily",statsKoch:"Koch",statsChallenges:"Challenges",statsQso:"QSOs",statsCustom:"Free practice",statsErrors:"Mistakes",statsStart:"Start",statsFinish:"Finish",dailyTab:"Daily",dailyWarmup:"Warm Up",dailyExercise:"Exercise",dailyDrill:"Drill",dailyCredit:"Exercise by WR7Q",qsoYou:"YOU",qsoRepeatsLabel:"REPEATS",duelRookie:"Rookie",duelIntermediate:"Intermediate",duelAdvanced:"Advanced",duelAllow:"Accept challenges",duelRandom:"Find random",duelCancel:"Cancel",duelReady:"Ready to challenge.",duelAccept:"Accept",duelDecline:"Decline",duelRematch:"Rematch",duelNew:"New opponent",duelExit:"Exit",duelAbandon:"Abandon duel",aiOff:"AI off",aiLoading:"AI model loading",aiReady:"AI ready",aiThinking:"AI interpreting CW",aiError:"AI unavailable",aiLocalTitle:"Local AI",}};
 const $=id=>document.getElementById(id),keyarea=$("keyarea"),symbols=$("symbols"),decoded=$("decoded"),practice=$("practice"),status=$("status"),mode=$("mode"),wpm=$("wpm"),tone=$("tone"),volume=$("volume"),bandNoise=$("bandNoise"),sidetone=$("sidetoneToggle"),visualAid=$("visualAidToggle"),audioOnly=$("audioOnlyToggle"),charSpacing=$("charSpacing"),spacing=$("wordSpacing");
 let lang=localStorage.getItem('cw-lang')||'es'; const tr=k=>I18N[lang][k]||k;
 let visualAidEnabled=localStorage.getItem('cw-visual-aid')==='on';
@@ -7005,7 +7045,7 @@ const BATTLE_LEVELS={
 };
 const BATTLE_MAX_SHIPS=3;
 const BATTLE_MOVE_BASE=.009; // deliberately slow: CW decoding + targeting needs real thinking time
-const BATTLE_INTERCEPT_LEAD_ROWS=2;
+const BATTLE_INTERCEPT_LEAD_ROWS=1;
 const BATTLE_WORDS=[
   'CQ','DX','QRP','QRO','RST','RIG','ANT','KEY','BUG','PADDLE','DIPOLE','TUNER','SIGNAL','MORSE',
   'RADIO','SKCC','LICW','POTA','SOTA','QTH','NAME','WX','73','AR','BT','SK','BRASS','STRAIGHT',
@@ -7022,7 +7062,8 @@ const BATTLE_SHIPS={
 let battle={
   active:false,playing:false,level:'cadet',mode:'ranked',phase:'idle',wave:1,lives:5,score:0,sunk:0,combo:0,bestCombo:0,
   ships:[],shots:[],fx:[],targetId:null,wordIndex:0,acquireBuffer:'',targetBuffer:'',lock:null,startedAt:0,lastTs:0,spawnAt:0,nextSpawn:0,
-  txCorrect:0,txWrong:0,rxCorrect:0,rxWrong:0,shotsFired:0,shotsHit:0,decoded:0,sent:0,anim:0,originalWpm:null,lastWaveAt:0
+  txCorrect:0,txWrong:0,rxCorrect:0,rxWrong:0,shotsFired:0,shotsHit:0,decoded:0,sent:0,anim:0,originalWpm:null,lastWaveAt:0,
+  spawnCount:0,nextRadioSpawn:3,inputIgnoreUntil:0
 };
 
 function battleLevelCfg(){return BATTLE_LEVELS[battle.level]||BATTLE_LEVELS.cadet}
@@ -7049,6 +7090,15 @@ function battleShipProgress(ship){
   return Math.max(0,Math.min(1,1-ship.x));
 }
 function battleActiveShips(){return battle.ships.filter(s=>!s.dead)}
+function battleMarkDecoded(ship){
+  if(!ship)return;
+  if(!ship.decodeAwarded){
+    ship.decodeAwarded=true;
+    battle.decoded++;
+    battle.score+=50+ship.word.length*10;
+  }
+  ship.decoded=true;
+}
 function battleAcquireCandidates(prefix=''){
   prefix=String(prefix||'').toUpperCase();
   return battleActiveShips().filter(s=>!s.decoded && (!prefix || s.word.startsWith(prefix)));
@@ -7060,20 +7110,39 @@ function battleWordMarkup(ship){
   [...ship.word].forEach((ch,i)=>out+=`<span class="${i<prefix.length?'done':i===prefix.length&&prefix?'current':''}">${escapeHtml(ch)}</span>`);
   return out;
 }
+let battleMessageTimer=0,battleMessageSignature='';
+function battleShowMessage(html,hold=2400){
+  const host=$('battleshipMessage');if(!host)return;
+  const sig=String(html||'');
+  if(sig!==battleMessageSignature){
+    battleMessageSignature=sig;
+    host.innerHTML=sig;
+    host.classList.add('show');
+    clearTimeout(battleMessageTimer);
+    battleMessageTimer=setTimeout(()=>host.classList.remove('show'),hold);
+  }else if(!host.innerHTML){
+    host.innerHTML=sig;
+  }
+}
 function battleRenderMessage(){
   const ship=battleSelectedShip();
-  if(!battle.playing){$('battleshipMessage').innerHTML='';return}
+  const host=$('battleshipMessage');
+  if(!battle.playing){
+    if(host){host.innerHTML='';host.classList.remove('show')}
+    battleMessageSignature='';
+    return;
+  }
   if(battle.phase==='decode'){
     const rxCount=battleActiveShips().filter(s=>s.rx&&!s.decoded).length;
     const buf=battle.acquireBuffer?`<div class="battleship-word">${escapeHtml(battle.acquireBuffer)}</div>`:'';
-    $('battleshipMessage').innerHTML=`📡 ${lang==='es'?'ELIGE OBJETIVO':'CHOOSE TARGET'}${rxCount?` · ${lang==='es'?'📻 escucha y copia':'📻 listen & copy'}`:''}${buf}`;
+    battleShowMessage(`📡 ${lang==='es'?'ELIGE OBJETIVO':'CHOOSE TARGET'}${rxCount?` · ${lang==='es'?'📻 escucha y copia':'📻 listen & copy'}`:''}${buf}`,buf?1800:2100);
     return;
   }
   if(!ship){battle.targetId=null;battleSetPhase('decode');battleRenderMessage();return}
   if(battle.phase==='target'){
-    $('battleshipMessage').innerHTML=`🎯 ${lang==='es'?'TRANSMITE LA COORDENADA DE INTERCEPCIÓN':'SEND INTERCEPT COORDINATE'} · <b>${ship.lockCode}</b><div class="battleship-word">${escapeHtml(battle.targetBuffer)}</div>`;
+    battleShowMessage(`🎯 ${lang==='es'?'TRANSMITE LA COORDENADA':'SEND COORDINATE'} · <b>${ship.lockCode}</b><div class="battleship-word">${escapeHtml(battle.targetBuffer)}</div>`,2200);
   }else if(battle.phase==='fire'){
-    $('battleshipMessage').innerHTML=`🔥 ${lang==='es'?'OBJETIVO FIJADO · espera el punto débil y dispara':'TARGET LOCKED · wait for weak point and fire'} · ${ship.lockCode}`;
+    battleShowMessage(`🔥 ${lang==='es'?'MIRA FIJADA':'TARGET LOCKED'} · ${ship.lockCode}`,1800);
   }
 }
 function battleCanvasSize(){
@@ -7101,14 +7170,14 @@ function battleAssignIntercept(ship){
   const cell=battleGridCell(ship);
   let col=cell.col,row=cell.row;
 
-  // Predict two cells AHEAD along the actual route. Because ships may enter
+  // Predict one cell AHEAD along the actual route. Because ships may enter
   // from any edge, the intercept naturally lands throughout the whole grid.
   if(ship.dir==='down') row=Math.min(4,row+BATTLE_INTERCEPT_LEAD_ROWS);
   else if(ship.dir==='up') row=Math.max(0,row-BATTLE_INTERCEPT_LEAD_ROWS);
   else if(ship.dir==='right') col=Math.min(4,col+BATTLE_INTERCEPT_LEAD_ROWS);
   else if(ship.dir==='left') col=Math.max(0,col-BATTLE_INTERCEPT_LEAD_ROWS);
 
-  // If we decoded very late and there is no room for two cells, use the next
+  // If we decoded very late and there is no room for one full cell, use the next
   // available cell in the route instead of always collapsing to row 5.
   if(col===cell.col&&row===cell.row){
     if(ship.dir==='down')row=Math.min(4,row+1);
@@ -7122,6 +7191,50 @@ function battleAssignIntercept(ship){
   ship.lockCode=`${'ABCDE'[col]}${row+1}`;
   battle.lock=null;
   battle.targetBuffer='';
+}
+function battlePassedIntercept(ship){
+  if(!ship||ship.lockCol==null||ship.lockRow==null)return false;
+  const eps=.002;
+  if(ship.dir==='down')return ship.y>((ship.lockRow+1)/5)+eps;
+  if(ship.dir==='up')return ship.y<(ship.lockRow/5)-eps;
+  if(ship.dir==='right')return ship.x>((ship.lockCol+1)/5)+eps;
+  if(ship.dir==='left')return ship.x<(ship.lockCol/5)-eps;
+  return false;
+}
+function battleLoseTarget(ship){
+  if(!ship||ship.id!==battle.targetId)return;
+
+  // Missing the intercept does NOT permanently remove the ship from acquisition.
+  // It becomes selectable again and receives a new intercept if chosen again.
+  ship.decoded=false;
+  ship.lockCode='';
+  ship.lockCol=null;
+  ship.lockRow=null;
+
+  // RADIO contacts must be intercepted again after a missed firing solution.
+  if(ship.rx){
+    ship.rxRevealCount=0;
+    ship.rxPlayed=false;
+    ship.rxPlaying=false;
+    ship.rxNextAt=performance.now()+900;
+    battleRxToneOff();
+    battleRxNoiseStop();
+  }
+
+  battle.targetId=null;
+  battle.lock=null;
+  battle.targetBuffer='';
+  battle.acquireBuffer='';
+  battle.inputIgnoreUntil=performance.now()+180;
+  battleSetPhase('decode');
+
+  // Force the normal DECODE instruction to be considered a new message later.
+  battleMessageSignature='';
+  battleCombatToast(lang==='es'?'OBJETIVO PERDIDO · ELIGE OTRO':'TARGET LOST · CHOOSE ANOTHER','bad');
+  battleShowMessage(
+    lang==='es'?'⚠ INTERCEPCIÓN PERDIDA · ELIGE OTRO OBJETIVO':'⚠ INTERCEPT MISSED · CHOOSE ANOTHER TARGET',
+    1800
+  );
 }
 const BATTLE_OPPOSITE_DIR={up:'down',down:'up',left:'right',right:'left'};
 function battleChooseSpawnDirection(){
@@ -7151,16 +7264,23 @@ function battleChooseSpawnDirection(){
 
 function battleSpawnShip(forceBoss=false){
   if(!battle.playing)return;
-  const activeShips=battle.ships.filter(s=>!s.dead).length;
-  if(activeShips>=BATTLE_MAX_SHIPS)return;
+  const activeList=battle.ships.filter(s=>!s.dead);
+  if(activeList.length>=BATTLE_MAX_SHIPS)return;
+
   const wave=battle.wave;
+  const spawnOrdinal=(Number(battle.spawnCount)||0)+1;
+  const activeRadio=activeList.some(s=>s.rx);
   let type;
-  if(forceBoss||wave%10===0&&battle.ships.every(s=>!s.boss||s.dead))type='battleship';
-  else{
+
+  if(forceBoss||wave%10===0&&battle.ships.every(s=>!s.boss||s.dead)){
+    type='battleship';
+  }else if(!activeRadio && spawnOrdinal>=Number(battle.nextRadioSpawn||3)){
+    // One intercepted contact about every 3–4 spawned ships, never two simultaneously.
+    type='radio';
+  }else{
     const pool=['pt','destroyer','destroyer'];
     if(wave>=3)pool.push('cruiser');
     if(wave>=5)pool.push('submarine');
-    if(wave>=6)pool.push('radio');
     type=pool[Math.floor(Math.random()*pool.length)];
   }
   const cfg=BATTLE_SHIPS[type];
@@ -7179,8 +7299,13 @@ function battleSpawnShip(forceBoss=false){
   else if(dir==='right'){x=-.08;y=(Math.floor(Math.random()*5)+.5)/5}
   else {x=1.08;y=(Math.floor(Math.random()*5)+.5)/5}
   const ship={id,type,...cfg,dir,x,y,hp:cfg.hp,maxHp:cfg.hp,word,decoded:false,dead:false,rx:!!cfg.rx,boss:!!cfg.boss,
-    weakPhase:Math.random()*6.28,lockCode:'',lockCol:null,lockRow:null,rxPlayed:false,rxPlaying:false,rxNextAt:0,rxRevealCount:0,lastHit:0};
+    weakPhase:Math.random()*6.28,lockCode:'',lockCol:null,lockRow:null,rxPlayed:false,rxPlaying:false,rxNextAt:0,rxRevealCount:0,lastHit:0,
+    decodeAwarded:false};
   battle.ships.push(ship);
+  battle.spawnCount=(Number(battle.spawnCount)||0)+1;
+  if(ship.rx){
+    battle.nextRadioSpawn=battle.spawnCount+3+Math.floor(Math.random()*2);
+  }
   // Spawning is passive: never interrupt an acquisition/target/fire sequence.
   battleRenderMessage();
   if(ship.rx){
@@ -7198,14 +7323,58 @@ function battleOperatorKeying(){
   return !!(downAt||leftHeld||rightHeld||iambicRunning);
 }
 let battleRxOsc=null,battleRxGain=null;
+let battleRxNoiseSource=null,battleRxNoiseFilter=null,battleRxNoiseGain=null;
+
+function battleRxNoiseStart(){
+  try{
+    ensureAudio();
+    if(!audioCtx||battleRxNoiseSource)return;
+    const len=Math.max(1,Math.floor(audioCtx.sampleRate*1.25));
+    const buf=audioCtx.createBuffer(1,len,audioCtx.sampleRate);
+    const data=buf.getChannelData(0);
+    for(let i=0;i<len;i++)data[i]=(Math.random()*2-1)*(.72+Math.random()*.28);
+
+    battleRxNoiseSource=audioCtx.createBufferSource();
+    battleRxNoiseSource.buffer=buf;
+    battleRxNoiseSource.loop=true;
+
+    battleRxNoiseFilter=audioCtx.createBiquadFilter();
+    battleRxNoiseFilter.type='bandpass';
+    battleRxNoiseFilter.frequency.value=1250;
+    battleRxNoiseFilter.Q.value=.38;
+
+    battleRxNoiseGain=audioCtx.createGain();
+    const signal=Math.max(.10,Math.min(.65,Number(volume.value)||.25));
+    battleRxNoiseGain.gain.value=Math.min(.13,Math.max(.055,signal*.34));
+
+    battleRxNoiseSource.connect(battleRxNoiseFilter).connect(battleRxNoiseGain).connect(audioCtx.destination);
+    battleRxNoiseSource.start();
+  }catch{
+    battleRxNoiseSource=battleRxNoiseFilter=battleRxNoiseGain=null;
+  }
+}
+
+function battleRxNoiseStop(){
+  if(battleRxNoiseSource){
+    try{battleRxNoiseSource.stop()}catch{}
+    try{
+      battleRxNoiseSource.disconnect();
+      battleRxNoiseFilter?.disconnect();
+      battleRxNoiseGain?.disconnect();
+    }catch{}
+  }
+  battleRxNoiseSource=battleRxNoiseFilter=battleRxNoiseGain=null;
+}
 function battleRxToneOn(){
   try{
     ensureAudio();
     if(!audioCtx||battleRxOsc)return;
     battleRxOsc=audioCtx.createOscillator();
     battleRxGain=audioCtx.createGain();
+    battleRxOsc.type='sine';
     battleRxOsc.frequency.value=+tone.value||650;
-    battleRxGain.gain.value=+volume.value||.25;
+    const rxVol=Math.max(.12,Math.min(.75,Number(volume.value)||.25));
+    battleRxGain.gain.value=rxVol;
     battleRxOsc.connect(battleRxGain).connect(audioCtx.destination);
     battleRxOsc.start();
   }catch{
@@ -7213,9 +7382,10 @@ function battleRxToneOn(){
   }
 }
 function battleRxToneOff(){
-  if(!battleRxOsc)return;
-  try{battleRxOsc.stop()}catch{}
-  try{battleRxOsc.disconnect();battleRxGain?.disconnect()}catch{}
+  if(battleRxOsc){
+    try{battleRxOsc.stop()}catch{}
+    try{battleRxOsc.disconnect();battleRxGain?.disconnect()}catch{}
+  }
   battleRxOsc=battleRxGain=null;
 }
 async function battlePlayWord(ship){
@@ -7225,15 +7395,16 @@ async function battlePlayWord(ship){
   const unit=1200/battleLevelCfg().wpm;
   let interrupted=false;
 
+  battleRxNoiseStart();
+
   try{
     for(const ch of ship.word){
       if(!battle.playing||ship.dead||ship.decoded){interrupted=true;break}
       // Received CW must yield immediately if the operator starts keying.
       if(battleOperatorKeying()){interrupted=true;break}
 
-      const code=CODE[String(ch).toUpperCase()]||Object.keys(MORSE).find(k=>MORSE[k]===ch);
-      const morse=CODE[String(ch).toUpperCase()]||({...Object.fromEntries(Object.entries(MORSE).map(([k,v])=>[String(v).replace(/[<>=]/g,''),k]))})[ch];
-      const morseCode=CODE?.[ch]||morse;
+      // Morse Practice encoder: character -> dots/dashes.
+      const morseCode=REVERSE[String(ch).toUpperCase()]||'';
       if(!morseCode)continue;
 
       for(const el of morseCode){
@@ -7253,6 +7424,7 @@ async function battlePlayWord(ship){
     }
   }finally{
     battleRxToneOff();
+    battleRxNoiseStop();
     ship.rxPlaying=false;
 
     if(battle.playing&&!ship.dead&&!ship.decoded){
@@ -7264,6 +7436,7 @@ async function battlePlayWord(ship){
 }
 function battleOnDecoded(ch){
   if(!battle.playing||!['decode','target'].includes(battle.phase))return;
+  if(performance.now()<Number(battle.inputIgnoreUntil||0))return;
   ch=String(ch||'').toUpperCase().replace(/[<>]/g,'');
 
   if(battle.phase==='decode'){
@@ -7287,11 +7460,9 @@ function battleOnDecoded(ch){
 
     if(rxCompleted){
       battle.targetId=rxCompleted.id;
-      rxCompleted.decoded=true;
-      battle.decoded++;
+      battleMarkDecoded(rxCompleted);
       battle.acquireBuffer='';
       battleAssignIntercept(rxCompleted);
-      battle.score+=50+rxCompleted.word.length*10;
       battle.combo++;battle.bestCombo=Math.max(battle.bestCombo,battle.combo);
       battleSetPhase('target');
       battleInstruction(
@@ -7314,11 +7485,9 @@ function battleOnDecoded(ch){
       const exact=candidates.find(s=>s.word===battle.acquireBuffer);
       if(exact){
         battle.targetId=exact.id;
-        exact.decoded=true;
-        battle.decoded++;
+        battleMarkDecoded(exact);
         battle.acquireBuffer='';
         battleAssignIntercept(exact);
-        battle.score+=50+exact.word.length*10;
         battleSetPhase('target');
         battleInstruction(
           `OBJETIVO SELECCIONADO: ${exact.word}. El radar calcula ${exact.lockCode}. Transmite ${exact.lockCode}, fija la mira y espéralo allí.`,
@@ -7444,6 +7613,7 @@ function battleDraw(){
     ctx.beginPath();ctx.moveTo(x-18,y);ctx.lineTo(x+18,y);ctx.moveTo(x,y-18);ctx.lineTo(x,y+18);ctx.stroke()
   }
   // ships
+  const battleLabelBoxes=[];
   for(const s of battle.ships){
     if(s.dead)continue;
     const x=g.left+(g.right-g.left)*s.x,y=g.top+(g.bottom-g.top)*s.y;
@@ -7469,22 +7639,37 @@ function battleDraw(){
     ctx.restore();ctx.globalAlpha=1;
     if(!s.decoded){
       const danger=battleShipProgress(s);
-      ctx.font=`900 ${Math.max(12,Math.min(17,w*.018))}px monospace`;ctx.textAlign='center';
-      // First-row labels go below the hull so the top instruction panel never covers them.
-      const firstRow=y<g.top+g.rh*1.15;
-      const labelY=firstRow?y+Math.max(24,L*.86):y-Math.max(18,L*.75);
+      ctx.font=`900 ${Math.max(11,Math.min(16,w*.017))}px monospace`;ctx.textAlign='center';
+      let label;
       if(s.rx){
         ctx.fillStyle=danger>.72?'#ff7d73':'#8edfff';
         const reveal=Math.max(0,Math.min(s.word.length,Number(s.rxRevealCount)||0));
         const hidden=s.word.split('').map((ch,i)=>i<reveal?ch:'_').join('');
-        ctx.fillText(`📻 ${hidden}`,x,labelY);
+        label=`📻 ${hidden}`;
       }else{
         ctx.fillStyle=danger>.78?'#ff746c':danger>.58?'#ffd36a':'#eaf9ff';
-        const label=s.word.startsWith(battle.acquireBuffer)&&battle.acquireBuffer
+        label=s.word.startsWith(battle.acquireBuffer)&&battle.acquireBuffer
           ?`${battle.acquireBuffer}·${s.word.slice(battle.acquireBuffer.length)}`
           :s.word;
-        ctx.fillText(label,x,labelY);
       }
+
+      const tw=ctx.measureText(label).width,th=Math.max(14,Math.min(18,w*.018));
+      const gap=Math.max(12,W*.9);
+      const vertical=s.dir==='up'||s.dir==='down';
+      const candidates=vertical
+        ?[[x+W+tw/2+8,y],[x-W-tw/2-8,y],[x,y-L*.75-th],[x,y+L*.75+th]]
+        :[[x,y-W-th],[x,y+W+th],[x+L*.55+tw/2+8,y],[x-L*.55-tw/2-8,y]];
+
+      let lx=x,ly=y-L*.8-th;
+      for(const [cx0,cy0] of candidates){
+        const cx=Math.max(g.left+tw/2+4,Math.min(g.right-tw/2-4,cx0));
+        const cy=Math.max(g.top+th+8,Math.min(g.bottom-th-4,cy0));
+        const box={l:cx-tw/2-4,r:cx+tw/2+4,t:cy-th,b:cy+4};
+        const hitsHull=Math.abs(cx-x)<(tw/2+W*.75)&&Math.abs(cy-y)<(th+L*.55);
+        const collides=battleLabelBoxes.some(b=>!(box.r<b.l||box.l>b.r||box.b<b.t||box.t>b.b));
+        if(!hitsHull&&!collides){lx=cx;ly=cy;battleLabelBoxes.push(box);break}
+      }
+      ctx.fillText(label,lx,ly);
     }
   }
   // shots/fx
@@ -7517,6 +7702,10 @@ function battleLoop(ts){
     else if(s.dir==='up')s.y-=step;
     else if(s.dir==='right')s.x+=step;
     else if(s.dir==='left')s.x-=step;
+
+    if((battle.phase==='target'||battle.phase==='fire')&&s.id===battle.targetId&&battlePassedIntercept(s)){
+      battleLoseTarget(s);
+    }
 
     const escaped=(s.dir==='down'&&s.y>=1.02)||(s.dir==='up'&&s.y<=-.02)||(s.dir==='right'&&s.x>=1.02)||(s.dir==='left'&&s.x<=-.02);
     if(escaped){
@@ -7556,7 +7745,7 @@ function battleLoop(ts){
   battle.anim=requestAnimationFrame(battleLoop);
 }
 function battleAccuracy(a,b){const n=a+b;return n?Math.round(a/n*100):null}
-function battleGameOver(){battleRxToneOff();
+function battleGameOver(){battleRxToneOff();battleRxNoiseStop();clearTimeout(battleMessageTimer);battleMessageTimer=0;
   if(!battle.playing)return;
   battle.playing=false;cancelAnimationFrame(battle.anim);battle.anim=0;localToneOff();
   const elapsed=performance.now()-battle.startedAt,tx=battleAccuracy(battle.txCorrect,battle.txWrong),rx=battleAccuracy(battle.rxCorrect,battle.rxWrong),combat=battleAccuracy(battle.shotsHit,battle.shotsFired-battle.shotsHit);
@@ -7578,19 +7767,21 @@ function battleArena(active){
   keyarea.classList.toggle('battleship-active',!!active);
   if(!active){cancelAnimationFrame(battle.anim);battle.anim=0;$('battleshipResult')?.classList.remove('show');$('battleshipRankingPanel')?.classList.remove('open')}
 }
-function battleForceOff(){battleRxToneOff();
+function battleForceOff(){battleRxToneOff();battleRxNoiseStop();clearTimeout(battleMessageTimer);battleMessageTimer=0;
   battle.playing=false;battle.active=false;battleshipOn=false;cancelAnimationFrame(battle.anim);battle.anim=0;localToneOff();battleArena(false);
   if(battle.originalWpm!=null){wpm.value=String(battle.originalWpm);$('wpmValue').textContent=wpm.value;battle.originalWpm=null}
   if($('battleshipToggle'))$('battleshipToggle').checked=false;$('battleshipPanel')?.classList.remove('open');clearActivityInstruction('battleship');syncTrainingLocks()
 }
 function battleStart(){
   if(!leaderCallsign()){const e=$('globalCall');e?.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>e?.focus(),220);return}
+  ensureAudio();
   forceOnAirOff();forceDuelOff();if(invadersOn)forceInvadersOff();if(bentWireOn)bentWireStop();forceRacerOff();if(errorsPracticeOn)errorsPracticeStop();if(qsoOn)forceQsoOff();if(customLessonOn)forceCustomLessonOff();if(kochOn)forceKochOff();forceLearnOnlyOff();forceExercisesOnlyOff();deactivate();
   const level=battle.level||'cadet',cfg=BATTLE_LEVELS[level];
   battle.originalWpm=battle.originalWpm??Number(wpm.value);wpm.value=String(cfg.wpm);$('wpmValue').textContent=wpm.value;
   battleshipOn=true;$('battleshipToggle').checked=true;$('battleshipPanel').classList.add('open');
   battle={...battle,active:true,playing:true,level,mode:'ranked',phase:'decode',wave:1,lives:5,score:0,sunk:0,combo:0,bestCombo:0,ships:[],shots:[],fx:[],targetId:null,wordIndex:0,targetBuffer:'',lock:null,
-    acquireBuffer:'',startedAt:performance.now(),lastTs:0,nextSpawn:performance.now()+700,txCorrect:0,txWrong:0,rxCorrect:0,rxWrong:0,shotsFired:0,shotsHit:0,decoded:0,sent:0,anim:0};
+    acquireBuffer:'',startedAt:performance.now(),lastTs:0,nextSpawn:performance.now()+700,txCorrect:0,txWrong:0,rxCorrect:0,rxWrong:0,shotsFired:0,shotsHit:0,decoded:0,sent:0,anim:0,
+    spawnCount:0,nextRadioSpawn:3+Math.floor(Math.random()*2),inputIgnoreUntil:0};
   $('battleshipResult').classList.remove('show');$('battleshipCombatToast')?.classList.remove('show');battleArena(true);battleHud();battleSpawnShip(false);
   battleInstruction(
     'ELIGE TU OBJETIVO: cada barco visible muestra una palabra CW; retransmite la del barco que quieras atacar. Los contactos 📻 están ocultos y debes copiarlos de oído. La flota nunca entra simultáneamente desde bordes opuestos.',
