@@ -7187,25 +7187,73 @@ function battlePickTarget(){
   battle.targetId=null;battle.acquireBuffer='';battle.targetBuffer='';battle.lock=null;
   battleSetPhase('decode');battleRenderMessage();
 }
+function battleOperatorKeying(){
+  return !!(downAt||leftHeld||rightHeld||iambicRunning);
+}
+let battleRxOsc=null,battleRxGain=null;
+function battleRxToneOn(){
+  try{
+    ensureAudio();
+    if(!audioCtx||battleRxOsc)return;
+    battleRxOsc=audioCtx.createOscillator();
+    battleRxGain=audioCtx.createGain();
+    battleRxOsc.frequency.value=+tone.value||650;
+    battleRxGain.gain.value=+volume.value||.25;
+    battleRxOsc.connect(battleRxGain).connect(audioCtx.destination);
+    battleRxOsc.start();
+  }catch{
+    battleRxOsc=battleRxGain=null;
+  }
+}
+function battleRxToneOff(){
+  if(!battleRxOsc)return;
+  try{battleRxOsc.stop()}catch{}
+  try{battleRxOsc.disconnect();battleRxGain?.disconnect()}catch{}
+  battleRxOsc=battleRxGain=null;
+}
 async function battlePlayWord(ship){
   if(!battle.playing||!ship||ship.dead||!ship.rx||ship.decoded||ship.rxPlaying)return;
-  ship.rxPlayed=true;ship.rxPlaying=true;
+  ship.rxPlayed=true;
+  ship.rxPlaying=true;
   const unit=1200/battleLevelCfg().wpm;
-  for(const ch of ship.word){
-    const code=CODE[String(ch).toUpperCase()]||Object.keys(MORSE).find(k=>MORSE[k]===ch);
-    const morse=CODE[String(ch).toUpperCase()]||({...Object.fromEntries(Object.entries(MORSE).map(([k,v])=>[String(v).replace(/[<>=]/g,''),k]))})[ch];
-    const m=CODE?.[ch]||morse;
-    if(!m)continue;
-    for(const el of m){
-      if(!battle.playing)return;
-      localToneOn();await sleep(el==='.'?unit:unit*3);localToneOff();await sleep(unit);
+  let interrupted=false;
+
+  try{
+    for(const ch of ship.word){
+      if(!battle.playing||ship.dead||ship.decoded){interrupted=true;break}
+      // Received CW must yield immediately if the operator starts keying.
+      if(battleOperatorKeying()){interrupted=true;break}
+
+      const code=CODE[String(ch).toUpperCase()]||Object.keys(MORSE).find(k=>MORSE[k]===ch);
+      const morse=CODE[String(ch).toUpperCase()]||({...Object.fromEntries(Object.entries(MORSE).map(([k,v])=>[String(v).replace(/[<>=]/g,''),k]))})[ch];
+      const morseCode=CODE?.[ch]||morse;
+      if(!morseCode)continue;
+
+      for(const el of morseCode){
+        if(!battle.playing||ship.dead||ship.decoded||battleOperatorKeying()){
+          interrupted=true;
+          break;
+        }
+        battleRxToneOn();
+        await sleep(el==='.'?unit:unit*3);
+        battleRxToneOff();
+
+        if(battleOperatorKeying()){interrupted=true;break}
+        await sleep(unit);
+      }
+      if(interrupted)break;
+      await sleep(unit*2);
     }
-    await sleep(unit*2);
+  }finally{
+    battleRxToneOff();
+    ship.rxPlaying=false;
+
+    if(battle.playing&&!ship.dead&&!ship.decoded){
+      // Normal repetition every ~4.2 s. If the operator interrupted the copy,
+      // retry sooner so the hidden word is not lost.
+      ship.rxNextAt=performance.now()+(interrupted?1200:4200);
+    }
   }
-  ship.rxPlaying=false;
-  // Repeat the encrypted/hidden call often enough to copy it by ear.
-  // A new repeat will only be started by battleLoop while the operator is not keying.
-  ship.rxNextAt=performance.now()+4200;
 }
 function battleOnDecoded(ch){
   if(!battle.playing||!['decode','target'].includes(battle.phase))return;
@@ -7477,8 +7525,9 @@ function battleLoop(ts){
   if(battle.phase==='decode'){
     const now=performance.now();
     const anyRxPlaying=battleActiveShips().some(s=>s.rxPlaying);
-    // Do not begin another RX transmission while the operator is actively keying.
-    if(!anyRxPlaying&&!active){
+    // Do not begin another RX transmission while the operator is actually keying.
+    // `active` only means the keying surface is armed and must not suppress RX audio.
+    if(!anyRxPlaying&&!battleOperatorKeying()){
       const due=battleActiveShips()
         .filter(s=>s.rx&&!s.decoded&&!s.rxPlaying&&now>=Number(s.rxNextAt||0))
         .sort((a,b)=>battleShipProgress(b)-battleShipProgress(a))[0];
@@ -7500,7 +7549,7 @@ function battleLoop(ts){
   battle.anim=requestAnimationFrame(battleLoop);
 }
 function battleAccuracy(a,b){const n=a+b;return n?Math.round(a/n*100):null}
-function battleGameOver(){
+function battleGameOver(){battleRxToneOff();
   if(!battle.playing)return;
   battle.playing=false;cancelAnimationFrame(battle.anim);battle.anim=0;localToneOff();
   const elapsed=performance.now()-battle.startedAt,tx=battleAccuracy(battle.txCorrect,battle.txWrong),rx=battleAccuracy(battle.rxCorrect,battle.rxWrong),combat=battleAccuracy(battle.shotsHit,battle.shotsFired-battle.shotsHit);
@@ -7522,7 +7571,7 @@ function battleArena(active){
   keyarea.classList.toggle('battleship-active',!!active);
   if(!active){cancelAnimationFrame(battle.anim);battle.anim=0;$('battleshipResult')?.classList.remove('show');$('battleshipRankingPanel')?.classList.remove('open')}
 }
-function battleForceOff(){
+function battleForceOff(){battleRxToneOff();
   battle.playing=false;battle.active=false;battleshipOn=false;cancelAnimationFrame(battle.anim);battle.anim=0;localToneOff();battleArena(false);
   if(battle.originalWpm!=null){wpm.value=String(battle.originalWpm);$('wpmValue').textContent=wpm.value;battle.originalWpm=null}
   if($('battleshipToggle'))$('battleshipToggle').checked=false;$('battleshipPanel')?.classList.remove('open');clearActivityInstruction('battleship');syncTrainingLocks()
