@@ -1397,6 +1397,18 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
 
 </style>
 <script src="https://unpkg.com/mqtt@5.15.2/dist/mqtt.min.js"></script>
+
+<style>
+/* Countries are part of the always-visible main stats */
+.site-stats .country-ticker{
+  flex:0 0 100%;
+  width:100%;
+  max-width:760px;
+  margin:2px auto 0;
+  order:20;
+}
+.site-stats .site-stats-more{order:21}
+</style>
 </head>
 <body>
 <div class="app">
@@ -8706,15 +8718,5 @@ updateOnAirVisual();
 })();
 </script>
 
+
 </body></html>
-<style>
-/* Countries are part of the always-visible main stats */
-.site-stats .country-ticker{
-  flex:0 0 100%;
-  width:100%;
-  max-width:760px;
-  margin:2px auto 0;
-  order:20;
-}
-.site-stats .site-stats-more{order:21}
-</style>
