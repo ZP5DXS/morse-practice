@@ -2399,7 +2399,42 @@ const duelClientId='duel_'+crypto.getRandomValues(new Uint32Array(2)).join('_');
 let duelClient=null,duelOn=false,duelAllow=true,duelSpeed=15,duelSearching=false,duelPresenceTimer=null,duelCleanupTimer=null,duelInviteTimer=null,duelQuestionTimer=null,duelWatchdog=null;
 const duelPresence=new Map();let duelPendingInvite=null,duelPendingOutgoing=null,duelSession=null;
 let txDownAt=0,txDownWall=0,remotePulseQueue=[],remotePulsePlaying=false,remoteLastSenderUp=0;
-let detectedCountry='';
+const COUNTRY_CACHE_KEY='cw-country-cache-v2';
+const COUNTRY_CACHE_REFRESH_MS=12*60*60*1000;
+const COUNTRY_CACHE_MAX_AGE_MS=90*24*60*60*1000;
+let countryDetectPromise=null;
+let countryRefreshScheduled=false;
+let detectedCountrySource='none';
+
+function readCountryCache(){
+  try{
+    const raw=JSON.parse(localStorage.getItem(COUNTRY_CACHE_KEY)||'null');
+    const code=String(raw?.code||'').trim().toUpperCase();
+    const ts=Math.max(0,Number(raw?.ts)||0);
+    if(!/^[A-Z]{2}$/.test(code))return null;
+    if(ts&&Date.now()-ts>COUNTRY_CACHE_MAX_AGE_MS)return null;
+    return {code,ts};
+  }catch{return null}
+}
+function writeCountryCache(code,source='network'){
+  code=String(code||'').trim().toUpperCase();
+  if(!/^[A-Z]{2}$/.test(code))return '';
+  try{localStorage.setItem(COUNTRY_CACHE_KEY,JSON.stringify({code,ts:Date.now(),source}))}catch{}
+  return code;
+}
+const initialCountryCache=readCountryCache();
+let detectedCountry=initialCountryCache?.code||'';
+if(detectedCountry)detectedCountrySource='cache';
+
+function countryDetectionDiagnostic(extra={}){
+  window.__cwCountryDetection={
+    code:detectedCountry||'',
+    source:detectedCountrySource,
+    cached:readCountryCache(),
+    ...extra
+  };
+}
+countryDetectionDiagnostic();
 const mutedUsers=new Set();
 
 // ─────────────────────────────────────────────────────────────
@@ -2742,26 +2777,103 @@ const myInfo=()=>({
   ts:Date.now()
 });
 
-async function detectCountryByIP(){
-  if(detectedCountry)return detectedCountry;
+async function countryFetch(url,parser,timeout=3200){
   const controller=new AbortController();
-  const timer=setTimeout(()=>controller.abort(),1800);
+  const timer=setTimeout(()=>controller.abort(),timeout);
   try{
-    const r=await fetch('https://ipapi.co/country/',{
+    const r=await fetch(url,{
       signal:controller.signal,
       cache:'no-store',
-      mode:'cors'
+      mode:'cors',
+      headers:{'Accept':'application/json,text/plain;q=0.9,*/*;q=0.5'}
     });
-    if(r.ok){
-      const code=normalizeCountry(await r.text());
-      if(code)detectedCountry=code;
-    }
-  }catch(e){
-    // Country is cosmetic only. ON AIR must never depend on this request.
+    if(!r.ok)throw new Error(`HTTP ${r.status}`);
+    const code=normalizeCountry(await parser(r));
+    if(!code)throw new Error('Invalid country response');
+    return code;
   }finally{
     clearTimeout(timer);
   }
-  return detectedCountry;
+}
+
+function scheduleCountryRefresh(){
+  if(countryRefreshScheduled)return;
+  const cached=readCountryCache();
+  if(!cached?.code||!cached.ts||Date.now()-cached.ts<COUNTRY_CACHE_REFRESH_MS)return;
+  countryRefreshScheduled=true;
+  setTimeout(()=>{
+    countryRefreshScheduled=false;
+    detectCountryByIP(true).catch(()=>{});
+  },600+Math.floor(Math.random()*900));
+}
+
+async function detectCountryByIP(force=false){
+  if(detectedCountry&&!force){
+    scheduleCountryRefresh();
+    return detectedCountry;
+  }
+  if(countryDetectPromise)return countryDetectPromise;
+
+  countryDetectPromise=(async()=>{
+    const providers=[
+      {name:'country.is',url:'https://api.country.is/',parser:async r=>(await r.json())?.country},
+      {name:'ipwho.is',url:'https://ipwho.is/',parser:async r=>{const j=await r.json();return j?.success===false?'':j?.country_code}},
+      {name:'ipapi.co',url:'https://ipapi.co/country/',parser:async r=>await r.text()}
+    ];
+
+    const attempts=providers.map(p=>
+      countryFetch(p.url,p.parser,3200).then(code=>({code,source:p.name}))
+    );
+
+    try{
+      const hit=await Promise.any(attempts);
+      const code=normalizeCountry(hit?.code);
+      if(code){
+        detectedCountry=code;
+        detectedCountrySource=hit.source||'network';
+        writeCountryCache(code,detectedCountrySource);
+        countryDetectionDiagnostic({status:'ok'});
+
+        try{if(typeof chatPublishPresence==='function'&&chatClient?.connected)chatPublishPresence()}catch{}
+        try{
+          if(onAir&&typeof publishPresence==='function'){
+            presence.set(clientId,myInfo());
+            publishPresence('heartbeat');
+            updatePresenceUI();
+          }
+        }catch{}
+        try{if(duelOn&&duelClient?.connected&&typeof duelPublishPresence==='function')duelPublishPresence()}catch{}
+        try{
+          if(statsClient?.connected){
+            publishMyGlobalVisitor();
+            publishWeeklyLeader();
+            const all=gameLocalRecords();
+            let changed=false;
+            for(const rec of Object.values(all)){
+              if(rec?.week===weekKey()&&!normalizeCountry(rec.country)){
+                rec.country=code;
+                changed=true;
+              }
+            }
+            if(changed)saveGameLocalRecords(all);
+            flushGameWeeklyRecords();
+            stableStatsSyncSoon(0);
+          }
+        }catch{}
+      }
+    }catch{
+      const cached=readCountryCache();
+      if(cached?.code){
+        detectedCountry=cached.code;
+        detectedCountrySource='cache-fallback';
+      }
+      countryDetectionDiagnostic({status:'all-providers-failed'});
+    }
+    return detectedCountry;
+  })();
+
+  try{return await countryDetectPromise}
+  finally{countryDetectPromise=null}
 }
 function refreshCountryInBackground(){
   detectCountryByIP().then(code=>{
@@ -2772,6 +2884,9 @@ function refreshCountryInBackground(){
     updatePresenceUI();
   }).catch(()=>{});
 }
+
+// Resolve country early without blocking the application.
+detectCountryByIP().catch(()=>{});
 
 
 // Anonymous global site statistics.
@@ -7546,7 +7661,7 @@ function battleFireElement(el){
     battle.score+=gain;
     battleCombatToast(`HIT +${gain}`,'good');
     battle.fx.push({kind:'boom',x:ship.x,y:ship.y,t:performance.now(),big:el==='-'});
-    if(ship.hp<=0){ship.dead=true;battle.sunk++;battle.score+=Math.round(ship.score*(1+battle.wave*.06));battleSound('sink');battle.targetId=null;battle.lock=null;battle.acquireBuffer='';battleSetPhase('decode');setTimeout(battlePickTarget,180)}
+    if(ship.hp<=0){ship.dead=true;battle.sunk++;battle.score+=Math.round(ship.score*(1+Math.min(1.20,battle.wave*.06)));battleSound('sink');battle.targetId=null;battle.lock=null;battle.acquireBuffer='';battleSetPhase('decode');setTimeout(battlePickTarget,180)}
   }else{
     battle.combo=0;
     const penalty=el==='-'?10:3;
@@ -8026,7 +8141,7 @@ function setupBentWire(){
 // ================== END BENS BEST BENT WIRE ==================
 
 // ==================== CW INVADERS (local modular game) ====================
-let invadersOn=false,invadersPlaying=false,invadersMode='tx',invadersAnim=0,invadersLast=0,invadersSpawnClock=0,invadersScoreVal=0,invadersBestVal=0,invadersLivesVal=3,invadersLevelVal=1,invadersSeq=0,invadersTxBuffer='',invadersAudioQueue=Promise.resolve();
+let invadersOn=false,invadersPlaying=false,invadersMode='tx',invadersAnim=0,invadersLast=0,invadersSpawnClock=0,invadersScoreVal=0,invadersBestVal=0,invadersLivesVal=3,invadersLevelVal=1,invadersHitsVal=0,invadersSeq=0,invadersTxBuffer='',invadersAudioQueue=Promise.resolve();
 let invadersItems=[];
 let invadersMissedItems=[];
 const INVADER_LANES=[10,30,50,70,90];
@@ -8054,9 +8169,23 @@ function invadersDifficultyConfig(){
   if(d==='hard')return{max:5,spawn:1350,speed:10.4};
   return{max:3,spawn:2150,speed:9.6};
 }
+function invadersLevelFromHits(hits){
+  // Stable progression: one level every 8 confirmed kills.
+  // A single answer can therefore advance at most one level.
+  return 1+Math.floor(Math.max(0,Number(hits)||0)/8);
+}
+function invadersPointsForHit(){
+  // Score may improve with experience, but never feeds back into level.
+  // Bonus plateaus so a very long session cannot become exponential.
+  const bonus=Math.min(20,Math.max(0,invadersLevelVal-1));
+  return 10+bonus*2;
+}
 function invadersSpeed(){
   const c=invadersDifficultyConfig();
-  const levelBoost=invadersMode==='rx'?Math.min(1.4,(invadersLevelVal-1)*.12):Math.min(3.2,(invadersLevelVal-1)*.28);
+  // Difficulty rises progressively but reaches a practical ceiling.
+  const levelBoost=invadersMode==='rx'
+    ?Math.min(1.4,(invadersLevelVal-1)*.12)
+    :Math.min(3.2,(invadersLevelVal-1)*.28);
   return c.speed+levelBoost;
 }
 function invadersInstruction(){return invadersMode==='tx'?(lang==='es'?'TX: transmite cualquier objetivo visible para destruirlo.':'TX: send any visible target to destroy it.'):(lang==='es'?'RX: escucha el CW, escribe la respuesta y pulsa ENTER.':'RX: listen to the CW, type the answer and press ENTER.')}
@@ -8186,10 +8315,12 @@ function invadersResolveItem(item,ok){
   if(ok){
     invadersMoveShipAndFire(item);
     item.el?.classList.add('hit');
-    invadersScoreVal+=10*invadersLevelVal;
+    invadersHitsVal++;
+    invadersScoreVal+=invadersPointsForHit();
     invadersCheckBest();
-    const next=Math.floor(invadersScoreVal/120)+1;
-    if(next>invadersLevelVal)invadersLevelVal=next;
+    // Level is based only on confirmed kills, never on score.
+    // This removes the old positive-feedback loop that could jump dozens/hundreds of levels.
+    invadersLevelVal=invadersLevelFromHits(invadersHitsVal);
   }else{
     item.el?.classList.add('miss');
     invadersRecordMiss(item);
@@ -8259,7 +8390,7 @@ function invadersStart(){
   if(errorsPracticeOn)errorsPracticeStop();
   forceOnAirOff();forceDuelOff();forceRacerOff();if(qsoOn)forceQsoOff();if(customLessonOn)forceCustomLessonOff();if(kochOn)forceKochOff();deactivate();
   invadersOn=true;invadersPlaying=false;$('invadersToggle').checked=true;$('invadersPanel').classList.add('open');
-  invadersScoreVal=0;invadersLivesVal=3;invadersLevelVal=1;invadersLast=0;invadersSpawnClock=0;invadersSeq=0;invadersMissedItems=[];invadersAudioQueue=Promise.resolve();invadersRenderMissed();
+  invadersScoreVal=0;invadersLivesVal=3;invadersLevelVal=1;invadersHitsVal=0;invadersLast=0;invadersSpawnClock=0;invadersSeq=0;invadersMissedItems=[];invadersAudioQueue=Promise.resolve();invadersRenderMissed();
   invadersLoadBest();invadersUpdateHud();invadersClearField();$('invadersRankingPanel').classList.remove('open');gameRankingSyncButton('invadersRankingPanel');$('invadersRankingBtn').style.display='none';invadersArena(true);invadersSetPracticeMessage(invadersInstruction());
   const inp=$('invadersRxInput'),rxRow=$('invadersRxRow');inp.value='';rxRow?.classList.remove('show');
   $('invadersCenter').style.display='flex';
@@ -8316,6 +8447,27 @@ function setupInvaders(){
   $('invadersRxSend').onclick=invadersRxSubmit;
   $('invadersRxInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();invadersRxSubmit()}});
 }
+
+// Progression diagnostics: intentionally private, no UI.
+window.__cwGameProgression={
+  invaders:{
+    model:'kills-linear-v2',
+    killsPerLevel:8,
+    scorePerHit:'10 + 2×min(level-1,20)',
+    speedBoostTxMax:3.2,
+    speedBoostRxMax:1.4
+  },
+  battleship:{
+    waveModel:'1 + floor(elapsed/42s)',
+    movementBoostMax:0.85,
+    spawnFloorMs:6500,
+    sinkScoreWaveBonusMax:1.20
+  },
+  racer:{model:'fixed targets or fixed time'},
+  duel:{model:'30 fixed rounds'},
+  bentwire:{model:'elapsed-time only'}
+};
+
 // ================== END CW INVADERS ==================
 
 applyLang();applyAudioOnly();setupCommunity();
