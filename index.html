@@ -3958,6 +3958,19 @@ function connectGlobalStats(){
         publishWeeklyLeader();
         publishMembership('skcc');publishMembership('licw');flushGlobalDuelRecords();publishMyCompletionCounters();flushGameWeeklyRecords();
         detectCountryByIP().then(()=>{
+          const country=normalizeCountry(detectedCountry);
+          if(country){
+            const all=gameLocalRecords();
+            let changed=false;
+            for(const rec of Object.values(all)){
+              if(rec?.week===weekKey()&&!normalizeCountry(rec.country)){
+                rec.country=country;
+                changed=true;
+              }
+            }
+            if(changed)saveGameLocalRecords(all);
+            flushGameWeeklyRecords();
+          }
           publishMyGlobalVisitor();publishWeeklyLeader();
         }).catch(()=>{});
       },1200);
