@@ -4364,7 +4364,7 @@ function duelHandleMessage(topic,payload){let m;try{m=JSON.parse(payload.toStrin
     return;
   }
 }}
-function setupDuel(){const toggle=$('duelToggle');if(!toggle)return;toggle.onchange=e=>{if(e.target.checked){duelConnect();duelModuleInstruction()}else{duelDisconnect();clearActivityInstruction('duel')}};$('duelAllowChallenges').onchange=e=>{duelAllow=e.target.checked;duelPublishPresence();duelRenderLobby()};document.querySelectorAll('[data-duel-speed]').forEach(b=>b.onclick=()=>{if(duelSession||duelPendingOutgoing)return;duelSpeed=Number(b.dataset.duelSpeed);duelSearching=false;duelPublishPresence();duelRenderLobby()});$('duelRandomBtn').onclick=()=>{if(!duelOn)return;duelSearching=true;duelPublishPresence();duelTryRandom()};$('duelCancelSearchBtn').onclick=()=>{duelSearching=false;if(duelPendingOutgoing){duelSendSignal(duelPendingOutgoing.id,'cancel');duelPendingOutgoing=null}duelSetStatus(tr('duelReady'));duelPublishPresence();duelRenderLobby()};$('duelList').addEventListener('click',e=>{const b=e.target.closest('[data-duel-challenge]');if(b)duelChallenge(b.dataset.duelChallenge)});$('duelAcceptBtn').onclick=duelAcceptInvite;$('duelDeclineBtn').onclick=()=>duelDeclineInvite();$('duelChoices').addEventListener('click',e=>{const b=e.target.closest('[data-duel-choice]');if(b)duelAnswer(b.dataset.duelChoice)});$('duelAbandonBtn').onclick=()=>duelCancelSession(lang==='es'?'Duelo abandonado.':'Duel abandoned.',true);$('duelRematchBtn').onclick=()=>{const id=duelSession?.opponentId,call=duelSession?.opponentCall;if(!id)return;duelReturnLobby();duelPendingOutgoing={id,call:call||'',ts:Date.now()};duelSendSignal(id,'challenge',{rematch:true});duelSetStatus(lang==='es'?'Solicitando revancha…':'Requesting rematch…','warn');setTimeout(()=>{if(duelPendingOutgoing?.id===id){duelPendingOutgoing=null;duelSetStatus(lang==='es'?'La revancha expiró.':'Rematch expired.','warn');duelRenderLobby()}},15000)};$('duelNewOpponentBtn').onclick=()=>{duelReturnLobby();duelSearching=true;duelPublishPresence();duelTryRandom()};$('duelExitBtn').onclick=()=>{duelReturnLobby();forceDuelOff()};duelRenderLobby()}
+function setupDuel(){const toggle=$('duelToggle');if(!toggle)return;toggle.onchange=e=>{if(e.target.checked){forceOnAirOff();closeAllTrainingForRealtime();duelConnect();duelModuleInstruction();syncTrainingLocks()}else{duelDisconnect();clearActivityInstruction('duel');syncTrainingLocks()}};$('duelAllowChallenges').onchange=e=>{duelAllow=e.target.checked;duelPublishPresence();duelRenderLobby()};document.querySelectorAll('[data-duel-speed]').forEach(b=>b.onclick=()=>{if(duelSession||duelPendingOutgoing)return;duelSpeed=Number(b.dataset.duelSpeed);duelSearching=false;duelPublishPresence();duelRenderLobby()});$('duelRandomBtn').onclick=()=>{if(!duelOn)return;duelSearching=true;duelPublishPresence();duelTryRandom()};$('duelCancelSearchBtn').onclick=()=>{duelSearching=false;if(duelPendingOutgoing){duelSendSignal(duelPendingOutgoing.id,'cancel');duelPendingOutgoing=null}duelSetStatus(tr('duelReady'));duelPublishPresence();duelRenderLobby()};$('duelList').addEventListener('click',e=>{const b=e.target.closest('[data-duel-challenge]');if(b)duelChallenge(b.dataset.duelChallenge)});$('duelAcceptBtn').onclick=duelAcceptInvite;$('duelDeclineBtn').onclick=()=>duelDeclineInvite();$('duelChoices').addEventListener('click',e=>{const b=e.target.closest('[data-duel-choice]');if(b)duelAnswer(b.dataset.duelChoice)});$('duelAbandonBtn').onclick=()=>duelCancelSession(lang==='es'?'Duelo abandonado.':'Duel abandoned.',true);$('duelRematchBtn').onclick=()=>{const id=duelSession?.opponentId,call=duelSession?.opponentCall;if(!id)return;duelReturnLobby();duelPendingOutgoing={id,call:call||'',ts:Date.now()};duelSendSignal(id,'challenge',{rematch:true});duelSetStatus(lang==='es'?'Solicitando revancha…':'Requesting rematch…','warn');setTimeout(()=>{if(duelPendingOutgoing?.id===id){duelPendingOutgoing=null;duelSetStatus(lang==='es'?'La revancha expiró.':'Rematch expired.','warn');duelRenderLobby()}},15000)};$('duelNewOpponentBtn').onclick=()=>{duelReturnLobby();duelSearching=true;duelPublishPresence();duelTryRandom()};$('duelExitBtn').onclick=()=>{duelReturnLobby();forceDuelOff()};duelRenderLobby()}
 window.addEventListener('beforeunload',()=>{if(duelOn){if(duelSession)duelPublish(`session/${duelSession.id}/event`,{id:duelClientId,type:'abandon',ts:Date.now()});duelPublishPresence('leave')}});
 // ================== END CW DUEL ==================
 
@@ -4657,28 +4657,36 @@ let wr7q={active:false,section:'warmup',unitIndex:0,tokenIndex:0,restarts:0};
 function anyTrainingModuleOn(){return racerOn||learnOn||exercisesOn||qsoOn||customLessonOn||kochOn||invadersOn||errorsPracticeOn||bentWireOn||battleshipOn}
 
 function syncTrainingLocks(){
-  // ON AIR always remains available. Starting it closes any active training/game.
+  // ON AIR and DUEL use the same bidirectional priority rule:
+  // both switches always remain available. Activating either one closes
+  // incompatible training/game modules, and starting a training/game closes them.
   const sw=$("onAirToggle");
-  sw.disabled=false;
-  sw.parentElement.classList.remove('locked');
-  sw.parentElement.title='';
+  if(sw){
+    sw.disabled=false;
+    sw.parentElement?.classList.remove('locked');
+    sw.parentElement.title='';
+  }
 
   const dt=$('duelToggle');
   if(dt){
-    const duelLocked=anyTrainingModuleOn();
-    dt.disabled=duelLocked;
-    dt.parentElement.classList.toggle('locked',duelLocked);
+    dt.disabled=false;
+    dt.parentElement?.classList.remove('locked');
+    dt.parentElement.title='';
   }
-  const it=$('invadersToggle');
-  if(it){it.disabled=!!duelOn;it.parentElement.classList.toggle('locked',!!duelOn)}
-  const bt=$('battleshipToggle');
-  if(bt){bt.disabled=!!duelOn;bt.parentElement.classList.toggle('locked',!!duelOn)}
 
-  for(const id of ['cwRacerToggle','learnToggle','exercisesToggle','qsoBotToggle','customLessonToggle','kochToggle']){
+  // Training/game switches also stay actionable while Duel is on.
+  // Their own ON handlers call forceDuelOff(), so selecting practice
+  // cleanly hands priority back from Duel to the chosen module.
+  for(const id of [
+    'invadersToggle','battleshipToggle','bentWireToggle',
+    'cwRacerToggle','learnToggle','exercisesToggle',
+    'qsoBotToggle','customLessonToggle','kochToggle'
+  ]){
     const t=$(id);
     if(t){
-      t.disabled=!!duelOn;
-      t.parentElement.classList.toggle('locked',!!duelOn);
+      t.disabled=false;
+      t.parentElement?.classList.remove('locked');
+      t.parentElement.title='';
     }
   }
 }
@@ -4723,14 +4731,30 @@ function forceRacerOff(){
 }
 function closeOtherTraining(except){
   forceOnAirOff();
+  forceDuelOff();
   if(except!=='invaders'&&invadersOn)forceInvadersOff();
   if(except!=='battleship'&&battleshipOn)battleForceOff();
+  if(except!=='bentwire'&&typeof bentWireOn!=='undefined'&&bentWireOn)bentWireStop();
+  if(except!=='errors'&&typeof errorsPracticeOn!=='undefined'&&errorsPracticeOn)errorsPracticeStop();
   if(except!=='racer')forceRacerOnlyOff();
   if(except!=='learn')forceLearnOnlyOff();
   if(except!=='exercises')forceExercisesOnlyOff();
   if(except!=='qso'&&qsoOn)forceQsoOff();
   if(except!=='custom'&&customLessonOn)forceCustomLessonOff();
   if(except!=='koch'&&kochOn)forceKochOff();
+}
+
+function closeAllTrainingForRealtime(){
+  if(invadersOn)forceInvadersOff();
+  if(typeof battleshipOn!=='undefined'&&battleshipOn)battleForceOff();
+  if(typeof bentWireOn!=='undefined'&&bentWireOn)bentWireStop();
+  if(typeof errorsPracticeOn!=='undefined'&&errorsPracticeOn)errorsPracticeStop();
+  forceRacerOnlyOff();
+  forceLearnOnlyOff();
+  forceExercisesOnlyOff();
+  if(qsoOn)forceQsoOff();
+  if(customLessonOn)forceCustomLessonOff();
+  if(kochOn)forceKochOff();
 }
 
 $("learnToggle").onchange=e=>{
@@ -5350,7 +5374,7 @@ function customStart(){
     return;
   }
 
-  forceOnAirOff();if(invadersOn)forceInvadersOff();forceRacerOff();if(qsoOn)forceQsoOff();if(kochOn)forceKochOff();
+  forceOnAirOff();forceDuelOff();if(invadersOn)forceInvadersOff();forceRacerOff();if(qsoOn)forceQsoOff();if(kochOn)forceKochOff();
   customLessonOn=true;$("customLessonToggle").checked=true;$("customLessonPanel").classList.add('open');
   customLesson={active:true,mode:modeName,source,units,index:0,target:[],attempt:[],score:0,token:customLesson.token+1};
 
@@ -5439,7 +5463,7 @@ $("customLessonToggle").onchange=e=>{
   customLessonOn=e.target.checked;
   $("customLessonPanel").classList.toggle('open',customLessonOn);
   if(customLessonOn){
-    forceOnAirOff();if(invadersOn)forceInvadersOff();forceRacerOff();if(qsoOn)forceQsoOff();if(kochOn)forceKochOff();
+    forceOnAirOff();forceDuelOff();if(invadersOn)forceInvadersOff();forceRacerOff();if(qsoOn)forceQsoOff();if(kochOn)forceKochOff();
     clearActivityInstruction();
     customLesson.active=false;
     customSetFeedback('','');
@@ -5870,7 +5894,7 @@ function startKoch(){
   }
   const idx=kochCurrentPathIndex();
   if(!kochStepUnlockedByIndex(idx)){kochSetFeedback('red',tr('kochLocked'));return}
-  forceOnAirOff();if(invadersOn)forceInvadersOff();forceRacerOff();if(qsoOn)forceQsoOff();if(customLessonOn)forceCustomLessonOff();
+  forceOnAirOff();forceDuelOff();if(invadersOn)forceInvadersOff();forceRacerOff();if(qsoOn)forceQsoOff();if(customLessonOn)forceCustomLessonOff();
   kochOn=true;$("kochToggle").checked=true;$("kochPanel").classList.add('open');syncTrainingLocks();
   koch={...koch,active:true,challengeMode:false,challengeNo:0,queue:kochBuildQueue(),index:0,correct:0,points:0,target:'',expected:'',awaitingChoice:false,playToken:koch.playToken+1};
   racerStats.sessions++;racerStats.lastMode='koch';saveRacerStats();
@@ -5886,7 +5910,7 @@ function startKochChallenge(challengeNo){
   if(idx<0||!kochStepUnlockedByIndex(idx)){kochSetFeedback('red',tr('kochLocked'));return}
 
   const end=kochChallengeLesson(challengeNo);
-  forceOnAirOff();if(invadersOn)forceInvadersOff();forceRacerOff();if(qsoOn)forceQsoOff();if(customLessonOn)forceCustomLessonOff();
+  forceOnAirOff();forceDuelOff();if(invadersOn)forceInvadersOff();forceRacerOff();if(qsoOn)forceQsoOff();if(customLessonOn)forceCustomLessonOff();
   kochOn=true;$("kochToggle").checked=true;$("kochPanel").classList.add('open');syncTrainingLocks();
 
   koch={
@@ -5921,7 +5945,7 @@ $("kochToggle").onchange=e=>{
   kochOn=e.target.checked;
   $("kochPanel").classList.toggle('open',kochOn);
   if(kochOn){
-    forceOnAirOff();if(invadersOn)forceInvadersOff();forceRacerOff();if(qsoOn)forceQsoOff();if(customLessonOn)forceCustomLessonOff();
+    forceOnAirOff();forceDuelOff();if(invadersOn)forceInvadersOff();forceRacerOff();if(qsoOn)forceQsoOff();if(customLessonOn)forceCustomLessonOff();
     const firstPending=KOCH_PATH.findIndex(s=>!kochStepMastered(s));
     if(firstPending>=0)kochSetPathStep(firstPending);
     kochModuleInstruction();
@@ -6769,7 +6793,7 @@ function forceQsoOff(){
 $("qsoBotToggle").onchange=e=>{
   qsoOn=e.target.checked;
   if(qsoOn){
-    forceOnAirOff();forceRacerOff();if(customLessonOn)forceCustomLessonOff();if(kochOn)forceKochOff();
+    forceOnAirOff();forceDuelOff();forceRacerOff();if(customLessonOn)forceCustomLessonOff();if(kochOn)forceKochOff();
     $("qsoBotPanel").classList.add('open');
     qsoModuleInstruction();
   }else{
@@ -7601,7 +7625,7 @@ function setupBentWire(){
     if(!bentWireOn){
       bentWireStop();clearActivityInstruction('bentwire');
     }else{
-      forceOnAirOff();
+      forceOnAirOff();forceDuelOff();
       if(invadersOn)forceInvadersOff();
       forceRacerOff();
       if(qsoOn)forceQsoOff();
