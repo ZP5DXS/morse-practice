@@ -9,7 +9,7 @@
 :root{--bg:#0b0d10;--panel:#12161b;--panel2:#171c22;--panel3:#0f1318;--text:#eef2f5;--muted:#93a0ad;--line:#27313a;--accent:#2d8cff;--accent2:#5aa8ff;--accent-alt:#54d66f;--good:#54d66f;--warn:#f0c86b;--danger:#ff6b6b;--shadow:0 12px 32px rgba(0,0,0,.25)}
 html[data-theme="light"]{--bg:#eef2f6;--panel:#fff;--panel2:#f6f8fb;--panel3:#fff;--text:#18212a;--muted:#687583;--line:#d8e0e8;--accent:#146ee8;--accent2:#2d8cff;--accent-alt:#20a83f;--good:#20a83f;--warn:#a87900;--danger:#c73939;--shadow:0 10px 28px rgba(31,45,61,.10)}
 *{box-sizing:border-box}html,body{min-height:100%}body{margin:0;min-height:100vh;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:radial-gradient(circle at 15% 0%,color-mix(in srgb,var(--accent) 10%,transparent),transparent 32%),var(--bg);color:var(--text)}
-button,input,select,textarea{font:inherit}button{cursor:pointer}.app{width:min(1500px,calc(100% - 24px));max-width:none;margin:0 auto;padding:18px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:14px 16px;box-shadow:var(--shadow);margin-bottom:14px}.brand{display:flex;align-items:center;gap:14px;min-width:0}.brand-logo{width:66px;height:66px;border-radius:50%;object-fit:contain;background:#050607;border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line));padding:5px;flex:none}.brand h1{margin:0;font-size:24px;letter-spacing:-.02em}.brand .sub{margin-top:2px;color:var(--muted);font-size:13px}.courtesy{margin-top:5px;color:var(--muted);font-size:12px}.courtesy a,.footer a,.header-links a{color:var(--accent2);text-decoration:none;font-weight:700}.courtesy a:hover,.footer a:hover,.header-links a:hover{text-decoration:underline}.footer-member-link:hover{text-decoration:none!important}.header-links{margin-top:5px;display:flex;gap:10px;flex-wrap:wrap;font-size:12px}.top-controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:flex-end}.compact-control{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px}.pill-switch{width:48px;height:27px;padding:0;border-radius:999px;border:1px solid var(--line);background:var(--panel2);position:relative}.pill-switch::after{content:"";position:absolute;top:3px;left:3px;width:19px;height:19px;border-radius:50%;background:var(--accent);transition:.18s}.pill-switch.on::after{left:24px}.lang-btn{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:999px;padding:6px 10px;font-size:11px;font-weight:800}.layout{display:grid;grid-template-columns:300px minmax(0,1fr);gap:14px;align-items:start}.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}.config{padding:15px;position:sticky;top:12px}.section-title{margin:0 0 12px;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--accent2)}.field{margin-bottom:16px}.field:last-child{margin-bottom:0}.field-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:7px}.field label{font-size:12px;font-weight:700}.value{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}select,input[type="text"],textarea{width:100%;border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--text)}input[type="text"]{padding:10px 11px}input[type="range"]{width:100%;accent-color:var(--accent)}.segmented{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.seg-btn{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:9px;padding:9px 6px;font-size:12px;font-weight:700}.seg-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 18%,transparent)}.preset-row{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:8px}.preset{padding:7px 2px;border-radius:8px;border:1px solid var(--line);background:var(--panel2);color:var(--text);font-size:11px;font-weight:700}.preset:hover{border-color:var(--accent)}.switchline{display:flex;align-items:center;justify-content:space-between;gap:10px}.switch{position:relative;width:43px;height:24px;border-radius:999px;border:1px solid var(--line);background:var(--panel2);flex:none}.switch input{display:none}.switch span{position:absolute;width:17px;height:17px;left:3px;top:50%;transform:translateY(-50%);border-radius:50%;background:var(--muted);transition:left .18s,background .18s}.switch input:checked+span{left:21px;background:var(--accent)}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.app{width:min(1500px,calc(100% - 24px));max-width:none;margin:0 auto;padding:18px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:14px 16px;box-shadow:var(--shadow);margin-bottom:14px}.brand{display:flex;align-items:center;gap:14px;min-width:0}.brand-logo{width:66px;height:66px;border-radius:50%;object-fit:contain;background:#050607;border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line));padding:5px;flex:none}.brand h1{margin:0;font-size:24px;letter-spacing:-.02em}.brand .sub{margin-top:2px;color:var(--muted);font-size:13px;white-space:nowrap}.courtesy{margin-top:5px;color:var(--muted);font-size:12px}.courtesy a,.footer a,.header-links a{color:var(--accent2);text-decoration:none;font-weight:700}.courtesy a:hover,.footer a:hover,.header-links a:hover{text-decoration:underline}.footer-member-link:hover{text-decoration:none!important}.header-links{margin-top:5px;display:flex;gap:10px;flex-wrap:wrap;font-size:12px}.top-controls{display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:flex-end}.compact-control{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px}.pill-switch{width:48px;height:27px;padding:0;border-radius:999px;border:1px solid var(--line);background:var(--panel2);position:relative}.pill-switch::after{content:"";position:absolute;top:3px;left:3px;width:19px;height:19px;border-radius:50%;background:var(--accent);transition:.18s}.pill-switch.on::after{left:24px}.lang-btn{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:999px;padding:6px 10px;font-size:11px;font-weight:800}.layout{display:grid;grid-template-columns:300px minmax(0,1fr);gap:14px;align-items:start}.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}.config{padding:15px;position:sticky;top:12px}.section-title{margin:0 0 12px;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--accent2)}.field{margin-bottom:16px}.field:last-child{margin-bottom:0}.field-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:7px}.field label{font-size:12px;font-weight:700}.value{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}select,input[type="text"],textarea{width:100%;border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--text)}input[type="text"]{padding:10px 11px}input[type="range"]{width:100%;accent-color:var(--accent)}.segmented{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.seg-btn{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:9px;padding:9px 6px;font-size:12px;font-weight:700}.seg-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 18%,transparent)}.preset-row{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:8px}.preset{padding:7px 2px;border-radius:8px;border:1px solid var(--line);background:var(--panel2);color:var(--text);font-size:11px;font-weight:700}.preset:hover{border-color:var(--accent)}.switchline{display:flex;align-items:center;justify-content:space-between;gap:10px}.switch{position:relative;width:43px;height:24px;border-radius:999px;border:1px solid var(--line);background:var(--panel2);flex:none}.switch input{display:none}.switch span{position:absolute;width:17px;height:17px;left:3px;top:50%;transform:translateY(-50%);border-radius:50%;background:var(--muted);transition:left .18s,background .18s}.switch input:checked+span{left:21px;background:var(--accent)}
 .onair-box{margin-top:18px;padding-top:15px;border-top:1px solid var(--line)}
 /* Discreet controls inside the keying area */
 .paddle-reverse-control{
@@ -53,6 +53,54 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}.app{width:min(1
 .mute-btn{border:1px solid var(--line);background:var(--panel3);color:var(--text);width:30px;height:26px;border-radius:7px;padding:0;display:flex;align-items:center;justify-content:center;font-size:13px}
 .mute-btn:hover{border-color:var(--accent)}
 .mute-btn.muted{opacity:.55}.channel-state{margin-top:8px;font-size:11px;font-weight:800}.channel-free{color:var(--good)}.channel-busy{color:var(--warn)}.beta-note{font-size:10px;line-height:1.35;color:var(--muted);margin-top:8px}.main{display:grid;gap:14px}.key-card,.practice-card{padding:13px}.key-head,.practice-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:9px}.key-head .title,.practice-head .title{font-weight:800;color:var(--accent2);font-size:12px;text-transform:uppercase;letter-spacing:.05em}.key-head .small{color:var(--muted);font-size:12px}.keyarea{min-height:380px;border:2px dashed color-mix(in srgb,var(--muted) 45%,transparent);border-radius:15px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;user-select:none;-webkit-user-select:none;touch-action:none;background:radial-gradient(circle at center,color-mix(in srgb,var(--accent) 5%,transparent),transparent 55%),var(--panel3);padding:28px;cursor:crosshair;outline:none;transition:.16s;position:relative;overflow:hidden}.keyarea:hover{border-color:color-mix(in srgb,var(--accent) 55%,var(--line))}.keyarea.active{border-style:solid;border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent),0 0 28px color-mix(in srgb,var(--accent) 15%,transparent)}.touch-zones{position:absolute;inset:0;display:none;pointer-events:none}.keyarea.paddle-touch .touch-zones{display:grid;grid-template-columns:1fr 1fr}.touch-zone{display:flex;align-items:flex-end;justify-content:center;padding:18px;font-size:13px;font-weight:900;opacity:.22}.touch-zone.dit{background:var(--accent)}.touch-zone.dah{background:var(--good)}.touch-zone.pressed{opacity:.38}.key-content{position:relative;z-index:2;pointer-events:none}.mouse-icon{width:78px;height:100px;border:3px solid var(--muted);border-radius:38px;position:relative;margin:0 auto 18px;opacity:.9}.mouse-icon::before{content:"";position:absolute;left:50%;top:0;bottom:50%;width:3px;background:var(--muted);transform:translateX(-50%)}.mouse-left,.mouse-right{position:absolute;top:4px;width:31px;height:39px}.mouse-left{left:5px;border-radius:28px 0 0 0;background:color-mix(in srgb,var(--accent) 75%,transparent)}.mouse-right{right:5px;border-radius:0 28px 0 0;background:color-mix(in srgb,var(--accent-alt) 75%,transparent)}.hero{font-size:22px;font-weight:800;margin-bottom:8px}.modehint{font-size:13px;color:var(--muted);margin-bottom:10px}.modehint .dit{color:var(--accent2);font-weight:800}.modehint .dah{color:var(--good);font-weight:800}.big{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:48px;font-weight:900;letter-spacing:9px;min-height:62px;margin:6px 0;color:var(--good)}.decoded{font-size:34px;min-height:44px;color:var(--accent2);font-weight:900}.status{margin-top:9px;font-size:12px;color:var(--muted)}.legend{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;color:var(--muted);font-size:12px;margin-top:16px}kbd{background:var(--panel2);border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:2px 6px;color:var(--text);font-size:11px}textarea{min-height:150px;resize:vertical;padding:16px;font:20px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace;outline:none}textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 14%,transparent)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.actions>.action{flex:1 1 140px;text-align:center}.action{width:auto;border:1px solid var(--line);border-radius:9px;background:var(--panel2);color:var(--text);padding:9px 12px;font-size:12px;font-weight:700}.action.primary{background:var(--accent);border-color:var(--accent);color:#fff}.action.danger{border-color:color-mix(in srgb,var(--danger) 45%,var(--line))}.action:hover{border-color:var(--accent)}.play-status{margin-top:8px;font-size:11px;color:var(--muted)}.footer{text-align:center;color:var(--muted);font-size:11px;padding:14px 6px 4px}.memorial{margin-top:9px;font-size:9px;opacity:.42;letter-spacing:.02em}
+
+@media(min-width:901px){
+  .topbar{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(360px,520px) minmax(0,1fr);
+    align-items:center;
+    column-gap:22px;
+  }
+  .brand{
+    grid-column:1;
+    justify-self:start;
+    min-width:0
+  }
+  .header-73-cta{
+    grid-column:2;
+    justify-self:center;
+    position:relative;
+    left:auto;top:auto;transform:none;
+    width:100%!important;
+    max-width:520px;
+    min-width:0
+  }
+  .top-controls{
+    grid-column:3;
+    justify-self:end;
+    flex-wrap:nowrap;
+    min-width:max-content
+  }
+  .header-73-cta[hidden],
+  .header-73-cta.is-hidden,
+  .header-73-cta[style*="display: none"],
+  .header-73-cta[style*="display:none"]{
+    display:none!important;
+  }
+}
+
+
+
+
+
+@media(min-width:901px) and (max-width:1120px){
+  .topbar{
+    grid-template-columns:minmax(290px,1fr) minmax(300px,420px) minmax(190px,1fr);
+    column-gap:14px
+  }
+  .header-73-cta{max-width:420px}
+}
+
 @media(max-width:900px){.layout{grid-template-columns:1fr}.config{position:static}}@media(max-width:620px){.app{width:100%;padding:10px}.topbar{align-items:flex-start;flex-direction:column}.top-controls{width:100%;justify-content:space-between}.brand-logo{width:54px;height:54px}.brand h1{font-size:20px}.preset-row{grid-template-columns:repeat(3,1fr)}.keyarea{min-height:390px;padding:22px 12px}.mouse-icon{width:66px;height:86px}.hero{font-size:19px}.big{font-size:40px}.decoded{font-size:29px}.key-head{align-items:flex-start;flex-direction:column;gap:3px}}
 
 .cwracer-box{margin-top:18px;padding-top:15px;border-top:1px solid var(--line)}
@@ -325,6 +373,12 @@ html[data-accent-theme="gameboy"] .koch-level .koch-challenge-icon{
   border-radius:8px;background:var(--panel2);padding:8px 5px;
   font-size:8px;color:var(--muted);min-width:0
 }
+.global-stat-link{
+  width:100%;font:inherit;text-align:center;cursor:pointer;
+  appearance:none;-webkit-appearance:none
+}
+.global-stat-link:hover{border-color:color-mix(in srgb,var(--accent) 58%,var(--line))}
+.global-stat-link:focus-visible{outline:2px solid color-mix(in srgb,var(--accent) 52%,transparent);outline-offset:2px}
 .global-stat .global-stat-icon{display:block;font-size:15px;line-height:1;margin-bottom:4px}
 .global-stat b{display:block;color:var(--text);font-size:13px;margin-bottom:2px;font-variant-numeric:tabular-nums}
 .global-stats-source{margin-top:7px;font-size:7px;color:var(--muted);opacity:.7}
@@ -352,6 +406,16 @@ html[data-accent-theme="gameboy"] .koch-level .koch-challenge-icon{
 }
 
 
+.game-ranking-access{display:flex;gap:6px;align-items:stretch;margin-top:7px;width:100%}
+.game-ranking-access>.action{flex:1;min-width:0}
+.game-ranking-access .module-ranking-btn{font-size:9px;padding:8px 8px;white-space:nowrap}
+.game-ranking-panel.module-ranking-panel{margin:7px auto 0;width:100%;max-width:100%}
+#battleshipPanel .game-ranking-access{flex-direction:column}
+#battleshipPanel .game-ranking-access>.action{width:100%;flex:none}
+
+#bentWirePanel #bentWireModuleRankingPanel{display:block}
+#bentWirePanel:not(.open) #bentWireModuleRankingPanel{display:none}
+
 /* Community leaderboard */
 .community-box{margin-top:18px;padding-top:15px;border-top:1px solid var(--line)}
 .community-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
@@ -378,16 +442,16 @@ html[data-accent-theme="gameboy"] .koch-level .koch-challenge-icon{
 }
 .header-73-main{
   font:900 13px/1.15 ui-monospace,SFMono-Regular,Consolas,monospace;
-  color:var(--text);letter-spacing:.025em;white-space:nowrap
+  color:var(--text);letter-spacing:.025em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis
 }
 .header-73-free{
   font-size:8px;color:var(--muted);opacity:.76;white-space:nowrap
 }
 .header-73-cta .like-btn{
-  padding:8px 15px;font-size:12px;
+  min-width:0;padding:8px 18px;font-size:12px;
   border-color:color-mix(in srgb,var(--accent) 42%,var(--line));
   background:color-mix(in srgb,var(--accent) 7%,var(--panel2));
-  color:var(--text)
+  color:var(--text);font-weight:950
 }
 .header-73-cta .like-btn:hover{
   border-color:var(--accent);
@@ -415,7 +479,7 @@ html[data-accent-theme="gameboy"] .koch-level .koch-challenge-icon{
   .header-73-cta{gap:8px;padding:8px 10px}
   .header-73-main{font-size:11px}
   .header-73-free{font-size:7px}
-  .header-73-cta .like-btn{font-size:11px;padding:7px 11px}
+  .header-73-cta .like-btn{font-size:11px;padding:7px 14px;min-width:0}
 }
 @media(max-width:620px){
   .header-73-cta{
@@ -435,13 +499,17 @@ html[data-accent-theme="gameboy"] .koch-level .koch-challenge-icon{
 @media(min-width:621px){
   .header-73-cta{
     display:grid;
-    grid-template-columns:1fr auto 1fr;
-    grid-template-areas:"main button spacer" "free free free";
-    column-gap:12px;row-gap:3px
+    grid-template-columns:minmax(0,1fr) minmax(170px,42%);
+    grid-template-areas:"main button" "free button";
+    column-gap:12px;row-gap:2px;
+    width:min(660px,100%);max-width:100%;min-width:0
   }
-  .header-73-main{grid-area:main;justify-self:start}
-  .header-73-cta .like-btn{grid-area:button;justify-self:center}
-  .header-73-free{grid-area:free;text-align:left}
+  .header-73-main{grid-area:main;justify-self:start;min-width:0}
+  .header-73-cta .like-btn{
+    grid-area:button;justify-self:stretch;align-self:stretch;
+    width:100%;min-width:0;display:flex;align-items:center;justify-content:center
+  }
+  .header-73-free{grid-area:free;text-align:left;min-width:0}
 }
 
 .header-73-close{
@@ -453,12 +521,12 @@ html[data-accent-theme="gameboy"] .koch-level .koch-challenge-icon{
 .header-73-close:hover{color:var(--text);border-color:var(--accent)}
 html[data-accent-theme="gameboy"] .header-73-cta{column-gap:7px;padding-left:9px;padding-right:9px}
 html[data-accent-theme="gameboy"] .header-73-main{font-size:11px;letter-spacing:0}
-html[data-accent-theme="gameboy"] .header-73-cta .like-btn{font-size:10px;padding:7px 10px}
+html[data-accent-theme="gameboy"] .header-73-cta .like-btn{font-size:10px;padding:7px 14px;min-width:0}
 html[data-accent-theme="gameboy"] .header-73-free{font-size:7px}
 @media(min-width:621px){
   html[data-accent-theme="gameboy"] .header-73-cta{
-    grid-template-columns:1fr auto 1fr;
-    width:max-content;max-width:100%
+    grid-template-columns:minmax(0,1fr) minmax(180px,42%);
+    width:min(660px,100%);max-width:100%
   }
 }
 
@@ -483,7 +551,7 @@ html[data-accent-theme="gameboy"] .header-73-free{font-size:7px}
 /* Rewards + global operator profile */
 .profile-box{margin:14px 0 2px;padding:10px;border:1px solid var(--line);border-radius:11px;background:var(--panel3)}
 .profile-box .profile-title{font-size:9px;font-weight:900;color:var(--accent2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}.profile-row{display:grid;grid-template-columns:1fr auto;gap:6px}.profile-row input{margin:0}.profile-note{font-size:8px;color:var(--muted);line-height:1.35;margin-top:5px}
-.rewards-box{margin-top:18px;padding-top:15px;border-top:1px solid var(--line)}.rewards-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.rewards-label{font-size:13px;font-weight:900;letter-spacing:.04em}.rewards-panel{display:none;margin-top:12px}.rewards-panel.open{display:block}.rewards-summary{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;font-size:9px;color:var(--muted)}.rewards-summary b{color:var(--text);font-size:12px}.reward-grid{display:grid;gap:6px}.reward-card{border:1px solid var(--line);border-radius:9px;background:var(--panel3);padding:8px;display:grid;grid-template-columns:30px 1fr auto;gap:8px;align-items:center}.reward-card.unlocked{border-color:color-mix(in srgb,var(--accent) 48%,var(--line));background:linear-gradient(120deg,color-mix(in srgb,var(--accent) 7%,var(--panel3)),var(--panel3))}.reward-icon{font-size:19px;text-align:center;filter:grayscale(1);opacity:.45}.reward-card.unlocked .reward-icon{filter:none;opacity:1}.reward-name{font-size:10px;font-weight:900;color:var(--text)}.reward-desc{font-size:8px;color:var(--muted);margin-top:2px;line-height:1.3}.reward-state{font-size:8px;font-weight:900;color:var(--muted);white-space:nowrap}.reward-card.unlocked .reward-state{color:var(--good)}.membership-box{margin-top:9px;padding-top:8px;border-top:1px solid var(--line)}.membership-title{font-size:9px;font-weight:900;color:var(--accent2);margin-bottom:6px}.membership-row{display:grid;grid-template-columns:42px 1fr auto;gap:5px;align-items:center;margin-top:5px}.membership-row label{font-size:9px;font-weight:900}.membership-count{display:block;font-size:7px;color:var(--muted);font-weight:700;margin-top:2px;white-space:nowrap}.membership-row input{padding:7px 8px;font-size:9px}.membership-row input::placeholder{color:var(--muted);opacity:.46}.membership-row .action{padding:7px 8px;font-size:8px}.reward-toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);z-index:9999;background:var(--panel);border:1px solid var(--accent);box-shadow:var(--shadow);border-radius:12px;padding:10px 14px;font-size:11px;font-weight:900;opacity:0;pointer-events:none;transition:.25s}.reward-toast.show{opacity:1;transform:translate(-50%,0)}
+.rewards-box{margin-top:18px;padding-top:15px;border-top:1px solid var(--line)}.rewards-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.rewards-label{font-size:13px;font-weight:900;letter-spacing:.04em}.rewards-panel{display:none;margin-top:12px}.rewards-panel.open{display:block}.rewards-summary{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;font-size:9px;color:var(--muted)}.rewards-summary b{color:var(--text);font-size:12px;white-space:nowrap;flex:none}.reward-grid{display:grid;gap:6px}.reward-card{border:1px solid var(--line);border-radius:9px;background:var(--panel3);padding:8px;display:grid;grid-template-columns:30px 1fr auto;gap:8px;align-items:center}.reward-card.unlocked{border-color:color-mix(in srgb,var(--accent) 48%,var(--line));background:linear-gradient(120deg,color-mix(in srgb,var(--accent) 7%,var(--panel3)),var(--panel3))}.reward-icon{font-size:19px;text-align:center;filter:grayscale(1);opacity:.45}.reward-card.unlocked .reward-icon{filter:none;opacity:1}.reward-name{font-size:10px;font-weight:900;color:var(--text)}.reward-desc{font-size:8px;color:var(--muted);margin-top:2px;line-height:1.3}.reward-state{font-size:8px;font-weight:900;color:var(--muted);white-space:nowrap}.reward-card.unlocked .reward-state{color:var(--good)}.membership-box{margin-top:9px;padding-top:8px;border-top:1px solid var(--line)}.membership-title{font-size:9px;font-weight:900;color:var(--accent2);margin-bottom:6px}.membership-row{display:grid;grid-template-columns:42px 1fr auto;gap:5px;align-items:center;margin-top:5px}.membership-row label{font-size:9px;font-weight:900}.membership-count{display:block;font-size:7px;color:var(--muted);font-weight:700;margin-top:2px;white-space:nowrap}.membership-row input{padding:7px 8px;font-size:9px}.membership-row input::placeholder{color:var(--muted);opacity:.46}.membership-row .action{padding:7px 8px;font-size:8px}.reward-toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);z-index:9999;background:var(--panel);border:1px solid var(--accent);box-shadow:var(--shadow);border-radius:12px;padding:10px 14px;font-size:11px;font-weight:900;opacity:0;pointer-events:none;transition:.25s}.reward-toast.show{opacity:1;transform:translate(-50%,0)}
 html[data-accent-theme="brass"]{--bg:#0d0b08;--panel:#17130d;--panel2:#211b12;--panel3:#100d09;--text:#f2e7ca;--muted:#aa9873;--line:#4b3c23;--accent:#c79a3b;--accent2:#e3bd69;--accent-alt:#a87928;--good:#d5b15f;--warn:#e0bd63;--danger:#d66b58}
 html[data-theme="light"][data-accent-theme="brass"]{--bg:#eee6d5;--panel:#fffaf0;--panel2:#f4ead5;--panel3:#fffdf7;--text:#332819;--muted:#7d6849;--line:#cdbb98;--accent:#9b6d19;--accent2:#79500e;--accent-alt:#b58b3d;--good:#7b711e}
 html[data-accent-theme="licw"]{--bg:#06101d;--panel:#0b192a;--panel2:#10243a;--panel3:#071421;--text:#e7f5ff;--muted:#86a9c2;--line:#1e4561;--accent:#18a8e8;--accent2:#6bd5ff;--accent-alt:#35c6d0;--good:#55d99a}
@@ -948,13 +1016,12 @@ html[data-accent-theme="gameboy"] .rewards-summary b{
 .game-result-actions{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-top:10px}
 .game-ranking-btn{border-color:color-mix(in srgb,var(--accent) 48%,var(--line))!important}
 .game-ranking-panel{
-  display:none;width:min(470px,94%);max-height:175px;overflow:auto;
-  margin-top:10px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;
+  display:none;width:100%;max-width:470px;max-height:175px;overflow:auto;
+  margin:8px auto 0;padding:7px 9px;border:1px solid var(--line);border-radius:10px;
   background:color-mix(in srgb,var(--panel2) 92%,transparent);text-align:left
 }
 .game-ranking-panel.open{display:block}
-.game-ranking-title{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:5px;font-size:9px;font-weight:900;color:var(--accent2);text-transform:uppercase;letter-spacing:.05em}
-.game-ranking-sub{font-size:8px;color:var(--muted);font-weight:700;text-transform:none;letter-spacing:0;text-align:right}
+.game-ranking-title,.game-ranking-sub{display:none!important}
 .game-rank-row{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:7px;align-items:center;padding:5px 1px;border-top:1px solid color-mix(in srgb,var(--line) 50%,transparent);font:800 9px/1.2 ui-monospace,SFMono-Regular,Consolas,monospace}
 .game-rank-row:first-of-type{border-top:0}
 .game-rank-row.me{color:var(--accent2);background:color-mix(in srgb,var(--accent) 6%,transparent);border-radius:5px}
@@ -965,7 +1032,7 @@ html[data-accent-theme="gameboy"] .rewards-summary b{
 .racer-arena-result .game-ranking-panel{flex:none}
 .invaders-center .game-ranking-panel{flex:none}
 @media(max-width:620px){
-  .game-ranking-panel{max-height:150px;width:98%}
+  .game-ranking-panel{max-height:150px;width:100%}
   .game-rank-row{font-size:8px}
   .racer-arena-result-actions{flex-wrap:wrap}
 }
@@ -1290,7 +1357,7 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
 .battleship-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;width:min(620px,96%);font:900 9px ui-monospace,SFMono-Regular,Consolas,monospace}
 .battleship-stat-grid b{display:block;color:#e9f8ff;font-size:12px}
 .battleship-result-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:12px}
-#battleshipRankingPanel{width:min(620px,96%);margin-top:10px;text-align:left}
+#battleshipRankingPanel{width:min(620px,96%);max-width:620px;margin:10px auto 0;text-align:left}
 .battleship-pb{margin-top:7px;font-size:9px;color:#99c5d9}
 
 @media(max-width:620px){
@@ -1318,7 +1385,7 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
   </div>
   <div class="top-controls">
     <div id="header73Cta" class="header-73-cta"><button id="header73Close" class="header-73-close" type="button" aria-label="Cerrar" title="Cerrar">×</button>
-      <div id="header73Text" class="header-73-main">TNX FER QSO · HPE CUAGN · 73!</div>
+      <div id="header73Text" class="header-73-main">TNX FER QSO · HPE CUAGN</div>
       <button id="siteLikeBtn" class="like-btn" type="button">❤️ Send 73</button>
       <div id="header73Free" class="header-73-free">Gratuito · sin anuncios · código abierto</div>
       <div id="header73Tooltip" class="header-73-tooltip">Es gratis — mandá tu 73 ❤️</div>
@@ -1356,7 +1423,7 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
 <div class="layout">
 <aside class="card config">
   <h2 class="section-title" data-i18n="settings">Configuración</h2>
-  <div class="field"><div class="field-head"><label data-i18n="mode">Modo</label></div><div class="segmented"><button class="seg-btn active" data-mode="straight" type="button" data-i18n="straight">Llave recta</button><button class="seg-btn" data-mode="iambicA" type="button" data-i18n="paddle">Paleta</button></div><select id="mode" hidden><option value="straight">Straight</option><option value="iambicA">Paddle</option></select></div><div class="field"><div class="field-head"><label for="accentTheme" data-i18n="colorTheme">Tema</label></div><select id="accentTheme" class="racer-select" style="margin-bottom:0"><option value="blue" data-i18n="themeBlue">Blue</option><option value="green" data-i18n="themeGreen">Green</option><option value="purple" data-i18n="themePurple">Purple</option><option value="pink" data-i18n="themePink">Pink</option><option value="gameboy" data-i18n="themeGameboy">Game Boy</option><option value="lxcw">🔒 LXCW</option><option value="brass">🔒 Brass Key</option><option value="licw">🔒 LICW Night</option><option value="heritage">🔒 CW Heritage</option><option value="master">🔒 Master Copy</option><option value="signal">🔒 Signal Green</option><option value="nightop">🔒 Night Operator</option><option value="seventythree">🔒 73 Red</option></select></div>
+  <div class="field"><div class="field-head"><label data-i18n="mode">Modo</label></div><div class="segmented"><button class="seg-btn active" data-mode="straight" type="button" data-i18n="straight">Llave recta</button><button class="seg-btn" data-mode="iambicA" type="button" data-i18n="paddle">Paleta</button></div><select id="mode" hidden><option value="straight">Straight</option><option value="iambicA">Paddle</option></select></div><div class="field"><div class="field-head"><label for="accentTheme" data-i18n="colorTheme">Tema</label></div><select id="accentTheme" class="racer-select" style="margin-bottom:0"><option value="blue" data-i18n="themeBlue">Blue</option><option value="green" data-i18n="themeGreen">Green</option><option value="purple" data-i18n="themePurple">Purple</option><option value="pink" data-i18n="themePink">Pink</option><option value="gameboy" data-i18n="themeGameboy">Game Boy</option><option value="seventythree">🔒 73 Red</option><option value="lxcw">🔒 LXCW</option><option value="brass">🔒 Brass Key</option><option value="licw">🔒 LICW Night</option><option value="heritage">🔒 CW Heritage</option><option value="master">🔒 Master Copy</option><option value="signal">🔒 Signal Green</option><option value="nightop">🔒 Night Operator</option></select></div>
   <div class="field"><div class="field-head"><label for="wpm" data-i18n="speed">Velocidad</label><span class="value"><span id="wpmValue">15</span> WPM</span></div><input id="wpm" type="range" min="5" max="60" step="1" value="15"><div class="preset-row"><button class="preset" data-wpm="10">10</button><button class="preset" data-wpm="15">15</button><button class="preset" data-wpm="20">20</button><button class="preset" data-wpm="25">25</button><button class="preset" data-wpm="30">30</button></div></div>
   <div class="field"><div class="field-head"><label for="tone" data-i18n="tone">Tono</label><span class="value"><span id="toneValue">650</span> Hz</span></div><input id="tone" type="range" min="250" max="1200" step="10" value="650"><div class="preset-row"><button class="preset tone-preset" data-tone="500">500</button><button class="preset tone-preset" data-tone="600">600</button><button class="preset tone-preset" data-tone="700">700</button><button class="preset tone-preset" data-tone="800">800</button><button class="preset tone-preset" data-tone="900">900</button></div></div>
   <div class="field"><div class="field-head"><label for="volume" data-i18n="volume">Volumen</label><span class="value"><span id="volumeValue">25</span>%</span></div><input id="volume" type="range" min="0" max="1" step="0.01" value="0.25"></div><div class="field"><div class="field-head"><label for="bandNoise" data-i18n="bandNoise">Ruido de banda</label><span class="value"><span id="bandNoiseValue">0</span>%</span></div><input id="bandNoise" type="range" min="0" max="0.30" step="0.01" value="0"></div>
@@ -1377,6 +1444,8 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
       <select id="invadersSet" class="invaders-select"><option value="letters">Letras A–Z</option><option value="numbers">Números 0–9</option><option value="mixed">Letras + números</option><option value="words">Palabras CW</option></select>
       <select id="invadersDifficulty" class="invaders-select"><option value="easy">Fácil</option><option value="normal" selected>Normal</option><option value="hard">Difícil</option></select>
       <div class="invaders-actions"><button id="invadersStartBtn" class="action primary" type="button">▶ JUGAR</button><button id="invadersStopBtn" class="action" type="button">■ SALIR</button></div>
+      <div class="game-ranking-access"><button id="invadersModuleRankingBtn" class="action module-ranking-btn" type="button">VER RANKING</button></div>
+      <div id="invadersModuleRankingPanel" class="game-ranking-panel module-ranking-panel"></div>
       
     </div></div>
   </div>
@@ -1395,6 +1464,8 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
         <div id="duelStatus" class="duel-status" data-i18n="duelReady">Listo para desafiar.</div>
         <div id="duelInvite" class="duel-invite"><div id="duelInviteTitle" class="duel-invite-title"></div><div class="duel-invite-actions"><button id="duelAcceptBtn" class="action primary" type="button" data-i18n="duelAccept">Aceptar</button><button id="duelDeclineBtn" class="action" type="button" data-i18n="duelDecline">Rechazar</button></div></div>
         <div id="duelList" class="duel-list"></div>
+        <div class="game-ranking-access"><button id="duelModuleRankingBtn" class="action module-ranking-btn" type="button">VER RANKING</button></div>
+        <div id="duelModuleRankingPanel" class="game-ranking-panel module-ranking-panel"></div>
       </div>
     </div>
   </div>
@@ -1450,7 +1521,11 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
       <button class="battleship-level" type="button" data-battle-level="operator">OPERATOR<small>18 WPM</small></button>
       <button class="battleship-level" type="button" data-battle-level="contester">CONTESTER<small>25 WPM</small></button>
     </div>
-    <button id="battleshipStart" class="action primary battleship-start" type="button">INICIAR</button>
+    <div class="game-ranking-access">
+      <button id="battleshipStart" class="action primary battleship-start" type="button">INICIAR</button>
+      <button id="battleshipModuleRankingBtn" class="action module-ranking-btn" type="button">VER RANKING</button>
+    </div>
+    <div id="battleshipModuleRankingPanel" class="game-ranking-panel module-ranking-panel"></div>
   </div>
 </div>
 <div class="bentwire-box">
@@ -1464,7 +1539,8 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
       <button id="bentWireRankedTab" class="bentwire-tab" type="button">RANKING</button>
     </div>
     <div id="bentWireCallNote" class="bentwire-call-note"></div>
-    <button id="bentWireStartBtn" class="action primary bentwire-start" type="button">INICIAR DESAFÍO</button>
+    <button id="bentWireStartBtn" class="action primary bentwire-start module-start-full" type="button">INICIAR DESAFÍO</button>
+    <div id="bentWireModuleRankingPanel" class="game-ranking-panel module-ranking-panel"></div>
   </div>
 </div>
 <div class="cwracer-box">
@@ -1506,6 +1582,8 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
       <button id="raceStartBtn" class="action primary" type="button" data-i18n="racerStartRace">Iniciar carrera</button>
       <button id="raceEndBtn" class="action danger" type="button" data-i18n="racerEnd">Fin</button>
     </div>
+    <div class="game-ranking-access"><button id="racerModuleRankingBtn" class="action module-ranking-btn" type="button">VER RANKING</button></div>
+    <div id="racerModuleRankingPanel" class="game-ranking-panel module-ranking-panel"></div>
   </div>
 </div>
 
@@ -1627,7 +1705,7 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
     <p id="invadersCenterText">Preparado.</p>
     <div id="invadersResultActions" class="game-result-actions">
       <button id="invadersArenaStart" class="action primary" type="button">▶ JUGAR</button>
-      <button id="invadersRankingBtn" class="action game-ranking-btn" type="button" style="display:none">🌐 VER RANKING</button>
+      <button id="invadersRankingBtn" class="action game-ranking-btn" type="button" style="display:none">VER RANKING</button>
     </div>
     <div id="invadersRankingPanel" class="game-ranking-panel"></div>
   </div>
@@ -1679,7 +1757,7 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
     <div id="battleResultPb" class="battleship-pb"></div>
     <div class="battleship-result-actions">
       <button id="battleshipAgain" class="action primary" type="button">REPETIR</button>
-      <button id="battleshipRankingBtn" class="action" type="button">🌐 VER RANKING</button>
+      <button id="battleshipRankingBtn" class="action" type="button">VER RANKING</button>
       <button id="battleshipResultExit" class="action danger" type="button">SALIR</button>
     </div>
     <div id="battleshipRankingPanel" class="game-ranking-panel"></div>
@@ -1707,7 +1785,6 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
     <div id="bentWireResultMeta" class="bentwire-result-meta"></div>
     <div class="bentwire-result-actions">
       <button id="bentWireAgain" class="action primary" type="button">REPETIR</button>
-      <button id="bentWireRankingBtn" class="action game-ranking-btn" type="button">🌐 VER RANKING</button>
       <button id="bentWireResultExit" class="action danger" type="button">SALIR</button>
     </div>
     <div id="bentWireRankingPanel" class="game-ranking-panel"></div>
@@ -1863,7 +1940,7 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
     <div id="racerArenaResultMeta"></div>
     <div class="racer-arena-result-actions">
       <button id="racerArenaAgain" class="action primary" type="button" data-i18n="racerAgainGame">Repetir</button>
-      <button id="racerRankingBtn" class="action game-ranking-btn" type="button">🌐 VER RANKING</button>
+      <button id="racerRankingBtn" class="action game-ranking-btn" type="button">VER RANKING</button>
       <button id="racerArenaExit" class="action danger" type="button" data-i18n="duelExit">Salir</button>
     </div>
     <div id="racerRankingPanel" class="game-ranking-panel"></div>
@@ -1952,8 +2029,8 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
       <div class="global-stats-grid">
         <div class="global-stat"><span class="global-stat-icon">👤</span><b id="stableUniqueVisitors">—</b><span id="stableUniqueLabel">visitantes únicos</span></div>
         <div class="global-stat"><span class="global-stat-icon">🌎</span><b id="stableCountries">—</b><span id="stableCountriesLabel">países</span></div>
-        <div class="global-stat"><span class="global-stat-icon">🔑</span><b id="stableSkcc">—</b><span>SKCC</span></div>
-        <div class="global-stat"><span class="global-stat-icon">🎓</span><b id="stableLicw">—</b><span>LICW</span></div>
+        <button id="footerSkccBtn" class="global-stat global-stat-link" type="button"><span class="global-stat-icon">🔑</span><b id="stableSkcc">—</b><span>SKCC</span></button>
+        <button id="footerLicwBtn" class="global-stat global-stat-link" type="button"><span class="global-stat-icon">🎓</span><b id="stableLicw">—</b><span>LICW</span></button>
         <div class="global-stat"><span class="global-stat-icon">🤖</span><b id="stableQso">—</b><span>QSO BOT</span></div>
         <div class="global-stat"><span class="global-stat-icon">🏁</span><b id="stableRacer">—</b><span>CW RACER</span></div>
         <div class="global-stat"><span class="global-stat-icon">⚔️</span><b id="stableDuels">—</b><span>CW DUEL</span></div>
@@ -2034,7 +2111,7 @@ if($('globalStatsMoreBtn'))$('globalStatsMoreBtn').title=lang==='es'?'Más estad
 if(stableStatsState.last)renderStableStats(stableStatsState.last);
 if($("globalCall"))$("globalCall").placeholder=lang==='es'?'Indicativo':'Callsign';
 if($("rewardSkcc"))$("rewardSkcc").placeholder=lang==='es'?'Pon tu número SKCC':'Enter your SKCC number';
-if($("rewardLicw"))$("rewardLicw").placeholder=lang==='es'?'Número de estudiante LICW':'LICW student number';
+if($("rewardLicw"))$("rewardLicw").placeholder=lang==='es'?'Número de estudiante LICW':'LICW Number';
 if($("rewardSkccSave"))$("rewardSkccSave").textContent=lang==='es'?'Guardar':'Save';
 if($("rewardLicwSave"))$("rewardLicwSave").textContent=lang==='es'?'Guardar':'Save';if(typeof duelRenderLobby==='function')duelRenderLobby();
 if($('raceArenaMode')&&!race.active)$('raceArenaMode').textContent=racerGameMode==='sprint'?'SPRINT':(lang==='es'?'CONTRA RELOJ':'TIME ATTACK');if($('leaderStreak'))$('leaderStreak').parentElement.title=lang==='es'?'Mejor racha semanal de aciertos consecutivos en Racer/Duel':'Best weekly consecutive correct streak in Racer/Duel';
@@ -2047,22 +2124,28 @@ const tips={
   paddleReverseToggle:lang==='es'?'Invertir DIT y DAH de la paleta':'Swap paddle DIT and DAH'
 };
 for(const [id,t] of Object.entries(tips)){const el=$(id);if(el){el.title=t;el.setAttribute('aria-label',t)}}
-if($('invadersRankingBtn'))$('invadersRankingBtn').textContent=lang==='es'?'🌐 VER RANKING':'🌐 VIEW RANKING';
-if($('racerRankingBtn'))$('racerRankingBtn').textContent=lang==='es'?'🌐 VER RANKING':'🌐 VIEW RANKING';
+
+
+
+
 if($('bentWirePracticeTab'))$('bentWirePracticeTab').textContent=lang==='es'?'PRÁCTICA':'PRACTICE';
 if($('battleshipStart'))$('battleshipStart').textContent=lang==='es'?'INICIAR':'START';
 if($('battleshipAgain'))$('battleshipAgain').textContent=lang==='es'?'REPETIR':'AGAIN';
-if($('battleshipRankingBtn'))$('battleshipRankingBtn').textContent=lang==='es'?'🌐 VER RANKING':'🌐 VIEW RANKING';
+
+
 if($('battleshipExit'))$('battleshipExit').textContent=lang==='es'?'SALIR':'EXIT';
 if($('battleshipResultExit'))$('battleshipResultExit').textContent=lang==='es'?'SALIR':'EXIT';
 if($('bentWireRankedTab'))$('bentWireRankedTab').textContent=lang==='es'?'RANKING':'RANKED';
 if($('bentWireStartBtn'))$('bentWireStartBtn').textContent=lang==='es'?'INICIAR':'START';
-if($('bentWireRankingBtn'))$('bentWireRankingBtn').textContent=lang==='es'?'🌐 VER RANKING':'🌐 VIEW RANKING';
+
+
 if($('bentWireAgain'))$('bentWireAgain').textContent=lang==='es'?'REPETIR':'AGAIN';
 if($('bentWireResultExit'))$('bentWireResultExit').textContent=lang==='es'?'SALIR':'EXIT';
 if($('bentWireExit'))$('bentWireExit').textContent=lang==='es'?'SALIR':'EXIT';
 if($('invadersRankingPanel')?.classList.contains('open'))gameRankingRender('invaders',invadersRankingBucket(),'invadersRankingPanel');
 if($('racerRankingPanel')?.classList.contains('open')&&race?.mode)gameRankingRender('racer',racerRankingBucket(),'racerRankingPanel');
+if(typeof refreshOpenModuleRankings==='function')refreshOpenModuleRankings();
+for(const p of ['invadersRankingPanel','invadersModuleRankingPanel','racerRankingPanel','racerModuleRankingPanel','battleshipRankingPanel','battleshipModuleRankingPanel','duelModuleRankingPanel'])if(typeof gameRankingSyncButton==='function')gameRankingSyncButton(p);
 if(customLessonOn&&!customLesson.active){
   practice.placeholder=lang==='es'
     ?'Pega aquí el texto que quieres practicar…'
@@ -2775,7 +2858,7 @@ function rememberCountries(codes){
   try{localStorage.setItem(KNOWN_COUNTRIES_KEY,JSON.stringify([...set].sort()))}catch{}
   return set;
 }
-const gameWeeklyLeaders={invaders:new Map(),racer:new Map(),bentwire:new Map(),battleship:new Map()};
+const gameWeeklyLeaders={invaders:new Map(),racer:new Map(),bentwire:new Map(),battleship:new Map(),duel:new Map()};
 const GAME_WEEKLY_LOCAL_KEY='cw-game-weekly-local-v1';
 let generalLeaderboardLoading=true;
 const communityMembers={skcc:new Map(),licw:new Map()};
@@ -3091,7 +3174,7 @@ function updateHeader73State(){
       ?(lang==='es'?'73 enviado':'73 sent')
       :(lang==='es'?'Enviar 73 y desbloquear 73 Red':'Send 73 and unlock 73 Red');
   }
-  if($('header73Text'))$('header73Text').textContent='TNX FER QSO · HPE CUAGN · 73!';
+  if($('header73Text'))$('header73Text').textContent='TNX FER QSO · HPE CUAGN';
   if($('header73Free'))$('header73Free').textContent=lang==='es'
     ?'Gratuito · sin anuncios · código abierto'
     :'Free · ad-free · open source';
@@ -3574,13 +3657,17 @@ function gameCurrentLocal(game,bucket){
   const all=gameLocalRecords(),rec=all[gameRecordKey(game,bucket,call)];
   return rec&&rec.week===weekKey()&&sanitizeCall(rec.call)===call?rec:null;
 }
-function gameStoreWeeklyResult(game,bucket,value,metric,meta={}){
-  const call=leaderCallsign();
-  if(!call)return null;
+function gameStoreWeeklyResult(game,bucket,value,metric,meta={},archive=true){
   value=Number(value);
   if(!Number.isFinite(value)||value<0)return null;
-  // Supabase archives every completed run; MQTT/localStorage still keep only the weekly best.
-  stableStatsRecordGame(game,bucket,value,metric,meta);
+
+  // Supabase is the historical archive. Duel already stores one complete
+  // two-player result separately, so its personal weekly ranking skips this insert.
+  if(archive)stableStatsRecordGame(game,bucket,value,metric,meta);
+
+  // Callsign is required only for the public weekly ranking.
+  const call=leaderCallsign();
+  if(!call)return null;
   const all=gameLocalRecords(),key=gameRecordKey(game,bucket,call),prev=all[key];
   if(prev&&!gameBetter(metric,value,prev.value))return prev;
   const rec={
@@ -3609,7 +3696,11 @@ function flushGameWeeklyRecords(){
 }
 function gameRankingRows(game,bucket){
   const bucketMap=gameBucketMap(game,bucket,false);
-  const rows=bucketMap?[...bucketMap.values()]:[];
+  const currentWeek=weekKey();
+  // A tab can remain open across a weekly boundary. MQTT only accepts the
+  // current week, but old in-memory rows may still exist until reload.
+  // Filter here so a new week is immediately clean even without refreshing.
+  const rows=bucketMap?[...bucketMap.values()].filter(r=>r?.week===currentWeek):[];
   const local=gameCurrentLocal(game,bucket);
   if(local&&!rows.some(r=>r&&r.call===local.call&&Number(r.value)===Number(local.value)))rows.push(local);
 
@@ -3632,6 +3723,7 @@ function gameRankingRows(game,bucket){
 function gameRankingFormat(game,row){
   const v=Number(row?.value)||0;
   if((game==='racer'||game==='bentwire')&&row?.metric==='low')return raceFormatMs(v);
+  if(game==='duel')return `${Math.round(v)}/30`;
   return Math.round(v).toLocaleString();
 }
 function gameRankingConfigLabel(game,bucket){
@@ -3658,9 +3750,13 @@ function gameRankingRender(game,bucket,panelId){
   const myIndex=call?arr.findIndex(r=>r.call===call):-1;
 
   const selected=new Set();
+  // Top 3 + immediate predecessor + operator. Maximum 5 ranking rows.
   for(let i=0;i<Math.min(3,arr.length);i++)selected.add(i);
-  if(myIndex>=0){
-    for(let i=Math.max(0,myIndex-1);i<=Math.min(arr.length-1,myIndex+1);i++)selected.add(i);
+  if(myIndex>=3){
+    selected.add(myIndex-1);
+    selected.add(myIndex);
+  }else if(myIndex>=0){
+    selected.add(myIndex);
   }
   const indexes=[...selected].sort((a,b)=>a-b);
   let body='',last=-1;
@@ -3670,27 +3766,64 @@ function gameRankingRender(game,bucket,panelId){
     body+=`<div class="game-rank-row${mine?' me':''}"><b>#${i+1}</b><span class="game-rank-call">${countryFlag(row.country)} ${escapeHtml(row.call)}</span><b class="game-rank-value">${gameRankingFormat(game,row)}</b></div>`;
     last=i;
   }
-  if(!body){
-    body=`<div class="game-ranking-empty">${lang==='es'?'Todavía no hay resultados esta semana para esta configuración.':'No results yet this week for this configuration.'}</div>`;
-  }else if(!call){
-    body+=`<div class="game-ranking-empty">${lang==='es'?'Guarda tu indicativo para participar.':'Save your callsign to participate.'}</div>`;
-  }else if(myIndex<0){
-    body+=`<div class="game-ranking-empty">${lang==='es'?'Completa una partida para entrar al ranking.':'Finish a game to enter the ranking.'}</div>`;
-  }
-  panel.innerHTML=`<div class="game-ranking-title"><span>🌐 ${lang==='es'?'RANKING SEMANAL':'WEEKLY RANKING'}</span><span class="game-ranking-sub">${escapeHtml(gameRankingConfigLabel(game,bucket))}</span></div>${body}`;
+  if(!body)body='<div class="game-ranking-empty">—</div>';
+  panel.innerHTML=body;
+}
+function gameRankingButtonForPanel(panelId){
+  const map={
+    invadersRankingPanel:'invadersRankingBtn',
+    invadersModuleRankingPanel:'invadersModuleRankingBtn',
+    racerRankingPanel:'racerRankingBtn',
+    racerModuleRankingPanel:'racerModuleRankingBtn',
+    battleshipRankingPanel:'battleshipRankingBtn',
+    battleshipModuleRankingPanel:'battleshipModuleRankingBtn',
+    duelModuleRankingPanel:'duelModuleRankingBtn'
+  };
+  return map[panelId]||'';
+}
+function gameRankingSyncButton(panelId){
+  const panel=$(panelId),btnId=gameRankingButtonForPanel(panelId),btn=btnId?$(btnId):null;
+  if(!panel||!btn)return;
+  btn.textContent=panel.classList.contains('open')
+    ?(lang==='es'?'OCULTAR RANKING':'HIDE RANKING')
+    :(lang==='es'?'VER RANKING':'VIEW RANKING');
 }
 function gameRankingToggle(game,bucket,panelId){
   const panel=$(panelId);if(!panel)return;
   const open=!panel.classList.contains('open');
   if(open)gameRankingRender(game,bucket,panelId);
   panel.classList.toggle('open',open);
+  gameRankingSyncButton(panelId);
 }
 function invadersRankingBucket(){
   return `${invadersMode}-${$('invadersSet')?.value||'letters'}-${$('invadersDifficulty')?.value||'normal'}`;
 }
+function duelRankingBucket(){
+  return `${Number(duelSpeed)||8}wpm`;
+}
 function racerRankingBucket(){
   const detail=race.mode==='timed'?race.timeLimit:race.total;
   return `${race.mode}-${race.setName}-${detail}-${race.wpm}`;
+}
+function racerSelectedRankingBucket(){
+  const modeSel=racerGameMode||'sprint';
+  const setSel=$('racerRaceSet')?.value||'letters';
+  const detail=modeSel==='timed'
+    ?(+$('racerTimeLimit')?.value||60)
+    :(+$('racerRaceLength')?.value||50);
+  return `${modeSel}-${setSel}-${detail}-${+wpm.value||15}`;
+}
+function refreshOpenModuleRankings(){
+  if($('racerModuleRankingPanel')?.classList.contains('open'))
+    gameRankingRender('racer',racerSelectedRankingBucket(),'racerModuleRankingPanel');
+  if($('invadersModuleRankingPanel')?.classList.contains('open'))
+    gameRankingRender('invaders',invadersRankingBucket(),'invadersModuleRankingPanel');
+  if($('battleshipModuleRankingPanel')?.classList.contains('open'))
+    gameRankingRender('battleship',battle.level||'cadet','battleshipModuleRankingPanel');
+  if($('bentWireModuleRankingPanel')?.classList.contains('open'))
+    gameRankingRender('bentwire','official','bentWireModuleRankingPanel');
+  if($('duelModuleRankingPanel')?.classList.contains('open'))
+    gameRankingRender('duel',duelRankingBucket(),'duelModuleRankingPanel');
 }
 
 function setupCommunity(){
@@ -3857,7 +3990,7 @@ function connectGlobalStats(){
           renderGlobalStats();
           return;
         }
-        if(parts[0]==='game-weekly'&&parts.length===5&&parts[1]===weekKey()&&(parts[2]==='invaders'||parts[2]==='racer'||parts[2]==='bentwire'||parts[2]==='battleship')){
+        if(parts[0]==='game-weekly'&&parts.length===5&&parts[1]===weekKey()&&(parts[2]==='invaders'||parts[2]==='racer'||parts[2]==='bentwire'||parts[2]==='battleship'||parts[2]==='duel')){
           const game=parts[2],bucket=parts[3],visitor=parts[4],map=gameBucketMap(game,bucket,true);
           if(!raw)map?.delete(visitor);
           else map?.set(visitor,JSON.parse(raw));
@@ -3866,6 +3999,8 @@ function connectGlobalStats(){
           if(game==='racer'&&$('racerRankingPanel')?.classList.contains('open')&&race?.mode&&bucket===racerRankingBucket())gameRankingRender('racer',bucket,'racerRankingPanel');
           if(game==='bentwire'&&$('bentWireRankingPanel')?.classList.contains('open'))gameRankingRender('bentwire','official','bentWireRankingPanel');
           if(game==='battleship'&&$('battleshipRankingPanel')?.classList.contains('open'))gameRankingRender('battleship',battle.level,'battleshipRankingPanel');
+          if(game==='duel'&&$('duelModuleRankingPanel')?.classList.contains('open')&&bucket===duelRankingBucket())gameRankingRender('duel',bucket,'duelModuleRankingPanel');
+          refreshOpenModuleRankings();
           return;
         }
         if(parts[0]==='countries'&&parts.length===2){
@@ -4328,7 +4463,7 @@ function publishFullDuelResult(me,opp,cmp){
   })
 }
 
-function duelMaybeShowResult(){if(!duelSession||!duelSession.finished||!duelSession.opponent?.finished){if(duelSession?.finished){$('duelChoices').innerHTML='';$('duelQuestion').textContent=lang==='es'?'Esperando que termine el rival…':'Waiting for opponent to finish…'}return}clearInterval(duelFinalSyncTimer);duelFinalSyncTimer=null;const me={correct:duelSession.correct,bestStreak:duelSession.bestStreak,totalTime:Math.round(duelSession.totalTime)},opp={correct:Number(duelSession.opponent.correct)||0,bestStreak:Number(duelSession.opponent.bestStreak)||0,totalTime:Number(duelSession.opponent.totalTime)||0},cmp=duelCompare(me,opp);publishFullDuelResult(me,opp,cmp);if(cmp>0&&!duelSession.winAwarded){duelSession.winAwarded=true;localStorage.setItem('cw-duel-wins-total',String(duelWinsTotal()+1));publishWeeklyLeader()}$('duelBattle').style.display='none';$('duelAbandonBtn').style.display='none';$('duelResult').classList.add('open');$('duelResultTitle').textContent=cmp>0?'🏆 '+duelCall()+(lang==='es'?' GANA':' WINS'):cmp<0?'🏆 '+duelSession.opponentCall+(lang==='es'?' GANA':' WINS'):(lang==='es'?'🤝 EMPATE':'🤝 DRAW');$('duelResultScore').innerHTML=`<b>${me.correct}</b> — <b>${opp.correct}</b> · 30`;$('duelResultMeta').innerHTML=`${escapeHtml(duelCall())}: 🔥${me.bestStreak} · ⏱ ${(me.totalTime/1000).toFixed(2)}s &nbsp; | &nbsp; ${escapeHtml(duelSession.opponentCall)}: 🔥${opp.bestStreak} · ⏱ ${(opp.totalTime/1000).toFixed(2)}s<br><b>73 · GOOD MATCH</b>`;duelSetStatus(lang==='es'?'Duelo completado.':'Duel completed.','good');renderWeeklyLeaderboard()}
+function duelMaybeShowResult(){if(!duelSession||!duelSession.finished||!duelSession.opponent?.finished){if(duelSession?.finished){$('duelChoices').innerHTML='';$('duelQuestion').textContent=lang==='es'?'Esperando que termine el rival…':'Waiting for opponent to finish…'}return}clearInterval(duelFinalSyncTimer);duelFinalSyncTimer=null;const me={correct:duelSession.correct,bestStreak:duelSession.bestStreak,totalTime:Math.round(duelSession.totalTime)},opp={correct:Number(duelSession.opponent.correct)||0,bestStreak:Number(duelSession.opponent.bestStreak)||0,totalTime:Number(duelSession.opponent.totalTime)||0},cmp=duelCompare(me,opp);publishFullDuelResult(me,opp,cmp);gameStoreWeeklyResult('duel',`${duelSession.speed}wpm`,me.correct,'high',{bestStreak:me.bestStreak,totalTime:me.totalTime},false);if(cmp>0&&!duelSession.winAwarded){duelSession.winAwarded=true;localStorage.setItem('cw-duel-wins-total',String(duelWinsTotal()+1));publishWeeklyLeader()}$('duelBattle').style.display='none';$('duelAbandonBtn').style.display='none';$('duelResult').classList.add('open');$('duelResultTitle').textContent=cmp>0?'🏆 '+duelCall()+(lang==='es'?' GANA':' WINS'):cmp<0?'🏆 '+duelSession.opponentCall+(lang==='es'?' GANA':' WINS'):(lang==='es'?'🤝 EMPATE':'🤝 DRAW');$('duelResultScore').innerHTML=`<b>${me.correct}</b> — <b>${opp.correct}</b> · 30`;$('duelResultMeta').innerHTML=`${escapeHtml(duelCall())}: 🔥${me.bestStreak} · ⏱ ${(me.totalTime/1000).toFixed(2)}s &nbsp; | &nbsp; ${escapeHtml(duelSession.opponentCall)}: 🔥${opp.bestStreak} · ⏱ ${(opp.totalTime/1000).toFixed(2)}s<br><b>73 · GOOD MATCH</b>`;duelSetStatus(lang==='es'?'Duelo completado.':'Duel completed.','good');renderWeeklyLeaderboard()}
 function duelCancelSession(message,notify=true){if(!duelSession)return;const opp=duelSession.opponentId,sid=duelSession.id;if(notify)duelPublish(`session/${sid}/event`,{id:duelClientId,type:'abandon',ts:Date.now()});clearTimeout(duelQuestionTimer);clearInterval(duelWatchdog);clearInterval(duelFinalSyncTimer);duelFinalSyncTimer=null;duelToneOff();duelSession=null;duelArenaOn(false);duelSetStatus(message||tr('duelReady'),'warn');duelPublishPresence();duelRenderLobby()}
 function duelReturnLobby(){clearTimeout(duelQuestionTimer);clearInterval(duelWatchdog);clearInterval(duelFinalSyncTimer);duelFinalSyncTimer=null;duelSession=null;duelArenaOn(false);duelResetArena();duelSetStatus(tr('duelReady'));duelPublishPresence();duelRenderLobby()}
 function duelConnect(){if(duelOn)return;if(battleshipOn)battleForceOff();if(bentWireOn)bentWireStop();if(errorsPracticeOn)errorsPracticeStop();const call=duelCall();if(!call){$('duelToggle').checked=false;$('globalCall').focus();return}forceOnAirOff();if(invadersOn)forceInvadersOff();forceRacerOff();if(qsoOn)forceQsoOff();if(customLessonOn)forceCustomLessonOff();if(kochOn)forceKochOff();deactivate();duelOn=true;duelAllow=$('duelAllowChallenges').checked;$('duelPanel').classList.add('open');duelSetStatus(lang==='es'?'Conectando…':'Connecting…','warn');syncTrainingLocks();if(!window.mqtt){duelSetStatus('MQTT unavailable','bad');return}duelClient=mqtt.connect('wss://broker.emqx.io:8084/mqtt',{clientId:duelClientId,clean:true,keepalive:20,connectTimeout:8000,reconnectPeriod:3000});duelClient.on('connect',()=>{
@@ -4364,7 +4499,7 @@ function duelHandleMessage(topic,payload){let m;try{m=JSON.parse(payload.toStrin
     return;
   }
 }}
-function setupDuel(){const toggle=$('duelToggle');if(!toggle)return;toggle.onchange=e=>{if(e.target.checked){forceOnAirOff();closeAllTrainingForRealtime();duelConnect();duelModuleInstruction();syncTrainingLocks()}else{duelDisconnect();clearActivityInstruction('duel');syncTrainingLocks()}};$('duelAllowChallenges').onchange=e=>{duelAllow=e.target.checked;duelPublishPresence();duelRenderLobby()};document.querySelectorAll('[data-duel-speed]').forEach(b=>b.onclick=()=>{if(duelSession||duelPendingOutgoing)return;duelSpeed=Number(b.dataset.duelSpeed);duelSearching=false;duelPublishPresence();duelRenderLobby()});$('duelRandomBtn').onclick=()=>{if(!duelOn)return;duelSearching=true;duelPublishPresence();duelTryRandom()};$('duelCancelSearchBtn').onclick=()=>{duelSearching=false;if(duelPendingOutgoing){duelSendSignal(duelPendingOutgoing.id,'cancel');duelPendingOutgoing=null}duelSetStatus(tr('duelReady'));duelPublishPresence();duelRenderLobby()};$('duelList').addEventListener('click',e=>{const b=e.target.closest('[data-duel-challenge]');if(b)duelChallenge(b.dataset.duelChallenge)});$('duelAcceptBtn').onclick=duelAcceptInvite;$('duelDeclineBtn').onclick=()=>duelDeclineInvite();$('duelChoices').addEventListener('click',e=>{const b=e.target.closest('[data-duel-choice]');if(b)duelAnswer(b.dataset.duelChoice)});$('duelAbandonBtn').onclick=()=>duelCancelSession(lang==='es'?'Duelo abandonado.':'Duel abandoned.',true);$('duelRematchBtn').onclick=()=>{const id=duelSession?.opponentId,call=duelSession?.opponentCall;if(!id)return;duelReturnLobby();duelPendingOutgoing={id,call:call||'',ts:Date.now()};duelSendSignal(id,'challenge',{rematch:true});duelSetStatus(lang==='es'?'Solicitando revancha…':'Requesting rematch…','warn');setTimeout(()=>{if(duelPendingOutgoing?.id===id){duelPendingOutgoing=null;duelSetStatus(lang==='es'?'La revancha expiró.':'Rematch expired.','warn');duelRenderLobby()}},15000)};$('duelNewOpponentBtn').onclick=()=>{duelReturnLobby();duelSearching=true;duelPublishPresence();duelTryRandom()};$('duelExitBtn').onclick=()=>{duelReturnLobby();forceDuelOff()};duelRenderLobby()}
+function setupDuel(){const toggle=$('duelToggle');if(!toggle)return;toggle.onchange=e=>{if(e.target.checked){forceOnAirOff();closeAllTrainingForRealtime();duelConnect();duelModuleInstruction();syncTrainingLocks()}else{duelDisconnect();clearActivityInstruction('duel');syncTrainingLocks()}};$('duelAllowChallenges').onchange=e=>{duelAllow=e.target.checked;duelPublishPresence();duelRenderLobby()};if($('duelModuleRankingBtn'))$('duelModuleRankingBtn').onclick=()=>gameRankingToggle('duel',duelRankingBucket(),'duelModuleRankingPanel');document.querySelectorAll('[data-duel-speed]').forEach(b=>b.onclick=()=>{if(duelSession||duelPendingOutgoing)return;duelSpeed=Number(b.dataset.duelSpeed);duelSearching=false;duelPublishPresence();duelRenderLobby();refreshOpenModuleRankings()});$('duelRandomBtn').onclick=()=>{if(!duelOn)return;duelSearching=true;duelPublishPresence();duelTryRandom()};$('duelCancelSearchBtn').onclick=()=>{duelSearching=false;if(duelPendingOutgoing){duelSendSignal(duelPendingOutgoing.id,'cancel');duelPendingOutgoing=null}duelSetStatus(tr('duelReady'));duelPublishPresence();duelRenderLobby()};$('duelList').addEventListener('click',e=>{const b=e.target.closest('[data-duel-challenge]');if(b)duelChallenge(b.dataset.duelChallenge)});$('duelAcceptBtn').onclick=duelAcceptInvite;$('duelDeclineBtn').onclick=()=>duelDeclineInvite();$('duelChoices').addEventListener('click',e=>{const b=e.target.closest('[data-duel-choice]');if(b)duelAnswer(b.dataset.duelChoice)});$('duelAbandonBtn').onclick=()=>duelCancelSession(lang==='es'?'Duelo abandonado.':'Duel abandoned.',true);$('duelRematchBtn').onclick=()=>{const id=duelSession?.opponentId,call=duelSession?.opponentCall;if(!id)return;duelReturnLobby();duelPendingOutgoing={id,call:call||'',ts:Date.now()};duelSendSignal(id,'challenge',{rematch:true});duelSetStatus(lang==='es'?'Solicitando revancha…':'Requesting rematch…','warn');setTimeout(()=>{if(duelPendingOutgoing?.id===id){duelPendingOutgoing=null;duelSetStatus(lang==='es'?'La revancha expiró.':'Rematch expired.','warn');duelRenderLobby()}},15000)};$('duelNewOpponentBtn').onclick=()=>{duelReturnLobby();duelSearching=true;duelPublishPresence();duelTryRandom()};$('duelExitBtn').onclick=()=>{duelReturnLobby();forceDuelOff()};duelRenderLobby()}
 window.addEventListener('beforeunload',()=>{if(duelOn){if(duelSession)duelPublish(`session/${duelSession.id}/event`,{id:duelClientId,type:'abandon',ts:Date.now()});duelPublishPresence('leave')}});
 // ================== END CW DUEL ==================
 
@@ -4794,6 +4929,7 @@ function setRacerGameMode(modeName){
   document.querySelectorAll('[data-race-mode]').forEach(b=>b.classList.toggle('active',b.dataset.raceMode===racerGameMode));
   $("racerSprintControls").style.display=racerGameMode==='sprint'?'':'none';
   $("racerTimedControls").style.display=racerGameMode==='timed'?'':'none';
+  refreshOpenModuleRankings();
 }
 $("racerSprintTab").onclick=()=>setRacerGameMode('sprint');
 $("racerTimedTab").onclick=()=>setRacerGameMode('timed');
@@ -4990,6 +5126,9 @@ function startRace(){
 $("raceStartBtn").onclick=startRace;
 $("racerArenaAgain").onclick=startRace;
 $("racerRankingBtn").onclick=()=>gameRankingToggle('racer',racerRankingBucket(),'racerRankingPanel');
+if($('racerModuleRankingBtn'))$('racerModuleRankingBtn').onclick=()=>gameRankingToggle('racer',racerSelectedRankingBucket(),'racerModuleRankingPanel');
+for(const id of ['racerRaceSet','racerRaceLength','racerTimeLimit'])$(id)?.addEventListener('change',refreshOpenModuleRankings);
+wpm.addEventListener('input',refreshOpenModuleRankings);
 $("racerArenaExit").onclick=forceRacerOnlyOff;
 $("racerArenaQuit").onclick=endRacer;
 
@@ -7377,7 +7516,7 @@ function battleGameOver(){
   gameStoreWeeklyResult('battleship',battle.level,rec.score,'high',{wave:rec.wave,time:rec.time,sunk:rec.sunk,pressure:rec.pressure,wpm:battleLevelCfg().wpm});
   gameRankingRender('battleship',battle.level,'battleshipRankingPanel');
   $('battleshipRankingBtn').style.display='';
-  $('battleshipResult').classList.add('show');$('battleshipRankingPanel').classList.remove('open');
+  $('battleshipResult').classList.add('show');$('battleshipRankingPanel').classList.remove('open');gameRankingSyncButton('battleshipRankingPanel');
 }
 function battleArena(active){
   keyarea.classList.toggle('battleship-active',!!active);
@@ -7411,9 +7550,10 @@ function setupBattleship(){
     if(!battleshipOn)battleForceOff();
     else{closeOtherTraining('battleship');if(bentWireOn)bentWireStop();battleshipModuleInstruction();syncTrainingLocks()}
   };
-  document.querySelectorAll('[data-battle-level]').forEach(b=>b.onclick=()=>{if(battle.playing)return;battle.level=b.dataset.battleLevel;document.querySelectorAll('[data-battle-level]').forEach(x=>x.classList.toggle('active',x===b));battleshipModuleInstruction()});
+  document.querySelectorAll('[data-battle-level]').forEach(b=>b.onclick=()=>{if(battle.playing)return;battle.level=b.dataset.battleLevel;document.querySelectorAll('[data-battle-level]').forEach(x=>x.classList.toggle('active',x===b));battleshipModuleInstruction();refreshOpenModuleRankings()});
   $('battleshipStart').onclick=battleStart;$('battleshipAgain').onclick=battleStart;$('battleshipExit').onclick=battleForceOff;$('battleshipResultExit').onclick=battleForceOff;
   $('battleshipRankingBtn').onclick=()=>gameRankingToggle('battleship',battle.level,'battleshipRankingPanel');
+  if($('battleshipModuleRankingBtn'))$('battleshipModuleRankingBtn').onclick=()=>gameRankingToggle('battleship',battle.level||'cadet','battleshipModuleRankingPanel');
   window.addEventListener('resize',()=>{if(battle.playing)battleDraw()});
 }
 // ================== END CW BATTLESHIP ==================
@@ -7533,12 +7673,9 @@ function bentWireFinish(){
     gameStoreWeeklyResult('bentwire','official',Math.round(bentWire.elapsed),'low',{
       challenge:BENT_WIRE_TEXT,mistakes:bentWire.mistakes
     });
-    gameRankingRender('bentwire','official','bentWireRankingPanel');
-    $('bentWireRankingBtn').style.display='';
-  }else{
-    $('bentWireRankingBtn').style.display='none';
   }
-  $('bentWireRankingPanel').classList.remove('open');
+  gameRankingRender('bentwire','official','bentWireRankingPanel');
+  $('bentWireRankingPanel').classList.add('open');
   $('bentWireResult').classList.add('show');
 }
 function bentWireArena(active){
@@ -7624,6 +7761,7 @@ function setupBentWire(){
     $('bentWirePanel').classList.toggle('open',bentWireOn);
     if(!bentWireOn){
       bentWireStop();clearActivityInstruction('bentwire');
+      $('bentWireModuleRankingPanel')?.classList.remove('open');
     }else{
       forceOnAirOff();forceDuelOff();
       if(invadersOn)forceInvadersOff();
@@ -7633,6 +7771,8 @@ function setupBentWire(){
       if(kochOn)forceKochOff();
       bentWireModuleInstruction();
       syncTrainingLocks();
+      gameRankingRender('bentwire','official','bentWireModuleRankingPanel');
+      $('bentWireModuleRankingPanel')?.classList.add('open');
     }
   };
   $('bentWirePracticeTab').onclick=()=>bentWireSetMode('practice');
@@ -7641,7 +7781,6 @@ function setupBentWire(){
   $('bentWireAgain').onclick=bentWireStart;
   $('bentWireExit').onclick=bentWireStop;
   $('bentWireResultExit').onclick=bentWireStop;
-  $('bentWireRankingBtn').onclick=()=>gameRankingToggle('bentwire','official','bentWireRankingPanel');
   bentWireSetMode('practice');
   bentWireUpdateBest();
 }
@@ -7882,7 +8021,7 @@ function invadersStart(){
   forceOnAirOff();forceDuelOff();forceRacerOff();if(qsoOn)forceQsoOff();if(customLessonOn)forceCustomLessonOff();if(kochOn)forceKochOff();deactivate();
   invadersOn=true;invadersPlaying=false;$('invadersToggle').checked=true;$('invadersPanel').classList.add('open');
   invadersScoreVal=0;invadersLivesVal=3;invadersLevelVal=1;invadersLast=0;invadersSpawnClock=0;invadersSeq=0;invadersMissedItems=[];invadersAudioQueue=Promise.resolve();invadersRenderMissed();
-  invadersLoadBest();invadersUpdateHud();invadersClearField();$('invadersRankingPanel').classList.remove('open');$('invadersRankingBtn').style.display='none';invadersArena(true);invadersSetPracticeMessage(invadersInstruction());
+  invadersLoadBest();invadersUpdateHud();invadersClearField();$('invadersRankingPanel').classList.remove('open');gameRankingSyncButton('invadersRankingPanel');$('invadersRankingBtn').style.display='none';invadersArena(true);invadersSetPracticeMessage(invadersInstruction());
   const inp=$('invadersRxInput'),rxRow=$('invadersRxRow');inp.value='';rxRow?.classList.remove('show');
   $('invadersCenter').style.display='flex';
   $('invadersCenter').querySelector('h2').textContent='👾 CW INVADERS';
@@ -7916,7 +8055,7 @@ function invadersGameOver(){
   gameStoreWeeklyResult('invaders',rankBucket,invadersScoreVal,'high',{
     mode:invadersMode,set:$('invadersSet')?.value||'letters',difficulty:$('invadersDifficulty')?.value||'normal',level:invadersLevelVal
   });
-  $('invadersRankingPanel').classList.remove('open');
+  $('invadersRankingPanel').classList.remove('open');gameRankingSyncButton('invadersRankingPanel');
   gameRankingRender('invaders',rankBucket,'invadersRankingPanel');
   $('invadersRankingBtn').style.display='';
   invadersSetPracticeMessage((lang==='es'?'CW INVADERS terminado. Puntaje: ':'CW INVADERS finished. Score: ')+invadersScoreVal+missedText);
@@ -7928,10 +8067,13 @@ function forceInvadersOff(){
 function setupInvaders(){
   const t=$('invadersToggle');if(!t)return;
   t.onchange=e=>{invadersOn=e.target.checked;$('invadersPanel').classList.toggle('open',invadersOn);if(!invadersOn){forceInvadersOff();clearActivityInstruction('invaders')}else{forceOnAirOff();forceDuelOff();forceRacerOff();if(qsoOn)forceQsoOff();if(customLessonOn)forceCustomLessonOff();if(kochOn)forceKochOff();syncTrainingLocks();invadersModuleInstruction()}};
-  $('invadersTxTab').onclick=()=>{if(invadersPlaying)return;invadersMode='tx';$('invadersTxTab').classList.add('active');$('invadersRxTab').classList.remove('active');invadersModuleInstruction()};
-  $('invadersRxTab').onclick=()=>{if(invadersPlaying)return;invadersMode='rx';$('invadersRxTab').classList.add('active');$('invadersTxTab').classList.remove('active');invadersModuleInstruction()};
+  $('invadersTxTab').onclick=()=>{if(invadersPlaying)return;invadersMode='tx';$('invadersTxTab').classList.add('active');$('invadersRxTab').classList.remove('active');invadersModuleInstruction();refreshOpenModuleRankings()};
+  $('invadersRxTab').onclick=()=>{if(invadersPlaying)return;invadersMode='rx';$('invadersRxTab').classList.add('active');$('invadersTxTab').classList.remove('active');invadersModuleInstruction();refreshOpenModuleRankings()};
   $('invadersStartBtn').onclick=invadersStart;$('invadersStopBtn').onclick=forceInvadersOff;$('invadersArenaStart').onclick=invadersStart;$('invadersArenaExit').onclick=forceInvadersOff;
   $('invadersRankingBtn').onclick=()=>gameRankingToggle('invaders',invadersRankingBucket(),'invadersRankingPanel');
+  if($('invadersModuleRankingBtn'))$('invadersModuleRankingBtn').onclick=()=>gameRankingToggle('invaders',invadersRankingBucket(),'invadersModuleRankingPanel');
+  $('invadersSet')?.addEventListener('change',refreshOpenModuleRankings);
+  $('invadersDifficulty')?.addEventListener('change',refreshOpenModuleRankings);
   $('invadersRxSend').onclick=invadersRxSubmit;
   $('invadersRxInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();invadersRxSubmit()}});
 }
