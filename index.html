@@ -8737,7 +8737,13 @@ function cwFlappyGapSize(){return [178,158,142,128,116][Math.max(0,Math.min(4,cw
 function cwFlappyGateCenter(i){return 260+Math.sin((i+cwFlappy.level)*1.55)*58}
 function cwFlappyHandleDecoded(ch){if(!flappyOn||!cwFlappy.playing)return;ch=String(ch||'').toUpperCase();const expected=cwFlappy.target[cwFlappy.charIndex]||'',quality=cwFlappyCharQuality(),center=cwFlappyGateCenter(cwFlappy.charIndex),half=cwFlappyGapSize()/2,inside=Math.abs(cwFlappy.birdY-center)<half-13,correct=ch===expected,pass=correct&&inside&&quality>=45;cwFlappy.sessionTiming.push(quality);
   if(pass){cwFlappy.score+=Math.max(25,Math.round(quality*1.15));cwFlappy.charIndex++;cwFlappy.travelTarget=cwFlappy.charIndex;cwFlappy.flashGood=true;cwFlappy.flashUntil=performance.now()+260;cwFlappyToast('✓ '+quality+'%',true);cwFlappy.birdVy=0;if(cwFlappy.charIndex<cwFlappy.target.length)cwFlappy.birdY=cwFlappyGateCenter(cwFlappy.charIndex);if(cwFlappy.charIndex>=cwFlappy.target.length){cwFlappy.completed++;cwFlappy.score+=250*cwFlappy.level;if(cwFlappy.level>=5){cwFlappyFinish(true);return}cwFlappy.level++;setTimeout(()=>{if(cwFlappy.playing)cwFlappyNewTarget()},620);return}cwFlappy.sampleStart=cwFlappy.samples.length}
-  else{cwFlappy.lives--;cwFlappy.flashGood=false;cwFlappy.flashUntil=performance.now()+380;cwFlappyToast(!correct?cwFlappyT('CARÁCTER','CHAR'):(quality<45?'TIMING':'PIPE'),false);cwFlappy.birdY+=(cwFlappy.birdY<center?-28:28);cwFlappy.markIndex=cwFlappy.charStarts[cwFlappy.charIndex]||0;cwFlappy.sampleStart=cwFlappy.samples.length;cwFlappy.lastUp=0;if(cwFlappy.lives<=0){cwFlappyFinish(false);return}}
+  else{cwFlappy.lives--;cwFlappy.flashGood=false;cwFlappy.flashUntil=performance.now()+380;cwFlappyToast(!correct?cwFlappyT('CARÁCTER','CHAR'):(quality<45?'TIMING':'PIPE'),false);
+    // Retry the SAME character from a clean state. A failed attempt must not leave
+    // the bird displaced or timing pointers inside the previous attempt.
+    cwFlappy.birdY=center;cwFlappy.birdVy=0;
+    cwFlappy.markIndex=cwFlappy.charStarts[cwFlappy.charIndex]||0;
+    cwFlappy.sampleStart=cwFlappy.samples.length;cwFlappy.lastUp=0;
+    if(cwFlappy.lives<=0){cwFlappyFinish(false);return}}
 }
 function cwFlappyNewTarget(){cwFlappy.target=cwFlappyTarget();const b=cwFlappyBuildMarks(cwFlappy.target);cwFlappy.marks=b.marks;cwFlappy.charStarts=b.starts;cwFlappy.charIndex=0;cwFlappy.markIndex=0;cwFlappy.lastUp=0;cwFlappy.samples=[];cwFlappy.sampleStart=0;cwFlappy.birdY=cwFlappyGateCenter(0);cwFlappy.birdVy=0;cwFlappy.travel=0;cwFlappy.travelTarget=0;current='';currentDurations=[];symbols.textContent='';decoded.textContent='';cwFlappyHearRef()}
 async function cwFlappyHearRef(){if(!flappyOn||!cwFlappy.target)return;for(let i=0;i<cwFlappy.target.length;i++){if(!flappyOn)return;await racerPlayCode(cwFlappy.target[i]);if(i<cwFlappy.target.length-1)await sleep(Math.max(0,charGap()-dotMs()))}}
