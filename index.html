@@ -855,6 +855,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   .desktop-modules.customizing .duel-head,
   .desktop-modules.customizing .cwracer-head,
   .desktop-modules.customizing .cw-timing-head,
+  .desktop-modules.customizing .cw-flappy-head,
   .desktop-modules.customizing .stats-head,
   .desktop-modules.customizing .koch-head,
   .desktop-modules.customizing .qsobot-head,
@@ -870,6 +871,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   .desktop-modules .duel-box,
   .desktop-modules .cwracer-box,
   .desktop-modules .cw-timing-box,
+  .desktop-modules .cw-flappy-box,
   .desktop-modules .stats-box,
   .desktop-modules .koch-box,
   .desktop-modules .qsobot-box,
@@ -1412,6 +1414,42 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
 .site-stats .site-stats-more{order:21}
 </style>
 
+
+<style id="cwFlappyStyles">
+/* ================== CW FLAPPY (isolated timing game) ================== */
+.cw-flappy-box{margin-top:18px;padding-top:15px;border-top:1px solid var(--line)}
+.cw-flappy-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cw-flappy-label{font-size:13px;font-weight:950;letter-spacing:.04em}
+.cw-flappy-panel{display:none;margin-top:12px}.cw-flappy-panel.open{display:block}
+.cw-flappy-mode-row,.cw-flappy-palette-row{display:grid;grid-template-columns:repeat(2,1fr);gap:5px;margin-bottom:7px}
+.cw-flappy-chip{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:7px;padding:7px 4px;font-size:9px;font-weight:950}
+.cw-flappy-chip.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.cw-flappy-start{width:100%}
+
+.cw-flappy-arena{position:absolute;inset:0;z-index:24;display:none;overflow:hidden;pointer-events:auto;background:#0f380f;cursor:crosshair}
+.keyarea.cw-flappy-active{min-height:590px;height:auto!important;border-style:solid;border-color:#8bac0f;cursor:crosshair}
+.keyarea.cw-flappy-active .cw-flappy-arena{display:block}
+.keyarea.cw-flappy-active>.key-content,
+.keyarea.cw-flappy-active>.touch-zones,
+.keyarea.cw-flappy-active>.paddle-reverse-control,
+.keyarea.cw-flappy-active>.onair-key-badge{visibility:hidden}
+#cwFlappyCanvas{position:absolute;inset:0;width:100%;height:100%;display:block;image-rendering:pixelated;image-rendering:crisp-edges}
+.cw-flappy-controls{position:absolute;left:10px;bottom:9px;z-index:5;display:flex;gap:6px;align-items:center}
+.cw-flappy-controls .action{font:950 8px ui-monospace,SFMono-Regular,Consolas,monospace;padding:6px 8px;border-radius:3px;background:rgba(15,56,15,.88);color:#d7e8b0;border-color:#8bac0f;text-shadow:none}
+.cw-flappy-controls .action:hover{background:#306230;color:#fff}
+.cw-flappy-exit{position:absolute;right:9px;bottom:9px;z-index:6;font:950 8px ui-monospace,SFMono-Regular,Consolas,monospace!important;border-radius:3px!important;background:rgba(15,56,15,.88)!important;color:#d7e8b0!important;border-color:#8bac0f!important}
+.cw-flappy-result{position:absolute;inset:0;z-index:8;display:none;align-items:center;justify-content:center;background:rgba(15,56,15,.92);padding:18px;color:#d7e8b0;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;text-align:center}
+.cw-flappy-result.show{display:flex}.cw-flappy-result-card{width:min(430px,92%);border:4px solid #0f380f;outline:4px solid #8bac0f;background:#9bbc0f;color:#0f380f;padding:18px;box-shadow:8px 8px 0 #0f380f}
+.cw-flappy-result h2{margin:0 0 4px;font-size:22px;letter-spacing:.05em}.cw-flappy-result-kicker{font-size:8px;font-weight:950;letter-spacing:.12em;margin-bottom:11px;opacity:.82}.cw-flappy-result-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:8px 0 10px}.cw-flappy-result-grid>div{border:3px solid #0f380f;background:#d7e8b0;padding:8px 4px}.cw-flappy-result-grid b{display:block;font-size:19px;line-height:1;color:#0f380f}.cw-flappy-result-grid span{display:block;font-size:7px;font-weight:950;margin-top:4px;letter-spacing:.06em}.cw-flappy-result-meter{height:12px;border:3px solid #0f380f;background:#306230;margin:9px 0 11px;padding:1px}.cw-flappy-result-meter span{display:block;height:100%;width:0;background:#d7e8b0;transition:width .35s ease}.cw-flappy-result-note{font-size:10px;line-height:1.5;font-weight:900;min-height:30px}
+.cw-flappy-result-actions{display:flex;justify-content:center;gap:6px;margin-top:13px}.cw-flappy-result-actions .action{border-radius:2px;background:#306230;color:#d7e8b0;border-color:#0f380f;font:950 9px ui-monospace,SFMono-Regular,Consolas,monospace}
+.cw-flappy-hit{position:absolute;left:50%;top:50%;z-index:7;transform:translate(-50%,-50%) scale(.9);opacity:0;pointer-events:none;padding:6px 10px;border:3px solid #0f380f;background:#9bbc0f;color:#0f380f;font:950 11px ui-monospace,SFMono-Regular,Consolas,monospace;transition:.12s}
+.cw-flappy-hit.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.cw-flappy-hit.bad{background:#d06b57;color:#fff}
+.cw-flappy-hit.good{background:#d7e8b0;color:#0f380f}
+@media(max-width:620px){.cw-flappy-result-grid{grid-template-columns:repeat(2,1fr)}.keyarea.cw-flappy-active{min-height:520px}.cw-flappy-controls{left:6px;bottom:6px}.cw-flappy-exit{right:6px;bottom:6px}}
+@media(min-width:901px) and (hover:hover) and (pointer:fine){.desktop-modules.customizing .cw-flappy-head{min-height:26px}.desktop-modules .cw-flappy-box{margin-top:0}}
+</style>
+
 <style id="cwTimingStyles">
 /* ================== CW TIMING COACH (isolated learning module) ================== */
 .cw-timing-box{margin-top:18px;padding-top:15px;border-top:1px solid var(--line)}
@@ -1613,6 +1651,7 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
   </div>
 </div>
 
+
 <div class="exercises-box">
   <div class="exercises-head">
     <div class="exercises-label">📝 <span data-i18n="exercisesModule">EJERCICIOS</span></div>
@@ -1729,6 +1768,20 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
   </div>
 </div>
 
+<div class="cw-flappy-box">
+  <div class="cw-flappy-head">
+    <div class="cw-flappy-label">🐦 <span id="cwFlappyModuleLabel">CW FLAPPY</span></div>
+    <label class="switch"><input id="cwFlappyToggle" type="checkbox"><span></span></label>
+  </div>
+  <div id="cwFlappyPanel" class="cw-flappy-panel">
+    <div class="cw-flappy-mode-row">
+      <button id="cwFlappyWords" class="cw-flappy-chip active" type="button">PALABRAS</button>
+      <button id="cwFlappyCalls" class="cw-flappy-chip" type="button">INDICATIVOS</button>
+    </div>
+    <button id="cwFlappyStart" class="action primary cw-flappy-start module-start-full" type="button">▶ JUGAR</button>
+  </div>
+</div>
+
 <div class="stats-box">
   <div class="stats-head">
     <div class="stats-label">📊 <span data-i18n="statsModule">ESTADÍSTICAS</span></div>
@@ -1834,6 +1887,36 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
 </div>
 
 
+
+
+<div id="cwFlappyArena" class="cw-flappy-arena" aria-label="CW Flappy timing game">
+  <canvas id="cwFlappyCanvas" width="960" height="560"></canvas>
+  <div class="cw-flappy-controls">
+    <button id="cwFlappyHear" class="action" type="button">🔊 REF</button>
+    <button id="cwFlappyPaletteGame" class="action" type="button">GB MONO</button>
+    <button id="cwFlappyRestart" class="action" type="button">↻ REINICIAR</button>
+  </div>
+  <button id="cwFlappyExit" class="action danger cw-flappy-exit" type="button">SALIR</button>
+  <div id="cwFlappyHit" class="cw-flappy-hit"></div>
+  <div id="cwFlappyResult" class="cw-flappy-result">
+    <div class="cw-flappy-result-card">
+      <h2 id="cwFlappyResultTitle">GAME OVER</h2>
+      <div class="cw-flappy-result-kicker" id="cwFlappyResultKicker">FLIGHT REPORT</div>
+      <div class="cw-flappy-result-grid">
+        <div><b id="cwFlappyResultScore">0</b><span>SCORE</span></div>
+        <div><b id="cwFlappyResultTiming">0%</b><span>TIMING</span></div>
+        <div><b id="cwFlappyResultLevel">1</b><span>LEVEL</span></div>
+        <div><b id="cwFlappyResultCompleted">0</b><span>CLEAR</span></div>
+      </div>
+      <div class="cw-flappy-result-meter"><span id="cwFlappyResultMeter"></span></div>
+      <div id="cwFlappyResultNote" class="cw-flappy-result-note"></div>
+      <div class="cw-flappy-result-actions">
+        <button id="cwFlappyAgain" class="action primary" type="button">REPETIR</button>
+        <button id="cwFlappyResultExit" class="action" type="button">SALIR</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div id="battleshipArena" class="battleship-arena" aria-label="CW Battleship">
   <canvas id="battleshipCanvas"></canvas>
@@ -2320,7 +2403,7 @@ if($('bentWireResultExit'))$('bentWireResultExit').textContent=lang==='es'?'SALI
 if($('bentWireExit'))$('bentWireExit').textContent=lang==='es'?'SALIR':'EXIT';
 if($('invadersRankingPanel')?.classList.contains('open'))gameRankingRender('invaders',invadersRankingBucket(),'invadersRankingPanel');
 if($('racerRankingPanel')?.classList.contains('open')&&race?.mode)gameRankingRender('racer',racerRankingBucket(),'racerRankingPanel');
-if(typeof refreshOpenModuleRankings==='function')refreshOpenModuleRankings();
+if(typeof refreshOpenModuleRankings==='function')refreshOpenModuleRankings();if(typeof cwFlappyApplyLang==='function')cwFlappyApplyLang();
 for(const p of ['invadersRankingPanel','invadersModuleRankingPanel','racerRankingPanel','racerModuleRankingPanel','battleshipRankingPanel','battleshipModuleRankingPanel','duelModuleRankingPanel'])if(typeof gameRankingSyncButton==='function')gameRankingSyncButton(p);
 if(customLessonOn&&!customLesson.active){
   practice.placeholder=lang==='es'
@@ -2414,7 +2497,7 @@ function syncPaddleReverseUI(){
 }
 
 function flash(on){keyarea.classList.toggle('active',!!on)}
-function scheduleDecode(){clearTimeout(charTimer);clearTimeout(wordTimer);charTimer=setTimeout(()=>{if(!current)return;const code=current,durations=currentDurations.slice(),raw=MORSE[code]||`[${code}]`,ch=raw==='<AR>'?'AR':(raw==='='||raw==='<BT>'?'BT':raw);decoded.textContent=ch;if(!cwTimingOn&&!customLessonOn&&!kochOn&&!errorsPracticeOn&&!bentWireOn&&!battleshipOn&&!(typeof invadersPlaying!=='undefined'&&invadersPlaying))practice.value+=ch;if(typeof battleOnDecoded==='function')battleOnDecoded(ch,code,durations);if(typeof bentWireHandleDecoded==='function')bentWireHandleDecoded(ch,code,durations);if(typeof errorsPracticeHandleDecoded==='function')errorsPracticeHandleDecoded(ch,code,durations);if(typeof customLessonHandleDecoded==='function')customLessonHandleDecoded(ch,code,durations);if(typeof kochHandleDecoded==='function')kochHandleDecoded(ch,code,durations);if(typeof racerHandleDecoded==='function')racerHandleDecoded(ch,code,durations);if(typeof qsoHandleDecoded==='function')qsoHandleDecoded(ch,code,durations);if(typeof invadersHandleDecoded==='function')invadersHandleDecoded(ch,code,durations);if(typeof cwTimingHandleDecoded==='function')cwTimingHandleDecoded(ch,code,durations);current='';currentDurations=[];symbols.textContent='';if(!customLessonOn&&!kochOn&&!errorsPracticeOn&&!bentWireOn&&!battleshipOn&&!(typeof invadersPlaying!=='undefined'&&invadersPlaying))practice.scrollTop=practice.scrollHeight;wordTimer=setTimeout(()=>{if(!cwTimingOn&&!customLessonOn&&!kochOn&&!errorsPracticeOn&&!bentWireOn&&!battleshipOn&&practice.value&&!practice.value.endsWith(' '))practice.value+=' ';if(typeof qsoWordBoundary==='function')qsoWordBoundary();if(typeof cwTimingWordBoundary==='function')cwTimingWordBoundary()},Math.max(10,wordGap()-charGap()))},charGap())}
+function scheduleDecode(){clearTimeout(charTimer);clearTimeout(wordTimer);charTimer=setTimeout(()=>{if(!current)return;const code=current,durations=currentDurations.slice(),raw=MORSE[code]||`[${code}]`,ch=raw==='<AR>'?'AR':(raw==='='||raw==='<BT>'?'BT':raw);decoded.textContent=ch;if(!cwTimingOn&&!flappyOn&&!customLessonOn&&!kochOn&&!errorsPracticeOn&&!bentWireOn&&!battleshipOn&&!(typeof invadersPlaying!=='undefined'&&invadersPlaying))practice.value+=ch;if(typeof battleOnDecoded==='function')battleOnDecoded(ch,code,durations);if(typeof bentWireHandleDecoded==='function')bentWireHandleDecoded(ch,code,durations);if(typeof errorsPracticeHandleDecoded==='function')errorsPracticeHandleDecoded(ch,code,durations);if(typeof customLessonHandleDecoded==='function')customLessonHandleDecoded(ch,code,durations);if(typeof kochHandleDecoded==='function')kochHandleDecoded(ch,code,durations);if(typeof racerHandleDecoded==='function')racerHandleDecoded(ch,code,durations);if(typeof qsoHandleDecoded==='function')qsoHandleDecoded(ch,code,durations);if(typeof invadersHandleDecoded==='function')invadersHandleDecoded(ch,code,durations);if(typeof cwTimingHandleDecoded==='function')cwTimingHandleDecoded(ch,code,durations);if(typeof cwFlappyHandleDecoded==='function')cwFlappyHandleDecoded(ch,code,durations);current='';currentDurations=[];symbols.textContent='';if(!customLessonOn&&!kochOn&&!errorsPracticeOn&&!bentWireOn&&!battleshipOn&&!(typeof invadersPlaying!=='undefined'&&invadersPlaying))practice.scrollTop=practice.scrollHeight;wordTimer=setTimeout(()=>{if(!cwTimingOn&&!flappyOn&&!customLessonOn&&!kochOn&&!errorsPracticeOn&&!bentWireOn&&!battleshipOn&&practice.value&&!practice.value.endsWith(' '))practice.value+=' ';if(typeof qsoWordBoundary==='function')qsoWordBoundary();if(typeof cwTimingWordBoundary==='function')cwTimingWordBoundary()},Math.max(10,wordGap()-charGap()))},charGap())}
 function addElement(s){
   if(typeof battleFireElement==='function'&&battle.playing&&battle.phase==='fire'){
     current='';currentDurations=[];symbols.textContent='';battleFireElement(s);return;
@@ -2428,18 +2511,18 @@ function addElement(s){
 }
 function canTransmit(){return !duelOn&&!qsoBotSending&&(!onAir||!remoteBusy)}
 const VBAND_MIN_PULSE_MS=8;
-function straightDown(source='local'){if(downAt||!canTransmit())return;clearActivityInstructionOnKeying();if(typeof bentWireStartTimerOnFirstKey==='function')bentWireStartTimerOnFirstKey();clearTimeout(charTimer);clearTimeout(wordTimer);downAt=performance.now();downSource=source;if(typeof cwTimingCaptureDown==='function')cwTimingCaptureDown(downAt);localToneOn();flash(true);if(onAir)publishKey('down')}
-function straightUp(){if(!downAt)return;const dur=performance.now()-downAt,source=downSource;downAt=0;downSource='local';localToneOff();flash(false);if(source==='vband'&&dur<VBAND_MIN_PULSE_MS)return;if(onAir)publishKey('up',dur);if(typeof cwTimingCaptureUp==='function')cwTimingCaptureUp(performance.now(),dur);currentDurations.push(dur);addElement(dur<dotMs()*2?'.':'-')}
-async function sendTimed(s){if(!canTransmit())return;clearActivityInstructionOnKeying();if(typeof bentWireStartTimerOnFirstKey==='function')bentWireStartTimerOnFirstKey();clearTimeout(charTimer);clearTimeout(wordTimer);const elementMs=s==='.'?dotMs():dotMs()*3;if(typeof cwTimingCaptureDown==='function')cwTimingCaptureDown(performance.now());localToneOn();flash(true);if(onAir)publishKey('down');await sleep(elementMs);localToneOff();flash(false);if(onAir)publishKey('up',elementMs);if(typeof cwTimingCaptureUp==='function')cwTimingCaptureUp(performance.now(),elementMs);currentDurations.push(elementMs);addElement(s);await sleep(dotMs())}
+function straightDown(source='local'){if(downAt||!canTransmit())return;clearActivityInstructionOnKeying();if(typeof bentWireStartTimerOnFirstKey==='function')bentWireStartTimerOnFirstKey();clearTimeout(charTimer);clearTimeout(wordTimer);downAt=performance.now();downSource=source;if(typeof cwTimingCaptureDown==='function')cwTimingCaptureDown(downAt);if(typeof cwFlappyCaptureDown==='function')cwFlappyCaptureDown(downAt);localToneOn();flash(true);if(onAir)publishKey('down')}
+function straightUp(){if(!downAt)return;const dur=performance.now()-downAt,source=downSource;downAt=0;downSource='local';localToneOff();flash(false);if(source==='vband'&&dur<VBAND_MIN_PULSE_MS)return;if(onAir)publishKey('up',dur);if(typeof cwTimingCaptureUp==='function')cwTimingCaptureUp(performance.now(),dur);if(typeof cwFlappyCaptureUp==='function')cwFlappyCaptureUp(performance.now(),dur);currentDurations.push(dur);addElement(dur<dotMs()*2?'.':'-')}
+async function sendTimed(s){if(!canTransmit())return;clearActivityInstructionOnKeying();if(typeof bentWireStartTimerOnFirstKey==='function')bentWireStartTimerOnFirstKey();clearTimeout(charTimer);clearTimeout(wordTimer);const elementMs=s==='.'?dotMs():dotMs()*3;if(typeof cwTimingCaptureDown==='function')cwTimingCaptureDown(performance.now());if(typeof cwFlappyCaptureDown==='function')cwFlappyCaptureDown(performance.now());localToneOn();flash(true);if(onAir)publishKey('down');await sleep(elementMs);localToneOff();flash(false);if(onAir)publishKey('up',elementMs);if(typeof cwTimingCaptureUp==='function')cwTimingCaptureUp(performance.now(),elementMs);if(typeof cwFlappyCaptureUp==='function')cwFlappyCaptureUp(performance.now(),elementMs);currentDurations.push(elementMs);addElement(s);await sleep(dotMs())}
 async function iambicLoop(){if(iambicRunning)return;iambicRunning=true;try{while(leftHeld||rightHeld){if(!canTransmit())break;let s;if(leftHeld&&rightHeld)s=lastIambic==='.'?'-':'.';else s=leftHeld?'.':'-';lastIambic=s;await sendTimed(s)}}finally{iambicRunning=false}}
 function updateModeHint(){keyarea.classList.toggle('paddle-touch',mode.value!=='straight');keyarea.classList.toggle('paddle-mode',mode.value!=='straight');if(mode.value==='straight')$("modeHint").innerHTML=tr('straightHint');else{const l=paddleLogicalSide('left').toUpperCase(),r=paddleLogicalSide('right').toUpperCase();$("modeHint").innerHTML=`<span class="${l.toLowerCase()}">${lang==='es'?'Izquierda':'Left'} = ${l} (${l==='DIT'?'.':'-'})</span> · <span class="${r.toLowerCase()}">${lang==='es'?'Derecha':'Right'} = ${r} (${r==='DIT'?'.':'-'})</span>`}document.querySelectorAll('.seg-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode.value));syncPaddleReverseUI();status.textContent=tr('idle')}
 function activateMouse(){if(active)return;active=true;keyarea.focus();ensureAudio();status.textContent=tr('active');if(keyarea.requestPointerLock)try{keyarea.requestPointerLock()}catch{}}
 function deactivate(){active=false;leftHeld=rightHeld=false;if(typeof resetVbandInput==='function')resetVbandInput();else if(typeof vbandCtrlHeld!=='undefined')vbandCtrlHeld.clear();if(downAt)straightUp();localToneOff();flash(false);status.textContent=tr('idle');if(document.pointerLockElement&&document.exitPointerLock)document.exitPointerLock()}
-keyarea.addEventListener('click',e=>{if(e.target.closest('.cw-timing-arena'))return;if(duelOn||e.target.closest('.duel-arena')||e.target.closest('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel'))return;if(window.matchMedia('(pointer:coarse)').matches)return;if(e.pointerType!=='touch'&&!active)activateMouse()});keyarea.addEventListener('contextmenu',e=>{if(e.target.closest('.cw-timing-arena'))return;if(e.target.closest('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel'))return;e.preventDefault()});
-document.addEventListener('mousedown',e=>{if(e.target.closest?.('.cw-timing-arena'))return;if(e.target.closest?.('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel'))return;if(!active||!canTransmit()||(e.button!==0&&e.button!==2))return;e.preventDefault();if(mode.value==='straight')straightDown('mouse');else{if(e.button===0)setPaddlePhysical('left',true);if(e.button===2)setPaddlePhysical('right',true);iambicLoop()}},true);document.addEventListener('mouseup',e=>{if(e.target.closest?.('.cw-timing-arena'))return;if(e.target.closest?.('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel'))return;if(!active||(e.button!==0&&e.button!==2))return;e.preventDefault();if(mode.value==='straight')straightUp();else{if(e.button===0)setPaddlePhysical('left',false);if(e.button===2)setPaddlePhysical('right',false)}},true);
+keyarea.addEventListener('click',e=>{if(e.target.closest('.cw-timing-arena'))return;if(duelOn||e.target.closest('.duel-arena')||e.target.closest('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.cw-flappy-arena .action,.cw-flappy-result-actions .action,.game-ranking-panel,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.cw-flappy-arena .action,.cw-flappy-result-actions .action,.game-ranking-panel'))return;if(window.matchMedia('(pointer:coarse)').matches)return;if(e.pointerType!=='touch'&&!active)activateMouse()});keyarea.addEventListener('contextmenu',e=>{if(e.target.closest('.cw-timing-arena'))return;if(e.target.closest('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.cw-flappy-arena .action,.cw-flappy-result-actions .action,.game-ranking-panel,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.cw-flappy-arena .action,.cw-flappy-result-actions .action,.game-ranking-panel'))return;e.preventDefault()});
+document.addEventListener('mousedown',e=>{if(e.target.closest?.('.cw-timing-arena'))return;if(e.target.closest?.('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.cw-flappy-arena .action,.cw-flappy-result-actions .action,.game-ranking-panel,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.cw-flappy-arena .action,.cw-flappy-result-actions .action,.game-ranking-panel'))return;if(!active||!canTransmit()||(e.button!==0&&e.button!==2))return;e.preventDefault();if(mode.value==='straight')straightDown('mouse');else{if(e.button===0)setPaddlePhysical('left',true);if(e.button===2)setPaddlePhysical('right',true);iambicLoop()}},true);document.addEventListener('mouseup',e=>{if(e.target.closest?.('.cw-timing-arena'))return;if(e.target.closest?.('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.cw-flappy-arena .action,.cw-flappy-result-actions .action,.game-ranking-panel,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.cw-flappy-arena .action,.cw-flappy-result-actions .action,.game-ranking-panel'))return;if(!active||(e.button!==0&&e.button!==2))return;e.preventDefault();if(mode.value==='straight')straightUp();else{if(e.button===0)setPaddlePhysical('left',false);if(e.button===2)setPaddlePhysical('right',false)}},true);
 function touchSide(x){const r=keyarea.getBoundingClientRect();return paddleLogicalSide(x<r.left+r.width/2?'left':'right')}
 function refreshTouchHolds(){if(mode.value==='straight')return;leftHeld=[...touchPointers.values()].includes('dit');rightHeld=[...touchPointers.values()].includes('dah');$("ditZone").classList.toggle('pressed',leftHeld);$("dahZone").classList.toggle('pressed',rightHeld);if(leftHeld||rightHeld)iambicLoop()}
-keyarea.addEventListener('pointerdown',e=>{if(e.target.closest('.cw-timing-arena'))return;if(duelOn||e.target.closest('.duel-arena')||e.target.closest('.paddle-reverse-control')||e.target.closest('.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel'))return;if(e.pointerType!=='touch')return;e.preventDefault();ensureAudio();status.textContent=tr('touchReady');try{keyarea.setPointerCapture(e.pointerId)}catch{}if(mode.value==='straight'){touchPointers.set(e.pointerId,'straight');if(touchPointers.size===1)straightDown('touch')}else{touchPointers.set(e.pointerId,touchSide(e.clientX));refreshTouchHolds()}});
+keyarea.addEventListener('pointerdown',e=>{if(e.target.closest('.cw-timing-arena'))return;if(duelOn||e.target.closest('.duel-arena')||e.target.closest('.paddle-reverse-control')||e.target.closest('.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.cw-flappy-arena .action,.cw-flappy-result-actions .action,.game-ranking-panel'))return;if(e.pointerType!=='touch')return;e.preventDefault();ensureAudio();status.textContent=tr('touchReady');try{keyarea.setPointerCapture(e.pointerId)}catch{}if(mode.value==='straight'){touchPointers.set(e.pointerId,'straight');if(touchPointers.size===1)straightDown('touch')}else{touchPointers.set(e.pointerId,touchSide(e.clientX));refreshTouchHolds()}});
 function touchEnd(e){if(e.pointerType!=='touch'||!touchPointers.has(e.pointerId))return;e.preventDefault();touchPointers.delete(e.pointerId);if(mode.value==='straight'){if(touchPointers.size===0)straightUp()}else refreshTouchHolds();if(touchPointers.size===0)status.textContent=tr('idle')}
 keyarea.addEventListener('pointerup',touchEnd);keyarea.addEventListener('pointercancel',touchEnd);
 function audioOnlyTypingTarget(){
@@ -5088,12 +5171,12 @@ function invadersModuleInstruction(){
   );
 }
 
-let racerOn=false,learnOn=false,exercisesOn=false,cwTimingOn=false;
+let racerOn=false,learnOn=false,exercisesOn=false,cwTimingOn=false,flappyOn=false;
 let learn={active:false,target:null,score:0,green:0,yellow:0,red:0,focusPool:null};
 let race={active:false,target:null,score:0,hits:0,errors:0,streak:0,bestStreak:0,index:0,total:50,queue:[],setName:'letters',wpm:15,mode:'sprint',timeLimit:60,startedAt:0,endedAt:0,timerId:0};
 let wr7q={active:false,section:'warmup',unitIndex:0,tokenIndex:0,restarts:0};
 
-function anyTrainingModuleOn(){return racerOn||learnOn||exercisesOn||cwTimingOn||qsoOn||customLessonOn||kochOn||invadersOn||errorsPracticeOn||bentWireOn||battleshipOn}
+function anyTrainingModuleOn(){return racerOn||learnOn||exercisesOn||cwTimingOn||flappyOn||qsoOn||customLessonOn||kochOn||invadersOn||errorsPracticeOn||bentWireOn||battleshipOn}
 
 function syncTrainingLocks(){
   // ON AIR and DUEL use the same bidirectional priority rule:
@@ -5119,7 +5202,7 @@ function syncTrainingLocks(){
   for(const id of [
     'invadersToggle','battleshipToggle','bentWireToggle',
     'cwRacerToggle','learnToggle','exercisesToggle',
-    'qsoBotToggle','customLessonToggle','kochToggle','cwTimingToggle'
+    'qsoBotToggle','customLessonToggle','kochToggle','cwTimingToggle','cwFlappyToggle'
   ]){
     const t=$(id);
     if(t){
@@ -5168,6 +5251,7 @@ function forceRacerOff(){
   forceLearnOnlyOff();
   forceExercisesOnlyOff();
   if(typeof forceTimingOnlyOff==='function')forceTimingOnlyOff();
+  if(typeof cwFlappyForceOff==='function')cwFlappyForceOff();
 }
 function closeOtherTraining(except){
   forceOnAirOff();
@@ -5180,6 +5264,7 @@ function closeOtherTraining(except){
   if(except!=='learn')forceLearnOnlyOff();
   if(except!=='exercises')forceExercisesOnlyOff();
   if(except!=='timing'&&typeof forceTimingOnlyOff==='function')forceTimingOnlyOff();
+  if(except!=='flappy'&&typeof cwFlappyForceOff==='function'&&flappyOn)cwFlappyForceOff();
   if(except!=='qso'&&qsoOn)forceQsoOff();
   if(except!=='custom'&&customLessonOn)forceCustomLessonOff();
   if(except!=='koch'&&kochOn)forceKochOff();
@@ -5194,6 +5279,7 @@ function closeAllTrainingForRealtime(){
   forceLearnOnlyOff();
   forceExercisesOnlyOff();
   if(typeof forceTimingOnlyOff==='function')forceTimingOnlyOff();
+  if(typeof cwFlappyForceOff==='function'&&flappyOn)cwFlappyForceOff();
   if(qsoOn)forceQsoOff();
   if(customLessonOn)forceCustomLessonOff();
   if(kochOn)forceKochOff();
@@ -8623,6 +8709,145 @@ window.__cwGameProgression={
 
 // ================== END CW INVADERS ==================
 
+
+// ================== CW FLAPPY ==================
+const CW_FLAPPY_STORE='cw-flappy-v1';
+const CW_FLAPPY_WORDS=[['EAT','TEN','RST','KEY','DIT'],['RADIO','MORSE','TONE','WAVE','CODE'],['PADDLE','SIGNAL','ANTENNA','BEACON','QRP'],['CONTEST','OPERATOR','PRACTICE','RHYTHM','STRAIGHT'],['TELEGRAPH','FARNSWORTH','SIDETONE','CALLSIGN','PRECISION']];
+let cwFlappy={playing:false,mode:'words',palette:'mono',level:1,lives:3,score:0,best:0,target:'',charIndex:0,markIndex:0,marks:[],charStarts:[],birdY:280,birdVy:0,lastUp:0,samples:[],sampleStart:0,anim:0,lastTs:0,scroll:0,travel:0,travelTarget:0,wingTick:0,flashUntil:0,flashGood:true,completed:0,sessionTiming:[],originalActive:false};
+try{const z=JSON.parse(localStorage.getItem(CW_FLAPPY_STORE)||'{}');if(z&&typeof z==='object'){cwFlappy.best=+z.best||0;cwFlappy.palette='mono';cwFlappy.mode=z.mode==='calls'?'calls':'words'}}catch{}
+function cwFlappySave(){try{localStorage.setItem(CW_FLAPPY_STORE,JSON.stringify({best:cwFlappy.best,mode:cwFlappy.mode}))}catch{}}
+function cwFlappyT(es,en){return lang==='es'?es:en}
+function cwFlappyRnd(a){return a[Math.floor(Math.random()*a.length)]}
+function cwFlappyCall(){const p=['K','N','W','ZP','LU','PY','CX','CE','EA','F','G','DL','I','JA','VK','VE'];const suf='ABCDEFGHIJKLMNOPQRSTUVWXYZ';let s=cwFlappyRnd(p)+String(1+Math.floor(Math.random()*9));for(let i=0;i<(cwFlappy.level<3?2:3);i++)s+=suf[Math.floor(Math.random()*suf.length)];return s}
+function cwFlappyTarget(){if(cwFlappy.mode==='calls')return cwFlappyCall();return cwFlappyRnd(CW_FLAPPY_WORDS[Math.max(0,Math.min(4,cwFlappy.level-1))])}
+function cwFlappyCode(ch){return racerCodeFor(String(ch).toUpperCase())||''}
+function cwFlappyBuildMarks(target){const marks=[],starts=[];for(let ci=0;ci<target.length;ci++){const code=cwFlappyCode(target[ci]);starts[ci]=marks.length;for(let j=0;j<code.length;j++)marks.push({charIndex:ci,type:code[j],dur:code[j]==='.'?dotMs():dotMs()*3})}starts[target.length]=marks.length;return {marks,starts}}
+function cwFlappyPalette(){return cwFlappy.palette==='color'?{sky:'#72c7e8',cloud:'#f7f0cf',far:'#4eaa4c',near:'#277b37',ground:'#78b84b',soil:'#8b5b2b',dark:'#173c2d',pipe:'#b87432',pipeHi:'#e0a85e',pipeDark:'#69401e',bird:'#ffd33d',wing:'#f59b28',beak:'#ef5d2f',text:'#111b19',panel:'#f7dba3',panel2:'#86c98b',heart:'#ef493b'}:{sky:'#9bbc0f',cloud:'#d7e8b0',far:'#8bac0f',near:'#306230',ground:'#8bac0f',soil:'#306230',dark:'#0f380f',pipe:'#306230',pipeHi:'#8bac0f',pipeDark:'#0f380f',bird:'#0f380f',wing:'#306230',beak:'#0f380f',text:'#0f380f',panel:'#d7e8b0',panel2:'#9bbc0f',heart:'#0f380f'}}
+function cwFlappyArena(on){keyarea.classList.toggle('cw-flappy-active',!!on);if(!on){cancelAnimationFrame(cwFlappy.anim);cwFlappy.anim=0;$('cwFlappyResult')?.classList.remove('show')}}
+function cwFlappyInstruction(){activityInstruction('CW FLAPPY: transmite la palabra o indicativo. Timing largo hace bajar al pájaro; timing corto lo hace subir. Mantén el ritmo para atravesar los obstáculos.','CW FLAPPY: send the word or callsign. Long timing pushes the bird down; short timing lifts it. Keep the rhythm to clear the obstacles.','flappy')}
+function cwFlappyApplyLang(){if(!$('cwFlappyStart'))return;$('cwFlappyWords').textContent=cwFlappyT('PALABRAS','WORDS');$('cwFlappyCalls').textContent=cwFlappyT('INDICATIVOS','CALLSIGNS');$('cwFlappyStart').textContent=cwFlappyT('▶ JUGAR','▶ PLAY');$('cwFlappyRestart').textContent=cwFlappyT('↻ REINICIAR','↻ RESTART');$('cwFlappyExit').textContent=cwFlappyT('SALIR','EXIT');$('cwFlappyAgain').textContent=cwFlappyT('REPETIR','AGAIN');$('cwFlappyResultExit').textContent=cwFlappyT('SALIR','EXIT');if(flappyOn&&!cwFlappy.playing)cwFlappyInstruction()}
+function cwFlappySetUI(){if(!$('cwFlappyWords'))return;$('cwFlappyWords').classList.toggle('active',cwFlappy.mode==='words');$('cwFlappyCalls').classList.toggle('active',cwFlappy.mode==='calls');const pg=$('cwFlappyPaletteGame');if(pg)pg.textContent=cwFlappy.palette==='color'?'GB COLOR':'GB MONO'}
+function cwFlappyTogglePalette(){cwFlappy.palette=cwFlappy.palette==='mono'?'color':'mono';cwFlappySetUI();cwFlappyDraw()}
+function cwFlappyToast(text,good=true){const e=$('cwFlappyHit');if(!e)return;e.textContent=text;e.className='cw-flappy-hit '+(good?'good':'bad')+' show';clearTimeout(cwFlappy._toast);cwFlappy._toast=setTimeout(()=>e.classList.remove('show'),520)}
+function cwFlappyApplyError(err,weight=1){err=Math.max(-1.15,Math.min(1.15,err))*weight;cwFlappy.birdY+=err*34;cwFlappy.birdVy=err*16;cwFlappy.samples.push(Math.abs(err));cwFlappy.birdY=Math.max(92,Math.min(445,cwFlappy.birdY))}
+function cwFlappyCaptureDown(ts){if(!flappyOn||!cwFlappy.playing)return;const idx=cwFlappy.markIndex,cur=cwFlappy.marks[idx];if(!cur)return;if(cwFlappy.lastUp>0&&idx>0){const prev=cwFlappy.marks[idx-1],isChar=prev.charIndex!==cur.charIndex,expected=isChar?charGap():dotMs(),gap=ts-cwFlappy.lastUp;cwFlappyApplyError((gap-expected)/expected,isChar?0.88:0.55)}clearActivityInstruction('flappy')}
+function cwFlappyCaptureUp(ts,dur){if(!flappyOn||!cwFlappy.playing)return;const cur=cwFlappy.marks[cwFlappy.markIndex];if(!cur)return;cwFlappyApplyError((dur-cur.dur)/cur.dur,mode.value==='straight'?0.9:0.18);cwFlappy.lastUp=ts;cwFlappy.markIndex=Math.min(cwFlappy.marks.length,cwFlappy.markIndex+1)}
+function cwFlappyCharQuality(){const a=cwFlappy.samples.slice(cwFlappy.sampleStart);if(!a.length)return 100;const avg=a.reduce((x,y)=>x+y,0)/a.length;return Math.max(0,Math.round(100-avg*84))}
+function cwFlappyGapSize(){return [178,158,142,128,116][Math.max(0,Math.min(4,cwFlappy.level-1))]}
+function cwFlappyGateCenter(i){return 260+Math.sin((i+cwFlappy.level)*1.55)*58}
+function cwFlappyHandleDecoded(ch){if(!flappyOn||!cwFlappy.playing)return;ch=String(ch||'').toUpperCase();const expected=cwFlappy.target[cwFlappy.charIndex]||'',quality=cwFlappyCharQuality(),center=cwFlappyGateCenter(cwFlappy.charIndex),half=cwFlappyGapSize()/2,inside=Math.abs(cwFlappy.birdY-center)<half-13,correct=ch===expected,pass=correct&&inside&&quality>=45;cwFlappy.sessionTiming.push(quality);
+  if(pass){cwFlappy.score+=Math.max(25,Math.round(quality*1.15));cwFlappy.charIndex++;cwFlappy.travelTarget=cwFlappy.charIndex;cwFlappy.flashGood=true;cwFlappy.flashUntil=performance.now()+260;cwFlappyToast('✓ '+quality+'%',true);cwFlappy.birdVy=0;if(cwFlappy.charIndex<cwFlappy.target.length)cwFlappy.birdY=cwFlappyGateCenter(cwFlappy.charIndex);if(cwFlappy.charIndex>=cwFlappy.target.length){cwFlappy.completed++;cwFlappy.score+=250*cwFlappy.level;if(cwFlappy.level>=5){cwFlappyFinish(true);return}cwFlappy.level++;setTimeout(()=>{if(cwFlappy.playing)cwFlappyNewTarget()},620);return}cwFlappy.sampleStart=cwFlappy.samples.length}
+  else{cwFlappy.lives--;cwFlappy.flashGood=false;cwFlappy.flashUntil=performance.now()+380;cwFlappyToast(!correct?cwFlappyT('CARÁCTER','CHAR'):(quality<45?'TIMING':'PIPE'),false);cwFlappy.birdY+=(cwFlappy.birdY<center?-28:28);cwFlappy.markIndex=cwFlappy.charStarts[cwFlappy.charIndex]||0;cwFlappy.sampleStart=cwFlappy.samples.length;cwFlappy.lastUp=0;if(cwFlappy.lives<=0){cwFlappyFinish(false);return}}
+}
+function cwFlappyNewTarget(){cwFlappy.target=cwFlappyTarget();const b=cwFlappyBuildMarks(cwFlappy.target);cwFlappy.marks=b.marks;cwFlappy.charStarts=b.starts;cwFlappy.charIndex=0;cwFlappy.markIndex=0;cwFlappy.lastUp=0;cwFlappy.samples=[];cwFlappy.sampleStart=0;cwFlappy.birdY=cwFlappyGateCenter(0);cwFlappy.birdVy=0;cwFlappy.travel=0;cwFlappy.travelTarget=0;current='';currentDurations=[];symbols.textContent='';decoded.textContent='';cwFlappyHearRef()}
+async function cwFlappyHearRef(){if(!flappyOn||!cwFlappy.target)return;for(let i=0;i<cwFlappy.target.length;i++){if(!flappyOn)return;await racerPlayCode(cwFlappy.target[i]);if(i<cwFlappy.target.length-1)await sleep(Math.max(0,charGap()-dotMs()))}}
+function cwFlappyFinish(won){
+  cwFlappy.playing=false;active=false;localToneOff();leftHeld=rightHeld=false;
+  cwFlappy.best=Math.max(cwFlappy.best,cwFlappy.score);cwFlappySave();
+  const avg=cwFlappy.sessionTiming.length?Math.round(cwFlappy.sessionTiming.reduce((a,b)=>a+b,0)/cwFlappy.sessionTiming.length):0;
+  const verdict=avg>=92?cwFlappyT('EXCELENTE RITMO','EXCELLENT RHYTHM'):avg>=82?cwFlappyT('MUY BUEN TIMING','VERY GOOD TIMING'):avg>=70?cwFlappyT('BUENA BASE · SIGUE PULIENDO','GOOD BASE · KEEP POLISHING'):cwFlappyT('SIGUE PRACTICANDO EL RITMO','KEEP PRACTICING THE RHYTHM');
+  $('cwFlappyResultTitle').textContent=won?cwFlappyT('🏆 MASTER FIST','🏆 MASTER FIST'):'GAME OVER';
+  $('cwFlappyResultKicker').textContent=cwFlappyT('REPORTE DE VUELO','FLIGHT REPORT');
+  $('cwFlappyResultScore').textContent=cwFlappy.score;
+  $('cwFlappyResultTiming').textContent=avg+'%';
+  $('cwFlappyResultLevel').textContent=cwFlappy.level;
+  $('cwFlappyResultCompleted').textContent=cwFlappy.completed;
+  $('cwFlappyResultMeter').style.width=Math.max(0,Math.min(100,avg))+'%';
+  $('cwFlappyResultNote').textContent=`${verdict} · ${cwFlappyT('Mejor','Best')} ${cwFlappy.best}`;
+  $('cwFlappyResult').classList.add('show')
+}
+function cwFlappyStart(){ensureAudio();closeOtherTraining('flappy');deactivate();flappyOn=true;$('cwFlappyToggle').checked=true;$('cwFlappyPanel').classList.add('open');cwFlappy.palette='mono';cwFlappySetUI();cwFlappy.playing=true;cwFlappy.level=1;cwFlappy.lives=3;cwFlappy.score=0;cwFlappy.completed=0;cwFlappy.sessionTiming=[];cwFlappy.scroll=0;cwFlappy.travel=0;cwFlappy.travelTarget=0;cwFlappy.wingTick=0;cwFlappy.lastTs=performance.now();cwFlappy.originalActive=active;active=true;keyarea.focus();cwFlappyArena(true);$('cwFlappyResult').classList.remove('show');clearActivityInstruction('flappy');cwFlappyNewTarget();cwFlappy.anim=requestAnimationFrame(cwFlappyLoop);syncTrainingLocks()}
+function cwFlappyForceOff(){if(!flappyOn&&!cwFlappy.playing)return;cwFlappy.playing=false;flappyOn=false;cancelAnimationFrame(cwFlappy.anim);cwFlappy.anim=0;clearTimeout(cwFlappy._toast);localToneOff();leftHeld=rightHeld=false;active=false;cwFlappyArena(false);if($('cwFlappyToggle'))$('cwFlappyToggle').checked=false;$('cwFlappyPanel')?.classList.remove('open');clearActivityInstruction('flappy');syncTrainingLocks()}
+function cwFlappyDrawPixelBird(ctx,x,y,p){const px=4,wingUp=Math.floor(cwFlappy.wingTick/7)%2===0;ctx.save();ctx.translate(Math.round(x/px)*px,Math.round(y/px)*px);ctx.fillStyle=p.bird;ctx.fillRect(-16,-8,28,20);ctx.fillRect(-8,-16,12,8);ctx.fillStyle=p.wing;ctx.fillRect(-12,wingUp?-7:1,12,8);ctx.fillStyle=p.cloud;ctx.fillRect(3,-7,5,5);ctx.fillStyle=p.dark;ctx.fillRect(5,-6,3,3);ctx.fillStyle=p.beak;ctx.fillRect(12,-2,10,6);ctx.restore()}
+function cwFlappyDrawPipe(ctx,x,center,gap,p,W,H){const w=54,hudSafeY=60,top=Math.max(74,center-gap/2),bottom=Math.min(H-54,center+gap/2);ctx.fillStyle=p.pipeDark;ctx.fillRect(x-3,hudSafeY,w+6,top-hudSafeY);ctx.fillRect(x-3,bottom,w+6,H-bottom-46);ctx.fillStyle=p.pipe;ctx.fillRect(x,hudSafeY,w,top-hudSafeY);ctx.fillRect(x,bottom,w,H-bottom-46);ctx.fillStyle=p.pipeHi;ctx.fillRect(x+7,hudSafeY,7,top-hudSafeY);ctx.fillRect(x+7,bottom,7,H-bottom-46);ctx.fillStyle=p.pipeDark;ctx.fillRect(x-7,top-14,w+14,14);ctx.fillRect(x-7,bottom,w+14,14)}
+function cwFlappyDraw(){
+  const c=$('cwFlappyCanvas');if(!c)return;
+  const r=c.getBoundingClientRect(),dpr=Math.min(2,window.devicePixelRatio||1),W=Math.max(320,Math.round(r.width*dpr)),H=Math.max(360,Math.round(r.height*dpr));
+  if(c.width!==W||c.height!==H){c.width=W;c.height=H}
+  const ctx=c.getContext('2d');ctx.imageSmoothingEnabled=false;ctx.setTransform(dpr,0,0,dpr,0,0);
+  const w=r.width,h=r.height,p=cwFlappyPalette(),S=cwFlappy.scroll;
+  ctx.fillStyle=p.sky;ctx.fillRect(0,0,w,h);
+
+  // Deep parallax: tiny sky pixels, far clouds, hills, tree line, shrubs and foreground.
+  ctx.fillStyle=cwFlappy.palette==='color'?'rgba(255,255,255,.55)':p.cloud;
+  for(let i=0;i<14;i++){const x=((i*97-S*.055)%(w+120))-30,y=72+(i%5)*23;ctx.fillRect(x,y,2,2)}
+  ctx.fillStyle=p.cloud;
+  for(let i=0;i<7;i++){const x=((i*183-S*.14)%(w+220))-80,y=90+(i%3)*49;ctx.fillRect(x,y,42,9);ctx.fillRect(x+9,y-9,25,9);ctx.fillRect(x+19,y-17,12,8)}
+  // far mountains move very slowly
+  ctx.fillStyle=p.far;ctx.beginPath();ctx.moveTo(0,h-112);
+  for(let x=-60;x<=w+60;x+=52){const xx=x-((S*.09)%52),peak=h-118-(((Math.floor((x+60)/52))%4)*13);ctx.lineTo(xx,peak)}
+  ctx.lineTo(w,h);ctx.lineTo(0,h);ctx.fill();
+  // distant tree silhouettes
+  ctx.fillStyle=p.near;
+  for(let i=0;i<18;i++){const x=((i*73-S*.22)%(w+110))-50,y=h-94-(i%3)*7;ctx.fillRect(x+10,y,8,28);ctx.fillRect(x,y+8,28,17);ctx.fillRect(x+6,y,17,12)}
+  // mid shrubs
+  ctx.fillStyle=cwFlappy.palette==='color'?p.far:p.near;
+  for(let i=0;i<15;i++){const x=((i*91-S*.43)%(w+130))-60,y=h-70;ctx.fillRect(x,y,48,19);ctx.fillRect(x+8,y-11,31,12);ctx.fillRect(x+17,y-18,14,8)}
+  // fence posts add a faster parallax layer
+  ctx.fillStyle=p.dark;
+  for(let i=0;i<18;i++){const x=((i*68-S*.68)%(w+90))-30;ctx.fillRect(x,h-67,5,20);ctx.fillRect(x-8,h-61,22,4)}
+  ctx.fillStyle=p.ground;ctx.fillRect(0,h-48,w,14);
+  ctx.fillStyle=p.soil;ctx.fillRect(0,h-34,w,34);
+  ctx.fillStyle=p.dark;for(let x=0;x<w+18;x+=18)ctx.fillRect((x-S)%w,h-29,9,4);
+  // foreground grass/pixels
+  for(let i=0;i<28;i++){const x=((i*47-S*1.12)%(w+55))-15;ctx.fillRect(x,h-47,3,8);ctx.fillRect(x+4,h-44,3,5)}
+
+  // HUD panels
+  ctx.fillStyle=p.panel;ctx.strokeStyle=p.dark;ctx.lineWidth=3;
+  const box=(x,y,bw,bh)=>{ctx.fillRect(x,y,bw,bh);ctx.strokeRect(x,y,bw,bh)};
+  box(10,8,82,42);box(96,8,Math.min(270,w*.31),42);box(w-238,8,75,42);box(w-159,8,72,42);box(w-83,8,73,42);
+  ctx.fillStyle=p.text;ctx.font='900 10px ui-monospace,monospace';ctx.fillText('LEVEL',17,20);
+  ctx.font='900 18px ui-monospace,monospace';ctx.fillText(String(cwFlappy.level).padStart(2,'0'),32,41);
+  ctx.font='900 10px ui-monospace,monospace';ctx.fillText(cwFlappy.mode==='calls'?'CALL':'WORD',104,20);
+  ctx.font='900 18px ui-monospace,monospace';ctx.fillText(cwFlappy.target,104,42);
+  ctx.font='900 9px ui-monospace,monospace';ctx.fillText('WPM',w-229,20);
+  ctx.font='900 16px ui-monospace,monospace';ctx.fillText(String(wpm.value),w-216,41);
+  ctx.font='900 9px ui-monospace,monospace';ctx.fillText('SCORE',w-153,20);
+  ctx.font='900 14px ui-monospace,monospace';ctx.fillText(String(cwFlappy.score).padStart(5,'0'),w-153,41);
+  ctx.font='900 17px ui-monospace,monospace';ctx.fillStyle=p.heart;ctx.fillText('♥'.repeat(Math.max(0,cwFlappy.lives)),w-75,38);
+
+  // Reference card
+  const refW=Math.min(172,Math.max(142,w*.19)),refH=Math.min(214,h-142);
+  ctx.fillStyle=p.panel;ctx.strokeStyle=p.dark;ctx.lineWidth=3;ctx.fillRect(10,62,refW,refH);ctx.strokeRect(10,62,refW,refH);
+  ctx.fillStyle=p.dark;ctx.font='900 12px ui-monospace,monospace';ctx.fillText('REF · '+(cwFlappy.mode==='calls'?'CALL':'WORD'),20,82);
+  ctx.font='900 11px ui-monospace,monospace';let yy=105;
+  for(let i=0;i<cwFlappy.target.length&&yy<62+refH-10;i++){
+    const prefix=i<cwFlappy.charIndex?'✓':i===cwFlappy.charIndex?'›':' ';
+    ctx.fillStyle=p.dark;ctx.fillText(prefix+' '+cwFlappy.target[i],20,yy);
+    ctx.font='900 12px ui-monospace,monospace';ctx.fillText(cwFlappyCode(cwFlappy.target[i]),58,yy);
+    ctx.font='900 11px ui-monospace,monospace';yy+=18
+  }
+
+  // Obstacles
+  const baseX=Math.max(refW+88,w*.53),spacingX=Math.max(112,(w-baseX-35)/3),travelPx=cwFlappy.travel*spacingX;
+  for(let ci=cwFlappy.charIndex;ci<Math.min(cwFlappy.target.length,cwFlappy.charIndex+5);ci++){
+    const x=baseX+ci*spacingX-travelPx,cg=cwFlappyGateCenter(ci),gap=cwFlappyGapSize();
+    if(x>w+70||x<-80)continue;
+    cwFlappyDrawPipe(ctx,x,cg,gap,p,w,h);
+    ctx.fillStyle=p.dark;ctx.font='900 12px ui-monospace,monospace';ctx.fillText(cwFlappy.target[ci],x+20,Math.max(66,cg-gap/2-19))
+  }
+
+  // Bird and flight guide
+  const birdX=Math.max(refW+40,190)+Math.sin(S*.045)*3;
+  ctx.strokeStyle=p.dark;ctx.lineWidth=2;ctx.setLineDash([4,7]);ctx.beginPath();ctx.moveTo(refW+12,cwFlappy.birdY);ctx.lineTo(baseX-10,cwFlappy.birdY);ctx.stroke();ctx.setLineDash([]);
+  cwFlappyDrawPixelBird(ctx,birdX,cwFlappy.birdY,p);
+
+  // Large, game-like live timing meter
+  const q=cwFlappyCharQuality(),barX=Math.max(refW+32,174),barW=Math.max(150,Math.min(360,w-barX-150)),barY=h-78,barH=20;
+  ctx.fillStyle=p.panel;ctx.strokeStyle=p.dark;ctx.lineWidth=3;ctx.fillRect(barX,barY,barW,barH);ctx.strokeRect(barX,barY,barW,barH);
+  const innerW=Math.max(0,(barW-8)*q/100);
+  const fill=cwFlappy.palette==='color'?(q>=82?'#43a84e':q>=62?'#e0a85e':'#d95c43'):(q>=82?p.dark:q>=62?p.near:p.pipeDark);
+  ctx.fillStyle=fill;ctx.fillRect(barX+4,barY+4,innerW,barH-8);
+  ctx.fillStyle=p.dark;ctx.font='900 10px ui-monospace,monospace';ctx.fillText('TIMING',barX,barY-6);
+  ctx.textAlign='right';ctx.fillText(q+'%',barX+barW,barY-6);ctx.textAlign='left';
+  // 82% excellent-timing marker (visual goal, not the pass threshold)
+  ctx.fillStyle=p.dark;const mx=barX+4+(barW-8)*.82;ctx.fillRect(mx,barY+2,2,barH-4);
+  ctx.font='900 8px ui-monospace,monospace';ctx.fillText(cwFlappy.palette==='color'?'GB COLOR':'GB MONO',w-94,h-60)
+}
+function cwFlappyLoop(ts){if(!cwFlappy.playing)return;const dt=Math.min(45,Math.max(0,ts-(cwFlappy.lastTs||ts)));cwFlappy.lastTs=ts;cwFlappy.scroll=(cwFlappy.scroll+dt*.105)%10000;cwFlappy.wingTick+=dt/16.67;const ease=1-Math.pow(.82,Math.max(1,dt/16.67));cwFlappy.travel+=(cwFlappy.travelTarget-cwFlappy.travel)*ease;cwFlappy.birdVy*=.88;cwFlappy.birdY+=cwFlappy.birdVy*.035*dt;cwFlappy.birdY=Math.max(92,Math.min(445,cwFlappy.birdY));cwFlappyDraw();cwFlappy.anim=requestAnimationFrame(cwFlappyLoop)}
+function setupCWFlappy(){const t=$('cwFlappyToggle');if(!t)return;cwFlappySetUI();cwFlappyApplyLang();t.onchange=e=>{flappyOn=e.target.checked;$('cwFlappyPanel').classList.toggle('open',flappyOn);if(flappyOn){closeOtherTraining('flappy');cwFlappyInstruction();syncTrainingLocks()}else cwFlappyForceOff()};$('cwFlappyWords').onclick=()=>{if(cwFlappy.playing)return;cwFlappy.mode='words';cwFlappySetUI();cwFlappySave()};$('cwFlappyCalls').onclick=()=>{if(cwFlappy.playing)return;cwFlappy.mode='calls';cwFlappySetUI();cwFlappySave()};$('cwFlappyPaletteGame').onclick=cwFlappyTogglePalette;$('cwFlappyStart').onclick=cwFlappyStart;$('cwFlappyRestart').onclick=cwFlappyStart;$('cwFlappyAgain').onclick=cwFlappyStart;$('cwFlappyExit').onclick=cwFlappyForceOff;$('cwFlappyResultExit').onclick=cwFlappyForceOff;$('cwFlappyHear').onclick=cwFlappyHearRef;window.addEventListener('resize',()=>{if(cwFlappy.playing)cwFlappyDraw()})}
+// ================== END CW FLAPPY ==================
+
 // ================== CW TIMING COACH ==================
 const CW_TIMING_STORE='cw-timing-coach-v1';
 const CW_TIMING_LESSONS=[
@@ -8791,7 +9016,7 @@ cwTimingApplyLang();cwTimingDrawScopeFlat();cwTimingDrawTimeline();
 
 
 applyLang();applyAudioOnly();setupCommunity();
-setupRewards();setupDuel();setupInvaders();setupBentWire();setupBattleship();setupStableGlobalStats();connectGlobalStats();updateModeHint();updatePresenceUI();applyVisualAid();syncTrainingLocks();qsoSmartStatus('off');$('charSpacingValue').textContent=charSpacing.value;
+setupRewards();setupDuel();setupInvaders();setupCWFlappy();setupBentWire();setupBattleship();setupStableGlobalStats();connectGlobalStats();updateModeHint();updatePresenceUI();applyVisualAid();syncTrainingLocks();qsoSmartStatus('off');$('charSpacingValue').textContent=charSpacing.value;
 setupChat();
 syncPaddleReverseUI();
 updateOnAirVisual();
@@ -8819,6 +9044,7 @@ updateOnAirVisual();
     {id:'battleship',selector:'.battleship-box',   head:'.battleship-head',            title:'CW BATTLESHIP'},
     {id:'bentwire',  selector:'.bentwire-box',     head:'.bentwire-head',              title:'WORLD RECORD'},
     {id:'racer',     selector:'.cwracer-box',      head:'.cwracer-head',               title:'CW RACER'},
+    {id:'flappy',    selector:'.cw-flappy-box',    head:'.cw-flappy-head',            title:'CW FLAPPY'},
     {id:'invaders',  selector:'.invaders-box',     head:'.invaders-head',              title:'CW INVADERS'},
     {id:'duel',      selector:'.duel-box',         head:'.duel-head',                  title:'CW DUEL'},
     {id:'community', selector:'.community-box',    head:'.community-head',             title:'LEADERBOARD'},
