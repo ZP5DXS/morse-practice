@@ -854,6 +854,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   .desktop-modules.customizing .invaders-head,
   .desktop-modules.customizing .duel-head,
   .desktop-modules.customizing .cwracer-head,
+  .desktop-modules.customizing .cw-timing-head,
   .desktop-modules.customizing .stats-head,
   .desktop-modules.customizing .koch-head,
   .desktop-modules.customizing .qsobot-head,
@@ -868,6 +869,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   .desktop-modules .invaders-box,
   .desktop-modules .duel-box,
   .desktop-modules .cwracer-box,
+  .desktop-modules .cw-timing-box,
   .desktop-modules .stats-box,
   .desktop-modules .koch-box,
   .desktop-modules .qsobot-box,
@@ -1409,6 +1411,75 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
 }
 .site-stats .site-stats-more{order:21}
 </style>
+
+<style id="cwTimingStyles">
+/* ================== CW TIMING COACH (isolated learning module) ================== */
+.cw-timing-box{margin-top:18px;padding-top:15px;border-top:1px solid var(--line)}
+.cw-timing-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cw-timing-label{font-size:13px;font-weight:900;letter-spacing:.04em}
+.cw-timing-panel{display:none;margin-top:12px}.cw-timing-panel.open{display:block}
+.cw-timing-note{font-size:9px;line-height:1.45;color:var(--muted);margin:7px 0 9px}
+.cw-timing-level-select{width:100%;padding:8px 9px;border:1px solid var(--line);border-radius:9px;background:var(--panel2);color:var(--text);font-size:10px;margin-bottom:8px}
+
+.cw-timing-arena{position:absolute;inset:0;z-index:25;display:none;background:var(--panel3);padding:12px;overflow:hidden;text-align:left;cursor:default}
+.cw-timing-arena.open{display:block}.keyarea.cw-timing-active{min-height:735px;height:auto!important;border-style:solid;border-color:color-mix(in srgb,var(--accent) 58%,var(--line));cursor:default}
+.cw-timing-shell{width:min(980px,100%);margin:auto;display:grid;gap:8px;min-width:0}
+.cw-timing-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.cw-timing-brand{font-size:12px;font-weight:950;letter-spacing:.08em;color:var(--accent2)}
+.cw-timing-top-meta{font:800 10px ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--muted)}
+.cw-timing-track{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:4px}
+.cw-timing-step{border:1px solid var(--line);border-radius:7px;background:var(--panel2);color:var(--muted);padding:6px 2px;text-align:center;font-size:8px;font-weight:950;min-width:0}
+.cw-timing-step.active{border-color:var(--accent);color:var(--text);background:color-mix(in srgb,var(--accent) 11%,var(--panel2));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--accent) 20%,transparent)}
+.cw-timing-step.done{color:var(--good);border-color:color-mix(in srgb,var(--good) 42%,var(--line))}
+.cw-timing-lesson{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:11px}
+.cw-timing-lesson h2{margin:0;font-size:15px;color:var(--text)}
+.cw-timing-lesson p{margin:3px 0 0;font-size:10px;color:var(--muted);line-height:1.35}
+.cw-timing-target{font:950 27px/1.15 ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--accent2);text-align:right;max-width:460px;word-break:break-word}
+.cw-timing-focus{display:inline-flex;align-items:center;gap:6px;margin-top:7px;padding:4px 8px;border:1px solid var(--line);border-radius:999px;background:var(--panel2);font-size:9px;font-weight:850;color:var(--muted)}
+.cw-timing-focus b{color:var(--text)}
+
+.cw-timing-livegrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+.cw-timing-meter{border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:8px;min-width:0}
+.cw-timing-meter-head{display:flex;justify-content:space-between;gap:6px;align-items:center;font-size:8px;font-weight:900;color:var(--muted)}
+.cw-timing-meter-value{font:950 16px/1.2 ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--text);margin:6px 0}
+.cw-timing-meter-bar{height:7px;border-radius:999px;background:var(--panel2);overflow:hidden;position:relative}
+.cw-timing-meter-bar::after{content:"";position:absolute;left:50%;top:-2px;bottom:-2px;width:1px;background:var(--text);opacity:.55}
+.cw-timing-meter-fill{height:100%;width:50%;background:var(--muted);transition:width .16s,background .16s}
+.cw-timing-meter.good .cw-timing-meter-fill{background:var(--good)}.cw-timing-meter.warn .cw-timing-meter-fill{background:var(--warn)}.cw-timing-meter.bad .cw-timing-meter-fill{background:var(--danger)}
+.cw-timing-meter.good .cw-timing-meter-value{color:var(--good)}.cw-timing-meter.warn .cw-timing-meter-value{color:var(--warn)}.cw-timing-meter.bad .cw-timing-meter-value{color:var(--danger)}
+
+.cw-timing-visuals{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(260px,.65fr);gap:8px;min-width:0}
+.cw-timing-card{border:1px solid var(--line);border-radius:11px;background:var(--panel);padding:9px;min-width:0}
+.cw-timing-card-title{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;font-size:8px;font-weight:950;letter-spacing:.06em;color:var(--muted)}
+.cw-timing-card-title b{color:var(--text)}
+.cw-timing-canvas{display:block;width:100%;height:112px;border:1px solid color-mix(in srgb,var(--line) 72%,transparent);border-radius:8px;background:var(--panel3)}
+#cwTimingScope{height:112px}
+.cw-timing-scope-state{font:850 8px ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--muted)}
+
+.cw-timing-result{display:none;border:1px solid var(--line);border-radius:11px;background:var(--panel);padding:10px}.cw-timing-result.open{display:block}
+.cw-timing-scoreline{display:grid;grid-template-columns:110px minmax(0,1fr);gap:12px;align-items:center}
+.cw-timing-score-ring{--score:0;width:94px;height:94px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--accent) calc(var(--score)*1%),var(--panel2) 0);position:relative;margin:auto}
+.cw-timing-score-ring::before{content:"";position:absolute;inset:8px;border-radius:50%;background:var(--panel)}
+.cw-timing-score-ring b{position:relative;z-index:1;font:950 25px ui-monospace,SFMono-Regular,Consolas,monospace}.cw-timing-score-ring span{position:absolute;z-index:1;margin-top:39px;font-size:7px;color:var(--muted);font-weight:900}
+.cw-timing-result-note{font-size:11px;font-weight:900;color:var(--text);line-height:1.4}.cw-timing-result-sub{font-size:9px;color:var(--muted);margin-top:4px;line-height:1.4}
+.cw-timing-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;margin-top:8px}
+.cw-timing-metric{border:1px solid var(--line);border-radius:8px;background:var(--panel3);padding:7px;text-align:center;font-size:7px;color:var(--muted)}
+.cw-timing-metric b{display:block;font:950 13px ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--text);margin-bottom:2px}
+.cw-timing-pad{height:48px;border:1px dashed color-mix(in srgb,var(--accent) 45%,var(--line));border-radius:10px;background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 5%,var(--panel3)) 0 50%,color-mix(in srgb,var(--good) 5%,var(--panel3)) 50% 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;touch-action:none;user-select:none;color:var(--muted);font-size:9px;font-weight:900;letter-spacing:.05em;cursor:crosshair}
+.cw-timing-pad::after{content:"";position:absolute;left:50%;top:7px;bottom:7px;width:1px;background:var(--line);opacity:.55}.cw-timing-pad.straight::after{display:none}.cw-timing-pad.pressed{border-style:solid;border-color:var(--accent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--accent) 25%,transparent)}
+.cw-timing-pad-label{pointer-events:none;text-align:center}.cw-timing-pad-label b{color:var(--text)}
+.cw-timing-actions{display:flex;gap:6px;flex-wrap:nowrap}.cw-timing-actions .action{flex:1 1 0;min-width:0;padding:8px 6px;font-size:9px;white-space:nowrap}
+.cw-timing-help{font-size:8px;color:var(--muted);line-height:1.4;text-align:center}
+
+@media(max-width:760px){.cw-timing-livegrid{grid-template-columns:repeat(2,minmax(0,1fr))}.cw-timing-visuals{grid-template-columns:1fr}.cw-timing-lesson{grid-template-columns:1fr}.cw-timing-target{text-align:left;max-width:none}.cw-timing-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.keyarea.cw-timing-active{min-height:900px;height:auto!important}.cw-timing-actions{flex-wrap:wrap}.cw-timing-actions .action{flex:1 1 30%}}
+@media(max-width:420px){.cw-timing-arena{padding:9px}.cw-timing-livegrid{grid-template-columns:1fr 1fr}.cw-timing-scoreline{grid-template-columns:90px 1fr}.cw-timing-score-ring{width:82px;height:82px}.cw-timing-target{font-size:21px}}
+
+@media(min-width:901px) and (hover:hover) and (pointer:fine){
+  .desktop-modules.customizing .cw-timing-head{min-height:26px}
+  .desktop-modules .cw-timing-box{margin-top:0}
+}
+</style>
+
 </head>
 <body>
 <div class="app">
@@ -1527,6 +1598,18 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
       <label class="switch"><input id="racerVoiceToggle" type="checkbox"><span></span></label>
     </div>
     <button id="learnStartBtn" class="action primary module-start-full" type="button" data-i18n="racerStart">Comenzar</button>
+  </div>
+</div>
+
+
+<div class="cw-timing-box">
+  <div class="cw-timing-head">
+    <div class="cw-timing-label">🎚 <span id="cwTimingModuleLabel">CW TIMING</span></div>
+    <label class="switch"><input id="cwTimingToggle" type="checkbox"><span></span></label>
+  </div>
+  <div id="cwTimingPanel" class="cw-timing-panel">
+    <select id="cwTimingLevel" class="cw-timing-level-select" aria-label="CW Timing lesson"></select>
+    <button id="cwTimingStart" class="action primary module-start-full" type="button">INICIAR COACH</button>
   </div>
 </div>
 
@@ -1985,6 +2068,61 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
   </div>
   <button id="racerArenaQuit" class="action danger racer-arena-exit" type="button" data-i18n="duelExit">Salir</button>
 </div>
+
+<div id="cwTimingArena" class="cw-timing-arena" aria-label="CW Timing Coach">
+  <div class="cw-timing-shell">
+    <div class="cw-timing-top">
+      <div class="cw-timing-brand">🎚 CW TIMING · <span id="cwTimingCoachSub">PERFECT YOUR FIST</span></div>
+      <div id="cwTimingTopMeta" class="cw-timing-top-meta">15 WPM · STRAIGHT KEY</div>
+    </div>
+    <div class="cw-timing-lesson">
+      <div>
+        <h2 id="cwTimingLessonTitle">1 · DIT CONTROL</h2>
+        <p id="cwTimingLessonDesc">Iguala la duración de todos tus dits.</p>
+        <div class="cw-timing-focus">FOCUS · <b id="cwTimingFocus">DIT CONSISTENCY</b></div>
+      </div>
+      <div id="cwTimingTarget" class="cw-timing-target">S H I 5 E</div>
+    </div>
+
+    <div class="cw-timing-livegrid">
+      <div id="cwTimingMeterDit" class="cw-timing-meter"><div class="cw-timing-meter-head"><span>DIT</span><span id="cwTimingDitIdeal">80 ms</span></div><div id="cwTimingDitValue" class="cw-timing-meter-value">—</div><div class="cw-timing-meter-bar"><div class="cw-timing-meter-fill"></div></div></div>
+      <div id="cwTimingMeterDah" class="cw-timing-meter"><div class="cw-timing-meter-head"><span>DAH</span><span id="cwTimingDahIdeal">240 ms</span></div><div id="cwTimingDahValue" class="cw-timing-meter-value">—</div><div class="cw-timing-meter-bar"><div class="cw-timing-meter-fill"></div></div></div>
+      <div id="cwTimingMeterRatio" class="cw-timing-meter"><div class="cw-timing-meter-head"><span>DAH : DIT</span><span>3.00 : 1</span></div><div id="cwTimingRatioValue" class="cw-timing-meter-value">—</div><div class="cw-timing-meter-bar"><div class="cw-timing-meter-fill"></div></div></div>
+      <div id="cwTimingMeterRhythm" class="cw-timing-meter"><div class="cw-timing-meter-head"><span id="cwTimingRhythmLabel">RHYTHM</span><span>±15%</span></div><div id="cwTimingRhythmValue" class="cw-timing-meter-value">READY</div><div class="cw-timing-meter-bar"><div class="cw-timing-meter-fill"></div></div></div>
+    </div>
+
+    <div class="cw-timing-visuals">
+      <div class="cw-timing-card">
+        <div class="cw-timing-card-title"><b id="cwTimingCompareTitle">TIMING · IDEAL vs YOU</b><span id="cwTimingTimelineState">WAITING FOR TX</span></div>
+        <canvas id="cwTimingTimeline" class="cw-timing-canvas" width="900" height="128"></canvas>
+      </div>
+      <div class="cw-timing-card">
+        <div class="cw-timing-card-title"><b id="cwTimingScopeTitle">AUDIO OSCILLOSCOPE</b><span id="cwTimingScopeState" class="cw-timing-scope-state">IDLE</span></div>
+        <canvas id="cwTimingScope" class="cw-timing-canvas" width="420" height="128"></canvas>
+      </div>
+    </div>
+
+    <div id="cwTimingResult" class="cw-timing-result">
+      <div class="cw-timing-scoreline">
+        <div id="cwTimingScoreRing" class="cw-timing-score-ring"><b id="cwTimingScore">0</b><span>TIMING</span></div>
+        <div><div id="cwTimingResultNote" class="cw-timing-result-note"></div><div id="cwTimingResultSub" class="cw-timing-result-sub"></div></div>
+      </div>
+      <div id="cwTimingMetrics" class="cw-timing-metrics"></div>
+    </div>
+
+    <div id="cwTimingPad" class="cw-timing-pad straight" aria-label="CW Timing transmit pad"><div id="cwTimingPadLabel" class="cw-timing-pad-label"><b>TX PAD</b> · HOLD TO SEND</div></div>
+    <div class="cw-timing-actions">
+      <button id="cwTimingReference" class="action" type="button">▶ REFERENCE</button>
+      <button id="cwTimingMine" class="action" type="button">▶ MY TX</button>
+      <button id="cwTimingAB" class="action" type="button">A/B</button>
+      <button id="cwTimingAnalyze" class="action primary" type="button">ANALYZE</button>
+      <button id="cwTimingRepeat" class="action" type="button">REPETIR</button>
+      <button id="cwTimingNext" class="action" type="button">NUEVO</button>
+      <button id="cwTimingExit" class="action danger" type="button">EXIT</button>
+    </div>
+  </div>
+</div>
+
 <div id="duelArena" class="duel-arena">
   <div id="duelBattle">
     <div class="duel-scoreboard"><div class="duel-player"><b id="duelMeCall">—</b><span><span id="duelMeCorrect">0</span>/30 · 🔥<span id="duelMeStreak">0</span></span><div class="duel-progress-track"><div id="duelMeBar" class="duel-progress-fill"></div></div></div><div class="duel-mid">VS</div><div class="duel-player"><b id="duelOppCall">—</b><span><span id="duelOppCorrect">0</span>/30 · 🔥<span id="duelOppStreak">0</span></span><div class="duel-progress-track"><div id="duelOppBar" class="duel-progress-fill opp"></div></div></div></div>
@@ -2276,7 +2414,7 @@ function syncPaddleReverseUI(){
 }
 
 function flash(on){keyarea.classList.toggle('active',!!on)}
-function scheduleDecode(){clearTimeout(charTimer);clearTimeout(wordTimer);charTimer=setTimeout(()=>{if(!current)return;const code=current,durations=currentDurations.slice(),raw=MORSE[code]||`[${code}]`,ch=raw==='<AR>'?'AR':(raw==='='||raw==='<BT>'?'BT':raw);decoded.textContent=ch;if(!customLessonOn&&!kochOn&&!errorsPracticeOn&&!bentWireOn&&!battleshipOn&&!(typeof invadersPlaying!=='undefined'&&invadersPlaying))practice.value+=ch;if(typeof battleOnDecoded==='function')battleOnDecoded(ch,code,durations);if(typeof bentWireHandleDecoded==='function')bentWireHandleDecoded(ch,code,durations);if(typeof errorsPracticeHandleDecoded==='function')errorsPracticeHandleDecoded(ch,code,durations);if(typeof customLessonHandleDecoded==='function')customLessonHandleDecoded(ch,code,durations);if(typeof kochHandleDecoded==='function')kochHandleDecoded(ch,code,durations);if(typeof racerHandleDecoded==='function')racerHandleDecoded(ch,code,durations);if(typeof qsoHandleDecoded==='function')qsoHandleDecoded(ch,code,durations);if(typeof invadersHandleDecoded==='function')invadersHandleDecoded(ch,code,durations);current='';currentDurations=[];symbols.textContent='';if(!customLessonOn&&!kochOn&&!errorsPracticeOn&&!bentWireOn&&!battleshipOn&&!(typeof invadersPlaying!=='undefined'&&invadersPlaying))practice.scrollTop=practice.scrollHeight;wordTimer=setTimeout(()=>{if(!customLessonOn&&!kochOn&&!errorsPracticeOn&&!bentWireOn&&!battleshipOn&&practice.value&&!practice.value.endsWith(' '))practice.value+=' ';if(typeof qsoWordBoundary==='function')qsoWordBoundary()},Math.max(10,wordGap()-charGap()))},charGap())}
+function scheduleDecode(){clearTimeout(charTimer);clearTimeout(wordTimer);charTimer=setTimeout(()=>{if(!current)return;const code=current,durations=currentDurations.slice(),raw=MORSE[code]||`[${code}]`,ch=raw==='<AR>'?'AR':(raw==='='||raw==='<BT>'?'BT':raw);decoded.textContent=ch;if(!cwTimingOn&&!customLessonOn&&!kochOn&&!errorsPracticeOn&&!bentWireOn&&!battleshipOn&&!(typeof invadersPlaying!=='undefined'&&invadersPlaying))practice.value+=ch;if(typeof battleOnDecoded==='function')battleOnDecoded(ch,code,durations);if(typeof bentWireHandleDecoded==='function')bentWireHandleDecoded(ch,code,durations);if(typeof errorsPracticeHandleDecoded==='function')errorsPracticeHandleDecoded(ch,code,durations);if(typeof customLessonHandleDecoded==='function')customLessonHandleDecoded(ch,code,durations);if(typeof kochHandleDecoded==='function')kochHandleDecoded(ch,code,durations);if(typeof racerHandleDecoded==='function')racerHandleDecoded(ch,code,durations);if(typeof qsoHandleDecoded==='function')qsoHandleDecoded(ch,code,durations);if(typeof invadersHandleDecoded==='function')invadersHandleDecoded(ch,code,durations);if(typeof cwTimingHandleDecoded==='function')cwTimingHandleDecoded(ch,code,durations);current='';currentDurations=[];symbols.textContent='';if(!customLessonOn&&!kochOn&&!errorsPracticeOn&&!bentWireOn&&!battleshipOn&&!(typeof invadersPlaying!=='undefined'&&invadersPlaying))practice.scrollTop=practice.scrollHeight;wordTimer=setTimeout(()=>{if(!cwTimingOn&&!customLessonOn&&!kochOn&&!errorsPracticeOn&&!bentWireOn&&!battleshipOn&&practice.value&&!practice.value.endsWith(' '))practice.value+=' ';if(typeof qsoWordBoundary==='function')qsoWordBoundary();if(typeof cwTimingWordBoundary==='function')cwTimingWordBoundary()},Math.max(10,wordGap()-charGap()))},charGap())}
 function addElement(s){
   if(typeof battleFireElement==='function'&&battle.playing&&battle.phase==='fire'){
     current='';currentDurations=[];symbols.textContent='';battleFireElement(s);return;
@@ -2290,18 +2428,18 @@ function addElement(s){
 }
 function canTransmit(){return !duelOn&&!qsoBotSending&&(!onAir||!remoteBusy)}
 const VBAND_MIN_PULSE_MS=8;
-function straightDown(source='local'){if(downAt||!canTransmit())return;clearActivityInstructionOnKeying();if(typeof bentWireStartTimerOnFirstKey==='function')bentWireStartTimerOnFirstKey();clearTimeout(charTimer);clearTimeout(wordTimer);downAt=performance.now();downSource=source;localToneOn();flash(true);if(onAir)publishKey('down')}
-function straightUp(){if(!downAt)return;const dur=performance.now()-downAt,source=downSource;downAt=0;downSource='local';localToneOff();flash(false);if(source==='vband'&&dur<VBAND_MIN_PULSE_MS)return;if(onAir)publishKey('up',dur);currentDurations.push(dur);addElement(dur<dotMs()*2?'.':'-')}
-async function sendTimed(s){if(!canTransmit())return;clearActivityInstructionOnKeying();if(typeof bentWireStartTimerOnFirstKey==='function')bentWireStartTimerOnFirstKey();clearTimeout(charTimer);clearTimeout(wordTimer);const elementMs=s==='.'?dotMs():dotMs()*3;localToneOn();flash(true);if(onAir)publishKey('down');await sleep(elementMs);localToneOff();flash(false);if(onAir)publishKey('up',elementMs);currentDurations.push(elementMs);addElement(s);await sleep(dotMs())}
+function straightDown(source='local'){if(downAt||!canTransmit())return;clearActivityInstructionOnKeying();if(typeof bentWireStartTimerOnFirstKey==='function')bentWireStartTimerOnFirstKey();clearTimeout(charTimer);clearTimeout(wordTimer);downAt=performance.now();downSource=source;if(typeof cwTimingCaptureDown==='function')cwTimingCaptureDown(downAt);localToneOn();flash(true);if(onAir)publishKey('down')}
+function straightUp(){if(!downAt)return;const dur=performance.now()-downAt,source=downSource;downAt=0;downSource='local';localToneOff();flash(false);if(source==='vband'&&dur<VBAND_MIN_PULSE_MS)return;if(onAir)publishKey('up',dur);if(typeof cwTimingCaptureUp==='function')cwTimingCaptureUp(performance.now(),dur);currentDurations.push(dur);addElement(dur<dotMs()*2?'.':'-')}
+async function sendTimed(s){if(!canTransmit())return;clearActivityInstructionOnKeying();if(typeof bentWireStartTimerOnFirstKey==='function')bentWireStartTimerOnFirstKey();clearTimeout(charTimer);clearTimeout(wordTimer);const elementMs=s==='.'?dotMs():dotMs()*3;if(typeof cwTimingCaptureDown==='function')cwTimingCaptureDown(performance.now());localToneOn();flash(true);if(onAir)publishKey('down');await sleep(elementMs);localToneOff();flash(false);if(onAir)publishKey('up',elementMs);if(typeof cwTimingCaptureUp==='function')cwTimingCaptureUp(performance.now(),elementMs);currentDurations.push(elementMs);addElement(s);await sleep(dotMs())}
 async function iambicLoop(){if(iambicRunning)return;iambicRunning=true;try{while(leftHeld||rightHeld){if(!canTransmit())break;let s;if(leftHeld&&rightHeld)s=lastIambic==='.'?'-':'.';else s=leftHeld?'.':'-';lastIambic=s;await sendTimed(s)}}finally{iambicRunning=false}}
 function updateModeHint(){keyarea.classList.toggle('paddle-touch',mode.value!=='straight');keyarea.classList.toggle('paddle-mode',mode.value!=='straight');if(mode.value==='straight')$("modeHint").innerHTML=tr('straightHint');else{const l=paddleLogicalSide('left').toUpperCase(),r=paddleLogicalSide('right').toUpperCase();$("modeHint").innerHTML=`<span class="${l.toLowerCase()}">${lang==='es'?'Izquierda':'Left'} = ${l} (${l==='DIT'?'.':'-'})</span> · <span class="${r.toLowerCase()}">${lang==='es'?'Derecha':'Right'} = ${r} (${r==='DIT'?'.':'-'})</span>`}document.querySelectorAll('.seg-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode.value));syncPaddleReverseUI();status.textContent=tr('idle')}
 function activateMouse(){if(active)return;active=true;keyarea.focus();ensureAudio();status.textContent=tr('active');if(keyarea.requestPointerLock)try{keyarea.requestPointerLock()}catch{}}
 function deactivate(){active=false;leftHeld=rightHeld=false;if(typeof resetVbandInput==='function')resetVbandInput();else if(typeof vbandCtrlHeld!=='undefined')vbandCtrlHeld.clear();if(downAt)straightUp();localToneOff();flash(false);status.textContent=tr('idle');if(document.pointerLockElement&&document.exitPointerLock)document.exitPointerLock()}
-keyarea.addEventListener('click',e=>{if(duelOn||e.target.closest('.duel-arena')||e.target.closest('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel'))return;if(window.matchMedia('(pointer:coarse)').matches)return;if(e.pointerType!=='touch'&&!active)activateMouse()});keyarea.addEventListener('contextmenu',e=>{if(e.target.closest('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel'))return;e.preventDefault()});
-document.addEventListener('mousedown',e=>{if(e.target.closest?.('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel'))return;if(!active||!canTransmit()||(e.button!==0&&e.button!==2))return;e.preventDefault();if(mode.value==='straight')straightDown('mouse');else{if(e.button===0)setPaddlePhysical('left',true);if(e.button===2)setPaddlePhysical('right',true);iambicLoop()}},true);document.addEventListener('mouseup',e=>{if(e.target.closest?.('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel'))return;if(!active||(e.button!==0&&e.button!==2))return;e.preventDefault();if(mode.value==='straight')straightUp();else{if(e.button===0)setPaddlePhysical('left',false);if(e.button===2)setPaddlePhysical('right',false)}},true);
+keyarea.addEventListener('click',e=>{if(e.target.closest('.cw-timing-arena'))return;if(duelOn||e.target.closest('.duel-arena')||e.target.closest('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel'))return;if(window.matchMedia('(pointer:coarse)').matches)return;if(e.pointerType!=='touch'&&!active)activateMouse()});keyarea.addEventListener('contextmenu',e=>{if(e.target.closest('.cw-timing-arena'))return;if(e.target.closest('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel'))return;e.preventDefault()});
+document.addEventListener('mousedown',e=>{if(e.target.closest?.('.cw-timing-arena'))return;if(e.target.closest?.('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel'))return;if(!active||!canTransmit()||(e.button!==0&&e.button!==2))return;e.preventDefault();if(mode.value==='straight')straightDown('mouse');else{if(e.button===0)setPaddlePhysical('left',true);if(e.button===2)setPaddlePhysical('right',true);iambicLoop()}},true);document.addEventListener('mouseup',e=>{if(e.target.closest?.('.cw-timing-arena'))return;if(e.target.closest?.('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel'))return;if(!active||(e.button!==0&&e.button!==2))return;e.preventDefault();if(mode.value==='straight')straightUp();else{if(e.button===0)setPaddlePhysical('left',false);if(e.button===2)setPaddlePhysical('right',false)}},true);
 function touchSide(x){const r=keyarea.getBoundingClientRect();return paddleLogicalSide(x<r.left+r.width/2?'left':'right')}
 function refreshTouchHolds(){if(mode.value==='straight')return;leftHeld=[...touchPointers.values()].includes('dit');rightHeld=[...touchPointers.values()].includes('dah');$("ditZone").classList.toggle('pressed',leftHeld);$("dahZone").classList.toggle('pressed',rightHeld);if(leftHeld||rightHeld)iambicLoop()}
-keyarea.addEventListener('pointerdown',e=>{if(duelOn||e.target.closest('.duel-arena')||e.target.closest('.paddle-reverse-control')||e.target.closest('.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel'))return;if(e.pointerType!=='touch')return;e.preventDefault();ensureAudio();status.textContent=tr('touchReady');try{keyarea.setPointerCapture(e.pointerId)}catch{}if(mode.value==='straight'){touchPointers.set(e.pointerId,'straight');if(touchPointers.size===1)straightDown('touch')}else{touchPointers.set(e.pointerId,touchSide(e.clientX));refreshTouchHolds()}});
+keyarea.addEventListener('pointerdown',e=>{if(e.target.closest('.cw-timing-arena'))return;if(duelOn||e.target.closest('.duel-arena')||e.target.closest('.paddle-reverse-control')||e.target.closest('.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.game-ranking-panel'))return;if(e.pointerType!=='touch')return;e.preventDefault();ensureAudio();status.textContent=tr('touchReady');try{keyarea.setPointerCapture(e.pointerId)}catch{}if(mode.value==='straight'){touchPointers.set(e.pointerId,'straight');if(touchPointers.size===1)straightDown('touch')}else{touchPointers.set(e.pointerId,touchSide(e.clientX));refreshTouchHolds()}});
 function touchEnd(e){if(e.pointerType!=='touch'||!touchPointers.has(e.pointerId))return;e.preventDefault();touchPointers.delete(e.pointerId);if(mode.value==='straight'){if(touchPointers.size===0)straightUp()}else refreshTouchHolds();if(touchPointers.size===0)status.textContent=tr('idle')}
 keyarea.addEventListener('pointerup',touchEnd);keyarea.addEventListener('pointercancel',touchEnd);
 function audioOnlyTypingTarget(){
@@ -4950,12 +5088,12 @@ function invadersModuleInstruction(){
   );
 }
 
-let racerOn=false,learnOn=false,exercisesOn=false;
+let racerOn=false,learnOn=false,exercisesOn=false,cwTimingOn=false;
 let learn={active:false,target:null,score:0,green:0,yellow:0,red:0,focusPool:null};
 let race={active:false,target:null,score:0,hits:0,errors:0,streak:0,bestStreak:0,index:0,total:50,queue:[],setName:'letters',wpm:15,mode:'sprint',timeLimit:60,startedAt:0,endedAt:0,timerId:0};
 let wr7q={active:false,section:'warmup',unitIndex:0,tokenIndex:0,restarts:0};
 
-function anyTrainingModuleOn(){return racerOn||learnOn||exercisesOn||qsoOn||customLessonOn||kochOn||invadersOn||errorsPracticeOn||bentWireOn||battleshipOn}
+function anyTrainingModuleOn(){return racerOn||learnOn||exercisesOn||cwTimingOn||qsoOn||customLessonOn||kochOn||invadersOn||errorsPracticeOn||bentWireOn||battleshipOn}
 
 function syncTrainingLocks(){
   // ON AIR and DUEL use the same bidirectional priority rule:
@@ -4981,7 +5119,7 @@ function syncTrainingLocks(){
   for(const id of [
     'invadersToggle','battleshipToggle','bentWireToggle',
     'cwRacerToggle','learnToggle','exercisesToggle',
-    'qsoBotToggle','customLessonToggle','kochToggle'
+    'qsoBotToggle','customLessonToggle','kochToggle','cwTimingToggle'
   ]){
     const t=$(id);
     if(t){
@@ -5029,6 +5167,7 @@ function forceRacerOff(){
   forceRacerOnlyOff();
   forceLearnOnlyOff();
   forceExercisesOnlyOff();
+  if(typeof forceTimingOnlyOff==='function')forceTimingOnlyOff();
 }
 function closeOtherTraining(except){
   forceOnAirOff();
@@ -5040,6 +5179,7 @@ function closeOtherTraining(except){
   if(except!=='racer')forceRacerOnlyOff();
   if(except!=='learn')forceLearnOnlyOff();
   if(except!=='exercises')forceExercisesOnlyOff();
+  if(except!=='timing'&&typeof forceTimingOnlyOff==='function')forceTimingOnlyOff();
   if(except!=='qso'&&qsoOn)forceQsoOff();
   if(except!=='custom'&&customLessonOn)forceCustomLessonOff();
   if(except!=='koch'&&kochOn)forceKochOff();
@@ -5053,6 +5193,7 @@ function closeAllTrainingForRealtime(){
   forceRacerOnlyOff();
   forceLearnOnlyOff();
   forceExercisesOnlyOff();
+  if(typeof forceTimingOnlyOff==='function')forceTimingOnlyOff();
   if(qsoOn)forceQsoOff();
   if(customLessonOn)forceCustomLessonOff();
   if(kochOn)forceKochOff();
@@ -8482,6 +8623,173 @@ window.__cwGameProgression={
 
 // ================== END CW INVADERS ==================
 
+// ================== CW TIMING COACH ==================
+const CW_TIMING_STORE='cw-timing-coach-v1';
+const CW_TIMING_LESSONS=[
+  {name:'DIT CONTROL',focus:'DIT CONSISTENCY',descEs:'Iguala la duración de todos tus dits.',descEn:'Make every dit the same length.'},
+  {name:'DAH CONTROL',focus:'DAH CONSISTENCY',descEs:'Iguala la duración de todos tus dahs.',descEn:'Make every dah the same length.'},
+  {name:'3:1 RATIO',focus:'DAH : DIT',descEs:'Estabiliza la relación clásica 3:1.',descEn:'Stabilize the classic 3:1 ratio.'},
+  {name:'ELEMENT SPACING',focus:'INTRA-CHARACTER',descEs:'Pulsa y libera con ritmo uniforme dentro de cada carácter.',descEn:'Keep a steady rhythm inside each character.'},
+  {name:'CHARACTER SPACING',focus:'CHARACTER GAP',descEs:'Separa caracteres sin comprimir ni estirar el grupo.',descEn:'Separate characters without squeezing or stretching the group.'},
+  {name:'WORD SPACING',focus:'WORD GAP',descEs:'Construye pausas claras y constantes entre palabras.',descEn:'Build clear, consistent pauses between words.'},
+  {name:'CALLSIGNS',focus:'REAL-WORLD CADENCE',descEs:'Practica indicativos realistas con ritmo de operación.',descEn:'Practice realistic callsigns with on-air cadence.'},
+  {name:'ON AIR RHYTHM',focus:'QSO RHYTHM',descEs:'Entrena CQ, RST, NAME y QTH como una transmisión real.',descEn:'Train CQ, RST, NAME and QTH as a real transmission.'},
+  {name:'PRECISION RUN',focus:'FULL PHRASE',descEs:'Completa el grupo sin errores manteniendo el ritmo.',descEn:'Complete the full group accurately while holding rhythm.'},
+  {name:'MASTER',focus:'COMPLETE EVALUATION',descEs:'Evaluación integral de precisión, consistencia y espaciado.',descEn:'Complete evaluation of accuracy, consistency and spacing.'}
+];
+let cwTiming={level:1,target:'',active:false,recording:false,events:[],sent:'',decodedCount:0,startAt:0,lastDown:0,autoTimer:0,playToken:0,playOsc:null,playGain:null,playAnalyser:null,scopeRaf:0,playheadRaf:0,lastResult:null,best:{}};
+try{const saved=JSON.parse(localStorage.getItem(CW_TIMING_STORE)||'{}');if(saved&&typeof saved==='object'){cwTiming.level=Math.max(1,Math.min(10,+saved.level||1));cwTiming.best=saved.best||{}}}catch{}
+function cwTimingSave(){try{localStorage.setItem(CW_TIMING_STORE,JSON.stringify({level:cwTiming.level,best:cwTiming.best}))}catch{}}
+function cwTimingT(es,en){return lang==='es'?es:en}
+function cwTimingRnd(a){return a[Math.floor(Math.random()*a.length)]}
+function cwTimingShuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function cwTimingCall(){const p=cwTimingRnd(['K','W','N','VE','PY','LU','ZP','CX','CE','EA','F','G','DL','I','JA','VK','ZL']),n=1+Math.floor(Math.random()*9),letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';let suf='';for(let i=0;i<2+Math.floor(Math.random()*2);i++)suf+=letters[Math.floor(Math.random()*letters.length)];return p+n+suf}
+function cwTimingGenerate(level){
+  const pick=(pool,n)=>Array.from({length:n},()=>cwTimingRnd(pool)).join(' ');
+  if(level===1)return pick(['E','I','S','H','5'],5);
+  if(level===2)return pick(['T','M','O','0'],5);
+  if(level===3)return pick(['A','N','K','R','W'],5);
+  if(level===4)return pick(['B','C','F','L','P','Q','X','Y','Z','J'],4);
+  if(level===5){const chars='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';const group=()=>Array.from({length:3},()=>chars[Math.floor(Math.random()*chars.length)]).join('');return group()+' '+group()}
+  if(level===6)return cwTimingRnd(['GOOD CW','SEND SLOW','SOLID COPY','FINE SIGNAL','THANK YOU','GOOD MORNING']);
+  if(level===7)return [cwTimingCall(),cwTimingCall(),cwTimingCall()].join(' ');
+  if(level===8){const my=String($('globalCall')?.value||'ZP5ABC').trim().toUpperCase()||'ZP5ABC';return cwTimingRnd([`CQ CQ DE ${my}`,`RST ${cwTimingRnd(['579','589','599'])}`,`NAME ${cwTimingRnd(['MATT','JOHN','ANA','LUIS'])}`,`QTH ${cwTimingRnd(['ASUNCION','MIAMI','MADRID','LIMA'])}`])}
+  if(level===9)return cwTimingRnd(['K7RPA 599 TU','CQ TEST DE W4ABC','UR RST 579 NAME LEO','TNX FER QSO 73']);
+  return cwTimingRnd([`${cwTimingCall()} DE ${cwTimingCall()} 599 TU`,`CQ CQ DE ${cwTimingCall()} K`,`UR RST 579 NAME MATT QTH ASUNCION`,`TNX FER QSO 73 SK`]);
+}
+function cwTimingNormalize(t){return String(t||'').toUpperCase().replace(/\s+/g,' ').trim()}
+function cwTimingExpected(target){
+  const tokens=tokensFromText(target),marks=[];let lastMark=null,pendingWord=false;
+  for(const item of tokens){
+    if(item.type==='space'){pendingWord=true;continue}
+    const code=item.code;
+    for(let i=0;i<code.length;i++){
+      if(lastMark){lastMark.gapType=pendingWord?'word':(i===0?'char':'element');lastMark.gapExpected=pendingWord?wordGap():(i===0?charGap():dotMs())}
+      const m={type:code[i],dur:code[i]==='.'?dotMs():dotMs()*3,gapType:'end',gapExpected:0,label:item.label};marks.push(m);lastMark=m;pendingWord=false;
+    }
+  }
+  let t=0;for(const m of marks){m.down=t;m.up=t+m.dur;t=m.up+(m.gapExpected||0)}
+  return marks;
+}
+function cwTimingEventsFromExpected(){return cwTimingExpected(cwTiming.target).map(m=>({down:m.down,up:m.up,dur:m.dur,type:m.type}))}
+function cwTimingSetMeter(id,value,ratio){
+  const box=$(id),fill=box?.querySelector('.cw-timing-meter-fill');if(!box||!fill)return;
+  box.classList.remove('good','warn','bad');if(Number.isFinite(ratio)){const err=Math.abs(ratio-1);box.classList.add(err<=.15?'good':err<=.30?'warn':'bad');fill.style.width=(Math.max(5,Math.min(95,50+(ratio-1)*100)))+'%'}else fill.style.width='50%';
+  const val=$(value[0]);if(val)val.textContent=value[1];
+}
+function cwTimingLiveMeters(){
+  const ev=cwTiming.events,d=dotMs(),dots=ev.filter(x=>x.dur<d*2).map(x=>x.dur),dahs=ev.filter(x=>x.dur>=d*2).map(x=>x.dur),avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:NaN;
+  const ad=avg(dots),ah=avg(dahs);cwTimingSetMeter('cwTimingMeterDit',['cwTimingDitValue',Number.isFinite(ad)?Math.round(ad)+' ms':'—'],ad/d);cwTimingSetMeter('cwTimingMeterDah',['cwTimingDahValue',Number.isFinite(ah)?Math.round(ah)+' ms':'—'],ah/(d*3));
+  const ratio=Number.isFinite(ad)&&Number.isFinite(ah)?ah/ad:NaN;cwTimingSetMeter('cwTimingMeterRatio',['cwTimingRatioValue',Number.isFinite(ratio)?ratio.toFixed(2)+' : 1':'—'],Number.isFinite(ratio)?ratio/3:NaN);
+  if(ev.length>1){const gaps=[];for(let i=0;i<ev.length-1;i++)gaps.push(ev[i+1].down-ev[i].up);const g=avg(gaps),r=g/d;cwTimingSetMeter('cwTimingMeterRhythm',['cwTimingRhythmValue',r.toFixed(2)+'× DIT'],r)}else cwTimingSetMeter('cwTimingMeterRhythm',['cwTimingRhythmValue',cwTimingT('LISTO','READY')],NaN)
+}
+function cwTimingCaptureDown(ts){
+  if(!cwTimingOn||!cwTiming.active||cwTiming.playOsc)return;
+  if(!cwTiming.recording){cwTiming.recording=true;cwTiming.startAt=ts;cwTiming.events=[];cwTiming.sent='';cwTiming.decodedCount=0;$('cwTimingResult').classList.remove('open');$('cwTimingTimelineState').textContent=cwTimingT('TRANSMITIENDO','TRANSMITTING')}
+  cwTiming.lastDown=ts;clearTimeout(cwTiming.autoTimer);
+}
+function cwTimingCaptureUp(ts,dur){
+  if(!cwTimingOn||!cwTiming.active||!cwTiming.recording||cwTiming.playOsc)return;
+  const down=Math.max(0,(ts-dur)-cwTiming.startAt),up=Math.max(down,ts-cwTiming.startAt);cwTiming.events.push({down,up,dur:up-down});cwTimingLiveMeters();cwTimingDrawTimeline();
+  const expectedChars=cwTimingNormalize(cwTiming.target).replace(/ /g,'').length;
+  if(cwTiming.decodedCount>=expectedChars){cwTiming.autoTimer=setTimeout(()=>{if(cwTimingOn&&cwTiming.active&&cwTiming.events.length)cwTimingAnalyze()},Math.max(700,wordGap()+250))}
+}
+function cwTimingHandleDecoded(ch){
+  if(!cwTimingOn||!cwTiming.active||!cwTiming.recording)return;
+  ch=String(ch||'').toUpperCase();if(ch&&ch[0]!=='['){cwTiming.sent+=ch;cwTiming.decodedCount++}
+  const expectedChars=cwTimingNormalize(cwTiming.target).replace(/ /g,'').length;
+  if(cwTiming.decodedCount>=expectedChars){clearTimeout(cwTiming.autoTimer);cwTiming.autoTimer=setTimeout(()=>{if(cwTimingOn&&cwTiming.active&&cwTiming.events.length)cwTimingAnalyze()},Math.max(700,wordGap()+250))}
+}
+function cwTimingWordBoundary(){if(!cwTimingOn||!cwTiming.active||!cwTiming.recording||!cwTiming.sent)return;if(!cwTiming.sent.endsWith(' '))cwTiming.sent+=' '}
+function cwTimingSimilarity(a,b){a=cwTimingNormalize(a);b=cwTimingNormalize(b);const m=a.length,n=b.length;if(!m&&!n)return 1;const prev=Array.from({length:n+1},(_,i)=>i);for(let i=1;i<=m;i++){let diag=prev[0];prev[0]=i;for(let j=1;j<=n;j++){const old=prev[j],cost=a[i-1]===b[j-1]?0:1;prev[j]=Math.min(prev[j]+1,prev[j-1]+1,diag+cost);diag=old}}return Math.max(0,1-prev[n]/Math.max(m,n,1))}
+function cwTimingScoreErr(actual,expected){if(!Number.isFinite(actual)||!expected)return null;return Math.max(0,100-Math.abs(actual-expected)/expected*135)}
+function cwTimingAvg(a){const v=a.filter(Number.isFinite);return v.length?v.reduce((x,y)=>x+y,0)/v.length:null}
+function cwTimingConsistency(a){if(a.length<2)return a.length?100:null;const mean=cwTimingAvg(a);if(!mean)return null;const sd=Math.sqrt(a.reduce((z,x)=>z+(x-mean)**2,0)/a.length);return Math.max(0,100-(sd/mean)*190)}
+function cwTimingAnalyze(){
+  if(!cwTiming.events.length)return;
+  clearTimeout(cwTiming.autoTimer);cwTiming.recording=false;const exp=cwTimingExpected(cwTiming.target),act=cwTiming.events,d=dotMs(),n=Math.min(exp.length,act.length);
+  const dots=[],dahs=[],dotScores=[],dahScores=[],elementScores=[],charScores=[],wordScores=[];
+  for(let i=0;i<n;i++){
+    const e=exp[i],a=act[i];if(e.type==='.')dots.push(a.dur);else dahs.push(a.dur);const sc=cwTimingScoreErr(a.dur,e.dur);if(e.type==='.')dotScores.push(sc);else dahScores.push(sc);
+    if(i<n-1&&e.gapExpected){const gap=act[i+1].down-a.up,gs=cwTimingScoreErr(gap,e.gapExpected);if(e.gapType==='element')elementScores.push(gs);else if(e.gapType==='char')charScores.push(gs);else if(e.gapType==='word')wordScores.push(gs)}
+  }
+  const ad=cwTimingAvg(dots),ah=cwTimingAvg(dahs),ratio=ad&&ah?ah/ad:null;
+  const metrics={dit:cwTimingAvg(dotScores),dah:cwTimingAvg(dahScores),ditConsistency:cwTimingConsistency(dots),dahConsistency:cwTimingConsistency(dahs),ratio:ratio?Math.max(0,100-Math.abs(ratio-3)/3*135):null,element:cwTimingAvg(elementScores),char:cwTimingAvg(charScores),word:cwTimingAvg(wordScores),content:cwTimingSimilarity(cwTiming.sent,cwTiming.target)*100};
+  const pairs=mode.value==='straight'?[[metrics.dit,10],[metrics.dah,10],[metrics.ditConsistency,10],[metrics.dahConsistency,10],[metrics.ratio,12],[metrics.element,15],[metrics.char,13],[metrics.word,10],[metrics.content,10]]:[[metrics.char,35],[metrics.word,20],[metrics.content,30],[cwTimingAvg([metrics.element,metrics.char,metrics.word]),15]];
+  let weighted=0,w=0;for(const [v,wt] of pairs){if(Number.isFinite(v)){weighted+=v*wt;w+=wt}}let score=w?weighted/w:metrics.content;const lengthPenalty=Math.min(1,Math.min(exp.length,act.length)/Math.max(exp.length,act.length,1));score=Math.round(Math.max(0,Math.min(100,score*lengthPenalty)));
+  const candidates=[['DIT',cwTimingAvg([metrics.dit,metrics.ditConsistency])],['DAH',cwTimingAvg([metrics.dah,metrics.dahConsistency])],['3:1',metrics.ratio],['ELEMENT SPACING',metrics.element],['CHARACTER SPACING',metrics.char],['WORD SPACING',metrics.word],['CONTENT',metrics.content]].filter(x=>Number.isFinite(x[1]));candidates.sort((a,b)=>a[1]-b[1]);const weak=candidates[0]?.[0]||'RHYTHM';
+  cwTiming.lastResult={score,metrics,ratio,weak};cwTiming.best[cwTiming.level]=Math.max(+cwTiming.best[cwTiming.level]||0,score);cwTimingSave();
+  $('cwTimingScore').textContent=score;$('cwTimingScoreRing').style.setProperty('--score',score);$('cwTimingResult').classList.add('open');
+  $('cwTimingResultNote').textContent=score>=90?cwTimingT('Excelente control. Mantén ese ritmo sin mirar la pantalla.','Excellent control. Keep that rhythm without watching the screen.'):score>=75?cwTimingT('Buen ritmo. Pulamos el punto más débil.','Good rhythm. Let’s polish the weakest point.'):cwTimingT('Hay una oportunidad clara de mejora. Repite por oído y compara después.','There is a clear improvement opportunity. Repeat by ear and compare afterward.');
+  $('cwTimingResultSub').textContent=cwTimingT('Foco recomendado: ','Recommended focus: ')+weak+(mode.value==='straight'?'':cwTimingT(' · En paleta, DIT/DAH son generados por el keyer.',' · With paddles, DIT/DAH timing is generated by the keyer.'));
+  const show=(v,suffix='%')=>Number.isFinite(v)?Math.round(v)+suffix:'—';
+  $('cwTimingMetrics').innerHTML=[['DIT',show(cwTimingAvg([metrics.dit,metrics.ditConsistency]))],['DAH',show(cwTimingAvg([metrics.dah,metrics.dahConsistency]))],['3:1',ratio?ratio.toFixed(2)+':1':'—'],['ELEMENT',show(metrics.element)],['CHAR',show(metrics.char)],['WORD',show(metrics.word)],['CONTENT',show(metrics.content)],['BEST',Math.round(cwTiming.best[cwTiming.level]||score)+'%']].map(([k,v])=>`<div class="cw-timing-metric"><b>${v}</b>${k}</div>`).join('');
+  $('cwTimingTimelineState').textContent=cwTimingT('ANÁLISIS COMPLETO','ANALYSIS COMPLETE');cwTimingDrawTimeline();
+}
+function cwTimingColor(ctx,name){const probe=document.createElement('span');probe.style.color=`var(${name})`;document.body.appendChild(probe);const c=getComputedStyle(probe).color;probe.remove();return c}
+function cwTimingDrawTimeline(playhead=null,playing=''){
+  const c=$('cwTimingTimeline');if(!c)return;const ctx=c.getContext('2d'),w=c.width,h=c.height;ctx.clearRect(0,0,w,h);const styles=getComputedStyle(document.documentElement),muted=styles.getPropertyValue('--muted').trim()||'#888',line=styles.getPropertyValue('--line').trim()||'#333',accent=styles.getPropertyValue('--accent2').trim()||'#58a',good=styles.getPropertyValue('--good').trim()||'#5d7',warn=styles.getPropertyValue('--warn').trim()||'#fc6';
+  ctx.fillStyle=styles.getPropertyValue('--panel3').trim()||'#111';ctx.fillRect(0,0,w,h);ctx.strokeStyle=line;ctx.lineWidth=1;for(let x=0;x<w;x+=45){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke()}
+  const ideal=cwTimingEventsFromExpected(),user=cwTiming.events,total=Math.max(ideal.at(-1)?.up||1,user.at(-1)?.up||1)*1.06,px=t=>18+(w-36)*t/Math.max(total,1);
+  ctx.font='bold 10px ui-monospace,monospace';ctx.fillStyle=muted;ctx.fillText('IDEAL',8,18);ctx.fillText('YOU',8,72);
+  const draw=(arr,y,color)=>{ctx.strokeStyle=color;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(18,y+24);ctx.lineTo(w-18,y+24);ctx.stroke();for(const e of arr){const x1=px(e.down),x2=px(e.up);ctx.fillStyle=color;ctx.fillRect(x1,y+5,Math.max(2,x2-x1),19)}};draw(ideal,8,accent);draw(user,62,good);
+  if(playhead!==null){ctx.strokeStyle=warn;ctx.lineWidth=2;ctx.beginPath();const x=px(playhead);ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke()}
+}
+function cwTimingDrawScopeFlat(text='IDLE'){
+  cancelAnimationFrame(cwTiming.scopeRaf);const c=$('cwTimingScope');if(!c)return;const ctx=c.getContext('2d'),w=c.width,h=c.height,st=getComputedStyle(document.documentElement);ctx.clearRect(0,0,w,h);ctx.fillStyle=st.getPropertyValue('--panel3').trim()||'#111';ctx.fillRect(0,0,w,h);ctx.strokeStyle=st.getPropertyValue('--line').trim()||'#333';for(let x=0;x<w;x+=35){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke()}for(let y=0;y<h;y+=32){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}ctx.strokeStyle=st.getPropertyValue('--accent2').trim()||'#5af';ctx.beginPath();ctx.moveTo(0,h/2);ctx.lineTo(w,h/2);ctx.stroke();$('cwTimingScopeState').textContent=text;
+}
+function cwTimingStopReplay(){
+  cwTiming.playToken++;cancelAnimationFrame(cwTiming.scopeRaf);cancelAnimationFrame(cwTiming.playheadRaf);if(cwTiming.playOsc){try{cwTiming.playOsc.stop()}catch{}try{cwTiming.playOsc.disconnect();cwTiming.playGain?.disconnect();cwTiming.playAnalyser?.disconnect()}catch{}}cwTiming.playOsc=cwTiming.playGain=cwTiming.playAnalyser=null;cwTimingDrawScopeFlat('IDLE');cwTimingDrawTimeline();
+}
+async function cwTimingReplay(events,label){
+  if(!events.length)return;cwTimingStopReplay();const token=++cwTiming.playToken;ensureAudio();const osc2=audioCtx.createOscillator(),g=audioCtx.createGain(),an=audioCtx.createAnalyser();cwTiming.playOsc=osc2;cwTiming.playGain=g;cwTiming.playAnalyser=an;osc2.frequency.value=+tone.value||650;an.fftSize=1024;an.smoothingTimeConstant=.72;g.gain.setValueAtTime(0,audioCtx.currentTime);osc2.connect(g).connect(an).connect(audioCtx.destination);const base=audioCtx.currentTime+.045,target=Math.max(.01,+volume.value||.25);for(const e of events){g.gain.setValueAtTime(target,base+e.down/1000);g.gain.setValueAtTime(0,base+e.up/1000)}const total=(events.at(-1)?.up||0)+100;osc2.start();osc2.stop(base+total/1000);$('cwTimingScopeState').textContent=label;
+  const data=new Uint8Array(an.fftSize),scope=$('cwTimingScope'),ctx=scope.getContext('2d'),w=scope.width,h=scope.height,st=getComputedStyle(document.documentElement),start=performance.now()+45;
+  let lastScopeFrame=0;
+  const scopeDraw=now=>{if(token!==cwTiming.playToken||!cwTiming.playAnalyser)return;if(now-lastScopeFrame<28){cwTiming.scopeRaf=requestAnimationFrame(scopeDraw);return}lastScopeFrame=now;an.getByteTimeDomainData(data);ctx.fillStyle=st.getPropertyValue('--panel3').trim()||'#111';ctx.fillRect(0,0,w,h);ctx.strokeStyle=st.getPropertyValue('--line').trim()||'#333';ctx.lineWidth=1;for(let x=0;x<w;x+=35){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke()}for(let y=0;y<h;y+=32){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}const visible=Math.min(data.length,360),points=Math.min(180,Math.max(80,Math.floor(w/2)));ctx.strokeStyle=st.getPropertyValue('--accent2').trim()||'#5af';ctx.lineWidth=1.7;ctx.lineJoin='round';ctx.lineCap='round';ctx.beginPath();for(let p=0;p<points;p++){const pos=p*(visible-1)/(points-1),i=Math.floor(pos),f=pos-i,v=(data[i]??128)*(1-f)+(data[Math.min(i+1,visible-1)]??128)*f,x=p/(points-1)*w,y=v/255*h;if(p===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)}ctx.stroke();cwTiming.scopeRaf=requestAnimationFrame(scopeDraw)};cwTiming.scopeRaf=requestAnimationFrame(scopeDraw);
+  const ph=()=>{if(token!==cwTiming.playToken)return;const t=Math.max(0,performance.now()-start);cwTimingDrawTimeline(Math.min(t,total),label);if(t<total)cwTiming.playheadRaf=requestAnimationFrame(ph)};ph();await sleep(total+80);if(token!==cwTiming.playToken)return;cwTiming.playOsc=cwTiming.playGain=cwTiming.playAnalyser=null;cwTimingDrawScopeFlat('IDLE');cwTimingDrawTimeline();
+}
+async function cwTimingPlayReference(){await cwTimingReplay(cwTimingEventsFromExpected(),'REFERENCE')}
+async function cwTimingPlayMine(){if(cwTiming.events.length)await cwTimingReplay(cwTiming.events,'MY TX')}
+async function cwTimingPlayAB(){if(!cwTiming.events.length)return;await cwTimingReplay(cwTimingEventsFromExpected(),'A · REFERENCE');await sleep(260);await cwTimingReplay(cwTiming.events,'B · MY TX')}
+function cwTimingResetAttempt(){clearTimeout(cwTiming.autoTimer);cwTimingStopReplay();cwTiming.recording=false;cwTiming.events=[];cwTiming.sent='';cwTiming.decodedCount=0;current='';currentDurations=[];symbols.textContent='';decoded.textContent='';$('cwTimingResult').classList.remove('open');$('cwTimingTimelineState').textContent=cwTimingT('ESPERANDO TX','WAITING FOR TX');cwTimingLiveMeters();cwTimingDrawTimeline()}
+function cwTimingRenderTrack(){}
+function cwTimingSelectLevel(level){cwTiming.level=Math.max(1,Math.min(10,+level||1));$('cwTimingLevel').value=String(cwTiming.level);cwTimingSave();if(cwTimingOn&&cwTiming.active)cwTimingNewExercise();else cwTimingRenderTrack()}
+function cwTimingRepeatExercise(){if(!cwTiming.target)return cwTimingNewExercise();cwTimingResetAttempt();const lesson=CW_TIMING_LESSONS[cwTiming.level-1];$('cwTimingLessonTitle').textContent=`${cwTiming.level} · ${lesson.name}`;$('cwTimingLessonDesc').textContent=lang==='es'?lesson.descEs:lesson.descEn;$('cwTimingFocus').textContent=lesson.focus;$('cwTimingTarget').textContent=cwTiming.target;setTimeout(()=>{if(cwTimingOn&&cwTiming.active)cwTimingPlayReference()},220)}
+function cwTimingNewExercise(){cwTiming.target=cwTimingGenerate(cwTiming.level);cwTimingResetAttempt();const lesson=CW_TIMING_LESSONS[cwTiming.level-1];$('cwTimingLessonTitle').textContent=`${cwTiming.level} · ${lesson.name}`;$('cwTimingLessonDesc').textContent=lang==='es'?lesson.descEs:lesson.descEn;$('cwTimingFocus').textContent=lesson.focus;$('cwTimingTarget').textContent=cwTiming.target;$('cwTimingDitIdeal').textContent=Math.round(dotMs())+' ms';$('cwTimingDahIdeal').textContent=Math.round(dotMs()*3)+' ms';$('cwTimingTopMeta').textContent=`${wpm.value} WPM · ${mode.value==='straight'?(lang==='es'?'LLAVE RECTA':'STRAIGHT KEY'):(lang==='es'?'PALETA':'PADDLE')}`;$('cwTimingPad').classList.toggle('straight',mode.value==='straight');$('cwTimingPadLabel').innerHTML=mode.value==='straight'?`<b>TX PAD</b> · ${cwTimingT('MANTÉN PARA TRANSMITIR','HOLD TO SEND')}`:`<b>TX PAD</b> · DIT / DAH`;cwTimingRenderTrack();setTimeout(()=>{if(cwTimingOn&&cwTiming.active)cwTimingPlayReference()},300)}
+function cwTimingModuleInstruction(){
+  activityInstruction('CW TIMING: elige una lección y pulsa INICIAR COACH. Escucha la referencia, transmítela y compara tu ritmo. A/B reproduce primero la referencia y luego tu TX para compararlos.','CW TIMING: choose a lesson and press START COACH. Listen to the reference, send it and compare your rhythm. A/B plays the reference first and then your TX so you can compare them.','timing')
+}
+function cwTimingApplyLang(){
+  const sel=$('cwTimingLevel');if(sel){const current=sel.value||String(cwTiming.level);sel.innerHTML=CW_TIMING_LESSONS.map((x,i)=>`<option value="${i+1}">${i+1} · ${x.name}</option>`).join('');sel.value=current}
+  $('cwTimingStart').textContent=cwTimingT('INICIAR COACH','START COACH');$('cwTimingCoachSub').textContent=cwTimingT('PERFECCIONA TU TRANSMISIÓN','PERFECT YOUR FIST');$('cwTimingCompareTitle').textContent=cwTimingT('TIMING · IDEAL vs TÚ','TIMING · IDEAL vs YOU');$('cwTimingScopeTitle').textContent=cwTimingT('OSCILOSCOPIO DE AUDIO','AUDIO OSCILLOSCOPE');$('cwTimingRhythmLabel').textContent=cwTimingT('RITMO','RHYTHM');$('cwTimingReference').textContent='▶ REFERENCE';$('cwTimingMine').textContent=cwTimingT('▶ MI TX','▶ MY TX');$('cwTimingAnalyze').textContent=cwTimingT('ANALIZAR','ANALYZE');$('cwTimingRepeat').textContent=cwTimingT('REPETIR','REPEAT');$('cwTimingNext').textContent=cwTimingT('NUEVO','NEW');$('cwTimingExit').textContent=cwTimingT('SALIR','EXIT');$('cwTimingPadLabel').innerHTML=mode.value==='straight'?`<b>TX PAD</b> · ${cwTimingT('MANTÉN PARA TRANSMITIR','HOLD TO SEND')}`:`<b>TX PAD</b> · DIT / DAH`;if(cwTimingOn&&!cwTiming.active)cwTimingModuleInstruction();if(cwTimingOn&&cwTiming.active){const lesson=CW_TIMING_LESSONS[cwTiming.level-1];$('cwTimingLessonDesc').textContent=lang==='es'?lesson.descEs:lesson.descEn}
+}
+function cwTimingStart(){closeOtherTraining('timing');clearActivityInstruction('timing');cwTimingOn=true;cwTiming.active=true;$('cwTimingToggle').checked=true;$('cwTimingPanel').classList.add('open');$('cwTimingArena').classList.add('open');keyarea.classList.add('cw-timing-active');keyarea.focus();syncTrainingLocks();cwTimingNewExercise()}
+function forceTimingOnlyOff(){
+  if(typeof cwTiming==='undefined')return;clearTimeout(cwTiming.autoTimer);cwTimingStopReplay();cwTimingOn=false;cwTiming.active=false;cwTiming.recording=false;if($('cwTimingToggle'))$('cwTimingToggle').checked=false;$('cwTimingPanel')?.classList.remove('open');$('cwTimingArena')?.classList.remove('open');keyarea?.classList.remove('cw-timing-active');clearActivityInstruction('timing');syncTrainingLocks?.();
+}
+$('cwTimingToggle').onchange=e=>{cwTimingOn=e.target.checked;$('cwTimingPanel').classList.toggle('open',cwTimingOn);if(cwTimingOn){closeOtherTraining('timing');cwTimingOn=true;e.target.checked=true;$('cwTimingPanel').classList.add('open');cwTiming.active=false;cwTimingModuleInstruction()}else forceTimingOnlyOff();syncTrainingLocks()};
+$('cwTimingStart').onclick=cwTimingStart;$('cwTimingLevel').onchange=e=>cwTimingSelectLevel(+e.target.value);$('cwTimingReference').onclick=cwTimingPlayReference;$('cwTimingMine').onclick=cwTimingPlayMine;$('cwTimingAB').onclick=cwTimingPlayAB;$('cwTimingAnalyze').onclick=cwTimingAnalyze;$('cwTimingRepeat').onclick=cwTimingRepeatExercise;$('cwTimingNext').onclick=cwTimingNewExercise;$('cwTimingExit').onclick=forceTimingOnlyOff;
+$('cwTimingArena').addEventListener('click',e=>e.stopPropagation());$('cwTimingArena').addEventListener('contextmenu',e=>e.preventDefault());$('langBtn')?.addEventListener('click',()=>setTimeout(cwTimingApplyLang,0));wpm.addEventListener('input',()=>{if(cwTimingOn&&cwTiming.active){$('cwTimingDitIdeal').textContent=Math.round(dotMs())+' ms';$('cwTimingDahIdeal').textContent=Math.round(dotMs()*3)+' ms';$('cwTimingTopMeta').textContent=`${wpm.value} WPM · ${mode.value==='straight'?(lang==='es'?'LLAVE RECTA':'STRAIGHT KEY'):(lang==='es'?'PALETA':'PADDLE')}`;cwTimingDrawTimeline()}});mode.addEventListener('change',()=>{if(cwTimingOn&&cwTiming.active){cwTimingResetAttempt();$('cwTimingTopMeta').textContent=`${wpm.value} WPM · ${mode.value==='straight'?(lang==='es'?'LLAVE RECTA':'STRAIGHT KEY'):(lang==='es'?'PALETA':'PADDLE')}`;$('cwTimingPad').classList.toggle('straight',mode.value==='straight');$('cwTimingPadLabel').innerHTML=mode.value==='straight'?`<b>TX PAD</b> · ${cwTimingT('MANTÉN PARA TRANSMITIR','HOLD TO SEND')}`:`<b>TX PAD</b> · DIT / DAH`}});
+const cwTimingPadPointers=new Map();
+function cwTimingPadRefresh(){
+  const pad=$('cwTimingPad');if(!pad)return;pad.classList.toggle('pressed',cwTimingPadPointers.size>0);
+  if(mode.value==='straight')return;
+  leftHeld=[...cwTimingPadPointers.values()].includes('left');rightHeld=[...cwTimingPadPointers.values()].includes('right');if(leftHeld||rightHeld)iambicLoop();
+}
+$('cwTimingPad').addEventListener('pointerdown',e=>{
+  if(!cwTimingOn||!cwTiming.active)return;e.preventDefault();e.stopPropagation();ensureAudio();const pad=$('cwTimingPad');try{pad.setPointerCapture(e.pointerId)}catch{}
+  if(mode.value==='straight'){cwTimingPadPointers.set(e.pointerId,'straight');if(cwTimingPadPointers.size===1)straightDown('timing')}
+  else{const r=pad.getBoundingClientRect(),physical=e.clientX<r.left+r.width/2?'left':'right';cwTimingPadPointers.set(e.pointerId,physical);setPaddlePhysical(physical,true);iambicLoop()}
+});
+function cwTimingPadEnd(e){
+  if(!cwTimingPadPointers.has(e.pointerId))return;e.preventDefault();e.stopPropagation();const side=cwTimingPadPointers.get(e.pointerId);cwTimingPadPointers.delete(e.pointerId);
+  if(mode.value==='straight'){if(cwTimingPadPointers.size===0)straightUp()}else{if(side==='left'||side==='right')setPaddlePhysical(side,false);cwTimingPadRefresh()}$('cwTimingPad').classList.toggle('pressed',cwTimingPadPointers.size>0);
+}
+$('cwTimingPad').addEventListener('pointerup',cwTimingPadEnd);$('cwTimingPad').addEventListener('pointercancel',cwTimingPadEnd);$('cwTimingPad').addEventListener('contextmenu',e=>e.preventDefault());
+cwTimingApplyLang();cwTimingDrawScopeFlat();cwTimingDrawTimeline();
+// ================== END CW TIMING COACH ==================
+
+
 applyLang();applyAudioOnly();setupCommunity();
 setupRewards();setupDuel();setupInvaders();setupBentWire();setupBattleship();setupStableGlobalStats();connectGlobalStats();updateModeHint();updatePresenceUI();applyVisualAid();syncTrainingLocks();qsoSmartStatus('off');$('charSpacingValue').textContent=charSpacing.value;
 setupChat();
@@ -8502,6 +8810,7 @@ updateOnAirVisual();
   const defs = [
     {id:'onair',     selector:'.onair-box',        head:'.onair-head',                 title:'ON AIR'},
     {id:'learn',     selector:'.learn-box',        head:'.learn-head',                 title:'LEARN'},
+    {id:'timing',    selector:'.cw-timing-box',    head:'.cw-timing-head',            title:'CW TIMING'},
     {id:'koch',      selector:'.koch-box',         head:'.koch-head',                  title:'KOCH'},
     {id:'exercises', selector:'.exercises-box',    head:'.exercises-head',             title:'EJERCICIOS'},
     {id:'custom',    selector:'#customLessonBox',  head:':scope > .switchline',        title:'PRÁCTICA LIBRE'},
