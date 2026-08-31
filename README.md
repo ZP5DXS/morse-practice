@@ -4,8 +4,17 @@
 
 🇪🇸 **¿Prefieres leer las instrucciones en español?** Consulta la [guía completa en español](README-ES.md).
 
-[![Live
-Demo](https://img.shields.io/badge/🚀-Live%20Demo-blue?style=for-the-badge)](https://zp5dxs.github.io/morse-practice/)
+## 🚀 [TRY IT NOW — OPEN MORSE PRACTICE](https://zp5dxs.github.io/morse-practice/)
+
+> **No installation · No registration · 100% free · Start training directly in your browser.**
+
+[![Try Morse Practice](https://img.shields.io/badge/🚀_TRY_IT_NOW-MORSE_PRACTICE-2ea44f?style=for-the-badge)](https://zp5dxs.github.io/morse-practice/)
+
+## 🎥 Complete Morse Practice Tutorial
+
+[![Watch the complete Morse Practice tutorial on YouTube](https://img.youtube.com/vi/J2wu3eOUZkg/maxresdefault.jpg)](https://youtu.be/J2wu3eOUZkg)
+
+▶ **[Watch the complete tutorial on YouTube](https://youtu.be/J2wu3eOUZkg)**
 
 Practice, learn and improve Morse code directly from your browser using
 your **keyboard**, **mouse**, **touchscreen**, **commercial USB key**,
@@ -59,6 +68,8 @@ Morse Practice combines:
 - **CW Duel** — realtime head-to-head Morse copying battles at 8, 15 or
   20 WPM
 - **CW Invaders** — arcade-style TX/RX practice with letters, numbers, mixed characters and CW words
+- **CW Flappy** — arcade-style CW practice for short, repeatable training sessions
+- **CW Timing** — dedicated trainer for CW sending rhythm and timing
 - **CW Battleship** — naval-themed listening and sending game with Cadet, Operator and Contester levels
 - **World Record / Ben’s Best Bent Wire** — continuous-speed sending challenge with Practice and Ranked modes
 - **CW Racer Timed mode** — race against the clock for 30, 60 or 120 seconds
@@ -73,9 +84,11 @@ Most training data remains local to your browser. Community features
 such as ON AIR, global usage statistics, 73! and the optional Weekly
 Leaderboard use lightweight shared realtime data only where needed.
 
-🌐 **Live Demo**
+🌐 **Ready to practice?**
 
-<https://zp5dxs.github.io/morse-practice/>
+### 🚀 [Click here to start training now](https://zp5dxs.github.io/morse-practice/)
+
+🎥 [Complete tutorial on YouTube](https://youtu.be/J2wu3eOUZkg)
 
 ------------------------------------------------------------------------
 
@@ -147,6 +160,8 @@ Today you can use it to:
 - Invert DIT and DAH when using a paddle
 - Challenge another operator in realtime CW Duel
 - Play CW Invaders in TX or RX mode
+- Train with **CW Flappy** in an arcade-style format
+- Practice sending rhythm and timing with **CW Timing**
 - Play CW Battleship at 12, 18 or 25 WPM
 - Take the World Record / Ben’s Best Bent Wire continuous-speed challenge
 - Run CW Racer as a fixed Sprint or a 30/60/120-second Timed race
@@ -928,6 +943,14 @@ Morse Practice now includes several game-style activities designed to turn sendi
 ## 👾 CW Invaders
 
 An arcade-style Morse game with dedicated **TX** and **RX** modes. Choose letters, numbers, mixed characters or common CW words, select a difficulty level, and try to clear incoming targets while building score and preserving your lives.
+
+## 🐦 CW Flappy
+
+An arcade-style CW practice game designed for short, repeatable sessions. It adds another playful way to train Morse inside the same platform.
+
+## ⏱ CW Timing
+
+A dedicated module for working on **sending rhythm and timing**. It provides focused practice on CW temporal consistency and complements the accuracy and sending exercises available elsewhere in Morse Practice.
 
 ## ⚓ CW Battleship
 
