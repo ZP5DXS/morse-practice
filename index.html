@@ -6571,7 +6571,7 @@ function listenCleanSpeech(text){
     .replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
 }
 const LISTEN_INPUT_ALIASES_ES={
- A:['a'],B:['b','be','bee','bi','vi'],C:['c','ce','se'],D:['d','de','di'],E:['e'],F:['f','efe'],
+ A:['a'],B:['b','be','bee','bi','vi','ve'],C:['c','ce','se','si'],D:['d','de','di'],E:['e'],F:['f','efe'],
  G:['g','ge','je'],H:['h','hache','ache'],I:['i','i latina','latina'],J:['j','jota'],K:['k','ka','ca'],
  L:['l','ele'],M:['m','eme'],N:['n','ene'],O:['o'],P:['p','pe'],
  Q:['q','cu','ku','c u','ce u','se u','see u','seu','ceu','c-u','ce-u'],
@@ -6747,15 +6747,33 @@ async function listenEnsureMicStream(){
     return false;
   }
 }
-function listenMicResolve(transcripts){
+function listenMicResolve(transcripts,isFinal=false){
   const w=listenState.micWaiter;
   if(!listenState.micAnswerWindow||listenState.micPlaybackActive||!w||w.done)return;
+
   const vals=[...new Set(transcripts.map(listenCleanSpeech).filter(Boolean))];
   if(!vals.length)return;
+
   w.heardSpeech=true;
   w.lastTranscript=vals.join(' / ');
+
+  // For isolated characters, an interim result can already be decisive.
+  // This is useful on Safari/short utterances where the final result may arrive late or not at all.
   if(vals.some(v=>listenTranscriptMatchesTarget(v,w.target))){
+    if(w.wrongTimer){clearTimeout(w.wrongTimer);w.wrongTimer=null}
     w.finish(w.target);
+    return;
+  }
+
+  // A final but non-matching transcription should not leave the exercise
+  // apparently frozen for the full answer timeout. Give the engine a short
+  // grace period in case it emits another alternative/result, then resolve wrong.
+  if(isFinal){
+    if(w.wrongTimer)clearTimeout(w.wrongTimer);
+    w.wrongTimer=setTimeout(()=>{
+      const current=listenState.micWaiter;
+      if(current===w&&listenState.micAnswerWindow&&!w.done)w.finish('?');
+    },700);
   }
 }
 async function listenPrepareMicrophone(){
@@ -6770,7 +6788,7 @@ async function listenPrepareMicrophone(){
   try{
     const r=new SR();
     r.lang=lang==='es'?'es-ES':'en-US';
-    r.interimResults=false;
+    r.interimResults=true;
     r.continuous=true;
     r.maxAlternatives=10;
 
@@ -6805,11 +6823,20 @@ async function listenPrepareMicrophone(){
       if(!listenState.micAnswerWindow||listenState.micPlaybackActive)return;
       for(let i=e.resultIndex;i<e.results.length;i++){
         const res=e.results[i];
-        if(!res.isFinal)continue;
         const transcripts=[];
         for(let j=0;j<res.length;j++)transcripts.push(res[j].transcript);
-        listenMicResolve(transcripts);
+        listenMicResolve(transcripts,!!res.isFinal);
       }
+    };
+
+    r.onnomatch=()=>{
+      const w=listenState.micWaiter;
+      if(!listenState.micAnswerWindow||listenState.micPlaybackActive||!w)return;
+      w.heardSpeech=true;
+      if(w.wrongTimer)clearTimeout(w.wrongTimer);
+      w.wrongTimer=setTimeout(()=>{
+        if(listenState.micWaiter===w&&listenState.micAnswerWindow&&!w.done)w.finish('?');
+      },700);
     };
 
     r.onerror=e=>{
@@ -6840,12 +6867,13 @@ async function listenPrepareMicrophone(){
       listenState.micStartPending=false;
       listenState.micRunning=false;
       listenState.micRecognitionState='idle';
+
       if(listenState.micShouldRun&&listenState.micEnabled){
-        // Do NOT auto-start again. Some browsers prompt on every start().
-        // Failing closed is safer than trapping the user in a permission/restart loop.
+        // Safari may end a continuous recognition session after a short utterance.
+        // Do not destroy the current answer: its own wrong/timeout watchdog must
+        // resolve it cleanly. Also do not auto-start here, which can re-prompt.
         listenState.micPrepared=false;
         if(!listenState.micRecognitionError)listenState.micRecognitionError='ended';
-        if(listenState.micWaiter?.finish)listenState.micWaiter.finish('');
       }
       listenUpdateMicVisuals();
       listenRefreshUI();
@@ -6937,20 +6965,28 @@ function listenRecognize(target,token){
       if(timer)clearTimeout(timer);
 
       const w=listenState.micWaiter;
+      if(w?.wrongTimer){clearTimeout(w.wrongTimer);w.wrongTimer=null}
       const signal=!!listenState.micSignalDuringAnswer;
       const transcript=w?.lastTranscript||'';
-      const supported=!!(listenState.micPrepared&&listenState.micRunning&&!listenMicHasHardError());
+      // If recognition dies just after producing a result (seen on Safari),
+      // judge this answer using the state that existed when its window opened.
+      const supported=!!w?.supportedAtStart;
 
+      if(w)w.done=true;
       if(listenState.micWaiter?.finish===finish)listenState.micWaiter=null;
       listenState.micAnswerWindow=false;
       listenUpdateMicVisuals();
       resolve({supported,value,signal,transcript});
     };
 
-    listenState.micWaiter={target,token,done:false,finish,heardSpeech:false,lastTranscript:''};
+    listenState.micWaiter={
+      target,token,done:false,finish,heardSpeech:false,lastTranscript:'',wrongTimer:null,
+      supportedAtStart:true
+    };
     $('listenFeedback').textContent=lang==='es'?'🎙 Hablá ahora…':'🎙 Speak now…';
 
     // Recognition is already running. We only open a logical answer window here.
+    // This watchdog guarantees the training loop cannot remain stuck indefinitely.
     timer=setTimeout(()=>{
       if(token!==listenState.token){
         finish('');
@@ -7017,14 +7053,16 @@ async function listenRun(token){
             $('listenFeedback').textContent=`✓ ${tr('listenCorrect')}`;
             await sleep(350);
           }else if(ans.supported&&ans.value==='?'){
+            const heard=ans.transcript?`“${ans.transcript}”`:(lang==='es'?'voz':'voice');
             $('listenFeedback').textContent=lang==='es'
-              ? `✕ ${tr('listenWrong')} · voz detectada · ${target}`
-              : `✕ ${tr('listenWrong')} · voice detected · ${target}`;
+              ? `✕ ${tr('listenWrong')} · oí: ${heard} · ${target}`
+              : `✕ ${tr('listenWrong')} · heard: ${heard} · ${target}`;
             await sleep(520);
           }else if(ans.supported&&ans.signal){
+            const heard=ans.transcript?` · “${ans.transcript}”`:'';
             $('listenFeedback').textContent=lang==='es'
-              ? `⚠ Voz detectada, pero no reconocida · ${target}`
-              : `⚠ Voice detected but not recognized · ${target}`;
+              ? `⚠ Voz detectada, pero no reconocida${heard} · ${target}`
+              : `⚠ Voice detected but not recognized${heard} · ${target}`;
             await sleep(620);
           }else if(ans.supported){
             $('listenFeedback').textContent=lang==='es'
