@@ -6239,9 +6239,10 @@ const LISTEN_FARNSWORTH_MODES=['fixed','descending','ascending','pyramid'];
 let listenState={
   active:false,paused:false,token:0,selected:new Set(LISTEN_CHARS),speedMode:'fixed',farnsworthMode:'fixed',farnsworthStep:0,
   endsAt:0,startedAt:0,currentGroup:[],deck:[],cycle:0,charsHeard:0,groupsHeard:0,clockTimer:null,
-  recognition:null,micPrepared:false,micRunning:false,micShouldRun:false,micRestartTimer:null,
-  micWaiter:null,micPrepareResolve:null,micEnabled:false,micStream:null,
-  micAudioCtx:null,micAnalyser:null,micSource:null,micMeterRaf:null,micLevel:0,micAnswerWindow:false,micSignalDuringAnswer:false,
+  recognition:null,micPrepared:false,micRunning:false,micShouldRun:false,micStartPending:false,
+  micWaiter:null,micEnabled:false,micStream:null,
+  micAudioCtx:null,micAnalyser:null,micSource:null,micMeterRaf:null,micLevel:0,
+  micAnswerWindow:false,micSignalDuringAnswer:false,micPlaybackActive:false,
   micRecognitionState:'off',micRecognitionError:'',groupBeforeMic:'3',repetitions:0,sessionRecorded:false
 };
 
@@ -6521,11 +6522,18 @@ async function listenPlayCodeAt(ch,wpmValue,token){
 }
 async function listenPlayGroup(group,wpmValue,token){
   const d=1200/Math.max(5,wpmValue),gapDits=listenNextFarnsworthGap();
-  for(let i=0;i<group.length;i++){
-    if(!await listenPlayCodeAt(group[i],wpmValue,token))return false;
-    if(i<group.length-1)await sleep(d*gapDits);
+  listenState.micPlaybackActive=!!listenState.micEnabled;
+  listenUpdateMicVisuals();
+  try{
+    for(let i=0;i<group.length;i++){
+      if(!await listenPlayCodeAt(group[i],wpmValue,token))return false;
+      if(i<group.length-1)await sleep(d*gapDits);
+    }
+    return true;
+  }finally{
+    listenState.micPlaybackActive=false;
+    listenUpdateMicVisuals();
   }
-  return true;
 }
 
 /* OUTPUT ONLY: canonical spoken names. No microphone aliases belong here. */
@@ -6536,14 +6544,24 @@ const LISTEN_SPEAK={
 function listenSpeakGroup(group){
   if(!('speechSynthesis'in window))return Promise.resolve();
   return new Promise(resolve=>{
+    let done=false;
+    const finish=()=>{
+      if(done)return;
+      done=true;
+      listenState.micPlaybackActive=false;
+      listenUpdateMicVisuals();
+      resolve();
+    };
     try{
+      listenState.micPlaybackActive=!!listenState.micEnabled;
+      listenUpdateMicVisuals();
       speechSynthesis.cancel();
       const spoken=group.map(ch=>LISTEN_SPEAK[lang]?.[ch]||ch);
       const u=new SpeechSynthesisUtterance(spoken.join(', '));
       u.lang=lang==='es'?'es-ES':'en-US';
       u.rate=lang==='es'?.88:.78;
-      u.onend=resolve;u.onerror=resolve;speechSynthesis.speak(u);
-    }catch{resolve()}
+      u.onend=finish;u.onerror=finish;speechSynthesis.speak(u);
+    }catch{finish()}
   });
 }
 
@@ -6584,22 +6602,29 @@ function listenTranscriptMatchesTarget(text,target){
   });
 }
 
+function listenMicHasHardError(){
+  return ['unsupported','audio-capture','not-allowed','service-not-allowed','network','ended','start-failed'].includes(listenState.micRecognitionError);
+}
 function listenMicStateText(){
   if(listenState.micRecognitionError){
     const e=listenState.micRecognitionError;
     if(e==='audio-capture')return lang==='es'?'SIN CAPTURA DE AUDIO':'NO AUDIO CAPTURE';
     if(e==='network')return lang==='es'?'AUDIO OK · RECONOCIMIENTO SIN RED':'AUDIO OK · SPEECH SERVICE OFFLINE';
-    if(e==='not-allowed'||e==='service-not-allowed')return lang==='es'?'PERMISO DENEGADO':'PERMISSION DENIED';
-    return lang==='es'?'RECONOCIMIENTO NO DISPONIBLE':'SPEECH RECOGNITION UNAVAILABLE';
+    if(e==='not-allowed'||e==='service-not-allowed')return lang==='es'?'AUDIO OK · VOZ NO AUTORIZADA':'AUDIO OK · SPEECH NOT ALLOWED';
+    if(e==='ended')return lang==='es'?'AUDIO OK · RECONOCIMIENTO DETENIDO':'AUDIO OK · SPEECH STOPPED';
+    if(e==='start-failed'||e==='unsupported')return lang==='es'?'AUDIO OK · RECONOCIMIENTO NO DISPONIBLE':'AUDIO OK · SPEECH UNAVAILABLE';
   }
   if(!listenState.micEnabled)return lang==='es'?'MICRÓFONO INACTIVO':'MICROPHONE OFF';
   if(listenState.micAnswerWindow)return lang==='es'?'HABLÁ AHORA':'SPEAK NOW';
-  if(listenState.micRunning)return lang==='es'?'MICRÓFONO ACTIVO':'MICROPHONE ACTIVE';
-  return lang==='es'?'AUDIO ACTIVO · INICIANDO VOZ':'AUDIO ACTIVE · STARTING SPEECH';
+  if(listenState.micStartPending)return lang==='es'?'MICRÓFONO ACTIVO · PREPARANDO VOZ':'MICROPHONE ACTIVE · PREPARING SPEECH';
+  return lang==='es'?'MICRÓFONO ACTIVO':'MICROPHONE ACTIVE';
 }
 function listenUpdateMicVisuals(){
-  const level=Math.max(0,Math.min(100,Math.round(listenState.micLevel||0)));
-  const signal=level>=7;
+  const physical=Math.max(0,Math.min(100,Math.round(listenState.micLevel||0)));
+  // During our own CW/TTS playback the microphone may physically hear the speaker.
+  // Do not show or count that as user input.
+  const level=(listenState.active&&listenState.micPlaybackActive)?0:physical;
+  const signal=level>=4;
   const setup=$('listenMicSetupMeter'),live=$('listenMicLiveMeter');
   if(setup){
     setup.classList.toggle('show',listenState.micEnabled);
@@ -6620,194 +6645,323 @@ function listenUpdateMicVisuals(){
   const state=listenMicStateText();
   if($('listenMicSetupState'))$('listenMicSetupState').textContent=state;
   if($('listenMicLiveState'))$('listenMicLiveState').textContent=state;
-  $('listenMicBtn')?.closest('.listen-mic-control')?.classList.toggle('mic-error',!!listenState.micRecognitionError);
+  $('listenMicBtn')?.closest('.listen-mic-control')?.classList.toggle('mic-error',listenMicHasHardError());
 }
 function listenStopMicMeter(){
   if(listenState.micMeterRaf){cancelAnimationFrame(listenState.micMeterRaf);listenState.micMeterRaf=null}
   try{listenState.micSource?.disconnect?.()}catch{}
   try{listenState.micAnalyser?.disconnect?.()}catch{}
-  try{listenState.micAudioCtx?.close?.()}catch{}
+  // micAudioCtx is the application's shared AudioContext. Never close it here.
   listenState.micSource=null;listenState.micAnalyser=null;listenState.micAudioCtx=null;listenState.micLevel=0;
   listenUpdateMicVisuals();
 }
 function listenStartMicMeter(){
-  if(!listenState.micStream)return false;
+  const track=listenState.micStream?.getAudioTracks?.()[0];
+  if(!track||track.readyState!=='live')return false;
   listenStopMicMeter();
   try{
-    const AC=window.AudioContext||window.webkitAudioContext;
-    if(!AC)return false;
-    const ctx=new AC(),source=ctx.createMediaStreamSource(listenState.micStream),analyser=ctx.createAnalyser();
-    analyser.fftSize=512;analyser.smoothingTimeConstant=.68;source.connect(analyser);
-    listenState.micAudioCtx=ctx;listenState.micSource=source;listenState.micAnalyser=analyser;
-    const data=new Uint8Array(analyser.fftSize);
+    // IMPORTANT: use the same application AudioContext that is primed by the user's click.
+    // Creating a second context after awaiting getUserMedia can leave Safari/Edge suspended.
+    ensureAudio();
+    const ctx=audioCtx;
+    if(!ctx)return false;
+    if(ctx.state==='suspended'||ctx.state==='interrupted')ctx.resume().catch(()=>{});
+
+    const source=ctx.createMediaStreamSource(listenState.micStream);
+    const analyser=ctx.createAnalyser();
+    analyser.fftSize=1024;
+    analyser.smoothingTimeConstant=.55;
+    source.connect(analyser);
+
+    listenState.micAudioCtx=ctx;
+    listenState.micSource=source;
+    listenState.micAnalyser=analyser;
+
+    const data=new Float32Array(analyser.fftSize);
     const tick=()=>{
-      if(!listenState.micEnabled||!listenState.micAnalyser)return;
-      analyser.getByteTimeDomainData(data);
-      let sum=0;
-      for(let i=0;i<data.length;i++){const v=(data[i]-128)/128;sum+=v*v}
+      if(listenState.micAnalyser!==analyser)return;
+      const liveTrack=listenState.micStream?.getAudioTracks?.()[0];
+      if(!liveTrack||liveTrack.readyState!=='live'){
+        listenState.micLevel=0;
+        listenUpdateMicVisuals();
+        return;
+      }
+
+      if(ctx.state==='suspended'||ctx.state==='interrupted')ctx.resume().catch(()=>{});
+      analyser.getFloatTimeDomainData(data);
+      let sum=0,peak=0;
+      for(let i=0;i<data.length;i++){
+        const v=data[i];
+        sum+=v*v;
+        const av=Math.abs(v);
+        if(av>peak)peak=av;
+      }
       const rms=Math.sqrt(sum/data.length);
-      const level=Math.max(0,Math.min(100,Math.round(rms*720)));
+      const level=Math.max(0,Math.min(100,Math.round(Math.max(rms*900,peak*180))));
       listenState.micLevel=level;
-      if(listenState.micAnswerWindow&&level>=7)listenState.micSignalDuringAnswer=true;
+
+      if(listenState.micAnswerWindow&&!listenState.micPlaybackActive&&level>=4){
+        listenState.micSignalDuringAnswer=true;
+      }
       listenUpdateMicVisuals();
       listenState.micMeterRaf=requestAnimationFrame(tick);
     };
-    if(ctx.state==='suspended')ctx.resume().catch(()=>{});
     tick();
     return true;
-  }catch{return false}
+  }catch{
+    listenState.micSource=null;listenState.micAnalyser=null;listenState.micAudioCtx=null;
+    return false;
+  }
 }
 async function listenEnsureMicStream(){
-  const active=listenState.micStream?.getAudioTracks?.().some(t=>t.readyState==='live');
-  if(active){if(!listenState.micAnalyser)listenStartMicMeter();return true}
+  const track=listenState.micStream?.getAudioTracks?.()[0];
+  if(track?.readyState==='live'){
+    if(!listenState.micAnalyser)listenStartMicMeter();
+    return true;
+  }
   if(!navigator.mediaDevices?.getUserMedia)return false;
   try{
-    listenState.micStream=await navigator.mediaDevices.getUserMedia({
-      audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true}
+    const stream=await navigator.mediaDevices.getUserMedia({
+      audio:{
+        echoCancellation:true,
+        noiseSuppression:true,
+        autoGainControl:true,
+        channelCount:1
+      }
     });
-    listenStartMicMeter();
-    return true;
-  }catch{return false}
+    listenState.micStream=stream;
+    const newTrack=stream.getAudioTracks?.()[0];
+    if(!newTrack)return false;
+    newTrack.onended=()=>{
+      if(listenState.micStream!==stream)return;
+      listenState.micLevel=0;
+      listenState.micPrepared=false;
+      listenState.micRunning=false;
+      listenState.micRecognitionError='audio-capture';
+      if(listenState.micWaiter?.finish)listenState.micWaiter.finish('');
+      listenUpdateMicVisuals();
+      listenRefreshUI();
+    };
+    return listenStartMicMeter();
+  }catch{
+    return false;
+  }
 }
-
 function listenMicResolve(transcripts){
-  const w=listenState.micWaiter;if(!w||w.done)return;
+  const w=listenState.micWaiter;
+  if(!listenState.micAnswerWindow||listenState.micPlaybackActive||!w||w.done)return;
   const vals=[...new Set(transcripts.map(listenCleanSpeech).filter(Boolean))];
   if(!vals.length)return;
   w.heardSpeech=true;
   w.lastTranscript=vals.join(' / ');
-  if(vals.some(v=>listenTranscriptMatchesTarget(v,w.target))){w.finish(w.target);return}
-  // Do not fail on the first imperfect transcription.
-  // Isolated letters are often transcribed inconsistently; keep listening until timeout.
-}
-function listenMicScheduleRestart(){
-  if(!listenState.micShouldRun||!listenState.micEnabled)return;
-  clearTimeout(listenState.micRestartTimer);
-  listenState.micRestartTimer=setTimeout(()=>listenMicStartContinuous(),220);
-}
-function listenMicStartContinuous(){
-  const r=listenState.recognition;
-  if(!r||listenState.micRunning||!listenState.micShouldRun||!listenState.micEnabled)return;
-  try{r.start()}
-  catch{
-    listenState.micRunning=false;
-    if(listenState.micPrepareResolve){
-      const fn=listenState.micPrepareResolve;listenState.micPrepareResolve=null;fn(false);
-    }else listenMicScheduleRestart();
+  if(vals.some(v=>listenTranscriptMatchesTarget(v,w.target))){
+    w.finish(w.target);
   }
 }
 async function listenPrepareMicrophone(){
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
   if(!SR)return false;
+  if(listenState.micRunning&&listenState.recognition){
+    listenState.micPrepared=true;
+    return true;
+  }
+  if(listenState.micStartPending)return true;
+
   try{
-    if(!listenState.recognition){
-      const r=new SR();
-      r.lang=lang==='es'?'es-ES':'en-US';r.interimResults=false;r.continuous=true;r.maxAlternatives=10;
-      r.onstart=()=>{
-        listenState.micRunning=true;listenState.micRecognitionState='running';listenState.micRecognitionError='';
-        listenUpdateMicVisuals();
-        listenRefreshUI();
-        if(listenState.micPrepareResolve){
-          const fn=listenState.micPrepareResolve;listenState.micPrepareResolve=null;fn(true);
+    const r=new SR();
+    r.lang=lang==='es'?'es-ES':'en-US';
+    r.interimResults=false;
+    r.continuous=true;
+    r.maxAlternatives=10;
+
+    listenState.recognition=r;
+    listenState.micShouldRun=true;
+    listenState.micStartPending=true;
+    listenState.micRecognitionError='';
+    listenState.micRecognitionState='starting';
+
+    r.onstart=()=>{
+      if(listenState.recognition!==r)return;
+      listenState.micStartPending=false;
+      listenState.micRunning=true;
+      listenState.micPrepared=true;
+      listenState.micRecognitionState='running';
+      listenState.micRecognitionError='';
+      listenUpdateMicVisuals();
+      listenRefreshUI();
+    };
+
+    r.onaudiostart=()=>{
+      if(listenState.recognition===r)listenState.micRecognitionState='capturing';
+    };
+    r.onsoundstart=()=>{
+      if(listenState.micAnswerWindow&&!listenState.micPlaybackActive)listenState.micSignalDuringAnswer=true;
+    };
+    r.onspeechstart=()=>{
+      if(listenState.micAnswerWindow&&!listenState.micPlaybackActive)listenState.micSignalDuringAnswer=true;
+    };
+
+    r.onresult=e=>{
+      if(!listenState.micAnswerWindow||listenState.micPlaybackActive)return;
+      for(let i=e.resultIndex;i<e.results.length;i++){
+        const res=e.results[i];
+        if(!res.isFinal)continue;
+        const transcripts=[];
+        for(let j=0;j<res.length;j++)transcripts.push(res[j].transcript);
+        listenMicResolve(transcripts);
+      }
+    };
+
+    r.onerror=e=>{
+      if(listenState.recognition!==r)return;
+      const err=e?.error||'unknown';
+      listenState.micStartPending=false;
+      if(err==='no-speech'||err==='aborted'){
+        // These are not permission failures and must never trigger a permission loop.
+        if(err==='aborted'&&!listenState.micShouldRun){
+          listenState.micRunning=false;
+          listenState.micPrepared=false;
         }
-      };
-      r.onresult=e=>{
-        for(let i=e.resultIndex;i<e.results.length;i++){
-          const res=e.results[i];if(!res.isFinal)continue;
-          const transcripts=[];
-          for(let j=0;j<res.length;j++)transcripts.push(res[j].transcript);
-          listenMicResolve(transcripts);
-        }
-      };
-      r.onerror=e=>{
-        const err=e?.error||'unknown';
-        if(err!=='no-speech'&&err!=='aborted')listenState.micRecognitionError=err;
-        if(err==='not-allowed'||err==='service-not-allowed'||err==='audio-capture'){
-          listenState.micShouldRun=false;listenState.micPrepared=false;
-          if(err==='not-allowed'||err==='service-not-allowed')listenState.micEnabled=false;
-          if(listenState.micPrepareResolve){const fn=listenState.micPrepareResolve;listenState.micPrepareResolve=null;fn(false)}
+      }else{
+        listenState.micRecognitionError=err;
+        if(['not-allowed','service-not-allowed','audio-capture','network'].includes(err)){
+          listenState.micShouldRun=false;
+          listenState.micRunning=false;
+          listenState.micPrepared=false;
           if(listenState.micWaiter?.finish)listenState.micWaiter.finish('');
-        }else if(err==='network'){
-          // Keep the real microphone stream/VU alive: only the browser speech service failed.
-          if(listenState.micPrepareResolve){const fn=listenState.micPrepareResolve;listenState.micPrepareResolve=null;fn(false)}
         }
-        listenUpdateMicVisuals();listenRefreshUI();
-      };
-      r.onend=()=>{listenState.micRunning=false;listenState.micRecognitionState='idle';listenUpdateMicVisuals();listenRefreshUI();listenMicScheduleRestart()};
-      listenState.recognition=r;
+      }
+      listenUpdateMicVisuals();
+      listenRefreshUI();
+    };
+
+    r.onend=()=>{
+      if(listenState.recognition!==r)return;
+      listenState.micStartPending=false;
+      listenState.micRunning=false;
+      listenState.micRecognitionState='idle';
+      if(listenState.micShouldRun&&listenState.micEnabled){
+        // Do NOT auto-start again. Some browsers prompt on every start().
+        // Failing closed is safer than trapping the user in a permission/restart loop.
+        listenState.micPrepared=false;
+        if(!listenState.micRecognitionError)listenState.micRecognitionError='ended';
+        if(listenState.micWaiter?.finish)listenState.micWaiter.finish('');
+      }
+      listenUpdateMicVisuals();
+      listenRefreshUI();
+    };
+
+    // Start the speech engine exactly once for this authorization.
+    // Where supported, feed the already-authorized physical mic track so the
+    // recognizer does not open a second independent capture route.
+    const track=listenState.micStream?.getAudioTracks?.()[0];
+    try{
+      if(track)r.start(track);
+      else r.start();
+    }catch(firstError){
+      try{r.start()}
+      catch{
+        listenState.micStartPending=false;
+        listenState.micShouldRun=false;
+        listenState.micPrepared=false;
+        listenState.micRecognitionError='start-failed';
+        return false;
+      }
     }
-    listenState.recognition.lang=lang==='es'?'es-ES':'en-US';
-    listenState.micPrepared=true;listenState.micShouldRun=true;
-    if(listenState.micRunning)return true;
-    return await new Promise(resolve=>{
-      let settled=false;
-      const finish=ok=>{if(settled)return;settled=true;clearTimeout(timer);resolve(ok)};
-      listenState.micPrepareResolve=finish;
-      const timer=setTimeout(()=>{
-        if(listenState.micPrepareResolve===finish)listenState.micPrepareResolve=null;
-        finish(false);
-      },12000);
-      listenMicStartContinuous();
-    });
+    listenUpdateMicVisuals();
+    return true;
   }catch{
-    listenState.micPrepared=false;listenState.micShouldRun=false;return false;
+    listenState.micStartPending=false;
+    listenState.micShouldRun=false;
+    listenState.micPrepared=false;
+    listenState.micRecognitionError='start-failed';
+    return false;
   }
 }
 async function listenAuthorizeMic(){
   if(listenState.active)return;
-  if(listenState.micEnabled){listenReleaseMic();listenRefreshUI();return}
+  if(listenState.micEnabled){
+    listenReleaseMic();
+    listenRefreshUI();
+    return;
+  }
+
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
   if(!SR){
     listenState.micRecognitionError='unsupported';
-    listenUpdateMicVisuals();listenRefreshUI();return;
+    listenUpdateMicVisuals();
+    listenRefreshUI();
+    return;
   }
+
+  // Prime/resume WebAudio synchronously inside the user's click.
+  // This is intentionally BEFORE the first await.
+  try{ensureAudio()}catch{}
+  if(audioCtx&&(audioCtx.state==='suspended'||audioCtx.state==='interrupted'))audioCtx.resume().catch(()=>{});
+
   listenState.micRecognitionError='';
   const streamOk=await listenEnsureMicStream();
   if(!streamOk){
     listenState.micRecognitionError='audio-capture';
-    listenUpdateMicVisuals();listenRefreshUI();return;
+    listenUpdateMicVisuals();
+    listenRefreshUI();
+    return;
   }
+
   listenState.groupBeforeMic=$('listenGroupSize').value;
   listenState.micEnabled=true;
   $('listenGroupSize').value='1';
   listenUpdateMicVisuals();
-  const ok=await listenPrepareMicrophone();
-  if(!ok&&listenState.micRecognitionError){
-    // Keep the VU available for diagnosis even if browser STT is unavailable.
-    listenState.micPrepared=false;
-  }
-  listenRefreshUI();listenUpdateMicVisuals();
+
+  // One speech-recognition start for the whole authorization/session.
+  await listenPrepareMicrophone();
+  listenRefreshUI();
+  listenUpdateMicVisuals();
 }
 function listenRecognize(target,token){
-  if(!listenState.micEnabled||!listenState.recognition||!listenState.micPrepared){
+  if(!listenState.micEnabled||!listenState.recognition||!listenState.micPrepared||!listenState.micRunning||listenMicHasHardError()){
     return Promise.resolve({supported:false,value:'',signal:false,transcript:''});
   }
-  if(!listenState.micRunning)listenMicStartContinuous();
+
   return new Promise(resolve=>{
     if(listenState.micWaiter?.finish)listenState.micWaiter.finish('');
+
     let done=false,timer=null;
-    listenState.micAnswerWindow=true;listenState.micSignalDuringAnswer=false;
+    listenState.micAnswerWindow=true;
+    listenState.micSignalDuringAnswer=false;
     listenUpdateMicVisuals();
+
     const finish=value=>{
-      if(done)return;done=true;
+      if(done)return;
+      done=true;
       if(timer)clearTimeout(timer);
+
       const w=listenState.micWaiter;
       const signal=!!listenState.micSignalDuringAnswer;
       const transcript=w?.lastTranscript||'';
+      const supported=!!(listenState.micPrepared&&listenState.micRunning&&!listenMicHasHardError());
+
       if(listenState.micWaiter?.finish===finish)listenState.micWaiter=null;
       listenState.micAnswerWindow=false;
       listenUpdateMicVisuals();
-      resolve({supported:true,value,signal,transcript});
+      resolve({supported,value,signal,transcript});
     };
+
     listenState.micWaiter={target,token,done:false,finish,heardSpeech:false,lastTranscript:''};
     $('listenFeedback').textContent=lang==='es'?'🎙 Hablá ahora…':'🎙 Speak now…';
+
+    // Recognition is already running. We only open a logical answer window here.
     timer=setTimeout(()=>{
-      if(token!==listenState.token)return;
+      if(token!==listenState.token){
+        finish('');
+        return;
+      }
       const w=listenState.micWaiter;
       finish(w?.heardSpeech?'?':'');
     },4600);
   });
 }
+
 function listenFormatTime(ms){
   const total=Math.max(0,Math.floor(ms/1000)),m=Math.floor(total/60),sec=total%60;
   return `${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
@@ -6852,6 +7006,9 @@ async function listenRun(token){
         if(!listenState.active||token!==listenState.token)return;
 
         if(listenState.micEnabled){
+          // Let the tail of the CW output/echo suppression settle before accepting speech.
+          await sleep(140);
+          if(!listenState.active||token!==listenState.token)return;
           const target=group[0];
           const ans=await listenRecognize(target,token);
           if(!listenState.active||token!==listenState.token)return;
@@ -6909,9 +7066,9 @@ async function listenStart(){
     if(!streamOk){
       listenState.micRecognitionError='audio-capture';
       listenState.micEnabled=false;
-    }else if(!listenState.micRunning){
-      await listenPrepareMicrophone();
     }
+    // Never call SpeechRecognition.start() here: authorization already owns
+    // the single persistent recognition session.
     listenUpdateMicVisuals();
   }
 
@@ -6938,7 +7095,7 @@ function listenStop(silent=false){
   if(listenState.clockTimer){clearInterval(listenState.clockTimer);listenState.clockTimer=null}
   localToneOff();flash(false);try{window.speechSynthesis?.cancel()}catch{}
   if(listenState.micWaiter?.finish)listenState.micWaiter.finish('');
-  listenState.micAnswerWindow=false;listenUpdateMicVisuals();
+  listenState.micAnswerWindow=false;listenState.micPlaybackActive=false;listenState.micSignalDuringAnswer=false;listenUpdateMicVisuals();
   $('listenSetupView').style.display='';$('listenLiveView').style.display='none';
   if(!silent&&$('listenToggle')){
     listenOn=true;$('listenToggle').checked=true;$('listenPanel').classList.add('open');
@@ -6948,18 +7105,34 @@ function listenStop(silent=false){
 }
 function listenReleaseMic(){
   const restoreGroup=listenState.groupBeforeMic||'3';
-  listenState.micShouldRun=false;listenState.micEnabled=false;listenState.micPrepared=false;
+
+  listenState.micShouldRun=false;
+  listenState.micEnabled=false;
+  listenState.micPrepared=false;
+  listenState.micStartPending=false;
+  listenState.micAnswerWindow=false;
+  listenState.micPlaybackActive=false;
+  listenState.micSignalDuringAnswer=false;
+
   if($('listenGroupSize'))$('listenGroupSize').value=restoreGroup;
-  clearTimeout(listenState.micRestartTimer);listenState.micRestartTimer=null;
-  if(listenState.micPrepareResolve){const fn=listenState.micPrepareResolve;listenState.micPrepareResolve=null;fn(false)}
+
   if(listenState.micWaiter?.finish)listenState.micWaiter.finish('');
   listenState.micWaiter=null;
-  try{listenState.recognition?.stop()}catch{}
-  listenState.recognition=null;listenState.micRunning=false;
-  listenState.micAnswerWindow=false;listenState.micSignalDuringAnswer=false;
+
+  const r=listenState.recognition;
+  listenState.recognition=null;
+  try{r?.abort?.()}catch{}
+  listenState.micRunning=false;
+
   listenStopMicMeter();
-  try{listenState.micStream?.getTracks?.().forEach(t=>t.stop())}catch{}
-  listenState.micStream=null;listenState.micRecognitionState='off';listenState.micRecognitionError='';
+
+  const stream=listenState.micStream;
+  listenState.micStream=null;
+  try{stream?.getTracks?.().forEach(t=>t.stop())}catch{}
+
+  listenState.micRecognitionState='off';
+  listenState.micRecognitionError='';
+  listenState.micLevel=0;
   listenUpdateMicVisuals();
 }
 function listenPauseToggle(){
@@ -6967,8 +7140,11 @@ function listenPauseToggle(){
   listenState.paused=!listenState.paused;
   if(listenState.paused){
     localToneOff();flash(false);
+    listenState.micPlaybackActive=false;
     if(listenState.micWaiter?.finish)listenState.micWaiter.finish('');
+    listenState.micAnswerWindow=false;listenState.micSignalDuringAnswer=false;
     $('listenFeedback').textContent=tr('listenPaused');
+    listenUpdateMicVisuals();
   }
   listenRefreshUI();
 }
