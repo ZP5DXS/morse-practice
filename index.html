@@ -267,6 +267,7 @@ body.audio-only:not(.audio-peek) #decoded,
 body.audio-only:not(.audio-peek) #practice,
 body.audio-only:not(.audio-peek) #learnTarget,
 body.audio-only:not(.audio-peek) #learnCode,
+body.audio-only:not(.audio-peek) #listenTarget,
 body.audio-only:not(.audio-peek) #raceTarget,
 body.audio-only:not(.audio-peek) #kochNewChar,
 body.audio-only:not(.audio-peek) #kochTarget,
@@ -854,6 +855,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   .desktop-modules.customizing .invaders-head,
   .desktop-modules.customizing .duel-head,
   .desktop-modules.customizing .cwracer-head,
+  .desktop-modules.customizing .listen-head,
   .desktop-modules.customizing .cw-timing-head,
   .desktop-modules.customizing .cw-flappy-head,
   .desktop-modules.customizing .stats-head,
@@ -867,6 +869,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 
   /* Slightly tighter left rail without changing the actual module panels. */
   .desktop-modules .onair-box,
+  .desktop-modules .listen-box,
   .desktop-modules .invaders-box,
   .desktop-modules .duel-box,
   .desktop-modules .cwracer-box,
@@ -968,12 +971,296 @@ html[data-accent-theme="gameboy"] .rewards-summary b{
 .invader .inv-char.pending{color:var(--accent2)}
 
 
-/* Modular training: Learn / Exercises */
-.learn-box,.exercises-box{margin-top:18px;padding-top:15px;border-top:1px solid var(--line)}
-.learn-head,.exercises-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.learn-label,.exercises-label{font-size:13px;font-weight:900;letter-spacing:.04em}
+/* Modular training: Learn / Listen / Exercises */
+.learn-box,.listen-box,.exercises-box{margin-top:18px;padding-top:15px;border-top:1px solid var(--line)}
+.learn-head,.listen-head,.exercises-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.listen-label{font-size:13px;font-weight:900;letter-spacing:.04em}.learn-label,.exercises-label{font-size:13px;font-weight:900;letter-spacing:.04em}
+.listen-panel{display:none;margin-top:12px}.listen-panel.open{display:block}
+.listen-presets{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:6px}
+.listen-presets button,.listen-cycle{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:8px;padding:7px 4px;font-size:9px;font-weight:900}
+.listen-presets button:hover,.listen-cycle:hover{border-color:var(--accent)}
+.listen-presets button.active{background:color-mix(in srgb,var(--accent) 14%,var(--panel2));border-color:var(--accent);color:var(--accent2)}
+.listen-config{width:auto;max-width:none;margin:0;text-align:left;align-items:stretch;justify-content:center;padding:0 6px;overflow:hidden}
+.listen-config-head{text-align:center;margin-bottom:8px}.listen-config-title{font-size:15px;font-weight:950;color:var(--accent2)}
+.listen-char-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;margin:7px 0 9px}
+.listen-char{border:1px solid var(--line);border-radius:7px;background:var(--panel3);color:var(--muted);padding:6px 2px;font:900 10px ui-monospace,SFMono-Regular,Consolas,monospace}
+.listen-char.selected{background:color-mix(in srgb,var(--accent) 14%,var(--panel2));border-color:var(--accent);color:var(--accent2)}
+.listen-config-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px 10px;margin-top:8px;width:100%}
+.listen-control{min-width:0;border:1px solid color-mix(in srgb,var(--line) 72%,transparent);border-radius:10px;background:color-mix(in srgb,var(--panel2) 55%,transparent);padding:9px}
+.listen-control label{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:9px;font-weight:900;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
+.listen-control label b{color:var(--accent2);font-size:10px;font-variant-numeric:tabular-nums}.listen-control select{width:100%;padding:8px 7px;border:1px solid var(--line);border-radius:8px;background:var(--panel3);color:var(--text);font-size:10px}.listen-control input[type="range"]{width:100%;margin:2px 0 0}.listen-control.is-disabled{opacity:.34}.listen-control.is-disabled button,.listen-control.is-disabled select,.listen-control.is-disabled input{pointer-events:none}
+.listen-cycle{width:100%;min-height:34px;color:var(--accent2)}
+.listen-stage-note{font-size:9px;color:var(--muted);line-height:1.4;margin-top:6px;text-align:center;min-height:0}
+.listen-config-actions{display:grid;grid-template-columns:minmax(180px,1fr);max-width:360px;margin:13px auto 0}.listen-config-actions .action{width:100%}
+.listen-speed-badge{display:inline-block;padding:4px 9px;border:1px solid var(--line);border-radius:999px;background:var(--panel2);font-size:10px;font-weight:900;color:var(--accent2);margin-bottom:8px}
+.listen-target{letter-spacing:8px}.listen-live-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;width:min(700px,100%);margin:12px auto 4px}.listen-live-stat{border:1px solid var(--line);border-radius:9px;background:var(--panel2);padding:8px 5px;text-align:center}.listen-live-stat b{display:block;color:var(--text);font-size:15px;font-variant-numeric:tabular-nums}.listen-live-stat span{display:block;color:var(--muted);font-size:8px;margin-top:2px;text-transform:uppercase;letter-spacing:.04em}.listen-cycle-flash{animation:listenCycleFlash .65s ease}@keyframes listenCycleFlash{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--good) 55%,transparent)}55%{box-shadow:0 0 0 7px transparent;border-color:var(--good)}100%{box-shadow:none}}
+.keyarea.listen-activity{min-height:510px}
+@media(max-width:900px){.listen-config-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.keyarea.listen-activity{min-height:610px}}
+@media(max-width:620px){.listen-config{padding:0}.listen-config-grid{grid-template-columns:1fr}.listen-char-grid{grid-template-columns:repeat(6,1fr)}.listen-live-stats{grid-template-columns:repeat(2,1fr)}.keyarea.listen-activity{min-height:780px}}
 .learn-panel,.exercises-panel{display:none;margin-top:12px}
 .learn-panel.open,.exercises-panel.open{display:block}
+
+
+/* LISTEN v5 — flat slider-driven setup */
+.listen-config{width:100%;max-width:none;padding:0 4px;overflow:visible}
+.listen-config-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;width:100%;margin-top:8px}
+.listen-control{padding:10px 11px;min-height:74px;display:flex;flex-direction:column;justify-content:center}
+.listen-control-wide{grid-column:span 2}
+.listen-control input[type="range"]{width:100%;margin:6px 0 0}
+.listen-control.is-disabled{opacity:.28;filter:saturate(.55)}
+.listen-control.is-disabled input{pointer-events:none}
+.listen-beta{display:inline-flex!important;align-items:center;justify-content:center;padding:2px 6px;border:1px solid color-mix(in srgb,var(--warn) 55%,var(--line));border-radius:999px;color:var(--warn)!important;font-size:7px!important;letter-spacing:.08em}
+.listen-mic-control{grid-column:span 2}
+.listen-mic-btn{width:100%;min-height:39px;border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line));border-radius:9px;background:color-mix(in srgb,var(--accent) 7%,var(--panel3));color:var(--text);font-size:10px;font-weight:950;letter-spacing:.035em}
+.listen-mic-btn:hover{border-color:var(--accent)}
+.listen-mic-btn.ready{border-color:var(--good);color:var(--good);background:color-mix(in srgb,var(--good) 7%,var(--panel3))}
+.listen-mic-btn.listening{box-shadow:0 0 0 2px color-mix(in srgb,var(--good) 16%,transparent)}
+.listen-stage-note:empty{display:none}
+.keyarea.listen-activity{min-height:540px}
+@media(max-width:1120px){
+  .listen-config-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .listen-control-wide,.listen-mic-control{grid-column:span 3}
+  .keyarea.listen-activity{min-height:590px}
+}
+@media(max-width:760px){
+  .listen-config-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .listen-control-wide,.listen-mic-control{grid-column:span 2}
+  .keyarea.listen-activity{min-height:700px}
+}
+@media(max-width:520px){
+  .listen-config-grid{grid-template-columns:1fr}
+  .listen-control-wide,.listen-mic-control{grid-column:auto}
+  .keyarea.listen-activity{min-height:900px}
+}
+
+
+/* LISTEN v6 — arena-safe responsive layout */
+#activityListen .listen-config{
+  width:auto;
+  min-width:0;
+  max-width:none;
+  left:18px;
+  right:18px;
+  padding:0;
+  overflow:visible;
+}
+#activityListen .listen-config-grid{
+  width:100%;
+  min-width:0;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(min(185px,100%),1fr));
+  gap:9px;
+  align-items:stretch;
+}
+#activityListen .listen-control,
+#activityListen .listen-control-wide,
+#activityListen .listen-mic-control{
+  min-width:0;
+  max-width:100%;
+  grid-column:auto;
+}
+#activityListen .listen-control label{
+  min-width:0;
+  overflow:hidden;
+}
+#activityListen .listen-control label span{
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+#activityListen .listen-control label b{
+  flex:none;
+  white-space:nowrap;
+}
+#activityListen .listen-control input[type="range"],
+#activityListen .listen-cycle,
+#activityListen .listen-mic-btn{
+  min-width:0;
+  max-width:100%;
+}
+#activityListen .listen-config-actions{
+  width:min(360px,100%);
+  max-width:100%;
+}
+.keyarea.listen-activity{min-height:560px}
+@media(max-width:900px){
+  #activityListen .listen-config{left:12px;right:12px}
+  #activityListen .listen-config-grid{grid-template-columns:repeat(auto-fit,minmax(min(170px,100%),1fr));gap:8px}
+  .keyarea.listen-activity{min-height:630px}
+}
+@media(max-width:620px){
+  #activityListen .listen-config{left:9px;right:9px}
+  #activityListen .listen-config-grid{grid-template-columns:1fr 1fr;gap:7px}
+  #activityListen .listen-control{padding:8px;min-height:68px}
+  .keyarea.listen-activity{min-height:720px}
+}
+@media(max-width:430px){
+  #activityListen .listen-config-grid{grid-template-columns:1fr}
+  .keyarea.listen-activity{min-height:910px}
+}
+
+
+
+/* LISTEN v9 — ordered speed/Farnsworth rows and full-width start */
+
+/* GAME BOY v10 — mobile header uses the full viewport cleanly */
+@media(max-width:620px){
+  html[data-accent-theme="gameboy"] .topbar{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+    gap:10px;
+    padding:10px;
+    overflow:hidden;
+  }
+
+  html[data-accent-theme="gameboy"] .brand{
+    width:100%;
+    min-width:0;
+    display:grid;
+    grid-template-columns:auto minmax(0,1fr);
+    align-items:center;
+    gap:10px;
+  }
+
+  html[data-accent-theme="gameboy"] .brand-logo{
+    width:48px;
+    height:48px;
+  }
+
+  html[data-accent-theme="gameboy"] .brand > div,
+  html[data-accent-theme="gameboy"] .brand-title-row{
+    min-width:0;
+    width:100%;
+  }
+
+  html[data-accent-theme="gameboy"] .brand-title-row{
+    display:block;
+  }
+
+  html[data-accent-theme="gameboy"] .brand h1{
+    font-size:16px;
+    line-height:1.15;
+    white-space:normal;
+    overflow-wrap:anywhere;
+    word-break:normal;
+    text-align:left;
+  }
+
+  html[data-accent-theme="gameboy"] .brand .sub,
+  html[data-accent-theme="gameboy"] .courtesy,
+  html[data-accent-theme="gameboy"] .header-links{
+    white-space:normal;
+    overflow-wrap:anywhere;
+    max-width:100%;
+    text-align:left;
+  }
+
+  html[data-accent-theme="gameboy"] .header-73-cta{
+    width:100%;
+    max-width:100%;
+    min-width:0;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    grid-template-areas:
+      "main button"
+      "free free";
+    column-gap:8px;
+    row-gap:3px;
+    padding:8px;
+    overflow:visible;
+  }
+
+  html[data-accent-theme="gameboy"] .header-73-main{
+    grid-area:main;
+    min-width:0;
+    width:100%;
+    font-size:9px;
+    line-height:1.2;
+    white-space:normal;
+    overflow-wrap:anywhere;
+    text-overflow:clip;
+  }
+
+  html[data-accent-theme="gameboy"] .header-73-cta .like-btn{
+    grid-area:button;
+    justify-self:end;
+    align-self:center;
+    min-width:0;
+    max-width:120px;
+    padding:7px 10px;
+    font-size:9px;
+    white-space:normal;
+    line-height:1.15;
+  }
+
+  html[data-accent-theme="gameboy"] .header-73-free{
+    grid-area:free;
+    width:100%;
+    font-size:7px;
+    line-height:1.25;
+    white-space:normal;
+    text-align:left;
+  }
+
+  html[data-accent-theme="gameboy"] .top-controls{
+    width:100%;
+    min-width:0;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    align-items:center;
+    gap:7px 8px;
+  }
+
+  html[data-accent-theme="gameboy"] .compact-control{
+    min-width:0;
+    max-width:100%;
+    font-size:9px;
+  }
+}
+
+#activityListen .listen-mode-row{
+  grid-column:1 / -1;
+  display:grid;
+  grid-template-columns:minmax(170px,.9fr) minmax(150px,1fr) minmax(150px,1fr);
+  gap:9px;
+  min-width:0;
+}
+#activityListen .listen-mode-row > .listen-control{
+  min-width:0;
+  width:100%;
+}
+#activityListen .listen-mode-control{min-height:74px}
+@media(max-width:760px){
+  #activityListen .listen-mode-row{grid-template-columns:1fr 1fr}
+  #activityListen .listen-mode-row .listen-mode-control{grid-column:1 / -1}
+}
+@media(max-width:520px){
+  #activityListen .listen-mode-row{grid-template-columns:1fr}
+  #activityListen .listen-mode-row .listen-mode-control{grid-column:auto}
+}
+
+/* LISTEN v7 — Farnsworth + personal weekly progress */
+.listen-progress-panel{width:100%;min-width:0;margin:10px 0 0;padding:9px;border:1px solid color-mix(in srgb,var(--line) 78%,transparent);border-radius:10px;background:color-mix(in srgb,var(--panel2) 58%,transparent)}
+.listen-progress-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:7px;color:var(--muted);font-size:8px;font-weight:900;letter-spacing:.06em}
+.listen-progress-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.listen-progress-card{min-width:0;padding:7px 5px;border:1px solid color-mix(in srgb,var(--line) 72%,transparent);border-radius:8px;background:var(--panel3);text-align:center}
+.listen-progress-card b{display:block;font-size:13px;color:var(--text);font-variant-numeric:tabular-nums}
+.listen-progress-card span{display:block;margin-top:2px;font-size:7px;color:var(--muted);text-transform:uppercase;letter-spacing:.035em}
+.listen-last-round{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:7px;padding-top:7px;border-top:1px solid color-mix(in srgb,var(--line) 60%,transparent);color:var(--muted);font-size:8px}
+.listen-last-round b{color:var(--accent2);font-size:9px;text-align:right}
+@media(max-width:620px){.listen-progress-card b{font-size:11px}.listen-progress-card span{font-size:6px}}
+
+
+/* LISTEN v8 — clarified grouping/repetition + full Farnsworth modes */
+#activityListen .listen-control-help{
+  min-height:20px;margin:-2px 0 5px;color:var(--muted);
+  font-size:7px;line-height:1.25;text-align:left
+}
+#activityListen .listen-control.is-disabled .listen-control-help{opacity:.45}
 
 /* CW Racer is now a pure game configuration module */
 .racer-game-tabs{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:8px}
@@ -1399,6 +1686,267 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
 
 
 
+
+
+
+
+
+/* LISTEN v17 — correct setup geometry + HUD only during active listening */
+
+/* The top-left headphones label and top-right round counter are session HUD.
+   Keep them completely hidden while configuring. */
+#activityListen:not(.listen-running) > .activity-hud{
+  display:none !important;
+}
+
+/* Use the REAL setup element. Preserve activity-center absolute positioning,
+   but give it a genuine top inset so the WPM row has visible breathing room. */
+#activityListen #listenSetupView{
+  position:absolute !important;
+  top:64px !important;
+  right:32px !important;
+  bottom:54px !important;
+  left:32px !important;
+  width:auto !important;
+  max-width:none !important;
+  margin:0 !important;
+  padding:18px 20px 8px !important;
+  overflow:visible !important;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:left;
+}
+
+/* Title was intentionally removed; don't reserve any space for it. */
+#activityListen #listenSetupView .listen-config-head{
+  display:none !important;
+}
+
+/* Center and bound the complete options block. */
+#activityListen #listenSetupView .listen-config-grid{
+  width:min(860px,100%);
+  max-width:860px;
+  margin:18px auto 0 !important;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px 12px;
+  justify-content:center;
+  align-items:stretch;
+  overflow:visible;
+}
+
+/* Explicit extra top separation for the first WPM row.
+   This is what prevents its three cards from visually merging into the arena border. */
+#activityListen #listenSetupView .listen-speed-row{
+  margin-top:8px !important;
+}
+
+#activityListen #listenSetupView .listen-mode-row{
+  width:100%;
+  max-width:860px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+#activityListen #listenSetupView .listen-control,
+#activityListen #listenSetupView .listen-control-wide,
+#activityListen #listenSetupView .listen-mic-control{
+  width:100%;
+  min-width:0;
+  justify-self:center;
+}
+
+/* Keep progress centered with the same visual width as the controls. */
+#activityListen #listenSetupView .listen-progress-panel{
+  width:min(860px,100%);
+  max-width:860px;
+  margin:12px auto 0;
+}
+
+/* Start button stays clearly above the lower edge. */
+#activityListen #listenSetupView .listen-config-actions{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  width:min(860px,100%);
+  max-width:860px;
+  margin:18px auto 26px !important;
+  padding:0;
+  overflow:visible;
+}
+
+#activityListen #listenSetupView .listen-config-actions .action{
+  width:auto;
+  min-width:210px;
+  max-width:100%;
+  min-height:40px;
+  padding:9px 18px;
+  line-height:1.2;
+  flex:none;
+}
+
+@media(max-width:900px){
+  #activityListen #listenSetupView{
+    top:58px !important;
+    right:20px !important;
+    bottom:48px !important;
+    left:20px !important;
+    padding:20px 12px 8px !important;
+  }
+  #activityListen #listenSetupView .listen-config-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    width:min(720px,100%);
+  }
+}
+
+@media(max-width:620px){
+  #activityListen #listenSetupView{
+    top:56px !important;
+    right:12px !important;
+    bottom:44px !important;
+    left:12px !important;
+    padding:20px 6px 6px !important;
+  }
+  #activityListen #listenSetupView .listen-config-grid{
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:16px !important;
+  }
+  #activityListen #listenSetupView .listen-config-actions{
+    margin-bottom:28px !important;
+  }
+}
+
+@media(max-width:430px){
+  #activityListen #listenSetupView .listen-config-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+
+
+/* LISTEN v19 — start action integrated as the last matrix cell */
+#activityListen #listenSetupView .listen-start-control{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+#activityListen #listenSetupView .listen-start-grid-btn{
+  width:100%;
+  min-height:34px;
+  margin:0;
+  padding:8px 10px;
+  font-size:10px;
+  font-weight:900;
+  line-height:1.15;
+}
+
+
+/* LISTEN v20 — expand configuration across manipulation area */
+#activityListen #listenSetupView{
+  right:18px !important;
+  left:18px !important;
+  padding-left:14px !important;
+  padding-right:14px !important;
+}
+
+#activityListen #listenSetupView .listen-config-grid,
+#activityListen #listenSetupView .listen-progress-panel{
+  width:100% !important;
+  max-width:none !important;
+}
+
+#activityListen #listenSetupView .listen-config-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px 14px;
+}
+
+#activityListen #listenSetupView .listen-mode-row{
+  max-width:none !important;
+}
+
+@media(max-width:900px){
+  #activityListen #listenSetupView{
+    right:14px !important;
+    left:14px !important;
+    padding-left:10px !important;
+    padding-right:10px !important;
+  }
+}
+
+@media(max-width:620px){
+  #activityListen #listenSetupView{
+    right:10px !important;
+    left:10px !important;
+    padding-left:6px !important;
+    padding-right:6px !important;
+  }
+}
+
+
+/* LISTEN v22 — real microphone diagnostics in setup and during answers */
+#activityListen #listenSupportNote{display:none!important}
+
+#activityListen .listen-mic-vu{
+  display:none;
+  margin-top:7px;
+}
+#activityListen .listen-mic-vu.show{display:block}
+#activityListen .listen-mic-vu-head{
+  display:flex;align-items:center;justify-content:space-between;gap:7px;
+  margin-bottom:4px;font-size:7px;font-weight:900;letter-spacing:.035em;color:var(--muted)
+}
+#activityListen .listen-mic-vu-head b{font-size:7px;color:var(--good);font-variant-numeric:tabular-nums}
+#activityListen .listen-mic-vu-track,
+#activityListen .listen-mic-live-track{
+  position:relative;height:8px;overflow:hidden;border-radius:999px;
+  border:1px solid color-mix(in srgb,var(--line) 82%,transparent);background:var(--panel3)
+}
+#activityListen .listen-mic-vu-track>span,
+#activityListen .listen-mic-live-track>span{
+  position:absolute;inset:0 auto 0 0;width:0%;
+  border-radius:999px;background:var(--good);
+  box-shadow:0 0 9px color-mix(in srgb,var(--good) 34%,transparent);
+  transition:width .045s linear
+}
+#activityListen .listen-mic-vu.signal .listen-mic-vu-track,
+#activityListen .listen-mic-live.signal .listen-mic-live-track{
+  border-color:color-mix(in srgb,var(--good) 75%,var(--line))
+}
+
+#activityListen .listen-mic-live{
+  display:none;width:min(520px,92%);margin:8px auto 10px;padding:8px 10px;
+  border:1px solid color-mix(in srgb,var(--line) 76%,transparent);
+  border-radius:10px;background:color-mix(in srgb,var(--panel2) 72%,transparent)
+}
+#activityListen .listen-mic-live.show{display:block}
+#activityListen .listen-mic-live.answering{
+  border-color:color-mix(in srgb,var(--good) 58%,var(--line));
+  box-shadow:0 0 0 1px color-mix(in srgb,var(--good) 10%,transparent)
+}
+#activityListen .listen-mic-live-head{
+  display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:7px;
+  margin-bottom:5px;font-size:8px;font-weight:900;color:var(--muted)
+}
+#activityListen .listen-mic-live-head b{color:var(--text);font-size:8px}
+#activityListen .listen-mic-live-head>span:last-child{font-variant-numeric:tabular-nums}
+#activityListen .listen-mic-live-dot{
+  width:7px;height:7px;border-radius:50%;background:var(--good);
+  box-shadow:0 0 8px color-mix(in srgb,var(--good) 65%,transparent)
+}
+#activityListen .listen-mic-live.answering .listen-mic-live-dot{
+  animation:listenMicPulse .75s ease-in-out infinite
+}
+@keyframes listenMicPulse{0%,100%{opacity:.42}50%{opacity:1}}
+
+#activityListen .listen-mic-control.mic-error{
+  border-color:color-mix(in srgb,var(--danger) 58%,var(--line))
+}
+#activityListen .listen-mic-control.mic-error .listen-mic-vu-head{color:var(--danger)}
+
 </style>
 <script src="https://unpkg.com/mqtt@5.15.2/dist/mqtt.min.js"></script>
 
@@ -1739,7 +2287,7 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
   
 <div class="learn-box">
   <div class="learn-head">
-    <div class="learn-label">🎧 <span data-i18n="learnModule">LEARN</span></div>
+    <div class="learn-label">🎓 <span data-i18n="learnModule">LEARN</span></div>
     <label class="switch"><input id="learnToggle" type="checkbox"><span></span></label>
   </div>
   <div id="learnPanel" class="learn-panel">
@@ -1758,6 +2306,20 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
   </div>
 </div>
 
+<div class="listen-box">
+  <div class="listen-head">
+    <div class="listen-label">🎧 <span data-i18n="listenModule">ESCUCHA</span></div>
+    <label class="switch"><input id="listenToggle" type="checkbox"><span></span></label>
+  </div>
+  <div id="listenPanel" class="listen-panel">
+    <div class="listen-presets">
+      <button id="listenLettersBtn" type="button" data-i18n="listenLetters">LETRAS</button>
+      <button id="listenNumbersBtn" type="button" data-i18n="listenNumbers">NÚMEROS</button>
+      <button id="listenAllBtn" type="button" data-i18n="listenAll">TODO</button>
+    </div>
+    <div id="listenCharGrid" class="listen-char-grid" aria-label="ICR characters"></div>
+  </div>
+</div>
 
 <div class="cw-timing-box">
   <div class="cw-timing-head">
@@ -2117,7 +2679,7 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
 </div>
 <div id="activityArena" class="activity-arena" aria-label="CW training activity">
   <div id="activityLearn" class="activity-view">
-    <div class="activity-hud"><span>🎧 <b>LEARN</b></span><span>⭐ <b id="learnScore">0</b></span></div>
+    <div class="activity-hud"><span>🎓 <b>LEARN</b></span><span>⭐ <b id="learnScore">0</b></span></div>
     <div class="activity-center">
       <div id="learnTarget" class="activity-target">—</div>
       <div id="learnCode" class="activity-code"></div>
@@ -2129,6 +2691,126 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
         <button id="learnHearBtn" class="action" type="button">🔊 CW</button>
         <button id="learnNextBtn" class="action" type="button" data-i18n="racerNext">Siguiente</button>
         <button id="learnEndBtn" class="action danger" type="button" data-i18n="racerEnd">Fin</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="activityListen" class="activity-view">
+    <div class="activity-hud"><span>🎧 <b data-i18n="listenModule">ESCUCHA</b></span><span>🔄 <b id="listenCycleHud">0</b></span></div>
+    <div id="listenSetupView" class="activity-center listen-config">
+      <div class="listen-config-head">
+        <div class="listen-config-title" data-i18n="listenConfigure"></div>
+      </div>
+
+      <div class="listen-config-grid">
+        <div class="listen-mode-row listen-speed-row">
+          <div class="listen-control listen-mode-control">
+            <label><span data-i18n="listenSpeedMode">Patrón de velocidad</span></label>
+            <button id="listenSpeedModeBtn" class="listen-cycle" type="button">FIJO</button>
+          </div>
+
+          <div id="listenMaxWpmControl" class="listen-control">
+            <label for="listenBaseWpm"><span data-i18n="listenBaseWpm">Velocidad máxima</span><b id="listenBaseWpmVal">20 WPM</b></label>
+            <input id="listenBaseWpm" type="range" min="5" max="30" step="1" value="20">
+          </div>
+
+          <div id="listenMinWpmControl" class="listen-control">
+            <label for="listenMinWpm"><span data-i18n="listenMinWpm">Velocidad mínima</span><b id="listenMinWpmVal">12 WPM</b></label>
+            <input id="listenMinWpm" type="range" min="5" max="30" step="1" value="12">
+          </div>
+        </div>
+
+        <div class="listen-mode-row listen-farn-row">
+          <div class="listen-control listen-mode-control">
+            <label><span>FARNSWORTH</span></label>
+            <button id="listenFarnsworthBtn" class="listen-cycle" type="button">FIJO</button>
+          </div>
+
+          <div id="listenFarnMaxControl" class="listen-control">
+            <label for="listenFarnMax"><span>Farnsworth máximo</span><b id="listenFarnMaxVal">9 dits</b></label>
+            <input id="listenFarnMax" type="range" min="3" max="12" step="1" value="9">
+          </div>
+
+          <div id="listenFarnMinControl" class="listen-control">
+            <label for="listenFarnMin"><span>Farnsworth mínimo</span><b id="listenFarnMinVal">3 dits</b></label>
+            <input id="listenFarnMin" type="range" min="3" max="12" step="1" value="3">
+          </div>
+        </div>
+
+        <div id="listenGroupControl" class="listen-control">
+          <label for="listenGroupSize"><span data-i18n="listenGroup">Agrupar</span><b id="listenGroupVal">3</b></label>
+          <div class="listen-control-help" id="listenGroupHelp">Cantidad de caracteres a la vez</div>
+          <input id="listenGroupSize" type="range" min="1" max="6" step="1" value="3">
+        </div>
+
+        <div id="listenRepeatControl" class="listen-control">
+          <label for="listenRepeats"><span>Repetición</span><b id="listenRepeatsVal">2×</b></label>
+          <div class="listen-control-help" id="listenRepeatHelp">Veces que se repite cada grupo antes de pasar al siguiente</div>
+          <input id="listenRepeats" type="range" min="1" max="10" step="1" value="2">
+        </div>
+<div class="listen-control">
+          <label for="listenResponse"><span data-i18n="listenResponse">Respuesta</span><b id="listenResponseVal">0.7 s</b></label>
+          <input id="listenResponse" type="range" min="1" max="11" step="1" value="7">
+        </div>
+
+        <div class="listen-control">
+          <label for="listenDuration"><span data-i18n="listenDuration">Tiempo</span><b id="listenDurationVal">10 min</b></label>
+          <input id="listenDuration" type="range" min="1" max="16" step="1" value="10">
+        </div>
+
+        <div class="listen-control listen-mic-control">
+          <label><span>MICRÓFONO</span><b class="listen-beta">BETA</b></label>
+          <button id="listenMicBtn" class="listen-mic-btn" type="button">🎙 AUTORIZAR AUDIO</button>
+          <div id="listenMicSetupMeter" class="listen-mic-vu" aria-hidden="true">
+            <div class="listen-mic-vu-head">
+              <span id="listenMicSetupState">MICRÓFONO INACTIVO</span>
+              <b id="listenMicSetupPct">0%</b>
+            </div>
+            <div class="listen-mic-vu-track"><span id="listenMicSetupFill"></span></div>
+          </div>
+        </div>
+        <div class="listen-control listen-start-control">
+          <label><span data-i18n="listenStart">Comenzar escucha</span></label>
+          <button id="listenStartBtn" class="action primary listen-start-grid-btn" type="button" data-i18n="listenStart">Comenzar escucha</button>
+        </div>
+      </div>
+      <div class="listen-progress-panel">
+        <div class="listen-progress-head"><span>PROGRESO PERSONAL</span><span id="listenWeekLabel">SEMANA ACTUAL</span></div>
+        <div class="listen-progress-grid">
+          <div class="listen-progress-card"><b id="listenWeekStreak">0 días</b><span>🔥 Racha semanal</span></div>
+          <div class="listen-progress-card"><b id="listenWeekTime">00:00</b><span>⏱ Tiempo semanal</span></div>
+          <div class="listen-progress-card"><b id="listenWeekBest">00:00</b><span>🏁 Mejor sesión</span></div>
+        </div>
+        <div class="listen-last-round"><span>Última ronda</span><b id="listenLastRound">—</b></div>
+      </div>
+
+
+
+      <div id="listenSupportNote" class="listen-stage-note"></div>
+      
+    </div>
+    <div id="listenLiveView" class="activity-center" style="display:none">
+      <div id="listenSpeedBadge" class="listen-speed-badge">20 WPM</div>
+      <div id="listenTarget" class="activity-target listen-target">•••</div>
+      <div id="listenFeedback" class="activity-feedback" data-i18n="listenReady">Listo para escuchar</div>
+      <div id="listenMicLiveMeter" class="listen-mic-live" aria-hidden="true">
+        <div class="listen-mic-live-head">
+          <span class="listen-mic-live-dot"></span>
+          <b id="listenMicLiveState">MICRÓFONO EN ESPERA</b>
+          <span id="listenMicLivePct">0%</span>
+        </div>
+        <div class="listen-mic-live-track"><span id="listenMicLiveFill"></span></div>
+      </div>
+      <div class="listen-live-stats">
+        <div class="listen-live-stat"><b id="listenElapsed">00:00</b><span data-i18n="listenElapsed">Tiempo</span></div>
+        <div class="listen-live-stat"><b id="listenCharsHeard">0</b><span data-i18n="listenCharsHeard">Caracteres</span></div>
+        <div class="listen-live-stat"><b id="listenGroupsHeard">0</b><span data-i18n="listenGroupsHeard">Grupos</span></div>
+        <div id="listenCyclesCard" class="listen-live-stat"><b id="listenCycles">0</b><span data-i18n="listenCycles">Vueltas</span></div>
+      </div>
+      <div class="activity-meta"><span>⏳ <b id="listenTime">∞</b></span><span>🎯 <b id="listenSelectedCount">36</b></span></div>
+      <div class="activity-actions">
+        <button id="listenPauseBtn" class="action" type="button" data-i18n="listenPause">Pausa</button>
+        <button id="listenEndBtn" class="action danger" type="button" data-i18n="racerEnd">Fin</button>
       </div>
     </div>
   </div>
@@ -2423,7 +3105,7 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
 (()=>{
 const MORSE={".-":"A","-...":"B","-.-.":"C","-..":"D",".":"E","..-.":"F","--.":"G","....":"H","..":"I",".---":"J","-.-":"K",".-..":"L","--":"M","-.":"N","---":"O",".--.":"P","--.-":"Q",".-.":"R","...":"S","-":"T","..-":"U","...-":"V",".--":"W","-..-":"X","-.--":"Y","--..":"Z","-----":"0",".----":"1","..---":"2","...--":"3","....-":"4",".....":"5","-....":"6","--...":"7","---..":"8","----.":"9",".-.-.-":".","--..--":",","..--..":"?","-..-.":"/","-....-":"-",".--.-.":"@",".----.":"'","-.-.--":"!","-.--.":"(","-.--.-":")","---...":":","-.-.-.":";",".-..-.":"\"","..--.-":"_","...-..-":"$",".-.-.":"<AR>","-...-":"<BT>","...-.-":"<SK>",".-...":"<AS>","...---...":"<SOS>"};
 const REVERSE={};for(const [code,ch] of Object.entries(MORSE)){if(!ch.startsWith('<')&&!REVERSE[ch])REVERSE[ch]=code;}Object.assign(REVERSE,{"=":"-...-","+":".-.-."});
-const I18N={es:{subtitle:"Practica · Transmite · Escucha · Aprende CW",courtesy:"Cortesía de",instructions:"Instrucciones",settings:"Configuración",colorTheme:"Tema",themeBlue:"Azul",themeGreen:"Verde",themePurple:"Violeta",themePink:"Rosado",themeGameboy:"Game Boy",operatorProfile:"Indicativo",saveCall:"Guardar",editCall:"Editar",profileNote:"Tu identidad como operador dentro de Morse Practice.",rewards:"RECOMPENSAS",rewardsSub:"Los logros desbloquean recompensas cosméticas.",memberships:"Membresías de comunidad",membershipNote:"Se guarda localmente. Borra un número cuando quieras para desactivar su tema.",globalVisitors:"visitas totales",globalVisits:"visitas totales",globalCountries:"países",globalHours:"horas totales de práctica",globalDuels:"duelos",communityStats:"🌐 Morse Practice — Estadísticas de la comunidad",communityLeaderboard:"LEADERBOARD",leaderJoin:"Participar",leaderEdit:"Cambiar indicativo",leaderLeave:"Dejar de participar",leaderPosition:"Posición",leaderPoints:"Puntos",leaderStreak:"Racha",leaderNote:"Basado en las estadísticas semanales.",mode:"Modo",straight:"Llave recta",paddle:"Paleta",invertPaddle:"Invertir DIT / DAH",speed:"Velocidad",tone:"Tono",volume:"Volumen",bandNoise:"Ruido de banda",oscAudio:"Audio del oscilador",visualAid:"Ayuda visual",visualAidHelp:"Mostrar puntos y rayas",audioOnly:"Solo audio",audioOnlyHelp:"W para vista rápida",audioOnlyTitle:"Modo avanzado: oculta caracteres, decodificación e información visual del CW. Mantén W para una vista rápida.",wordSpacing:"Espaciado de palabras",keyArea:"Área de manipulación",captureHelp:"Mouse, teclado, touch o adaptador USB",hero:"Haz clic, toca la pantalla o usa tu adaptador",esc:"libera el mouse",space:"llave recta",clear:"limpiar",text:"Texto / Decoder",bidirectional:"Bidireccional: escribe o manipula",playCW:"Reproducir CW",stop:"Detener",clearBtn:"Limpiar",copy:"Copiar",save:"Guardar",betaNote:"Sala mundial experimental. La identidad es opcional y los eventos de manipulación viajan por un relay público.",straightHint:"Llave recta · mouse, SPACE o toca la superficie táctil",paddleHint:"Paleta · izquierda DIT (.) · derecha DAH (-)",idle:"Listo · clic para capturar mouse o toca la superficie",active:"Activo · mouse capturado · ESC libera",touchReady:"Touch activo · levanta el dedo para cortar",free:"● Canal libre",busy:"● Canal ocupado",online:"operadores en línea",connecting:"Conectando…",onair:"ON AIR conectado",copied:"Copiado",playing:"Reproduciendo",stopped:"Detenido",anonymous:"Anónimo",countries:"países",you:"tú",mute:"Silenciar",unmute:"Escuchar",racerLearn:"Learn",racerRace:"Race",racerStats:"Stats",learnModule:"LEARN",exercisesModule:"EJERCICIOS",racerSprint:"Sprint",racerTimed:"Contra reloj",racerAgainGame:"Repetir",racerTimeUp:"Tiempo",racerNewRecord:"¡Nuevo récord!",racerLetters:"Letras A–Z",racerNumbers:"Números 0–9",racerPunct:"Signos",racerProsigns:"Prosigns",racerMixed:"Mixto",racerVoice:"Voz opcional",racerReady:"Listo para comenzar",racerStart:"Comenzar",racerNext:"Siguiente",racerEnd:"Fin",racerStartRace:"Iniciar carrera",racerSessions:"Sesiones",racerAttempts:"Intentos",racerBestScore:"Mejor score",racerBestStreak:"Mejor racha",racerMistakes:"Aprende de tus errores",racerReset:"Resetear estadísticas",racerCorrect:"Correcto",racerImperfect:"Correcto, pero mejora el timing",racerWrong:"Incorrecto",racerAgain:"Repite",racerFinished:"¡Completado!",racerFinalScore:"Puntaje final",racerBestSimilar:"Mejor carrera similar",racerNoWeak:"Todavía no hay suficientes errores para crear una lección adaptativa",racerResetConfirm:"¿Seguro que quieres borrar todas las estadísticas de CW Racer?",racerTransmit:"Transmítelo",racerListenRepeat:"Escucha y repite",racerRestartUnit:"Error: repite la unidad desde el comienzo",qsoBasic:"QSO básico",qsoIntermediate:"QSO intermedio",qsoAdvanced:"QSO avanzado",qsoReady:"Selecciona un modo e inicia el QSO.",qsoIdle:"Bot listo.",qsoStart:"Iniciar QSO",qsoRepeat:"Repetir bot",qsoStop:"Finalizar",qsoNeedCall:"Ingresa tu indicativo para comenzar.",qsoAnswerCQ:"Responde al CQ con tu indicativo.",qsoSendExchange:"Envía tu RST, nombre y QTH.",qsoSendMore:"Agrega RST, nombre/QTH y algunos datos de estación.",qsoSendSkcc:"Envía RST, SPC/QTH, nombre y número SKCC (o NONE).",qsoSendPota:"Envía un RST realista; QTH es opcional.",qsoRepeatNeeded:"No copié todo. Repite el intercambio.",qsoComplete:"QSO completado",qsoStopped:"QSO finalizado.",qsoBotTx:"El bot está transmitiendo…",qsoAdvancedRepeat:"El bot pide una repetición.",qsoLocked:"ON AIR no está disponible durante CW Racer o QSO Bot.",qsoCopied:"Datos copiados",qsoNeedName:"NAME?",qsoNeedQth:"QTH?",qsoNeedSkcc:"SKCC NR?",qsoNeedKey:"KEY?",qsoNeedRig:"RIG?",qsoNeedPwr:"PWR?",qsoNeedAnt:"ANT?",qsoCopying:"Copiando tu transmisión…",charSpacing:"Espaciado de caracteres (Farnsworth)",personalPractice:"PRACTICA LIBRE",personalPracticeHelp:"Practica tu propio texto por caracteres o palabras",practiceFromText:"DESDE TEXTO",practiceFromMistakes:"DESDE TUS ERRORES",mistakesPracticeHelp:"Crea una sesión con los caracteres que más necesitas reforzar.",mistakesStart:"Iniciar práctica de errores",customLesson:"Lección personalizada",customLessonHelp:"Aprende del texto pegado",customByChar:"Carácter por carácter",customByWord:"Palabra por palabra",customByCharShort:"Caracteres",customByWordShort:"Palabras",customStart:"Iniciar lección",customStop:"Terminar",customReady:"Pega un texto y comienza",customTransmit:"Transmite lo mostrado",customCorrect:"Correcto",customImperfect:"Correcto · cuida el ritmo",customWrong:"Incorrecto · repite",customFinished:"Lección completada",customNoText:"Pega primero un texto válido",customAttempt:"TX",kochCourseTitle:"Curso progresivo de CW",kochCourseSub:"",kochReset:"Reset",kochReady:"Listo",kochLesson:"Lección",kochNewChar:"Nuevo",kochStartHint:"Comienza cuando estés listo",kochStart:"Iniciar lección",kochStop:"Terminar",kochRetry:"Repetir",kochNext:"Siguiente nivel",kochListen:"ESCUCHA",kochSend:"TRANSMITE",kochMixed:"MIXTO",kochChoose:"Escucha y selecciona",kochTransmit:"Transmite el carácter",kochCorrect:"Correcto",kochWrong:"Incorrecto",kochTiming:"Correcto · cuida el ritmo",kochPassed:"¡Nivel desbloqueado!",kochReview:"Buen intento · alcanza 90% para avanzar",kochMastered:"Lección dominada",kochResetConfirm:"¿Resetear todo el progreso del curso Koch?",kochLocked:"Completa la lección anterior con 90% o más",kochCourseDone:"¡Curso Koch completado!",kochPartSend:"ESCUCHA Y TRANSMITE",kochPartListen:"ESCUCHA Y SELECCIONA",kochSendHeard:"Escucha y transmite",kochChallenge:"CW Challenge",kochChallengeSub:"Solo recepción · repaso acumulativo",kochChallengeStart:"Iniciar",kochChallengeDone:"Challenge completado",kochChallengeLocked:"Completa las 3 lecciones anteriores",kochChallengeFinal:"Challenge final",statsModule:"ESTADÍSTICAS",statsActivity:"Actividad",statsRacer:"Racer",statsDaily:"Daily",statsKoch:"Koch",statsChallenges:"Challenges",statsQso:"QSOs",statsCustom:"Práctica libre",statsErrors:"Errores",statsStart:"Inicio",statsFinish:"Meta",dailyTab:"Diario",dailyWarmup:"Calentamiento",dailyExercise:"Ejercicio",dailyDrill:"Práctica",dailyCredit:"Ejercicio de WR7Q",qsoYou:"TÚ",qsoRepeatsLabel:"REPETICIONES",duelRookie:"Rookie",duelIntermediate:"Intermedio",duelAdvanced:"Avanzado",duelAllow:"Aceptar desafíos",duelRandom:"Buscar aleatorio",duelCancel:"Cancelar",duelReady:"Listo para desafiar.",duelAccept:"Aceptar",duelDecline:"Rechazar",duelRematch:"Revancha",duelNew:"Nuevo rival",duelExit:"Salir",duelAbandon:"Abandonar duelo",aiOff:"IA apagada",aiLoading:"Cargando modelo de IA",aiReady:"IA lista",aiThinking:"IA interpretando CW",aiError:"IA no disponible",aiLocalTitle:"IA local",},en:{operatorProfile:"Callsign",saveCall:"Save",editCall:"Edit",profileNote:"Your operator identity across Morse Practice.",rewards:"REWARDS",rewardsSub:"Achievements unlock cosmetic rewards.",memberships:"Community memberships",footerSkcc:"SKCC members on board",footerLicw:"LICW members on board",subtitle:"Practice · Send · Listen · Learn CW",courtesy:"Courtesy of",instructions:"Instructions",settings:"Settings",colorTheme:"Theme",themeBlue:"Blue",themeGreen:"Green",themePurple:"Purple",themePink:"Pink",themeGameboy:"Game Boy",globalVisitors:"total visits",globalVisits:"total visits",globalCountries:"countries",globalHours:"total practice hours",globalDuels:"duels",communityStats:"🌐 Morse Practice — Community Stats",communityLeaderboard:"LEADERBOARD",leaderJoin:"Join",leaderEdit:"Change callsign",leaderLeave:"Leave leaderboard",leaderPosition:"Position",leaderPoints:"Points",leaderStreak:"Streak",leaderNote:"Based on weekly statistics.",mode:"Mode",straight:"Straight Key",paddle:"Paddle",invertPaddle:"Invert DIT / DAH",speed:"Speed",tone:"Tone",volume:"Volume",bandNoise:"Band Noise",oscAudio:"Oscillator audio",visualAid:"Visual aid",visualAidHelp:"Show dots and dashes",audioOnly:"Audio Only",audioOnlyHelp:"Disables visual decoding · W quick view",audioOnlyTitle:"Advanced mode: hides characters, decoding and visual CW information. Hold W for a quick peek.",wordSpacing:"Word spacing",keyArea:"Keying Area",captureHelp:"Mouse, keyboard, touch or USB adapter",hero:"Click, touch the screen or use your adapter",esc:"releases mouse",space:"straight key",clear:"clear",text:"Text / Decoder",bidirectional:"Bidirectional: type or key",playCW:"Play CW",stop:"Stop",clearBtn:"Clear",copy:"Copy",save:"Save",betaNote:"Experimental global room. Identity is optional and keying events travel through a public relay.",straightHint:"Straight key · mouse, SPACE or touch the surface",paddleHint:"Paddle · left DIT (.) · right DAH (-)",idle:"Ready · click to capture mouse or touch the surface",active:"Active · mouse captured · ESC releases",touchReady:"Touch active · lift your finger to release",free:"● Channel free",busy:"● Channel busy",online:"operators online",connecting:"Connecting…",onair:"ON AIR connected",copied:"Copied",playing:"Playing",stopped:"Stopped",anonymous:"Anonymous",countries:"countries",you:"you",mute:"Mute",unmute:"Listen",racerLearn:"Learn",racerRace:"Race",racerStats:"Stats",learnModule:"LEARN",exercisesModule:"EXERCISES",racerSprint:"Sprint",racerTimed:"Time Attack",racerAgainGame:"Again",racerTimeUp:"Time",racerNewRecord:"New record!",racerLetters:"Letters A–Z",racerNumbers:"Numbers 0–9",racerPunct:"Punctuation",racerProsigns:"Prosigns",racerMixed:"Mixed",racerVoice:"Optional voice",racerReady:"Ready to start",racerStart:"Start",racerNext:"Next",racerEnd:"End",racerStartRace:"Start race",racerSessions:"Sessions",racerAttempts:"Attempts",racerBestScore:"Best score",racerBestStreak:"Best streak",racerMistakes:"Learn from my mistakes",racerReset:"Reset statistics",racerCorrect:"Correct",racerImperfect:"Correct, but improve your timing",racerWrong:"Wrong",racerAgain:"Repeat",racerFinished:"Completed!",racerFinalScore:"Final score",racerBestSimilar:"Best similar race",racerNoWeak:"There are not enough weak characters yet to build an adaptive lesson",racerResetConfirm:"Are you sure you want to erase all CW Racer statistics?",racerTransmit:"Transmit it",racerListenRepeat:"Listen and repeat",racerRestartUnit:"Error: restart the unit from the beginning",qsoBasic:"Basic QSO",qsoIntermediate:"Intermediate QSO",qsoAdvanced:"Advanced QSO",qsoReady:"Select a mode and start the QSO.",qsoIdle:"Bot ready.",qsoStart:"Start QSO",qsoRepeat:"Repeat bot",qsoStop:"End",qsoNeedCall:"Enter your callsign to start.",qsoAnswerCQ:"Answer the CQ with your callsign.",qsoSendExchange:"Send your RST, name and QTH.",qsoSendMore:"Add RST, name/QTH and some station details.",qsoSendSkcc:"Send RST, SPC/QTH, name and SKCC number (or NONE).",qsoSendPota:"Send a realistic RST; QTH is optional.",qsoRepeatNeeded:"I did not copy everything. Repeat the exchange.",qsoComplete:"QSO completed",qsoStopped:"QSO ended.",qsoBotTx:"The bot is transmitting…",qsoAdvancedRepeat:"The bot requests a repeat.",qsoLocked:"ON AIR is unavailable while CW Racer or QSO Bot is active.",qsoCopied:"Copied data",qsoNeedName:"NAME?",qsoNeedQth:"QTH?",qsoNeedSkcc:"SKCC NR?",qsoNeedKey:"KEY?",qsoNeedRig:"RIG?",qsoNeedPwr:"PWR?",qsoNeedAnt:"ANT?",qsoCopying:"Copying your transmission…",charSpacing:"Character spacing (Farnsworth)",personalPractice:"FREE PRACTICE",personalPracticeHelp:"Practice your own text by characters or words",practiceFromText:"FROM TEXT",practiceFromMistakes:"FROM YOUR MISTAKES",mistakesPracticeHelp:"Build a session from the characters that need the most reinforcement.",mistakesStart:"Start mistakes practice",customLesson:"Custom lesson",customLessonHelp:"Learn from the pasted text",customByChar:"Character by character",customByWord:"Word by word",customByCharShort:"Characters",customByWordShort:"Words",customStart:"Start lesson",customStop:"End",customReady:"Paste text and start",customTransmit:"Send the target",customCorrect:"Correct",customImperfect:"Correct · watch the timing",customWrong:"Incorrect · repeat",customFinished:"Lesson completed",customNoText:"Paste valid text first",customAttempt:"TX",kochCourseTitle:"Progressive CW course",kochCourseSub:"40 lessons + 13 listening Challenges · 90% unlocks the next step",kochReset:"Reset",kochReady:"Ready",kochLesson:"Lesson",kochNewChar:"New",kochStartHint:"Start when you are ready",kochStart:"Start lesson",kochStop:"End",kochRetry:"Retry",kochNext:"Next level",kochListen:"LISTEN",kochSend:"SEND",kochMixed:"MIXED",kochChoose:"Listen and select",kochTransmit:"Send the character",kochCorrect:"Correct",kochWrong:"Incorrect",kochTiming:"Correct · watch the timing",kochPassed:"Level unlocked!",kochReview:"Good try · reach 90% to advance",kochMastered:"Lesson mastered",kochResetConfirm:"Reset all Koch course progress?",kochLocked:"Complete the previous lesson with 90% or better",kochCourseDone:"Koch course completed!",kochPartSend:"LISTEN AND SEND",kochPartListen:"LISTEN AND SELECT",kochSendHeard:"Listen and send",kochChallenge:"CW Challenge",kochChallengeSub:"Listening only · cumulative review",kochChallengeStart:"Start",kochChallengeDone:"Challenge completed",kochChallengeLocked:"Complete the previous 3 lessons",kochChallengeFinal:"Final challenge",statsModule:"STATISTICS",statsActivity:"Activity",statsRacer:"Racer",statsDaily:"Daily",statsKoch:"Koch",statsChallenges:"Challenges",statsQso:"QSOs",statsCustom:"Free practice",statsErrors:"Mistakes",statsStart:"Start",statsFinish:"Finish",dailyTab:"Daily",dailyWarmup:"Warm Up",dailyExercise:"Exercise",dailyDrill:"Drill",dailyCredit:"Exercise by WR7Q",qsoYou:"YOU",qsoRepeatsLabel:"REPEATS",duelRookie:"Rookie",duelIntermediate:"Intermediate",duelAdvanced:"Advanced",duelAllow:"Accept challenges",duelRandom:"Find random",duelCancel:"Cancel",duelReady:"Ready to challenge.",duelAccept:"Accept",duelDecline:"Decline",duelRematch:"Rematch",duelNew:"New opponent",duelExit:"Exit",duelAbandon:"Abandon duel",aiOff:"AI off",aiLoading:"AI model loading",aiReady:"AI ready",aiThinking:"AI interpreting CW",aiError:"AI unavailable",aiLocalTitle:"Local AI",}};
+const I18N={es:{subtitle:"Practica · Transmite · Escucha · Aprende CW",courtesy:"Cortesía de",instructions:"Instrucciones",settings:"Configuración",colorTheme:"Tema",themeBlue:"Azul",themeGreen:"Verde",themePurple:"Violeta",themePink:"Rosado",themeGameboy:"Game Boy",operatorProfile:"Indicativo",saveCall:"Guardar",editCall:"Editar",profileNote:"Tu identidad como operador dentro de Morse Practice.",rewards:"RECOMPENSAS",rewardsSub:"Los logros desbloquean recompensas cosméticas.",memberships:"Membresías de comunidad",membershipNote:"Se guarda localmente. Borra un número cuando quieras para desactivar su tema.",globalVisitors:"visitas totales",globalVisits:"visitas totales",globalCountries:"países",globalHours:"horas totales de práctica",globalDuels:"duelos",communityStats:"🌐 Morse Practice — Estadísticas de la comunidad",communityLeaderboard:"LEADERBOARD",leaderJoin:"Participar",leaderEdit:"Cambiar indicativo",leaderLeave:"Dejar de participar",leaderPosition:"Posición",leaderPoints:"Puntos",leaderStreak:"Racha",leaderNote:"Basado en las estadísticas semanales.",mode:"Modo",straight:"Llave recta",paddle:"Paleta",invertPaddle:"Invertir DIT / DAH",speed:"Velocidad",tone:"Tono",volume:"Volumen",bandNoise:"Ruido de banda",oscAudio:"Audio del oscilador",visualAid:"Ayuda visual",visualAidHelp:"Mostrar puntos y rayas",audioOnly:"Solo audio",audioOnlyHelp:"W para vista rápida",audioOnlyTitle:"Modo avanzado: oculta caracteres, decodificación e información visual del CW. Mantén W para una vista rápida.",wordSpacing:"Espaciado de palabras",keyArea:"Área de manipulación",captureHelp:"Mouse, teclado, touch o adaptador USB",hero:"Haz clic, toca la pantalla o usa tu adaptador",esc:"libera el mouse",space:"llave recta",clear:"limpiar",text:"Texto / Decoder",bidirectional:"Bidireccional: escribe o manipula",playCW:"Reproducir CW",stop:"Detener",clearBtn:"Limpiar",copy:"Copiar",save:"Guardar",betaNote:"Sala mundial experimental. La identidad es opcional y los eventos de manipulación viajan por un relay público.",straightHint:"Llave recta · mouse, SPACE o toca la superficie táctil",paddleHint:"Paleta · izquierda DIT (.) · derecha DAH (-)",idle:"Listo · clic para capturar mouse o toca la superficie",active:"Activo · mouse capturado · ESC libera",touchReady:"Touch activo · levanta el dedo para cortar",free:"● Canal libre",busy:"● Canal ocupado",online:"operadores en línea",connecting:"Conectando…",onair:"ON AIR conectado",copied:"Copiado",playing:"Reproduciendo",stopped:"Detenido",anonymous:"Anónimo",countries:"países",you:"tú",mute:"Silenciar",unmute:"Escuchar",racerLearn:"Learn",racerRace:"Race",racerStats:"Stats",learnModule:"LEARN",listenModule:"ESCUCHA",listenSub:"Reconocimiento instantáneo · ICR",listenLetters:"LETRAS",listenNumbers:"NÚMEROS",listenAll:"TODO",listenOpenArena:"Configura la sesión en el área de manipulación.",listenConfigure:"Configura tu escucha",listenConfigureSub:"Elige el set y el ritmo. Después, solo escucha.",listenBaseWpm:"Velocidad máxima",listenSpeedMode:"Patrón de velocidad",listenMinWpm:"WPM mínimo",listenGroup:"Agrupar",listenRepeats:"Repeticiones",listenResponse:"Respuesta",listenDelay:"Espera",listenDuration:"Duración",listenLoop:"Sesión",listenStart:"Comenzar escucha",listenReady:"Listo para escuchar",listenPause:"Pausa",listenResume:"Continuar",listenFixed:"FIJO",listenDescending:"DESCENDENTE",listenAscending:"ASCENDENTE",listenPyramid:"PIRÁMIDE",listenVoiceAfter:"VOZ DESPUÉS",listenSilent:"SIN VOZ",listenMicrophone:"MICRÓFONO",listenTimed:"CON TIEMPO",listenElapsed:"Tiempo",listenCharsHeard:"Caracteres",listenGroupsHeard:"Grupos",listenCycles:"Vueltas",listenMicUnsupported:"Reconocimiento por voz no disponible en este navegador.",listenMicListening:"Di el carácter…",listenMicPermissionNote:"El micrófono se autoriza una sola vez al iniciar y queda abierto durante la sesión.",listenMicRequesting:"Solicitando acceso al micrófono…",listenMicDenied:"No se pudo abrir el micrófono. Revisa el permiso del navegador.",listenCorrect:"Correcto",listenWrong:"Incorrecto",listenPaused:"Pausado",listenLettersTip:"Selecciona únicamente A–Z para la sesión ICR.",listenNumbersTip:"Selecciona únicamente 0–9 para la sesión ICR.",listenAllTip:"Selecciona letras y números.",listenBaseWpmTip:"Velocidad principal del módulo. En modo FIJO es la velocidad usada; en los modos variables es el máximo.",listenSpeedModeTip:"Cada clic cambia: fijo → descendente → ascendente → pirámide. No modifica la velocidad global de Morse Practice.",listenMinWpmTip:"Velocidad mínima del recorrido cuando usas descendente, ascendente o pirámide.",listenGroupTip:"Agrupa 1, 2, 3 o 5 caracteres antes de cambiar. En modo micrófono se fija automáticamente en 1.",listenRepeatsTip:"Cuántas veces se repite el mismo grupo en cada velocidad.",listenResponseTip:"Cada clic cambia: voz después → sin voz → micrófono. En micrófono dices el carácter y el navegador lo evalúa.",listenDelayTip:"Tiempo entre el final del CW y la respuesta hablada o la escucha del micrófono.",listenDurationTip:"Duración de la sesión cuando LOOP infinito está desactivado.",listenLoopTip:"Alterna entre reproducción continua y sesión con tiempo.",listenStartTip:"Inicia una sesión maratónica. Cada vuelta contiene todos los caracteres seleccionados una vez, en orden aleatorio.",listenPauseTip:"Pausa o continúa la sesión sin perder el grupo actual.",listenEndTip:"Finaliza la sesión y vuelve a la configuración.",exercisesModule:"EJERCICIOS",racerSprint:"Sprint",racerTimed:"Contra reloj",racerAgainGame:"Repetir",racerTimeUp:"Tiempo",racerNewRecord:"¡Nuevo récord!",racerLetters:"Letras A–Z",racerNumbers:"Números 0–9",racerPunct:"Signos",racerProsigns:"Prosigns",racerMixed:"Mixto",racerVoice:"Voz opcional",racerReady:"Listo para comenzar",racerStart:"Comenzar",racerNext:"Siguiente",racerEnd:"Fin",racerStartRace:"Iniciar carrera",racerSessions:"Sesiones",racerAttempts:"Intentos",racerBestScore:"Mejor score",racerBestStreak:"Mejor racha",racerMistakes:"Aprende de tus errores",racerReset:"Resetear estadísticas",racerCorrect:"Correcto",racerImperfect:"Correcto, pero mejora el timing",racerWrong:"Incorrecto",racerAgain:"Repite",racerFinished:"¡Completado!",racerFinalScore:"Puntaje final",racerBestSimilar:"Mejor carrera similar",racerNoWeak:"Todavía no hay suficientes errores para crear una lección adaptativa",racerResetConfirm:"¿Seguro que quieres borrar todas las estadísticas de CW Racer?",racerTransmit:"Transmítelo",racerListenRepeat:"Escucha y repite",racerRestartUnit:"Error: repite la unidad desde el comienzo",qsoBasic:"QSO básico",qsoIntermediate:"QSO intermedio",qsoAdvanced:"QSO avanzado",qsoReady:"Selecciona un modo e inicia el QSO.",qsoIdle:"Bot listo.",qsoStart:"Iniciar QSO",qsoRepeat:"Repetir bot",qsoStop:"Finalizar",qsoNeedCall:"Ingresa tu indicativo para comenzar.",qsoAnswerCQ:"Responde al CQ con tu indicativo.",qsoSendExchange:"Envía tu RST, nombre y QTH.",qsoSendMore:"Agrega RST, nombre/QTH y algunos datos de estación.",qsoSendSkcc:"Envía RST, SPC/QTH, nombre y número SKCC (o NONE).",qsoSendPota:"Envía un RST realista; QTH es opcional.",qsoRepeatNeeded:"No copié todo. Repite el intercambio.",qsoComplete:"QSO completado",qsoStopped:"QSO finalizado.",qsoBotTx:"El bot está transmitiendo…",qsoAdvancedRepeat:"El bot pide una repetición.",qsoLocked:"ON AIR no está disponible durante CW Racer o QSO Bot.",qsoCopied:"Datos copiados",qsoNeedName:"NAME?",qsoNeedQth:"QTH?",qsoNeedSkcc:"SKCC NR?",qsoNeedKey:"KEY?",qsoNeedRig:"RIG?",qsoNeedPwr:"PWR?",qsoNeedAnt:"ANT?",qsoCopying:"Copiando tu transmisión…",charSpacing:"Espaciado de caracteres (Farnsworth)",personalPractice:"PRACTICA LIBRE",personalPracticeHelp:"Practica tu propio texto por caracteres o palabras",practiceFromText:"DESDE TEXTO",practiceFromMistakes:"DESDE TUS ERRORES",mistakesPracticeHelp:"Crea una sesión con los caracteres que más necesitas reforzar.",mistakesStart:"Iniciar práctica de errores",customLesson:"Lección personalizada",customLessonHelp:"Aprende del texto pegado",customByChar:"Carácter por carácter",customByWord:"Palabra por palabra",customByCharShort:"Caracteres",customByWordShort:"Palabras",customStart:"Iniciar lección",customStop:"Terminar",customReady:"Pega un texto y comienza",customTransmit:"Transmite lo mostrado",customCorrect:"Correcto",customImperfect:"Correcto · cuida el ritmo",customWrong:"Incorrecto · repite",customFinished:"Lección completada",customNoText:"Pega primero un texto válido",customAttempt:"TX",kochCourseTitle:"Curso progresivo de CW",kochCourseSub:"",kochReset:"Reset",kochReady:"Listo",kochLesson:"Lección",kochNewChar:"Nuevo",kochStartHint:"Comienza cuando estés listo",kochStart:"Iniciar lección",kochStop:"Terminar",kochRetry:"Repetir",kochNext:"Siguiente nivel",kochListen:"ESCUCHA",kochSend:"TRANSMITE",kochMixed:"MIXTO",kochChoose:"Escucha y selecciona",kochTransmit:"Transmite el carácter",kochCorrect:"Correcto",kochWrong:"Incorrecto",kochTiming:"Correcto · cuida el ritmo",kochPassed:"¡Nivel desbloqueado!",kochReview:"Buen intento · alcanza 90% para avanzar",kochMastered:"Lección dominada",kochResetConfirm:"¿Resetear todo el progreso del curso Koch?",kochLocked:"Completa la lección anterior con 90% o más",kochCourseDone:"¡Curso Koch completado!",kochPartSend:"ESCUCHA Y TRANSMITE",kochPartListen:"ESCUCHA Y SELECCIONA",kochSendHeard:"Escucha y transmite",kochChallenge:"CW Challenge",kochChallengeSub:"Solo recepción · repaso acumulativo",kochChallengeStart:"Iniciar",kochChallengeDone:"Challenge completado",kochChallengeLocked:"Completa las 3 lecciones anteriores",kochChallengeFinal:"Challenge final",statsModule:"ESTADÍSTICAS",statsActivity:"Actividad",statsRacer:"Racer",statsDaily:"Daily",statsKoch:"Koch",statsChallenges:"Challenges",statsQso:"QSOs",statsCustom:"Práctica libre",statsErrors:"Errores",statsStart:"Inicio",statsFinish:"Meta",dailyTab:"Diario",dailyWarmup:"Calentamiento",dailyExercise:"Ejercicio",dailyDrill:"Práctica",dailyCredit:"Ejercicio de WR7Q",qsoYou:"TÚ",qsoRepeatsLabel:"REPETICIONES",duelRookie:"Rookie",duelIntermediate:"Intermedio",duelAdvanced:"Avanzado",duelAllow:"Aceptar desafíos",duelRandom:"Buscar aleatorio",duelCancel:"Cancelar",duelReady:"Listo para desafiar.",duelAccept:"Aceptar",duelDecline:"Rechazar",duelRematch:"Revancha",duelNew:"Nuevo rival",duelExit:"Salir",duelAbandon:"Abandonar duelo",aiOff:"IA apagada",aiLoading:"Cargando modelo de IA",aiReady:"IA lista",aiThinking:"IA interpretando CW",aiError:"IA no disponible",aiLocalTitle:"IA local",},en:{operatorProfile:"Callsign",saveCall:"Save",editCall:"Edit",profileNote:"Your operator identity across Morse Practice.",rewards:"REWARDS",rewardsSub:"Achievements unlock cosmetic rewards.",memberships:"Community memberships",footerSkcc:"SKCC members on board",footerLicw:"LICW members on board",subtitle:"Practice · Send · Listen · Learn CW",courtesy:"Courtesy of",instructions:"Instructions",settings:"Settings",colorTheme:"Theme",themeBlue:"Blue",themeGreen:"Green",themePurple:"Purple",themePink:"Pink",themeGameboy:"Game Boy",globalVisitors:"total visits",globalVisits:"total visits",globalCountries:"countries",globalHours:"total practice hours",globalDuels:"duels",communityStats:"🌐 Morse Practice — Community Stats",communityLeaderboard:"LEADERBOARD",leaderJoin:"Join",leaderEdit:"Change callsign",leaderLeave:"Leave leaderboard",leaderPosition:"Position",leaderPoints:"Points",leaderStreak:"Streak",leaderNote:"Based on weekly statistics.",mode:"Mode",straight:"Straight Key",paddle:"Paddle",invertPaddle:"Invert DIT / DAH",speed:"Speed",tone:"Tone",volume:"Volume",bandNoise:"Band Noise",oscAudio:"Oscillator audio",visualAid:"Visual aid",visualAidHelp:"Show dots and dashes",audioOnly:"Audio Only",audioOnlyHelp:"Disables visual decoding · W quick view",audioOnlyTitle:"Advanced mode: hides characters, decoding and visual CW information. Hold W for a quick peek.",wordSpacing:"Word spacing",keyArea:"Keying Area",captureHelp:"Mouse, keyboard, touch or USB adapter",hero:"Click, touch the screen or use your adapter",esc:"releases mouse",space:"straight key",clear:"clear",text:"Text / Decoder",bidirectional:"Bidirectional: type or key",playCW:"Play CW",stop:"Stop",clearBtn:"Clear",copy:"Copy",save:"Save",betaNote:"Experimental global room. Identity is optional and keying events travel through a public relay.",straightHint:"Straight key · mouse, SPACE or touch the surface",paddleHint:"Paddle · left DIT (.) · right DAH (-)",idle:"Ready · click to capture mouse or touch the surface",active:"Active · mouse captured · ESC releases",touchReady:"Touch active · lift your finger to release",free:"● Channel free",busy:"● Channel busy",online:"operators online",connecting:"Connecting…",onair:"ON AIR connected",copied:"Copied",playing:"Playing",stopped:"Stopped",anonymous:"Anonymous",countries:"countries",you:"you",mute:"Mute",unmute:"Listen",racerLearn:"Learn",racerRace:"Race",racerStats:"Stats",learnModule:"LEARN",listenModule:"LISTEN",listenSub:"Instant recognition · ICR",listenLetters:"LETTERS",listenNumbers:"NUMBERS",listenAll:"ALL",listenOpenArena:"Configure the session in the keying area.",listenConfigure:"Configure your listening",listenConfigureSub:"Choose the set and rhythm. Then, just listen.",listenBaseWpm:"Maximum speed",listenSpeedMode:"Speed pattern",listenMinWpm:"Minimum WPM",listenGroup:"Group by",listenRepeats:"Repeats",listenResponse:"Response",listenDelay:"Delay",listenDuration:"Duration",listenLoop:"Session",listenStart:"Start listening",listenReady:"Ready to listen",listenPause:"Pause",listenResume:"Resume",listenFixed:"FIXED",listenDescending:"DESCENDING",listenAscending:"ASCENDING",listenPyramid:"PYRAMID",listenVoiceAfter:"VOICE AFTER",listenSilent:"NO VOICE",listenMicrophone:"MICROPHONE",listenTimed:"TIMED",listenElapsed:"Elapsed",listenCharsHeard:"Characters",listenGroupsHeard:"Groups",listenCycles:"Cycles",listenMicUnsupported:"Speech recognition is not available in this browser.",listenMicListening:"Say the character…",listenMicPermissionNote:"Microphone permission is requested once at start and kept open for the session.",listenMicRequesting:"Requesting microphone access…",listenMicDenied:"The microphone could not be opened. Check your browser permission.",listenCorrect:"Correct",listenWrong:"Incorrect",listenPaused:"Paused",listenLettersTip:"Select only A–Z for the ICR session.",listenNumbersTip:"Select only 0–9 for the ICR session.",listenAllTip:"Select letters and numbers.",listenBaseWpmTip:"Main module speed. FIXED uses it directly; variable modes use it as the maximum.",listenSpeedModeTip:"Each click cycles: fixed → descending → ascending → pyramid. It does not change Morse Practice's global speed.",listenMinWpmTip:"Lowest speed reached by descending, ascending or pyramid patterns.",listenGroupTip:"Group 1, 2, 3 or 5 characters before changing. Microphone mode automatically locks this to 1.",listenRepeatsTip:"How many times the same group repeats at each speed.",listenResponseTip:"Each click cycles: voice after → no voice → microphone. In microphone mode you say the character and the browser evaluates it.",listenDelayTip:"Time between the end of CW and the spoken answer or microphone listening window.",listenDurationTip:"Session duration when infinite LOOP is disabled.",listenLoopTip:"Toggle between continuous playback and a timed session.",listenStartTip:"Starts a marathon session. Every cycle contains all selected characters once, in random order.",listenPauseTip:"Pause or resume without losing the current group.",listenEndTip:"End the session and return to configuration.",exercisesModule:"EXERCISES",racerSprint:"Sprint",racerTimed:"Time Attack",racerAgainGame:"Again",racerTimeUp:"Time",racerNewRecord:"New record!",racerLetters:"Letters A–Z",racerNumbers:"Numbers 0–9",racerPunct:"Punctuation",racerProsigns:"Prosigns",racerMixed:"Mixed",racerVoice:"Optional voice",racerReady:"Ready to start",racerStart:"Start",racerNext:"Next",racerEnd:"End",racerStartRace:"Start race",racerSessions:"Sessions",racerAttempts:"Attempts",racerBestScore:"Best score",racerBestStreak:"Best streak",racerMistakes:"Learn from my mistakes",racerReset:"Reset statistics",racerCorrect:"Correct",racerImperfect:"Correct, but improve your timing",racerWrong:"Wrong",racerAgain:"Repeat",racerFinished:"Completed!",racerFinalScore:"Final score",racerBestSimilar:"Best similar race",racerNoWeak:"There are not enough weak characters yet to build an adaptive lesson",racerResetConfirm:"Are you sure you want to erase all CW Racer statistics?",racerTransmit:"Transmit it",racerListenRepeat:"Listen and repeat",racerRestartUnit:"Error: restart the unit from the beginning",qsoBasic:"Basic QSO",qsoIntermediate:"Intermediate QSO",qsoAdvanced:"Advanced QSO",qsoReady:"Select a mode and start the QSO.",qsoIdle:"Bot ready.",qsoStart:"Start QSO",qsoRepeat:"Repeat bot",qsoStop:"End",qsoNeedCall:"Enter your callsign to start.",qsoAnswerCQ:"Answer the CQ with your callsign.",qsoSendExchange:"Send your RST, name and QTH.",qsoSendMore:"Add RST, name/QTH and some station details.",qsoSendSkcc:"Send RST, SPC/QTH, name and SKCC number (or NONE).",qsoSendPota:"Send a realistic RST; QTH is optional.",qsoRepeatNeeded:"I did not copy everything. Repeat the exchange.",qsoComplete:"QSO completed",qsoStopped:"QSO ended.",qsoBotTx:"The bot is transmitting…",qsoAdvancedRepeat:"The bot requests a repeat.",qsoLocked:"ON AIR is unavailable while CW Racer or QSO Bot is active.",qsoCopied:"Copied data",qsoNeedName:"NAME?",qsoNeedQth:"QTH?",qsoNeedSkcc:"SKCC NR?",qsoNeedKey:"KEY?",qsoNeedRig:"RIG?",qsoNeedPwr:"PWR?",qsoNeedAnt:"ANT?",qsoCopying:"Copying your transmission…",charSpacing:"Character spacing (Farnsworth)",personalPractice:"FREE PRACTICE",personalPracticeHelp:"Practice your own text by characters or words",practiceFromText:"FROM TEXT",practiceFromMistakes:"FROM YOUR MISTAKES",mistakesPracticeHelp:"Build a session from the characters that need the most reinforcement.",mistakesStart:"Start mistakes practice",customLesson:"Custom lesson",customLessonHelp:"Learn from the pasted text",customByChar:"Character by character",customByWord:"Word by word",customByCharShort:"Characters",customByWordShort:"Words",customStart:"Start lesson",customStop:"End",customReady:"Paste text and start",customTransmit:"Send the target",customCorrect:"Correct",customImperfect:"Correct · watch the timing",customWrong:"Incorrect · repeat",customFinished:"Lesson completed",customNoText:"Paste valid text first",customAttempt:"TX",kochCourseTitle:"Progressive CW course",kochCourseSub:"40 lessons + 13 listening Challenges · 90% unlocks the next step",kochReset:"Reset",kochReady:"Ready",kochLesson:"Lesson",kochNewChar:"New",kochStartHint:"Start when you are ready",kochStart:"Start lesson",kochStop:"End",kochRetry:"Retry",kochNext:"Next level",kochListen:"LISTEN",kochSend:"SEND",kochMixed:"MIXED",kochChoose:"Listen and select",kochTransmit:"Send the character",kochCorrect:"Correct",kochWrong:"Incorrect",kochTiming:"Correct · watch the timing",kochPassed:"Level unlocked!",kochReview:"Good try · reach 90% to advance",kochMastered:"Lesson mastered",kochResetConfirm:"Reset all Koch course progress?",kochLocked:"Complete the previous lesson with 90% or better",kochCourseDone:"Koch course completed!",kochPartSend:"LISTEN AND SEND",kochPartListen:"LISTEN AND SELECT",kochSendHeard:"Listen and send",kochChallenge:"CW Challenge",kochChallengeSub:"Listening only · cumulative review",kochChallengeStart:"Start",kochChallengeDone:"Challenge completed",kochChallengeLocked:"Complete the previous 3 lessons",kochChallengeFinal:"Final challenge",statsModule:"STATISTICS",statsActivity:"Activity",statsRacer:"Racer",statsDaily:"Daily",statsKoch:"Koch",statsChallenges:"Challenges",statsQso:"QSOs",statsCustom:"Free practice",statsErrors:"Mistakes",statsStart:"Start",statsFinish:"Finish",dailyTab:"Daily",dailyWarmup:"Warm Up",dailyExercise:"Exercise",dailyDrill:"Drill",dailyCredit:"Exercise by WR7Q",qsoYou:"YOU",qsoRepeatsLabel:"REPEATS",duelRookie:"Rookie",duelIntermediate:"Intermediate",duelAdvanced:"Advanced",duelAllow:"Accept challenges",duelRandom:"Find random",duelCancel:"Cancel",duelReady:"Ready to challenge.",duelAccept:"Accept",duelDecline:"Decline",duelRematch:"Rematch",duelNew:"New opponent",duelExit:"Exit",duelAbandon:"Abandon duel",aiOff:"AI off",aiLoading:"AI model loading",aiReady:"AI ready",aiThinking:"AI interpreting CW",aiError:"AI unavailable",aiLocalTitle:"Local AI",}};
 const $=id=>document.getElementById(id),keyarea=$("keyarea"),symbols=$("symbols"),decoded=$("decoded"),practice=$("practice"),status=$("status"),mode=$("mode"),wpm=$("wpm"),tone=$("tone"),volume=$("volume"),bandNoise=$("bandNoise"),sidetone=$("sidetoneToggle"),visualAid=$("visualAidToggle"),audioOnly=$("audioOnlyToggle"),charSpacing=$("charSpacing"),spacing=$("wordSpacing");
 let lang=localStorage.getItem('cw-lang')||'es'; const tr=k=>I18N[lang][k]||k;
 let visualAidEnabled=localStorage.getItem('cw-visual-aid')==='on';
@@ -2477,7 +3159,7 @@ visualAid.addEventListener('change',()=>{
   applyVisualAid();
 });
 
-function applyLang(){document.documentElement.lang=lang;document.querySelectorAll('[data-i18n]').forEach(n=>{const k=n.dataset.i18n;if(I18N[lang][k])n.textContent=I18N[lang][k]});$("langToggle").classList.toggle('on',lang==='en');$("operatorName").placeholder=lang==='es'?'Nombre (opcional)':'Name (optional)';$("operatorCall").placeholder=lang==='es'?'Indicativo (opcional)':'Callsign (optional)';const audioOnlyLabel=document.querySelector('[data-audio-only-title]');if(audioOnlyLabel)audioOnlyLabel.title=tr('audioOnlyTitle');const aiLabel=document.getElementById('qsoAiSwitchLabel');if(aiLabel)aiLabel.title=tr('aiLocalTitle');if(typeof qsoSmartVisual==='function')qsoSmartVisual(qsoSmartCurrentState||'');if(typeof qsoSetYou==='function')qsoSetYou();if(typeof kochRenderLesson==='function'){kochRenderLesson();kochUpdateMap();}if(typeof renderRacerStats==='function')renderRacerStats();if($("footerSkccBtn"))$("footerSkccBtn").title=lang==='es'?'Miembros SKCC a bordo · clic para editar':'SKCC members aboard · click to edit';if($("footerLicwBtn"))$("footerLicwBtn").title=lang==='es'?'Miembros LICW a bordo · clic para editar':'LICW members aboard · click to edit';
+function applyLang(){document.documentElement.lang=lang;document.querySelectorAll('[data-i18n]').forEach(n=>{const k=n.dataset.i18n;if(I18N[lang][k])n.textContent=I18N[lang][k]});document.querySelectorAll('[data-title-i18n]').forEach(n=>{const k=n.dataset.titleI18n;if(I18N[lang][k])n.title=I18N[lang][k]});if(typeof listenRefreshUI==='function')listenRefreshUI();$("langToggle").classList.toggle('on',lang==='en');$("operatorName").placeholder=lang==='es'?'Nombre (opcional)':'Name (optional)';$("operatorCall").placeholder=lang==='es'?'Indicativo (opcional)':'Callsign (optional)';const audioOnlyLabel=document.querySelector('[data-audio-only-title]');if(audioOnlyLabel)audioOnlyLabel.title=tr('audioOnlyTitle');const aiLabel=document.getElementById('qsoAiSwitchLabel');if(aiLabel)aiLabel.title=tr('aiLocalTitle');if(typeof qsoSmartVisual==='function')qsoSmartVisual(qsoSmartCurrentState||'');if(typeof qsoSetYou==='function')qsoSetYou();if(typeof kochRenderLesson==='function'){kochRenderLesson();kochUpdateMap();}if(typeof renderRacerStats==='function')renderRacerStats();if($("footerSkccBtn"))$("footerSkccBtn").title=lang==='es'?'Miembros SKCC a bordo · clic para editar':'SKCC members aboard · click to edit';if($("footerLicwBtn"))$("footerLicwBtn").title=lang==='es'?'Miembros LICW a bordo · clic para editar':'LICW members aboard · click to edit';
 
 renderCountryTicker();
 if($('stableVisitsLabel'))$('stableVisitsLabel').textContent=lang==='es'?'visitas':'visits';
@@ -2663,11 +3345,11 @@ async function iambicLoop(){if(iambicRunning)return;iambicRunning=true;try{while
 function updateModeHint(){keyarea.classList.toggle('paddle-touch',mode.value!=='straight');keyarea.classList.toggle('paddle-mode',mode.value!=='straight');if(mode.value==='straight')$("modeHint").innerHTML=tr('straightHint');else{const l=paddleLogicalSide('left').toUpperCase(),r=paddleLogicalSide('right').toUpperCase();$("modeHint").innerHTML=`<span class="${l.toLowerCase()}">${lang==='es'?'Izquierda':'Left'} = ${l} (${l==='DIT'?'.':'-'})</span> · <span class="${r.toLowerCase()}">${lang==='es'?'Derecha':'Right'} = ${r} (${r==='DIT'?'.':'-'})</span>`}document.querySelectorAll('.seg-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode.value));syncPaddleReverseUI();status.textContent=tr('idle')}
 function activateMouse(){if(active)return;active=true;keyarea.focus();ensureAudio();status.textContent=tr('active');if(keyarea.requestPointerLock)try{keyarea.requestPointerLock()}catch{}}
 function deactivate(){active=false;leftHeld=rightHeld=false;if(typeof resetVbandInput==='function')resetVbandInput();else if(typeof vbandCtrlHeld!=='undefined')vbandCtrlHeld.clear();if(downAt)straightUp();localToneOff();flash(false);status.textContent=tr('idle');if(document.pointerLockElement&&document.exitPointerLock)document.exitPointerLock()}
-keyarea.addEventListener('click',e=>{if(e.target.closest('.cw-timing-arena'))return;if(duelOn||e.target.closest('.duel-arena')||e.target.closest('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.cw-flappy-arena .action,.cw-flappy-result-actions .action,.game-ranking-panel,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.cw-flappy-arena .action,.cw-flappy-result-actions .action,.game-ranking-panel'))return;if(window.matchMedia('(pointer:coarse)').matches)return;if(e.pointerType!=='touch'&&!active)activateMouse()});keyarea.addEventListener('contextmenu',e=>{if(e.target.closest('.cw-timing-arena'))return;if(e.target.closest('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.cw-flappy-arena .action,.cw-flappy-result-actions .action,.game-ranking-panel,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.cw-flappy-arena .action,.cw-flappy-result-actions .action,.game-ranking-panel'))return;e.preventDefault()});
-document.addEventListener('mousedown',e=>{if(e.target.closest?.('.cw-timing-arena'))return;if(e.target.closest?.('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.cw-flappy-arena .action,.cw-flappy-result-actions .action,.game-ranking-panel,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.cw-flappy-arena .action,.cw-flappy-result-actions .action,.game-ranking-panel'))return;if(!active||!canTransmit()||(e.button!==0&&e.button!==2))return;e.preventDefault();if(mode.value==='straight')straightDown('mouse');else{if(e.button===0)setPaddlePhysical('left',true);if(e.button===2)setPaddlePhysical('right',true);iambicLoop()}},true);document.addEventListener('mouseup',e=>{if(e.target.closest?.('.cw-timing-arena'))return;if(e.target.closest?.('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.cw-flappy-arena .action,.cw-flappy-result-actions .action,.game-ranking-panel,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.cw-flappy-arena .action,.cw-flappy-result-actions .action,.game-ranking-panel'))return;if(!active||(e.button!==0&&e.button!==2))return;e.preventDefault();if(mode.value==='straight')straightUp();else{if(e.button===0)setPaddlePhysical('left',false);if(e.button===2)setPaddlePhysical('right',false)}},true);
+keyarea.addEventListener('click',e=>{if(keyarea.classList.contains('listen-activity'))return;if(e.target.closest('.cw-timing-arena'))return;if(duelOn||e.target.closest('.duel-arena')||e.target.closest('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.cw-flappy-arena .action,.cw-flappy-result-actions .action,.game-ranking-panel,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.cw-flappy-arena .action,.cw-flappy-result-actions .action,.game-ranking-panel'))return;if(window.matchMedia('(pointer:coarse)').matches)return;if(e.pointerType!=='touch'&&!active)activateMouse()});keyarea.addEventListener('contextmenu',e=>{if(keyarea.classList.contains('listen-activity')){e.preventDefault();return}if(e.target.closest('.cw-timing-arena'))return;if(e.target.closest('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.cw-flappy-arena .action,.cw-flappy-result-actions .action,.game-ranking-panel,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.cw-flappy-arena .action,.cw-flappy-result-actions .action,.game-ranking-panel'))return;e.preventDefault()});
+document.addEventListener('mousedown',e=>{if(keyarea.classList.contains('listen-activity'))return;if(e.target.closest?.('.cw-timing-arena'))return;if(e.target.closest?.('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.cw-flappy-arena .action,.cw-flappy-result-actions .action,.game-ranking-panel,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.cw-flappy-arena .action,.cw-flappy-result-actions .action,.game-ranking-panel'))return;if(!active||!canTransmit()||(e.button!==0&&e.button!==2))return;e.preventDefault();if(mode.value==='straight')straightDown('mouse');else{if(e.button===0)setPaddlePhysical('left',true);if(e.button===2)setPaddlePhysical('right',true);iambicLoop()}},true);document.addEventListener('mouseup',e=>{if(keyarea.classList.contains('listen-activity'))return;if(e.target.closest?.('.cw-timing-arena'))return;if(e.target.closest?.('.paddle-reverse-control,.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.cw-flappy-arena .action,.cw-flappy-result-actions .action,.game-ranking-panel,.racer-arena-exit,.racer-arena-result-actions .action,.errors-arena-exit,.errors-arena-result-actions .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.cw-flappy-arena .action,.cw-flappy-result-actions .action,.game-ranking-panel'))return;if(!active||(e.button!==0&&e.button!==2))return;e.preventDefault();if(mode.value==='straight')straightUp();else{if(e.button===0)setPaddlePhysical('left',false);if(e.button===2)setPaddlePhysical('right',false)}},true);
 function touchSide(x){const r=keyarea.getBoundingClientRect();return paddleLogicalSide(x<r.left+r.width/2?'left':'right')}
 function refreshTouchHolds(){if(mode.value==='straight')return;leftHeld=[...touchPointers.values()].includes('dit');rightHeld=[...touchPointers.values()].includes('dah');$("ditZone").classList.toggle('pressed',leftHeld);$("dahZone").classList.toggle('pressed',rightHeld);if(leftHeld||rightHeld)iambicLoop()}
-keyarea.addEventListener('pointerdown',e=>{if(e.target.closest('.cw-timing-arena'))return;if(duelOn||e.target.closest('.duel-arena')||e.target.closest('.paddle-reverse-control')||e.target.closest('.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.cw-flappy-arena .action,.cw-flappy-result-actions .action,.game-ranking-panel'))return;if(e.pointerType!=='touch')return;e.preventDefault();ensureAudio();status.textContent=tr('touchReady');try{keyarea.setPointerCapture(e.pointerId)}catch{}if(mode.value==='straight'){touchPointers.set(e.pointerId,'straight');if(touchPointers.size===1)straightDown('touch')}else{touchPointers.set(e.pointerId,touchSide(e.clientX));refreshTouchHolds()}});
+keyarea.addEventListener('pointerdown',e=>{if(keyarea.classList.contains('listen-activity'))return;if(e.target.closest('.cw-timing-arena'))return;if(duelOn||e.target.closest('.duel-arena')||e.target.closest('.paddle-reverse-control')||e.target.closest('.invaders-exit,.invaders-rx-row,.invaders-center .action,.bentwire-arena .action,.activity-arena .action,.activity-choices button,.bentwire-arena .action,.bentwire-result-actions .action,.errors-arena-exit,.errors-arena-result .action,.battleship-arena .action,.battleship-exit,.battleship-result-actions .action,.cw-flappy-arena .action,.cw-flappy-result-actions .action,.game-ranking-panel'))return;if(e.pointerType!=='touch')return;e.preventDefault();ensureAudio();status.textContent=tr('touchReady');try{keyarea.setPointerCapture(e.pointerId)}catch{}if(mode.value==='straight'){touchPointers.set(e.pointerId,'straight');if(touchPointers.size===1)straightDown('touch')}else{touchPointers.set(e.pointerId,touchSide(e.clientX));refreshTouchHolds()}});
 function touchEnd(e){if(e.pointerType!=='touch'||!touchPointers.has(e.pointerId))return;e.preventDefault();touchPointers.delete(e.pointerId);if(mode.value==='straight'){if(touchPointers.size===0)straightUp()}else refreshTouchHolds();if(touchPointers.size===0)status.textContent=tr('idle')}
 keyarea.addEventListener('pointerup',touchEnd);keyarea.addEventListener('pointercancel',touchEnd);
 function audioOnlyTypingTarget(){
@@ -5191,18 +5873,21 @@ function setFor(name){return RACER_SETS[name]||RACER_SETS.letters}
 
 
 function activityArenaShow(kind){
-  const map={learn:'activityLearn',exercises:'activityExercises',koch:'activityKoch',custom:'activityCustom',qso:'activityQso'};
+  const map={learn:'activityLearn',listen:'activityListen',exercises:'activityExercises',koch:'activityKoch',custom:'activityCustom',qso:'activityQso'};
   document.querySelectorAll('#activityArena .activity-view').forEach(v=>v.classList.remove('active'));
   const id=map[kind],view=id?$(id):null;
   if(view)view.classList.add('active');
   keyarea.classList.add('activity-active');
+  keyarea.classList.toggle('listen-activity',kind==='listen');
+  if(kind==='listen')deactivate();
 }
 function activityArenaHide(kind){
   if(kind){
-    const map={learn:'activityLearn',exercises:'activityExercises',koch:'activityKoch',custom:'activityCustom',qso:'activityQso'};
+    const map={learn:'activityLearn',listen:'activityListen',exercises:'activityExercises',koch:'activityKoch',custom:'activityCustom',qso:'activityQso'};
     const v=$(map[kind]);if(v)v.classList.remove('active');
   }else document.querySelectorAll('#activityArena .activity-view').forEach(v=>v.classList.remove('active'));
-  if(!document.querySelector('#activityArena .activity-view.active'))keyarea.classList.remove('activity-active');
+  if(!document.querySelector('#activityArena .activity-view.active')){keyarea.classList.remove('activity-active');keyarea.classList.remove('listen-activity')}
+  else keyarea.classList.toggle('listen-activity',!!document.querySelector('#activityListen.active'));
 }
 let activityInstructionPending=false;
 let activityInstructionOwner='';
@@ -5235,6 +5920,14 @@ function learnModuleInstruction(){
     'LEARN: elige el conjunto que quieres practicar y pulsa Comenzar.',
     'LEARN: choose the set you want to practice and press Start.',
     'learn'
+  );
+}
+
+function listenModuleInstruction(){
+  activityInstruction(
+    'ESCUCHA: selecciona caracteres y configura la sesión. El entrenamiento es siempre aleatorio.',
+    'LISTEN: select characters and configure the session. Training is always randomized.',
+    'listen'
   );
 }
 
@@ -5316,12 +6009,12 @@ function invadersModuleInstruction(){
   );
 }
 
-let racerOn=false,learnOn=false,exercisesOn=false,cwTimingOn=false,flappyOn=false;
+let racerOn=false,learnOn=false,listenOn=false,exercisesOn=false,cwTimingOn=false,flappyOn=false;
 let learn={active:false,target:null,score:0,green:0,yellow:0,red:0,focusPool:null};
 let race={active:false,target:null,score:0,hits:0,errors:0,streak:0,bestStreak:0,index:0,total:50,queue:[],setName:'letters',wpm:15,mode:'sprint',timeLimit:60,startedAt:0,endedAt:0,timerId:0};
 let wr7q={active:false,section:'warmup',unitIndex:0,tokenIndex:0,restarts:0};
 
-function anyTrainingModuleOn(){return racerOn||learnOn||exercisesOn||cwTimingOn||flappyOn||qsoOn||customLessonOn||kochOn||invadersOn||errorsPracticeOn||bentWireOn||battleshipOn}
+function anyTrainingModuleOn(){return racerOn||learnOn||listenOn||exercisesOn||cwTimingOn||flappyOn||qsoOn||customLessonOn||kochOn||invadersOn||errorsPracticeOn||bentWireOn||battleshipOn}
 
 function syncTrainingLocks(){
   // ON AIR and DUEL use the same bidirectional priority rule:
@@ -5346,7 +6039,7 @@ function syncTrainingLocks(){
   // cleanly hands priority back from Duel to the chosen module.
   for(const id of [
     'invadersToggle','battleshipToggle','bentWireToggle',
-    'cwRacerToggle','learnToggle','exercisesToggle',
+    'cwRacerToggle','learnToggle','listenToggle','exercisesToggle',
     'qsoBotToggle','customLessonToggle','kochToggle','cwTimingToggle','cwFlappyToggle'
   ]){
     const t=$(id);
@@ -5377,6 +6070,13 @@ function forceLearnOnlyOff(){
   $("learnPanel")?.classList.remove('open');
   activityArenaHide('learn');clearActivityInstruction('learn');
 }
+function forceListenOnlyOff(){
+  listenStop(true);listenReleaseMic();
+  listenOn=false;
+  if($("listenToggle"))$("listenToggle").checked=false;
+  $("listenPanel")?.classList.remove('open');
+  activityArenaHide('listen');clearActivityInstruction('listen');
+}
 function forceExercisesOnlyOff(){
   exercisesOn=false;wr7q.active=false;
   if($("exercisesToggle"))$("exercisesToggle").checked=false;
@@ -5394,6 +6094,7 @@ function forceRacerOnlyOff(){
 function forceRacerOff(){
   forceRacerOnlyOff();
   forceLearnOnlyOff();
+  forceListenOnlyOff();
   forceExercisesOnlyOff();
   if(typeof forceTimingOnlyOff==='function')forceTimingOnlyOff();
   if(typeof cwFlappyForceOff==='function')cwFlappyForceOff();
@@ -5407,6 +6108,7 @@ function closeOtherTraining(except){
   if(except!=='errors'&&typeof errorsPracticeOn!=='undefined'&&errorsPracticeOn)errorsPracticeStop();
   if(except!=='racer')forceRacerOnlyOff();
   if(except!=='learn')forceLearnOnlyOff();
+  if(except!=='listen')forceListenOnlyOff();
   if(except!=='exercises')forceExercisesOnlyOff();
   if(except!=='timing'&&typeof forceTimingOnlyOff==='function')forceTimingOnlyOff();
   if(except!=='flappy'&&typeof cwFlappyForceOff==='function'&&flappyOn)cwFlappyForceOff();
@@ -5422,6 +6124,7 @@ function closeAllTrainingForRealtime(){
   if(typeof errorsPracticeOn!=='undefined'&&errorsPracticeOn)errorsPracticeStop();
   forceRacerOnlyOff();
   forceLearnOnlyOff();
+  forceListenOnlyOff();
   forceExercisesOnlyOff();
   if(typeof forceTimingOnlyOff==='function')forceTimingOnlyOff();
   if(typeof cwFlappyForceOff==='function'&&flappyOn)cwFlappyForceOff();
@@ -5438,6 +6141,19 @@ $("learnToggle").onchange=e=>{
     learnModuleInstruction();
   }else{
     learn.active=false;activityArenaHide('learn');clearActivityInstruction('learn');
+  }
+  syncTrainingLocks();
+};
+$("listenToggle").onchange=e=>{
+  listenOn=e.target.checked;
+  $("listenPanel").classList.toggle('open',listenOn);
+  if(listenOn){
+    closeOtherTraining('listen');
+    activityArenaShow('listen');
+    $("listenSetupView").style.display='';$("listenLiveView").style.display='none';
+    listenModuleInstruction();listenRefreshUI();
+  }else{
+    listenStop(true);listenReleaseMic();activityArenaHide('listen');clearActivityInstruction('listen');
   }
   syncTrainingLocks();
 };
@@ -5515,6 +6231,768 @@ function endRacer(){
 $("learnStartBtn").onclick=()=>startLearn(null);
 $("learnNextBtn").onclick=()=>{if(learn.active)nextLearnTarget()};
 $("learnHearBtn").onclick=()=>{if(learn.target)learnPlayPrompt()};
+
+// ==================== LISTEN / ICR ====================
+const LISTEN_CHARS='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'.split('');
+const LISTEN_SPEED_MODES=['fixed','descending','ascending','pyramid'];
+const LISTEN_FARNSWORTH_MODES=['fixed','descending','ascending','pyramid'];
+let listenState={
+  active:false,paused:false,token:0,selected:new Set(LISTEN_CHARS),speedMode:'fixed',farnsworthMode:'fixed',farnsworthStep:0,
+  endsAt:0,startedAt:0,currentGroup:[],deck:[],cycle:0,charsHeard:0,groupsHeard:0,clockTimer:null,
+  recognition:null,micPrepared:false,micRunning:false,micShouldRun:false,micRestartTimer:null,
+  micWaiter:null,micPrepareResolve:null,micEnabled:false,micStream:null,
+  micAudioCtx:null,micAnalyser:null,micSource:null,micMeterRaf:null,micLevel:0,micAnswerWindow:false,micSignalDuringAnswer:false,
+  micRecognitionState:'off',micRecognitionError:'',groupBeforeMic:'3',repetitions:0,sessionRecorded:false
+};
+
+function listenTrMode(kind,value){
+  const maps={speed:{fixed:'listenFixed',descending:'listenDescending',ascending:'listenAscending',pyramid:'listenPyramid'}};
+  if(kind==='farnsworth'){
+    const es={fixed:'FIJO',descending:'DESCENDENTE',ascending:'ASCENDENTE',pyramid:'PIRÁMIDE'};
+    const en={fixed:'FIXED',descending:'DESCENDING',ascending:'ASCENDING',pyramid:'PYRAMID'};
+    return (lang==='es'?es:en)[value]||value.toUpperCase();
+  }
+  return tr(maps[kind][value]);
+}
+function listenPresetKind(){
+  const a=[...listenState.selected], letters=RACER_SETS.letters, nums=RACER_SETS.numbers;
+  if(a.length===letters.length&&letters.every(x=>listenState.selected.has(x)))return 'letters';
+  if(a.length===nums.length&&nums.every(x=>listenState.selected.has(x)))return 'numbers';
+  if(a.length===LISTEN_CHARS.length)return 'all';
+  if(a.length===0)return 'none';
+  return 'custom';
+}
+
+const LISTEN_WEEK_KEY='cw-listen-week-v1';
+function listenLocalDateKey(d=new Date()){
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+function listenWeekStartKey(d=new Date()){
+  const x=new Date(d.getFullYear(),d.getMonth(),d.getDate()),dow=(x.getDay()+6)%7;
+  x.setDate(x.getDate()-dow); return listenLocalDateKey(x);
+}
+function listenLoadWeek(){
+  let data=null;try{data=JSON.parse(localStorage.getItem(LISTEN_WEEK_KEY)||'null')}catch{}
+  const week=listenWeekStartKey();
+  if(!data||data.week!==week)data={week,totalMs:0,bestMs:0,days:[],last:null};
+  if(!Array.isArray(data.days))data.days=[];
+  data.totalMs=Math.max(0,+data.totalMs||0);data.bestMs=Math.max(0,+data.bestMs||0);
+  return data;
+}
+function listenSaveWeek(data){try{localStorage.setItem(LISTEN_WEEK_KEY,JSON.stringify(data))}catch{}}
+function listenCurrentWeekStreak(days){
+  const set=new Set(days||[]),now=new Date(),week=listenWeekStartKey(now);
+  let d=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  if(!set.has(listenLocalDateKey(d)))d.setDate(d.getDate()-1);
+  let streak=0;
+  while(listenWeekStartKey(d)===week&&set.has(listenLocalDateKey(d))){streak++;d.setDate(d.getDate()-1)}
+  return streak;
+}
+function listenRecordSession(){
+  if(listenState.sessionRecorded||!listenState.startedAt)return;
+  const elapsed=Math.max(0,Date.now()-listenState.startedAt);
+  if(elapsed<1000||listenState.charsHeard<1)return;
+  listenState.sessionRecorded=true;
+  const data=listenLoadWeek(),today=listenLocalDateKey();
+  data.totalMs+=elapsed;data.bestMs=Math.max(data.bestMs,elapsed);
+  if(!data.days.includes(today))data.days.push(today);
+  data.last={ms:elapsed,repetitions:listenState.repetitions,chars:listenState.charsHeard,groups:listenState.groupsHeard,endedAt:Date.now()};
+  listenSaveWeek(data);listenRenderProgress();
+}
+function listenRenderProgress(){
+  if(!$('listenWeekStreak'))return;
+  const data=listenLoadWeek(),streak=listenCurrentWeekStreak(data.days);
+  $('listenWeekStreak').textContent=lang==='es'?`${streak} ${streak===1?'día':'días'}`:`${streak} ${streak===1?'day':'days'}`;
+  $('listenWeekTime').textContent=listenFormatTime(data.totalMs);
+  $('listenWeekBest').textContent=listenFormatTime(data.bestMs);
+  $('listenWeekLabel').textContent=lang==='es'?'SEMANA ACTUAL':'THIS WEEK';
+  $('listenLastRound').textContent=data.last
+    ? (lang==='es'
+      ? `${listenFormatTime(data.last.ms)} · ${data.last.repetitions} rep. · ${data.last.chars} caracteres`
+      : `${listenFormatTime(data.last.ms)} · ${data.last.repetitions} reps · ${data.last.chars} chars`)
+    : '—';
+}
+
+function listenResponseDelayMs(){
+  const v=Math.max(1,Math.min(11,+$('listenResponse').value||7));
+  return v===11?null:v*100;
+}
+function listenDurationMinutes(){
+  const v=Math.max(1,Math.min(16,+$('listenDuration').value||10));
+  return v===16?null:v;
+}
+function listenRefreshUI(){
+  if(!$('listenCharGrid'))return;
+  $('listenSpeedModeBtn').textContent=listenTrMode('speed',listenState.speedMode);
+  $('listenFarnsworthBtn').textContent=listenTrMode('farnsworth',listenState.farnsworthMode);
+  $('listenFarnMaxVal').textContent=`${$('listenFarnMax').value} dits`;
+  $('listenFarnMinVal').textContent=`${$('listenFarnMin').value} dits`;
+  $('listenPauseBtn').textContent=listenState.paused?tr('listenResume'):tr('listenPause');
+  $('listenSelectedCount').textContent=listenState.selected.size;
+
+  $('listenBaseWpmVal').textContent=`${$('listenBaseWpm').value} WPM`;
+  $('listenMinWpmVal').textContent=`${$('listenMinWpm').value} WPM`;
+  {
+    const gv=+$('listenGroupSize').value||1;
+    $('listenGroupVal').textContent=gv===6?(lang==='es'?'ALEATORIO':'RANDOM'):String(gv);
+  }
+  $('listenRepeatsVal').textContent=`${$('listenRepeats').value}×`;
+  if($('listenGroupHelp'))$('listenGroupHelp').textContent=lang==='es'?'Cantidad de caracteres a la vez':'Characters sent at a time';
+  if($('listenRepeatHelp'))$('listenRepeatHelp').textContent=lang==='es'?'Veces que se repite cada grupo antes de pasar al siguiente':'Times each group repeats before moving to the next';
+
+  const rd=listenResponseDelayMs();
+  $('listenResponseVal').textContent=rd===null?(lang==='es'?'DESACTIVADO':'OFF'):`${(rd/1000).toFixed(1)} s`;
+  const dm=listenDurationMinutes();
+  $('listenDurationVal').textContent=dm===null?'∞ LOOP':`${dm} min`;
+
+  document.querySelectorAll('.listen-char').forEach(b=>{
+    b.classList.toggle('selected',listenState.selected.has(b.dataset.char));
+    b.removeAttribute('title');
+  });
+  document.querySelectorAll('#listenPanel [title],#activityListen [title]').forEach(el=>el.removeAttribute('title'));
+
+  const pk=listenPresetKind();
+  [['listenLettersBtn','letters'],['listenNumbersBtn','numbers'],['listenAllBtn','all']].forEach(([id,k])=>$(id)?.classList.toggle('active',pk===k));
+
+  const variable=listenState.speedMode!=='fixed';
+  $('listenBaseWpm').disabled=!variable||listenState.active;
+  $('listenMinWpm').disabled=!variable||listenState.active;
+  $('listenMaxWpmControl')?.classList.toggle('is-disabled',!variable);
+  $('listenMinWpmControl')?.classList.toggle('is-disabled',!variable);
+
+  const farnVariable=listenState.farnsworthMode!=='fixed';
+  $('listenFarnMax').disabled=!farnVariable||listenState.active;
+  $('listenFarnMin').disabled=!farnVariable||listenState.active;
+  $('listenFarnMaxControl')?.classList.toggle('is-disabled',!farnVariable);
+  $('listenFarnMinControl')?.classList.toggle('is-disabled',!farnVariable);
+
+  if(listenState.micEnabled){
+    $('listenGroupSize').value='1';
+    $('listenGroupVal').textContent='1';
+  }
+  $('listenGroupSize').disabled=listenState.active||listenState.micEnabled;
+  $('listenRepeats').disabled=listenState.active;
+  $('listenGroupControl')?.classList.toggle('is-disabled',listenState.micEnabled);
+
+  $('listenResponse').disabled=listenState.active;
+  $('listenDuration').disabled=listenState.active;
+  $('listenSpeedModeBtn').disabled=listenState.active;
+  $('listenFarnsworthBtn').disabled=listenState.active;
+
+  const micBtn=$('listenMicBtn');
+  if(micBtn){
+    micBtn.classList.toggle('ready',listenState.micEnabled);
+    micBtn.classList.toggle('listening',listenState.micEnabled&&listenState.micRunning);
+    micBtn.textContent=listenState.micEnabled
+      ? (lang==='es'?'🎙 MICRÓFONO AUTORIZADO':'🎙 MICROPHONE READY')
+      : (lang==='es'?'🎙 AUTORIZAR AUDIO':'🎙 AUTHORIZE AUDIO');
+    micBtn.disabled=listenState.active;
+  }
+
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR)$('listenSupportNote').textContent=lang==='es'?'Reconocimiento de voz no disponible en este navegador.':'Speech recognition is unavailable in this browser.';
+  else if(!$('listenSupportNote').textContent.includes('permiso')&&!$('listenSupportNote').textContent.includes('permission'))$('listenSupportNote').textContent='';
+  listenRenderProgress();
+  listenUpdateMicVisuals();
+}
+function listenBuildGrid(){
+  const grid=$('listenCharGrid');if(!grid)return;grid.innerHTML='';
+  for(const ch of LISTEN_CHARS){
+    const b=document.createElement('button');b.type='button';b.className='listen-char selected';b.dataset.char=ch;b.textContent=ch;
+    b.onclick=()=>{if(listenState.active)return;if(listenState.selected.has(ch))listenState.selected.delete(ch);else listenState.selected.add(ch);listenResetDeck();listenRefreshUI()};
+    grid.appendChild(b);
+  }
+  listenRefreshUI();
+}
+function listenSelectPreset(kind){
+  if(listenState.active)return;
+  if(kind==='all'&&listenState.selected.size===LISTEN_CHARS.length){
+    listenState.selected.clear();
+  }else{
+    listenState.selected.clear();
+    const src=kind==='letters'?RACER_SETS.letters:kind==='numbers'?RACER_SETS.numbers:LISTEN_CHARS;
+    src.forEach(ch=>listenState.selected.add(ch));
+  }
+  listenResetDeck();listenRefreshUI();
+}
+function listenCycleSpeed(){
+  if(listenState.active)return;
+  let i=LISTEN_SPEED_MODES.indexOf(listenState.speedMode);
+  listenState.speedMode=LISTEN_SPEED_MODES[(i+1)%LISTEN_SPEED_MODES.length];
+  listenRefreshUI();
+}
+function listenCycleFarnsworth(){
+  if(listenState.active)return;
+  let i=LISTEN_FARNSWORTH_MODES.indexOf(listenState.farnsworthMode);
+  listenState.farnsworthMode=LISTEN_FARNSWORTH_MODES[(i+1)%LISTEN_FARNSWORTH_MODES.length];
+  listenRefreshUI();
+}
+function listenClampFarnsworth(){
+  const hi=Math.max(3,Math.min(12,+$('listenFarnMax').value||9));
+  if(+$('listenFarnMax').value>12)$('listenFarnMax').value=12;
+  if(+$('listenFarnMin').value>hi)$('listenFarnMin').value=hi;
+  listenRefreshUI();
+}
+function listenFarnsworthLevels(){
+  if(listenState.farnsworthMode==='fixed'){
+    return [Math.max(3,Math.min(12,+charSpacing.value||3))];
+  }
+  const hi=Math.max(3,Math.min(12,+$('listenFarnMax').value||9));
+  const min=Math.max(3,Math.min(hi,+$('listenFarnMin').value||3));
+  const span=hi-min,steps=[];
+  if(span<=0)steps.push(hi);
+  else{
+    steps.push(hi);
+    for(const p of [.66,.33]){
+      const v=Math.round(min+span*p);
+      if(v<hi&&v>min)steps.push(v);
+    }
+    steps.push(min);
+  }
+  const desc=[...new Set(steps)].sort((a,b)=>b-a),asc=[...desc].reverse();
+  if(listenState.farnsworthMode==='descending')return desc;
+  if(listenState.farnsworthMode==='ascending')return asc;
+  return desc.length<=1?desc:[...desc,...asc.slice(1)];
+}
+function listenNextFarnsworthGap(){
+  const levels=listenFarnsworthLevels();
+  if(!levels.length)return Math.max(3,+charSpacing.value||3);
+  const v=levels[listenState.farnsworthStep%levels.length];
+  listenState.farnsworthStep++;
+  return v;
+}
+
+function listenClampWpm(){
+  const hi=Math.min(30,Math.max(5,+$('listenBaseWpm').value||20));
+  if(+$('listenBaseWpm').value>30)$('listenBaseWpm').value=30;
+  if(+$('listenMinWpm').value>hi)$('listenMinWpm').value=hi;
+  listenRefreshUI();
+}
+function listenSpeedLevels(){
+  if(listenState.speedMode==='fixed')return [Math.min(30,Math.max(5,+wpm.value||15))];
+  const hi=Math.min(30,Math.max(5,+$('listenBaseWpm').value||20));
+  const min=Math.max(5,Math.min(hi,+$('listenMinWpm').value||12));
+  const steps=[],span=hi-min;
+  if(span<=0)steps.push(hi);
+  else{
+    steps.push(hi);
+    for(const p of [.66,.33]){
+      const v=Math.round(min+span*p);
+      if(v<hi&&v>min)steps.push(v);
+    }
+    steps.push(min);
+  }
+  const desc=[...new Set(steps)].sort((a,b)=>b-a),asc=[...desc].reverse();
+  if(listenState.speedMode==='descending')return desc;
+  if(listenState.speedMode==='ascending')return asc;
+  return desc.length<=1?desc:[...desc,...asc.slice(1)];
+}
+function listenShuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]}return arr}
+function listenResetDeck(){listenState.deck=[];listenState.currentGroup=[]}
+function listenNextGroup(){
+  const selected=[...listenState.selected];
+  if(!selected.length)return [];
+
+  const gv=+$('listenGroupSize').value||1;
+  // ALEATORIO chooses a fresh size (2–5) for every NEW group.
+  const targetSize=gv===6 ? (2+Math.floor(Math.random()*4)) : Math.max(1,Math.min(5,gv));
+
+  // Build a completely fresh group from the selected characters.
+  // Repeated characters are valid and nothing outside the selection can appear.
+  const out=[];
+  for(let i=0;i<targetSize;i++){
+    out.push(selected[Math.floor(Math.random()*selected.length)]);
+  }
+
+  listenState.currentGroup=out;
+  listenState.cycle++;
+  listenUpdateStats(listenState.cycle>1);
+  return out;
+}
+async function listenPlayCodeAt(ch,wpmValue,token){
+  const code=racerCodeFor(ch);if(!code)return false;const d=1200/Math.max(5,wpmValue);ensureAudio();
+  for(let i=0;i<code.length;i++){
+    if(token!==listenState.token||!listenState.active)return false;
+    while(listenState.paused&&token===listenState.token&&listenState.active)await sleep(80);
+    localToneOn();flash(true);await sleep(code[i]==='.'?d:d*3);localToneOff();flash(false);
+    if(i<code.length-1)await sleep(d);
+  }
+  return true;
+}
+async function listenPlayGroup(group,wpmValue,token){
+  const d=1200/Math.max(5,wpmValue),gapDits=listenNextFarnsworthGap();
+  for(let i=0;i<group.length;i++){
+    if(!await listenPlayCodeAt(group[i],wpmValue,token))return false;
+    if(i<group.length-1)await sleep(d*gapDits);
+  }
+  return true;
+}
+
+/* OUTPUT ONLY: canonical spoken names. No microphone aliases belong here. */
+const LISTEN_SPEAK={
+  es:{A:'A',B:'B',C:'C',D:'D',E:'E',F:'F',G:'G',H:'H',I:'I',J:'J',K:'K',L:'L',M:'M',N:'N',O:'O',P:'P',Q:'Q',R:'R',S:'S',T:'T',U:'U',V:'V',W:'doble uve',X:'X',Y:'i griega',Z:'Z','0':'cero','1':'uno','2':'dos','3':'tres','4':'cuatro','5':'cinco','6':'seis','7':'siete','8':'ocho','9':'nueve'},
+  en:{A:'A',B:'B',C:'C',D:'D',E:'E',F:'F',G:'G',H:'H',I:'I',J:'J',K:'K',L:'L',M:'M',N:'N',O:'O',P:'P',Q:'Q',R:'R',S:'S',T:'T',U:'U',V:'V',W:'W',X:'X',Y:'Y',Z:'Z','0':'zero','1':'one','2':'two','3':'three','4':'four','5':'five','6':'six','7':'seven','8':'eight','9':'nine'}
+};
+function listenSpeakGroup(group){
+  if(!('speechSynthesis'in window))return Promise.resolve();
+  return new Promise(resolve=>{
+    try{
+      speechSynthesis.cancel();
+      const spoken=group.map(ch=>LISTEN_SPEAK[lang]?.[ch]||ch);
+      const u=new SpeechSynthesisUtterance(spoken.join(', '));
+      u.lang=lang==='es'?'es-ES':'en-US';
+      u.rate=lang==='es'?.88:.78;
+      u.onend=resolve;u.onerror=resolve;speechSynthesis.speak(u);
+    }catch{resolve()}
+  });
+}
+
+/* INPUT ONLY: browser STT aliases and common mis-transcriptions. */
+function listenCleanSpeech(text){
+  return String(text||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
+}
+const LISTEN_INPUT_ALIASES_ES={
+ A:['a'],B:['b','be','bee','bi','vi'],C:['c','ce','se'],D:['d','de','di'],E:['e'],F:['f','efe'],
+ G:['g','ge','je'],H:['h','hache','ache'],I:['i','i latina','latina'],J:['j','jota'],K:['k','ka','ca'],
+ L:['l','ele'],M:['m','eme'],N:['n','ene'],O:['o'],P:['p','pe'],
+ Q:['q','cu','ku','c u','ce u','se u','see u','seu','ceu','c-u','ce-u'],
+ R:['r','erre'],S:['s','ese'],T:['t','te'],U:['u'],V:['v','uve','ve','v corta','ve corta','uve corta'],
+ W:['w','doble uve','doble ve','doble v','uve doble','ve doble','v doble','doble u','u doble','doble w','w doble','uv doble','uve uve','ve ve'],
+ X:['x','equis','ekis'],Y:['y','ye','i griega','y griega','ye griega','igriega','ygriega','griega'],Z:['z','zeta','seta'],
+ '0':['0','cero','zero'],'1':['1','uno','un'],'2':['2','dos'],'3':['3','tres'],'4':['4','cuatro'],
+ '5':['5','cinco'],'6':['6','seis'],'7':['7','siete'],'8':['8','ocho'],'9':['9','nueve']
+};
+const LISTEN_INPUT_ALIASES_EN={
+ A:['a','ay','eh'],B:['b','bee','be'],C:['c','see','sea'],D:['d','dee'],E:['e'],F:['f','eff'],G:['g','gee'],
+ H:['h','aitch','haitch'],I:['i','eye'],J:['j','jay'],K:['k','kay'],L:['l','el'],M:['m','em'],N:['n','en'],
+ O:['o','oh'],P:['p','pee'],Q:['q','cue','queue','c u','see you'],R:['r','are'],S:['s','ess'],T:['t','tee'],
+ U:['u','you'],V:['v','vee'],W:['w','double u','double you','double ewe','double v','double vee'],X:['x','ex'],
+ Y:['y','why'],Z:['z','zee','zed'],'0':['0','zero','oh'],'1':['1','one','won'],'2':['2','two','to','too'],
+ '3':['3','three'],'4':['4','four','for'],'5':['5','five'],'6':['6','six'],'7':['7','seven'],'8':['8','eight','ate'],'9':['9','nine']
+};
+function listenTranscriptMatchesTarget(text,target){
+  let t=listenCleanSpeech(text);
+  if(!t)return false;
+  t=t.replace(/^(la |el )?(letra|caracter|respuesta|es)\s+/,'')
+     .replace(/^(the )?(letter|character|answer|is)\s+/,'').trim();
+  const compact=t.replace(/\s+/g,'');
+  const aliases=(lang==='es'?LISTEN_INPUT_ALIASES_ES:LISTEN_INPUT_ALIASES_EN)[target]||[target];
+  return aliases.some(alias=>{
+    const a=listenCleanSpeech(alias),ac=a.replace(/\s+/g,'');
+    return t===a||compact===ac;
+  });
+}
+
+function listenMicStateText(){
+  if(listenState.micRecognitionError){
+    const e=listenState.micRecognitionError;
+    if(e==='audio-capture')return lang==='es'?'SIN CAPTURA DE AUDIO':'NO AUDIO CAPTURE';
+    if(e==='network')return lang==='es'?'AUDIO OK · RECONOCIMIENTO SIN RED':'AUDIO OK · SPEECH SERVICE OFFLINE';
+    if(e==='not-allowed'||e==='service-not-allowed')return lang==='es'?'PERMISO DENEGADO':'PERMISSION DENIED';
+    return lang==='es'?'RECONOCIMIENTO NO DISPONIBLE':'SPEECH RECOGNITION UNAVAILABLE';
+  }
+  if(!listenState.micEnabled)return lang==='es'?'MICRÓFONO INACTIVO':'MICROPHONE OFF';
+  if(listenState.micAnswerWindow)return lang==='es'?'HABLÁ AHORA':'SPEAK NOW';
+  if(listenState.micRunning)return lang==='es'?'MICRÓFONO ACTIVO':'MICROPHONE ACTIVE';
+  return lang==='es'?'AUDIO ACTIVO · INICIANDO VOZ':'AUDIO ACTIVE · STARTING SPEECH';
+}
+function listenUpdateMicVisuals(){
+  const level=Math.max(0,Math.min(100,Math.round(listenState.micLevel||0)));
+  const signal=level>=7;
+  const setup=$('listenMicSetupMeter'),live=$('listenMicLiveMeter');
+  if(setup){
+    setup.classList.toggle('show',listenState.micEnabled);
+    setup.classList.toggle('signal',signal);
+    setup.setAttribute('aria-hidden',listenState.micEnabled?'false':'true');
+  }
+  if(live){
+    const show=listenState.micEnabled&&listenState.active;
+    live.classList.toggle('show',show);
+    live.classList.toggle('signal',signal);
+    live.classList.toggle('answering',!!listenState.micAnswerWindow);
+    live.setAttribute('aria-hidden',show?'false':'true');
+  }
+  if($('listenMicSetupFill'))$('listenMicSetupFill').style.width=`${level}%`;
+  if($('listenMicLiveFill'))$('listenMicLiveFill').style.width=`${level}%`;
+  if($('listenMicSetupPct'))$('listenMicSetupPct').textContent=`${level}%`;
+  if($('listenMicLivePct'))$('listenMicLivePct').textContent=`${level}%`;
+  const state=listenMicStateText();
+  if($('listenMicSetupState'))$('listenMicSetupState').textContent=state;
+  if($('listenMicLiveState'))$('listenMicLiveState').textContent=state;
+  $('listenMicBtn')?.closest('.listen-mic-control')?.classList.toggle('mic-error',!!listenState.micRecognitionError);
+}
+function listenStopMicMeter(){
+  if(listenState.micMeterRaf){cancelAnimationFrame(listenState.micMeterRaf);listenState.micMeterRaf=null}
+  try{listenState.micSource?.disconnect?.()}catch{}
+  try{listenState.micAnalyser?.disconnect?.()}catch{}
+  try{listenState.micAudioCtx?.close?.()}catch{}
+  listenState.micSource=null;listenState.micAnalyser=null;listenState.micAudioCtx=null;listenState.micLevel=0;
+  listenUpdateMicVisuals();
+}
+function listenStartMicMeter(){
+  if(!listenState.micStream)return false;
+  listenStopMicMeter();
+  try{
+    const AC=window.AudioContext||window.webkitAudioContext;
+    if(!AC)return false;
+    const ctx=new AC(),source=ctx.createMediaStreamSource(listenState.micStream),analyser=ctx.createAnalyser();
+    analyser.fftSize=512;analyser.smoothingTimeConstant=.68;source.connect(analyser);
+    listenState.micAudioCtx=ctx;listenState.micSource=source;listenState.micAnalyser=analyser;
+    const data=new Uint8Array(analyser.fftSize);
+    const tick=()=>{
+      if(!listenState.micEnabled||!listenState.micAnalyser)return;
+      analyser.getByteTimeDomainData(data);
+      let sum=0;
+      for(let i=0;i<data.length;i++){const v=(data[i]-128)/128;sum+=v*v}
+      const rms=Math.sqrt(sum/data.length);
+      const level=Math.max(0,Math.min(100,Math.round(rms*720)));
+      listenState.micLevel=level;
+      if(listenState.micAnswerWindow&&level>=7)listenState.micSignalDuringAnswer=true;
+      listenUpdateMicVisuals();
+      listenState.micMeterRaf=requestAnimationFrame(tick);
+    };
+    if(ctx.state==='suspended')ctx.resume().catch(()=>{});
+    tick();
+    return true;
+  }catch{return false}
+}
+async function listenEnsureMicStream(){
+  const active=listenState.micStream?.getAudioTracks?.().some(t=>t.readyState==='live');
+  if(active){if(!listenState.micAnalyser)listenStartMicMeter();return true}
+  if(!navigator.mediaDevices?.getUserMedia)return false;
+  try{
+    listenState.micStream=await navigator.mediaDevices.getUserMedia({
+      audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true}
+    });
+    listenStartMicMeter();
+    return true;
+  }catch{return false}
+}
+
+function listenMicResolve(transcripts){
+  const w=listenState.micWaiter;if(!w||w.done)return;
+  const vals=[...new Set(transcripts.map(listenCleanSpeech).filter(Boolean))];
+  if(!vals.length)return;
+  w.heardSpeech=true;
+  w.lastTranscript=vals.join(' / ');
+  if(vals.some(v=>listenTranscriptMatchesTarget(v,w.target))){w.finish(w.target);return}
+  // Do not fail on the first imperfect transcription.
+  // Isolated letters are often transcribed inconsistently; keep listening until timeout.
+}
+function listenMicScheduleRestart(){
+  if(!listenState.micShouldRun||!listenState.micEnabled)return;
+  clearTimeout(listenState.micRestartTimer);
+  listenState.micRestartTimer=setTimeout(()=>listenMicStartContinuous(),220);
+}
+function listenMicStartContinuous(){
+  const r=listenState.recognition;
+  if(!r||listenState.micRunning||!listenState.micShouldRun||!listenState.micEnabled)return;
+  try{r.start()}
+  catch{
+    listenState.micRunning=false;
+    if(listenState.micPrepareResolve){
+      const fn=listenState.micPrepareResolve;listenState.micPrepareResolve=null;fn(false);
+    }else listenMicScheduleRestart();
+  }
+}
+async function listenPrepareMicrophone(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR)return false;
+  try{
+    if(!listenState.recognition){
+      const r=new SR();
+      r.lang=lang==='es'?'es-ES':'en-US';r.interimResults=false;r.continuous=true;r.maxAlternatives=10;
+      r.onstart=()=>{
+        listenState.micRunning=true;listenState.micRecognitionState='running';listenState.micRecognitionError='';
+        listenUpdateMicVisuals();
+        listenRefreshUI();
+        if(listenState.micPrepareResolve){
+          const fn=listenState.micPrepareResolve;listenState.micPrepareResolve=null;fn(true);
+        }
+      };
+      r.onresult=e=>{
+        for(let i=e.resultIndex;i<e.results.length;i++){
+          const res=e.results[i];if(!res.isFinal)continue;
+          const transcripts=[];
+          for(let j=0;j<res.length;j++)transcripts.push(res[j].transcript);
+          listenMicResolve(transcripts);
+        }
+      };
+      r.onerror=e=>{
+        const err=e?.error||'unknown';
+        if(err!=='no-speech'&&err!=='aborted')listenState.micRecognitionError=err;
+        if(err==='not-allowed'||err==='service-not-allowed'||err==='audio-capture'){
+          listenState.micShouldRun=false;listenState.micPrepared=false;
+          if(err==='not-allowed'||err==='service-not-allowed')listenState.micEnabled=false;
+          if(listenState.micPrepareResolve){const fn=listenState.micPrepareResolve;listenState.micPrepareResolve=null;fn(false)}
+          if(listenState.micWaiter?.finish)listenState.micWaiter.finish('');
+        }else if(err==='network'){
+          // Keep the real microphone stream/VU alive: only the browser speech service failed.
+          if(listenState.micPrepareResolve){const fn=listenState.micPrepareResolve;listenState.micPrepareResolve=null;fn(false)}
+        }
+        listenUpdateMicVisuals();listenRefreshUI();
+      };
+      r.onend=()=>{listenState.micRunning=false;listenState.micRecognitionState='idle';listenUpdateMicVisuals();listenRefreshUI();listenMicScheduleRestart()};
+      listenState.recognition=r;
+    }
+    listenState.recognition.lang=lang==='es'?'es-ES':'en-US';
+    listenState.micPrepared=true;listenState.micShouldRun=true;
+    if(listenState.micRunning)return true;
+    return await new Promise(resolve=>{
+      let settled=false;
+      const finish=ok=>{if(settled)return;settled=true;clearTimeout(timer);resolve(ok)};
+      listenState.micPrepareResolve=finish;
+      const timer=setTimeout(()=>{
+        if(listenState.micPrepareResolve===finish)listenState.micPrepareResolve=null;
+        finish(false);
+      },12000);
+      listenMicStartContinuous();
+    });
+  }catch{
+    listenState.micPrepared=false;listenState.micShouldRun=false;return false;
+  }
+}
+async function listenAuthorizeMic(){
+  if(listenState.active)return;
+  if(listenState.micEnabled){listenReleaseMic();listenRefreshUI();return}
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){
+    listenState.micRecognitionError='unsupported';
+    listenUpdateMicVisuals();listenRefreshUI();return;
+  }
+  listenState.micRecognitionError='';
+  const streamOk=await listenEnsureMicStream();
+  if(!streamOk){
+    listenState.micRecognitionError='audio-capture';
+    listenUpdateMicVisuals();listenRefreshUI();return;
+  }
+  listenState.groupBeforeMic=$('listenGroupSize').value;
+  listenState.micEnabled=true;
+  $('listenGroupSize').value='1';
+  listenUpdateMicVisuals();
+  const ok=await listenPrepareMicrophone();
+  if(!ok&&listenState.micRecognitionError){
+    // Keep the VU available for diagnosis even if browser STT is unavailable.
+    listenState.micPrepared=false;
+  }
+  listenRefreshUI();listenUpdateMicVisuals();
+}
+function listenRecognize(target,token){
+  if(!listenState.micEnabled||!listenState.recognition||!listenState.micPrepared){
+    return Promise.resolve({supported:false,value:'',signal:false,transcript:''});
+  }
+  if(!listenState.micRunning)listenMicStartContinuous();
+  return new Promise(resolve=>{
+    if(listenState.micWaiter?.finish)listenState.micWaiter.finish('');
+    let done=false,timer=null;
+    listenState.micAnswerWindow=true;listenState.micSignalDuringAnswer=false;
+    listenUpdateMicVisuals();
+    const finish=value=>{
+      if(done)return;done=true;
+      if(timer)clearTimeout(timer);
+      const w=listenState.micWaiter;
+      const signal=!!listenState.micSignalDuringAnswer;
+      const transcript=w?.lastTranscript||'';
+      if(listenState.micWaiter?.finish===finish)listenState.micWaiter=null;
+      listenState.micAnswerWindow=false;
+      listenUpdateMicVisuals();
+      resolve({supported:true,value,signal,transcript});
+    };
+    listenState.micWaiter={target,token,done:false,finish,heardSpeech:false,lastTranscript:''};
+    $('listenFeedback').textContent=lang==='es'?'🎙 Hablá ahora…':'🎙 Speak now…';
+    timer=setTimeout(()=>{
+      if(token!==listenState.token)return;
+      const w=listenState.micWaiter;
+      finish(w?.heardSpeech?'?':'');
+    },4600);
+  });
+}
+function listenFormatTime(ms){
+  const total=Math.max(0,Math.floor(ms/1000)),m=Math.floor(total/60),sec=total%60;
+  return `${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+}
+function listenUpdateClock(){
+  if(!$('listenTime'))return;
+  const now=Date.now();
+  $('listenElapsed').textContent=listenFormatTime(Math.max(0,now-listenState.startedAt));
+  $('listenTime').textContent=listenState.endsAt?listenFormatTime(Math.max(0,listenState.endsAt-now)):'∞';
+}
+function listenUpdateStats(flashCycle=false){
+  $('listenCharsHeard').textContent=listenState.charsHeard;
+  $('listenGroupsHeard').textContent=listenState.groupsHeard;
+  $('listenCycles').textContent=listenState.cycle;
+  $('listenCycleHud').textContent=listenState.cycle;
+  if(flashCycle&&$('listenCyclesCard')){
+    const c=$('listenCyclesCard');c.classList.remove('listen-cycle-flash');void c.offsetWidth;c.classList.add('listen-cycle-flash');
+  }
+}
+async function listenRun(token){
+  while(listenState.active&&token===listenState.token){
+    if(listenState.endsAt&&Date.now()>=listenState.endsAt){listenStop(false);return}
+    while(listenState.paused&&listenState.active&&token===listenState.token){await sleep(100);listenUpdateClock()}
+    // One fresh group per complete training step:
+    // keep it unchanged through every repetition at every WPM level,
+    // then the next while-iteration generates a completely new group.
+    const group=listenNextGroup();if(!group.length)return;
+    const speeds=listenSpeedLevels(),reps=Math.max(1,+$('listenRepeats').value||1);
+    $('listenTarget').textContent='•••';
+
+    for(const spd of speeds){
+      for(let rep=0;rep<reps;rep++){
+        if(!listenState.active||token!==listenState.token)return;
+        $('listenSpeedBadge').textContent=`${spd} WPM`;
+        $('listenFeedback').textContent=lang==='es'
+          ? `Escucha… ${reps>1?`(${rep+1}/${reps})`:''}`
+          : `Listen… ${reps>1?`(${rep+1}/${reps})`:''}`;
+        if(!await listenPlayGroup(group,spd,token))return;
+
+        listenState.charsHeard+=group.length;listenState.groupsHeard++;listenState.repetitions++;
+        listenUpdateStats();listenUpdateClock();
+        if(!listenState.active||token!==listenState.token)return;
+
+        if(listenState.micEnabled){
+          const target=group[0];
+          const ans=await listenRecognize(target,token);
+          if(!listenState.active||token!==listenState.token)return;
+          $('listenTarget').textContent=target;
+          if(ans.supported&&ans.value===target){
+            $('listenFeedback').textContent=`✓ ${tr('listenCorrect')}`;
+            await sleep(350);
+          }else if(ans.supported&&ans.value==='?'){
+            $('listenFeedback').textContent=lang==='es'
+              ? `✕ ${tr('listenWrong')} · voz detectada · ${target}`
+              : `✕ ${tr('listenWrong')} · voice detected · ${target}`;
+            await sleep(520);
+          }else if(ans.supported&&ans.signal){
+            $('listenFeedback').textContent=lang==='es'
+              ? `⚠ Voz detectada, pero no reconocida · ${target}`
+              : `⚠ Voice detected but not recognized · ${target}`;
+            await sleep(620);
+          }else if(ans.supported){
+            $('listenFeedback').textContent=lang==='es'
+              ? `⚠ Sin señal de micrófono · ${target}`
+              : `⚠ No microphone signal · ${target}`;
+            await sleep(620);
+          }else{
+            $('listenFeedback').textContent=lang==='es'
+              ? `⚠ Reconocimiento de voz no disponible · ${target}`
+              : `⚠ Speech recognition unavailable · ${target}`;
+            await sleep(620);
+          }
+        }
+
+        const responseDelay=listenResponseDelayMs();
+        if(responseDelay!==null){
+          await sleep(responseDelay);
+          $('listenTarget').textContent=group.join(' ');
+          await listenSpeakGroup(group);
+          await sleep(180);
+        }else if(!listenState.micEnabled){
+          await sleep(160);
+        }
+        $('listenTarget').textContent='•••';
+      }
+    }
+    await sleep(160);
+  }
+}
+async function listenStart(){
+  if(!listenState.selected.size){
+    $('listenSupportNote').textContent=lang==='es'?'Selecciona al menos un carácter.':'Select at least one character.';
+    return;
+  }
+  closeOtherTraining('listen');listenOn=true;$('listenToggle').checked=true;$('listenPanel').classList.add('open');
+
+  if(listenState.micEnabled){
+    const streamOk=await listenEnsureMicStream();
+    if(!streamOk){
+      listenState.micRecognitionError='audio-capture';
+      listenState.micEnabled=false;
+    }else if(!listenState.micRunning){
+      await listenPrepareMicrophone();
+    }
+    listenUpdateMicVisuals();
+  }
+
+  listenState.active=true;listenState.paused=false;
+  $('activityListen').classList.add('listen-running');listenState.currentGroup=[];listenState.deck=[];
+  listenState.cycle=0;listenState.charsHeard=0;listenState.groupsHeard=0;listenState.repetitions=0;listenState.farnsworthStep=0;listenState.sessionRecorded=false;listenState.startedAt=Date.now();listenState.token++;
+
+  const mins=listenDurationMinutes();
+  listenState.endsAt=mins===null?0:Date.now()+mins*60000;
+
+  if(listenState.clockTimer)clearInterval(listenState.clockTimer);
+  listenState.clockTimer=setInterval(()=>{if(listenState.active)listenUpdateClock()},500);
+
+  activityArenaShow('listen');clearActivityInstruction('listen');
+  $('listenSetupView').style.display='none';$('listenLiveView').style.display='';
+  $('listenTarget').textContent='•••';$('listenFeedback').textContent=tr('listenReady');
+  listenUpdateClock();listenUpdateStats();listenRefreshUI();syncTrainingLocks();listenRun(listenState.token);
+}
+function listenStop(silent=false){
+  if(!listenState)return;
+  if(listenState.active)listenRecordSession();
+  listenState.active=false;listenState.paused=false;listenState.token++;
+  $('activityListen').classList.remove('listen-running');
+  if(listenState.clockTimer){clearInterval(listenState.clockTimer);listenState.clockTimer=null}
+  localToneOff();flash(false);try{window.speechSynthesis?.cancel()}catch{}
+  if(listenState.micWaiter?.finish)listenState.micWaiter.finish('');
+  listenState.micAnswerWindow=false;listenUpdateMicVisuals();
+  $('listenSetupView').style.display='';$('listenLiveView').style.display='none';
+  if(!silent&&$('listenToggle')){
+    listenOn=true;$('listenToggle').checked=true;$('listenPanel').classList.add('open');
+    activityArenaShow('listen');listenModuleInstruction();syncTrainingLocks();
+  }
+  listenRefreshUI();
+}
+function listenReleaseMic(){
+  const restoreGroup=listenState.groupBeforeMic||'3';
+  listenState.micShouldRun=false;listenState.micEnabled=false;listenState.micPrepared=false;
+  if($('listenGroupSize'))$('listenGroupSize').value=restoreGroup;
+  clearTimeout(listenState.micRestartTimer);listenState.micRestartTimer=null;
+  if(listenState.micPrepareResolve){const fn=listenState.micPrepareResolve;listenState.micPrepareResolve=null;fn(false)}
+  if(listenState.micWaiter?.finish)listenState.micWaiter.finish('');
+  listenState.micWaiter=null;
+  try{listenState.recognition?.stop()}catch{}
+  listenState.recognition=null;listenState.micRunning=false;
+  listenState.micAnswerWindow=false;listenState.micSignalDuringAnswer=false;
+  listenStopMicMeter();
+  try{listenState.micStream?.getTracks?.().forEach(t=>t.stop())}catch{}
+  listenState.micStream=null;listenState.micRecognitionState='off';listenState.micRecognitionError='';
+  listenUpdateMicVisuals();
+}
+function listenPauseToggle(){
+  if(!listenState.active)return;
+  listenState.paused=!listenState.paused;
+  if(listenState.paused){
+    localToneOff();flash(false);
+    if(listenState.micWaiter?.finish)listenState.micWaiter.finish('');
+    $('listenFeedback').textContent=tr('listenPaused');
+  }
+  listenRefreshUI();
+}
+
+$('listenLettersBtn').onclick=()=>listenSelectPreset('letters');
+$('listenNumbersBtn').onclick=()=>listenSelectPreset('numbers');
+$('listenAllBtn').onclick=()=>listenSelectPreset('all');
+$('listenSpeedModeBtn').onclick=listenCycleSpeed;
+$('listenFarnsworthBtn').onclick=listenCycleFarnsworth;
+$('listenMicBtn').onclick=listenAuthorizeMic;
+$('listenStartBtn').onclick=listenStart;
+$('listenPauseBtn').onclick=listenPauseToggle;
+$('listenEndBtn').onclick=()=>listenStop(false);
+$('listenGroupSize').oninput=listenRefreshUI;
+$('listenRepeats').oninput=listenRefreshUI;
+$('listenFarnMax').oninput=listenClampFarnsworth;
+$('listenFarnMin').oninput=listenClampFarnsworth;
+$('listenResponse').oninput=listenRefreshUI;
+$('listenDuration').oninput=listenRefreshUI;
+$('listenBaseWpm').oninput=listenClampWpm;
+$('listenMinWpm').oninput=listenClampWpm;
+listenBuildGrid();
+listenRenderProgress();
+// ================== END LISTEN / ICR ==================
 
 function buildRaceQueue(setName,total){
   const pool=setFor(setName),q=[];
@@ -9196,6 +10674,7 @@ updateOnAirVisual();
   const defs = [
     {id:'onair',     selector:'.onair-box',        head:'.onair-head',                 title:'ON AIR'},
     {id:'learn',     selector:'.learn-box',        head:'.learn-head',                 title:'LEARN'},
+    {id:'listen',    selector:'.listen-box',       head:'.listen-head',                title:'ESCUCHA / LISTEN'},
     {id:'timing',    selector:'.cw-timing-box',    head:'.cw-timing-head',            title:'CW TIMING'},
     {id:'koch',      selector:'.koch-box',         head:'.koch-head',                  title:'KOCH'},
     {id:'exercises', selector:'.exercises-box',    head:'.exercises-head',             title:'EJERCICIOS'},
