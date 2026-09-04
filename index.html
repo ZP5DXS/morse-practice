@@ -6603,13 +6603,63 @@ const LISTEN_SPEAK={
   es:{A:'A',B:'B',C:'C',D:'D',E:'E',F:'F',G:'G',H:'H',I:'I',J:'J',K:'K',L:'L',M:'M',N:'N',O:'O',P:'P',Q:'Q',R:'R',S:'S',T:'T',U:'U',V:'V',W:'doble uve',X:'X',Y:'i griega',Z:'Z','0':'cero','1':'uno','2':'dos','3':'tres','4':'cuatro','5':'cinco','6':'seis','7':'siete','8':'ocho','9':'nueve'},
   en:{A:'A',B:'B',C:'C',D:'D',E:'E',F:'F',G:'G',H:'H',I:'I',J:'J',K:'K',L:'L',M:'M',N:'N',O:'O',P:'P',Q:'Q',R:'R',S:'S',T:'T',U:'U',V:'V',W:'W',X:'X',Y:'Y',Z:'Z','0':'zero','1':'one','2':'two','3':'three','4':'four','5':'five','6':'six','7':'seven','8':'eight','9':'nine'}
 };
+async function listenMicFeedbackTone(kind){
+  if(!listenState.micEnabled)return;
+  try{
+    ensureAudio();
+    if(!audioCtx)return;
+    if(audioCtx.state==='suspended'||audioCtx.state==='interrupted'){
+      try{await audioCtx.resume()}catch{}
+    }
+
+    const now=audioCtx.currentTime;
+    const master=audioCtx.createGain();
+    master.gain.setValueAtTime(0.0001,now);
+    master.gain.exponentialRampToValueAtTime(0.12,now+0.012);
+    master.connect(audioCtx.destination);
+
+    const makeTone=(freq,start,duration)=>{
+      const osc=audioCtx.createOscillator();
+      const gain=audioCtx.createGain();
+      osc.type='sine';
+      osc.frequency.setValueAtTime(freq,start);
+      gain.gain.setValueAtTime(0.0001,start);
+      gain.gain.exponentialRampToValueAtTime(1,start+0.01);
+      gain.gain.exponentialRampToValueAtTime(0.0001,start+duration);
+      osc.connect(gain);gain.connect(master);
+      osc.start(start);osc.stop(start+duration+0.02);
+    };
+
+    listenState.micPlaybackActive=true;
+    listenUpdateMicVisuals();
+
+    if(kind==='good'){
+      // Clear upward two-note confirmation.
+      makeTone(660,now+0.01,0.11);
+      makeTone(990,now+0.16,0.14);
+      await sleep(340);
+    }else{
+      // Clear low descending error cue.
+      makeTone(330,now+0.01,0.16);
+      makeTone(220,now+0.20,0.22);
+      await sleep(500);
+    }
+  }catch{
+    // Feedback sound is assistive; never block training if WebAudio fails.
+  }finally{
+    listenState.micPlaybackActive=false;
+    listenUpdateMicVisuals();
+  }
+}
+
 function listenSpeakGroup(group){
   if(!('speechSynthesis'in window))return Promise.resolve();
   return new Promise(resolve=>{
-    let done=false;
+    let done=false,watchdog=null;
     const finish=()=>{
       if(done)return;
       done=true;
+      if(watchdog)clearTimeout(watchdog);
       listenState.micPlaybackActive=false;
       listenUpdateMicVisuals();
       resolve();
@@ -6622,7 +6672,18 @@ function listenSpeakGroup(group){
       const u=new SpeechSynthesisUtterance(spoken.join(', '));
       u.lang=lang==='es'?'es-ES':'en-US';
       u.rate=lang==='es'?.88:.78;
-      u.onend=finish;u.onerror=finish;speechSynthesis.speak(u);
+      u.onend=finish;
+      u.onerror=finish;
+
+      // Mobile Safari/Chrome can occasionally omit onend/onerror even though
+      // the utterance has finished. Never allow TTS to freeze the trainer.
+      const estimatedMs=Math.max(1200,Math.min(5000,700+spoken.length*650));
+      watchdog=setTimeout(()=>{
+        try{speechSynthesis.cancel()}catch{}
+        finish();
+      },estimatedMs);
+
+      speechSynthesis.speak(u);
     }catch{finish()}
   });
 }
@@ -7120,24 +7181,28 @@ async function listenRun(token){
           $('listenTarget').textContent=target;
           if(ans.supported&&ans.value===target){
             $('listenFeedback').textContent=`✓ ${tr('listenCorrect')}`;
-            await sleep(350);
+            await listenMicFeedbackTone('good');
+            await sleep(120);
           }else if(ans.supported&&ans.value==='?'){
             const heard=ans.transcript?`“${ans.transcript}”`:(lang==='es'?'voz':'voice');
             $('listenFeedback').textContent=lang==='es'
               ? `✕ ${tr('listenWrong')} · oí: ${heard} · ${target}`
               : `✕ ${tr('listenWrong')} · heard: ${heard} · ${target}`;
-            await sleep(520);
+            await listenMicFeedbackTone('bad');
+            await sleep(120);
           }else if(ans.supported&&ans.signal){
             const heard=ans.transcript?` · “${ans.transcript}”`:'';
             $('listenFeedback').textContent=lang==='es'
               ? `⚠ Voz detectada, pero no reconocida${heard} · ${target}`
               : `⚠ Voice detected but not recognized${heard} · ${target}`;
-            await sleep(620);
+            await listenMicFeedbackTone('bad');
+            await sleep(120);
           }else if(ans.supported){
             $('listenFeedback').textContent=lang==='es'
               ? `⚠ Sin señal de micrófono · ${target}`
               : `⚠ No microphone signal · ${target}`;
-            await sleep(620);
+            await listenMicFeedbackTone('bad');
+            await sleep(120);
           }else{
             $('listenFeedback').textContent=lang==='es'
               ? `⚠ Reconocimiento de voz no disponible · ${target}`
