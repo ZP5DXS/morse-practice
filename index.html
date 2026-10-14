@@ -2040,6 +2040,21 @@ body:has(#visualAidToggle:not(:checked)) #errorsArenaCode{
 }
 #activityListen .listen-mic-control.mic-error .listen-mic-vu-head{color:var(--danger)}
 
+
+/* CROSS-PLATFORM COUNTRY FLAGS */
+.country-flag-img{
+  display:inline-block;
+  width:1.35em;
+  height:1em;
+  object-fit:cover;
+  border-radius:2px;
+  vertical-align:-0.12em;
+  box-shadow:0 0 0 1px rgba(255,255,255,.10);
+}
+.country-flag-fallback{
+  font-family:Apple Color Emoji,Segoe UI Emoji,Noto Color Emoji,sans-serif;
+}
+
 </style>
 <script src="https://unpkg.com/mqtt@5.15.2/dist/mqtt.min.js"></script>
 
@@ -4017,8 +4032,8 @@ function normalizeCountry(v){
 }
 function countryFlag(code){
   const c=normalizeCountry(code);
-  if(!c)return '🌐';
-  return String.fromCodePoint(...[...c].map(ch=>127397+ch.charCodeAt(0)));
+  if(!c)return '<span class="country-flag-fallback">🌐</span>';
+  return `<img class="country-flag-img" src="assets/flags/${c.toLowerCase()}.svg" alt="${c}" loading="lazy" decoding="async">`;
 }
 function displayName(p){
   const ident=[p.call,p.name].filter(Boolean).join(' · ');
