@@ -3813,7 +3813,10 @@ function chatAddMessage(msg,isMine=false,opts={}){
 
   const row=document.createElement('div');row.className='chat-message';row.dataset.messageId=msg.id;
   const from=document.createElement('span');from.className='chat-from';
-  from.append(document.createTextNode((msg.country?countryFlag(msg.country)+' ':'')+(msg.call||guestId(msg.from||msg.id))));
+  if(msg.country){
+    from.append(countryFlagNode(msg.country),document.createTextNode(' '));
+  }
+  from.append(document.createTextNode(msg.call||guestId(msg.from||msg.id)));
   const age=document.createElement('span');age.className='chat-age';age.textContent=`· ${chatAgeLabel(msg.ts)}`;from.append(age);
 
   const text=document.createElement('span');text.className='chat-text';text.textContent=msg.text||'';
@@ -4034,6 +4037,23 @@ function countryFlag(code){
   const c=normalizeCountry(code);
   if(!c)return '<span class="country-flag-fallback">🌐</span>';
   return `<img class="country-flag-img" src="assets/flags/${c.toLowerCase()}.svg" alt="${c}" loading="lazy" decoding="async">`;
+}
+
+function countryFlagNode(code){
+  const c=normalizeCountry(code);
+  if(!c){
+    const span=document.createElement('span');
+    span.className='country-flag-fallback';
+    span.textContent='🌐';
+    return span;
+  }
+  const img=document.createElement('img');
+  img.className='country-flag-img';
+  img.src=`assets/flags/${c.toLowerCase()}.svg`;
+  img.alt=c;
+  img.loading='lazy';
+  img.decoding='async';
+  return img;
 }
 function displayName(p){
   const ident=[p.call,p.name].filter(Boolean).join(' · ');
@@ -5832,7 +5852,7 @@ function duelStartSession(data,opponentId){
   }
   duelPendingOutgoing=null;duelSearching=false;duelSession={id:data.sessionId,opponentId,rounds:data.rounds,speed:data.speed,index:0,correct:0,streak:0,bestStreak:0,totalTime:0,questionStarted:0,answered:false,finished:false,opponent:null,token:1,awarded:false,winAwarded:false,lastOpp:Date.now()};
   const me=data.a.id===duelClientId?data.a:data.b,opp=data.a.id===duelClientId?data.b:data.a;duelSession.opponentCall=opp.call;duelSession.opponentCountry=opp.country||'';
-  $('duelMeCall').textContent=`${countryFlag(me.country)} ${me.call}`;$('duelOppCall').textContent=`${countryFlag(opp.country)} ${opp.call}`;duelUpdateBattleUI();duelArenaOn(true);duelResetArena();duelSetStatus((lang==='es'?'Duelo contra ':'Duel vs ')+opp.call,'good');duelPublishPresence();
+  $('duelMeCall').replaceChildren(countryFlagNode(me.country),document.createTextNode(` ${me.call}`));$('duelOppCall').replaceChildren(countryFlagNode(opp.country),document.createTextNode(` ${opp.call}`));duelUpdateBattleUI();duelArenaOn(true);duelResetArena();duelSetStatus((lang==='es'?'Duelo contra ':'Duel vs ')+opp.call,'good');duelPublishPresence();
   duelVsCountdown(me.call,opp.call).then(()=>{if(duelSession)duelNextQuestion()});
   duelWatchdog=setInterval(()=>{if(duelSession&&!duelSession.opponent?.finished&&Date.now()-duelSession.lastOpp>18000){duelCancelSession(lang==='es'?'El rival se desconectó.':'Opponent disconnected.',false)}},3000);
 }
