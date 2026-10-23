@@ -3569,7 +3569,9 @@ document.addEventListener('keydown',e=>{
   }
   if(isVbandCode(e.code)){
     e.preventDefault();
-    if(e.repeat||vbandRawHeld.has(e.code))return;
+    // VBand USB can report the opposite Control paddle as repeat=true before it is tracked.
+    const vbandSecondPaddle=mode.value!=='straight'&&e.repeat&&!vbandCtrlHeld.has(e.code)&&!vbandRawHeld.has(e.code);
+    if(!vbandSecondPaddle&&(e.repeat||vbandRawHeld.has(e.code)))return;
     vbandRawHeld.add(e.code);clearVbandTimer(vbandUpTimers,e.code);
     if(vbandCtrlHeld.has(e.code))return;
     clearVbandTimer(vbandDownTimers,e.code);vbandDownTimers.set(e.code,setTimeout(()=>vbandApplyDown(e.code),VBAND_DEBOUNCE_MS));
